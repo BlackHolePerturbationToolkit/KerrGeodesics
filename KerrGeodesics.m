@@ -116,7 +116,7 @@ hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 \[CapitalGamma]=4M^2 En + (2a2zp En  \[Gamma]\[Theta])/(Pi L Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]- EllipticE[k\[Theta]^2]) + (2\[Gamma]r)/(Pi Sqrt[(1-En^2)(r1-r3)(r2-r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,kr^2])+(2M)/(rp-rm) (((4M^2 En-a L)rp-2M a^2 En)/(r3-rp) (EllipticK[kr^2]-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2])-((4M^2 En-a L)rm-2M a^2 En)/(r3-rm) (EllipticK[kr^2]-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2])));
 
 (*Output the BL frequencies by dividing the Mino time frequencies by the conversion factor \[CapitalGamma]*)
-{\[Gamma]r/\[CapitalGamma],Abs[\[Gamma]\[Theta]/\[CapitalGamma]],Abs[\[Gamma]\[Phi]/\[CapitalGamma]],\[CapitalGamma]}
+{\[Gamma]r/\[CapitalGamma],\[Gamma]\[Theta]/\[CapitalGamma],\[Gamma]\[Phi]/\[CapitalGamma],\[CapitalGamma]}
 ]
 	
 End[];
