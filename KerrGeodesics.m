@@ -9,11 +9,16 @@ KerrGeoFreqs::usage = "KerrGeoFreqs[a, p, e, \[Theta]min] returns the radial, po
 Begin["`Private`"];
 
 (*This function computes the orbital constants of motion from W. Schmidt, arXiv:0202090 [gr-qc] *)
-KerrGeoELQ[a_, p_, e_, \[Theta]min_] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z},
- If[! (0 <= a <= 1), Print["Domain error: 0 <= q <= 1 reqired"]; Return[];];
+KerrGeoELQ[a_, p_, e_, \[Theta]inc1_] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z,\[Theta]min,\[Theta]inc=\[Theta]inc1},
+
+If[! (0 <= a <= 1), Print["Domain error: 0 <= q <= 1 reqired"]; Return[];];
+
+\[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
+If[\[Theta]inc>\[Pi], \[Theta]inc=2\[Pi]-\[Theta]inc];
+If[\[Theta]inc <= \[Pi]/2 , \[Theta]min = \[Pi]/2-\[Theta]inc, \[Theta]min=-\[Pi]/2+\[Theta]inc];
 
 (*Equations for polar orbits from Stoghianidis & Tsoubelis GRG, vol. 19, No. 12, p. 1235 (1987)*)
-If[Mod[\[Theta]min,\[Pi]]==0,
+If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2,
 	If[e!=0,Print["Polar, non-spherical orbits not yet implemented"];Return[];,
 		r0 = p;
 		\[CapitalDelta]0 = r0^2-2M r0+a^2;
@@ -65,21 +70,22 @@ If[Mod[\[Theta]min,\[Pi]]==0,
  L2[En_] := (-En g1 + Sqrt[-d1 h1 + En^2 (g1^2 + f1 h1)])/h1;
  Q[En_, L_] := zm^2 (a^2 (1 - En^2) + L^2/(1 - zm^2));
  
- If[0 < Mod[\[Theta]min, 2 \[Pi]] < \[Pi],
-  Return[ {Em1, L2[Em1], Q[Em1, L2[Em1]]}],
-  Return[{E1, L1[E1], Q[E1, L1[E1]]}]
+
+ If[ \[Theta]inc <= \[Pi]/2,
+    Return[{Em1, L2[Em1], Q[Em1, L2[Em1]]}],
+	Return[{E1, L1[E1], Q[E1, L1[E1]]}]
   ]
 ]
 	  
-KerrGeoFreqs[a_,p_,e_,\[Theta]min_]:=Module[{En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[Gamma]r,\[Gamma]\[Theta],\[Gamma]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,M,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp},
-M=1;
+KerrGeoFreqs[a_,p_,e_,\[Theta]inc1_]:=Module[{M=1,En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[Gamma]r,\[Gamma]\[Theta],\[Gamma]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp,\[Theta]min,\[Theta]inc=\[Theta]inc1},
 
-If[Mod[\[Theta]min,\[Pi]]==0,Print["Equations for polar orbits not implemented yet"];Return[];];
+\[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
+If[\[Theta]inc>\[Pi], \[Theta]inc=2\[Pi]-\[Theta]inc];
 
-EnLQ=KerrGeoELQ[a,p,e,\[Theta]min];
-En=EnLQ[[1]];
-L=EnLQ[[2]];
-Q=EnLQ[[3]];
+If[\[Theta]inc==\[Pi]/2, Print["Equations for polar orbits not implemented yet"];Return[];];
+
+{En,L,Q}=KerrGeoELQ[a,p,e,\[Theta]inc];
+\[Theta]min=(\[Pi]/2-\[Theta]inc)/Sign[L];
 
 (*Calculate the frequencies [\[Gamma]r,\[Gamma]\[Theta],\[Gamma]\[Phi]] with respect to Mino time as per Fujita and Hikida [Class.Quantum Grav.26 (2009) 135002]*)
 r1=p/(1-e);
