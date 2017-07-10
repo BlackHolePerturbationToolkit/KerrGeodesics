@@ -1,0 +1,8 @@
+TODO list
+---------
+
+- Add documentation
+- Decide how best to parameterize inclination: Scott recommended theta_inc (currently using theta_min)
+- Implement equations for ELQ and Freqs for polar orbits (theta_min = pi)
+- Implement functions to compute the orbit and related quantities (four velocity, etc) as a function of time
+- Improve calculation time for non-generic orbits by using simpler formula for i.e., Schwarzschild and equatorial/spherical orbits
