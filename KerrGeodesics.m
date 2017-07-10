@@ -14,7 +14,7 @@ KerrGeoELQ[a_, p_, e_, \[Theta]min_] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, 
 
 (*Equations for polar orbits from Stoghianidis & Tsoubelis GRG, vol. 19, No. 12, p. 1235 (1987)*)
 If[Mod[\[Theta]min,\[Pi]]==0,
-	If[e!=0,Print["Polar, non-circular orbits not yet implemented"];Return[];,
+	If[e!=0,Print["Polar, non-spherical orbits not yet implemented"];Return[];,
 		r0 = p;
 		\[CapitalDelta]0 = r0^2-2M r0+a^2;
 		Z = r0^3-3M r0^2+a^2 r0+M a^2;
@@ -73,6 +73,8 @@ If[Mod[\[Theta]min,\[Pi]]==0,
 	  
 KerrGeoFreqs[a_,p_,e_,\[Theta]min_]:=Module[{En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[Gamma]r,\[Gamma]\[Theta],\[Gamma]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,M,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp},
 M=1;
+
+If[Mod[\[Theta]min,\[Pi]]==0,Print["Equations for polar orbits not implemented yet"];Return[];];
 
 EnLQ=KerrGeoELQ[a,p,e,\[Theta]min];
 En=EnLQ[[1]];
