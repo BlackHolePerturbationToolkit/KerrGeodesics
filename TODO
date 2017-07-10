@@ -6,3 +6,4 @@ TODO list
 - Implement equations for ELQ and Freqs for polar orbits (theta_min = pi)
 - Implement functions to compute the orbit and related quantities (four velocity, etc) as a function of time
 - Improve calculation time for non-generic orbits by using simpler formula for i.e., Schwarzschild and equatorial/spherical orbits
+- Implement equations for case a=M

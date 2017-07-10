@@ -9,9 +9,20 @@ KerrGeoFreqs::usage = "KerrGeoFreqs[a, p, e, \[Theta]min] returns the radial, po
 Begin["`Private`"];
 
 (*This function computes the orbital constants of motion from W. Schmidt, arXiv:0202090 [gr-qc] *)
-(*TODO: add result for exactly polar orbit, i.e., theta_min = pi*)
-KerrGeoELQ[a_, p_, e_, \[Theta]min_] := KerrGeoELQ[a, p, e, \[Theta]min] = Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2},
+KerrGeoELQ[a_, p_, e_, \[Theta]min_] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z},
  If[! (0 <= a <= 1), Print["Domain error: 0 <= q <= 1 reqired"]; Return[];];
+
+(*Equations for polar orbits from Stoghianidis & Tsoubelis GRG, vol. 19, No. 12, p. 1235 (1987)*)
+If[Mod[\[Theta]min,\[Pi]]==0,
+	If[e!=0,Print["Polar, non-circular orbits not yet implemented"];Return[];,
+		r0 = p;
+		\[CapitalDelta]0 = r0^2-2M r0+a^2;
+		Z = r0^3-3M r0^2+a^2 r0+M a^2;
+		En =Sqrt[(r0 \[CapitalDelta]0^2)/((r0^2+a^2)Z)];
+		Q = r0 (M r0^3+a^2 r0^2-3M a^2 r0 +a^4)/Z - a^2 En^2;
+		Return[{En,0,Q}]
+	];
+];
 
  rp = p/(1 + e);
  ra = p/(1 - e);
