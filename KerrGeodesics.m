@@ -4,6 +4,7 @@ BeginPackage["KerrGeodesics`"];
 
 KerrGeoELQ::usage = "KerrGeoELQ[a, p, e, \[Theta]inc] returns the energy, z-component of the angular momentum and the Carter constant";
 KerrGeoFreqs::usage = "KerrGeoFreqs[a, p, e, \[Theta]inc] returns the radial, polar and azimuthal frequencies and the conversion factor between Boyer-Lindquist and Mino time frequencies";
+KerrGeoStableOrbitQ::usage = "KerrGeoStableOrbitQ[a,p,e,\[Theta]inc] checks if given parameters corresponds to a stable orbit";
 
 
 Begin["`Private`"];
@@ -125,6 +126,15 @@ hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 (*Output the BL frequencies by dividing the Mino time frequencies by the conversion factor \[CapitalGamma]*)
 {\[Gamma]r/\[CapitalGamma],Abs[\[Gamma]\[Theta]/\[CapitalGamma]],\[Gamma]\[Phi]/\[CapitalGamma],\[CapitalGamma]}
 ]
+
+(*Orbit stability check, Schwarzschild case*)
+KerrGeoStableOrbitQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{},
+  If[p>=6+2e,True,False]
+];
+
+KerrGeoStableOrbitQ[a_/;a!=0,p_,e_,\[Theta]inc_]:=Module[{},
+  Print["Check not implemented yet"];
+];
 	
 End[];
 
