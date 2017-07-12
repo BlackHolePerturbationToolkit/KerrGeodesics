@@ -9,16 +9,14 @@ KerrGeoFreqs::usage = "KerrGeoFreqs[a, p, e, \[Theta]min] returns the radial, po
 Begin["`Private`"];
 
 KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{E0,L0,Q},
-E0=Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))];
-L0=p/Sqrt[-3-e^2+p];
-{E0,Cos[\[Theta]inc]L0,Sin[\[Theta]inc]^2 L0^2}
+ E0=Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))];
+ L0=p/Sqrt[-3-e^2+p];
+ {E0,Cos[\[Theta]inc]L0,Sin[\[Theta]inc]^2 L0^2}
 ]
 
 
 (*This function computes the orbital constants of motion from W. Schmidt, arXiv:0202090 [gr-qc] *)
-KerrGeoELQ[a_, p_, e_, \[Theta]inc1_?NumericQ] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z,\[Theta]min,\[Theta]inc=\[Theta]inc1},
-
-If[! (0 <= a <= 1), Print["Domain error: 0 <= q <= 1 reqired"]; Return[];];
+KerrGeoELQ[a_/;Abs[a]<=1, p_, e_, \[Theta]inc1_?NumericQ] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z,\[Theta]min,\[Theta]inc=\[Theta]inc1},
 
 \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
 If[\[Theta]inc>\[Pi], \[Theta]inc=2\[Pi]-\[Theta]inc];
@@ -85,7 +83,7 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2,
 ]
 
 	  
-KerrGeoFreqs[a_,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{M=1,En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[Gamma]r,\[Gamma]\[Theta],\[Gamma]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp,\[Theta]min,\[Theta]inc=\[Theta]inc1},
+KerrGeoFreqs[a_/;Abs[a]<1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{M=1,En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[Gamma]r,\[Gamma]\[Theta],\[Gamma]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp,\[Theta]min,\[Theta]inc=\[Theta]inc1},
 
 \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
 If[\[Theta]inc>\[Pi], \[Theta]inc=2\[Pi]-\[Theta]inc];
