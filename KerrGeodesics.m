@@ -2,8 +2,8 @@
 
 BeginPackage["KerrGeodesics`"];
 
-KerrGeoELQ::usage = "KerrGeoELQ[a, p, e, \[Theta]min] returns the energy, z-component of the angular momentum and the Carter constant";
-KerrGeoFreqs::usage = "KerrGeoFreqs[a, p, e, \[Theta]min] returns the radial, polar and azimuthal frequencies and the conversion factor between Boyer-Lindquist and Mino time frequencies";
+KerrGeoELQ::usage = "KerrGeoELQ[a, p, e, \[Theta]inc] returns the energy, z-component of the angular momentum and the Carter constant";
+KerrGeoFreqs::usage = "KerrGeoFreqs[a, p, e, \[Theta]inc] returns the radial, polar and azimuthal frequencies and the conversion factor between Boyer-Lindquist and Mino time frequencies";
 
 
 Begin["`Private`"];
