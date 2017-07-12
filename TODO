@@ -7,4 +7,4 @@ TODO list
 - Implement functions to compute the orbit and related quantities (four velocity, etc) as a function of time
 - Improve calculation time for non-generic orbits by using simpler formula for i.e., Schwarzschild and equatorial/spherical orbits
 - Implement equations for case a=M
-- Check sign of theta and phi frequencies for retrograde orbits (currently they are negative)
+- Check sign of theta and phi frequencies for retrograde orbits (currently they are negative)											[DONE: phi changes sign by theta should not, agrees with Scott's code]

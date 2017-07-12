@@ -9,7 +9,7 @@ KerrGeoFreqs::usage = "KerrGeoFreqs[a, p, e, \[Theta]min] returns the radial, po
 Begin["`Private`"];
 
 (*This function computes the orbital constants of motion from W. Schmidt, arXiv:0202090 [gr-qc] *)
-KerrGeoELQ[a_, p_, e_, \[Theta]inc1_] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z,\[Theta]min,\[Theta]inc=\[Theta]inc1},
+KerrGeoELQ[a_, p_, e_, \[Theta]inc1_?NumericQ] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z,\[Theta]min,\[Theta]inc=\[Theta]inc1},
 
 If[! (0 <= a <= 1), Print["Domain error: 0 <= q <= 1 reqired"]; Return[];];
 
@@ -77,7 +77,7 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2,
   ]
 ]
 	  
-KerrGeoFreqs[a_,p_,e_,\[Theta]inc1_]:=Module[{M=1,En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[Gamma]r,\[Gamma]\[Theta],\[Gamma]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp,\[Theta]min,\[Theta]inc=\[Theta]inc1},
+KerrGeoFreqs[a_,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{M=1,En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[Gamma]r,\[Gamma]\[Theta],\[Gamma]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp,\[Theta]min,\[Theta]inc=\[Theta]inc1},
 
 \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
 If[\[Theta]inc>\[Pi], \[Theta]inc=2\[Pi]-\[Theta]inc];
@@ -116,7 +116,7 @@ hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 \[CapitalGamma]=4M^2 En + (2a2zp En  \[Gamma]\[Theta])/(Pi L Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]- EllipticE[k\[Theta]^2]) + (2\[Gamma]r)/(Pi Sqrt[(1-En^2)(r1-r3)(r2-r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,kr^2])+(2M)/(rp-rm) (((4M^2 En-a L)rp-2M a^2 En)/(r3-rp) (EllipticK[kr^2]-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2])-((4M^2 En-a L)rm-2M a^2 En)/(r3-rm) (EllipticK[kr^2]-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2])));
 
 (*Output the BL frequencies by dividing the Mino time frequencies by the conversion factor \[CapitalGamma]*)
-{\[Gamma]r/\[CapitalGamma],\[Gamma]\[Theta]/\[CapitalGamma],\[Gamma]\[Phi]/\[CapitalGamma],\[CapitalGamma]}
+{\[Gamma]r/\[CapitalGamma],Abs[\[Gamma]\[Theta]/\[CapitalGamma]],\[Gamma]\[Phi]/\[CapitalGamma],\[CapitalGamma]}
 ]
 	
 End[];
