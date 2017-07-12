@@ -1,0 +1,168 @@
+Notebook[{
+Cell[" ", "TutorialColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+
+Cell[TextData[{
+ ButtonBox["KerrGeodesics",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["KerrGeodesics",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:KerrGeodesics/tutorial/KerrGeodesics"]
+}], "LinkTrail"],
+
+Cell[BoxData[GridBox[{
+   {Cell["KERRGEODESICS TUTORIAL", "PacletNameCell"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"Related Tutorials \[RightGuillemet]\"\>",
+        StripOnInput->False], {},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"URL \[RightGuillemet]\"\>",
+        StripOnInput->False], {"\<\"Go to KerrGeodesics website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[None], None}]}], 
+       Delimiter, "\<\"Go to wolfram Mathematica website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[
+           "http://reference.wolfram.com/mathematica/guide/Mathematica.html"],
+            None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}]
+    }], "AnchorBar"]}
+  }]], "AnchorBarGrid"],
+
+Cell[CellGroupData[{
+
+Cell["Kerr Geodesics", "Title"],
+
+Cell["\<\
+The KerrGeodesics package provides functions for computing quantities related \
+to bound timelike geodesic orbits in Kerr spacetime. Before using the \
+functions, first load the package\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"<<", "KerrGeodesics`"}]], "Input",
+ CellLabel->"In[1]:="],
+
+Cell[CellGroupData[{
+
+Cell["Usage", "Subsection"],
+
+Cell["Compute the orbital constants of motion", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"KerrGeoELQ", "[", 
+  RowBox[{"0.9", ",", "10", ",", "0.1", ",", 
+   RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input",
+ CellLabel->"In[2]:="],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.9542699747531125`", ",", "1.7964716981097337`", ",", 
+   "9.736223241613262`"}], "}"}]], "Output",
+ CellLabel->"Out[2]="]
+}, Open  ]],
+
+Cell["Compute the orbital frequencies", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"KerrGeoFreqs", "[", 
+  RowBox[{"0.9", ",", "10", ",", "0.1", ",", 
+   RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input",
+ CellLabel->"In[3]:="],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.022167003704815676`", ",", "0.02985983881128259`", ",", 
+   "0.03143453749585091`", ",", "120.53752316117647`"}], "}"}]], "Output",
+ CellLabel->"Out[3]="]
+}, Open  ]]
+}, Open  ]],
+
+Cell["", "RelatedTutorialsSection",
+ WholeCellGroupOpener->True,
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "RELATED TUTORIALS", BaseStyle -> None, 
+        Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+        "Preemptive", ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "RelatedTutorialsSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            InterpretationBox[
+             StyleBox[
+              
+              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
+               Baseline], "CacheGraphics" -> False], 
+             Spacer[24]]]], "Related Tutorials"}], "RelatedTutorialsSection"],
+        BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None,
+        Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0]
+}, Open  ]],
+
+Cell[" ", "FooterCell"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"KerrGeodesics",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "KerrGeodesics`", "keywords" -> {"Kerr", "Geodesic"}, "index" -> 
+    True, "label" -> "KerrGeodesics Tutorial", "language" -> "en", "paclet" -> 
+    "KerrGeodesics", "status" -> "None", "summary" -> 
+    "Tutorial for the KerrGeodesics package.", "synonyms" -> {}, "title" -> 
+    "KerrGeodesics", "windowTitle" -> "KerrGeodesics", "type" -> "Tutorial", 
+    "uri" -> "KerrGeodesics/tutorial/KerrGeodesics"}, "SearchTextTranslated" -> 
+  "", "LinkTrails" -> ""},
+TrackCellChangeTimes->False,
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

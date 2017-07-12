@@ -1,0 +1,133 @@
+Notebook[{
+Cell[" ", "GuideColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+
+Cell[TextData[{
+ ButtonBox["KerrGeodesics",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Geodesics in Kerr spacetime",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"]
+}], "LinkTrail"],
+
+Cell[BoxData[GridBox[{
+   {Cell["KERRGEODESICS GUIDE", "PacletNameCell"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
+        StripOnInput->False], {"KerrGeodesics":>Documentation`HelpLookup[
+       "paclet:KerrGeodesics/tutorial/KerrGeodesics"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"URL \[RightGuillemet]\"\>",
+        StripOnInput->False], {"\<\"Go to KerrGeodesics website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[""], None}]}], 
+       Delimiter, "\<\"Go to wolfram Mathematica website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[
+           "http://reference.wolfram.com/mathematica/guide/Mathematica.html"],
+            None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}]
+    }], "AnchorBar"]}
+  }]], "AnchorBarGrid"],
+
+Cell[CellGroupData[{
+
+Cell["Geodesics in Kerr spacetime", "GuideTitle"],
+
+Cell["\<\
+The KerrGeodesics package provides functions for computing properties of \
+bound timelike geodesics in Kerr spacetime\
+\>", "GuideAbstract"],
+
+Cell[CellGroupData[{
+
+Cell["Kerr geodesics", "GuideFunctionsSubsection"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoELQ",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoELQ"]], "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Compute constants of motion (energy, angular momentum and Carter constant)"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoFreqs",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFreqs"]], "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Compute the orbital frequencies w.r.t. Boyer-Lindquist time and conversion \
+factor to frequencies w.r.t. Mino time"
+}], "GuideText"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideTutorialsSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell["TUTORIALS", "GuideTutorialsSection"], 
+     Cell["Tutorials", "GuideTutorialsSection"]], None}, {None, None}},
+ CellFrameLabelMargins->0],
+
+Cell[TextData[ButtonBox["KerrGeodesics",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:KerrGeodesics/tutorial/KerrGeodesics"]], "GuideTutorial"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell"],
+
+Cell[BoxData[""]]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"Geodesics in Kerr spacetime",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "KerrGeodesics`", "keywords" -> {"Kerr", "Geodesic"}, "index" -> 
+    True, "label" -> "KerrGeodesics Application", "language" -> "en", 
+    "paclet" -> "KerrGeodesics", "status" -> "None", "summary" -> 
+    "Functions for working with bound timelike geodesics in Kerr spacetime.", 
+    "synonyms" -> {"KerrGeodesics", "KerrGeodesics"}, "title" -> 
+    "Geodesics in Kerr spacetime", "windowTitle" -> 
+    "Geodesics in Kerr spacetime", "type" -> "Guide", "uri" -> 
+    "KerrGeodesics/guide/KerrGeodesics"}, "SearchTextTranslated" -> "", 
+  "LinkTrails" -> ""},
+TrackCellChangeTimes->False,
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

@@ -1,0 +1,46 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Kerr Geodesics", "Title"],
+
+Cell["\<\
+The KerrGeodesics package provides functions for computing quantities related \
+to bound timelike geodesic orbits in Kerr spacetime. Before using the \
+functions, first load the package\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"<<", "KerrGeodesics`"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell["Usage", "Subsection"],
+
+Cell["Compute the orbital constants of motion", "Text"],
+
+Cell[BoxData[
+ RowBox[{"KerrGeoELQ", "[", 
+  RowBox[{"0.9", ",", "10", ",", "0.1", ",", 
+   RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input"],
+
+Cell["Compute the orbital frequencies", "Text"],
+
+Cell[BoxData[
+ RowBox[{"KerrGeoFreqs", "[", 
+  RowBox[{"0.9", ",", "10", ",", "0.1", ",", 
+   RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input"]
+}, Open  ]]
+}, Open  ]]
+},
+Saveable->True,
+WindowSize->{1393, 1201},
+WindowMargins->{{Automatic, 295}, {Automatic, 0}},
+PrivateNotebookOptions->{"FileOutlineCache"->False,
+"VersionedStylesheet"->{"Default.nb"[8.] -> False}},
+ShowSelection->True,
+TrackCellChangeTimes->False,
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
+StyleDefinitions->"Default.nb"
+]
+
