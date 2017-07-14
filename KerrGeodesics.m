@@ -9,6 +9,7 @@ KerrGeoISCO::usage = "KerrGeoISCO[a,opts] computes the location of the inner-mos
 KerrGeoPhotonSphereRadius::usage = "KerrGeoPhotonSphereRadius[a,\[Theta]inc] computes the radius of the photon sphere"
 KerrGeoIBSO::usage = "KerrGeoIBSO[a,\[Theta]inc] computes the radius of the inner-most bound spherical orbit (IBSO)"
 KerrGeoISSO::usage = "KerrGeoISSO[a,\[Theta]inc] computes the radius of the inner-most stable spherical orbit (ISSO)"
+KerrGeoSeparatrix::usage = "KerrGeoSepatrix[a,e,\[Theta]inc] calculates the value of p at the sepatrix between stable and plunging/scattered orbits*)"
 
 
 Begin["`Private`"];
@@ -203,6 +204,16 @@ KerrGeoISSO[a_,\[Theta]inc_]:=Module[{rmb},
 (*For equatorial orbits the ISSO is the ISCO*)
 KerrGeoISSO[a_,0]:= KerrGeoISCO[a]
 KerrGeoISSO[a_,\[Pi]]:= KerrGeoISCO[a,orbit->"Retrograde"]
+
+(* The separatrix occurs when Subscript[\[CapitalOmega], r]=0 which implies Subscript[r, 2]=Subscript[r, 3]. Search for the value of p at which this occurs which must be outside the p of the ISSO*)
+KerrGeoSeparatrix[a_,e_,\[Theta]inc_]:=Module[{},
+	p/.FindRoot[KerrGeoRadialEqRoots[a,p,e,\[Theta]inc][[5]],{p,KerrGeoISSO[a,\[Theta]inc],20},Method->"Brent"]
+]
+
+(*Separatrix for Schwarzschild*)
+KerrGeoSeparatrix[0,e_,\[Theta]inc_]:= 6+2e;
+
+(*TODO: Separatrix for equatorial Kerr: use Levin's implicit result*)
 	
 End[];
 
