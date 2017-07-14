@@ -140,7 +140,7 @@ KerrGeoStableOrbitQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{},
   If[p>6+2e,True,False](*> not \[GreaterEqual] as orbits along the separatrix are marginally stable*)
 ];
 
-(* In Kerr the orbit is stable only if Subscript[\[CapitalOmega], r] is real*)
+(* The orbit is stable only if Subscript[\[CapitalOmega], r] is real*)
 KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?NumericQ]:=Module[{freqs},
   freqs=KerrGeoFreqs[a,p,e,\[Theta]inc];
   Element[freqs[[1]],Reals]
@@ -180,7 +180,7 @@ KerrGeoIBSO[a_,\[Theta]inc_]:= Module[{rph},
 KerrGeoIBSO[a_,0]:= 2-a+2(1-a)^(1/2)
 KerrGeoIBSO[a_,\[Pi]]:= 2+a+2(1+a)^(1/2)
 
-
+(*Returns the roots of the radial equation and r2-r3 *)
 KerrGeoRadialEqRoots[a_,p_,e_,\[Theta]inc_]:=Module[{M=1,En,L,Q,AplusB,AB,r1,r2,r3,r4},
 	{En,L,Q}=KerrGeoELQ[a,p,e,\[Theta]inc];
 
