@@ -4,7 +4,11 @@ BeginPackage["KerrGeodesics`"];
 
 KerrGeoELQ::usage = "KerrGeoELQ[a, p, e, \[Theta]inc] returns the energy, z-component of the angular momentum and the Carter constant";
 KerrGeoFreqs::usage = "KerrGeoFreqs[a, p, e, \[Theta]inc] returns the radial, polar and azimuthal frequencies and the conversion factor between Boyer-Lindquist and Mino time frequencies";
-KerrGeoStableOrbitQ::usage = "KerrGeoStableOrbitQ[a,p,e,\[Theta]inc] checks if given parameters corresponds to a stable orbit";
+KerrGeoStableOrbitQ::usage = "KerrGeoStableOrbitQ[a,p,e,\[Theta]inc] checks if given parameters correspond to a stable orbit";
+KerrGeoISCO::usage = "KerrGeoISCO[a,opts] computes the location of the inner-most stable circular orbit (ISCO)"
+KerrGeoPhotonSphereRadius::usage = "KerrGeoPhotonSphereRadius[a,\[Theta]inc] computes the radius of the photon sphere"
+KerrGeoIBSO::usage = "KerrGeoIBSO[a,\[Theta]inc] computes the radius of the inner-most bound spherical orbit (IBSO)"
+KerrGeoISSO::usage = "KerrGeoISSO[a,\[Theta]inc] computes the radius of the inner-most stable spherical orbit (ISSO)"
 
 
 Begin["`Private`"];
@@ -18,7 +22,7 @@ KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{E0,L0,Q},
 
 
 (*This function computes the orbital constants of motion from W. Schmidt, arXiv:gr-qc/0202090 *)
-KerrGeoELQ[a_/;Abs[a]<=1, p_, e_, \[Theta]inc1_?NumericQ] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z,\[Theta]min,\[Theta]inc=\[Theta]inc1},
+KerrGeoELQ[a_(*/;Abs[a]<=1*), p_, e_, \[Theta]inc1_?NumericQ] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z,\[Theta]min,\[Theta]inc=\[Theta]inc1},
 
 \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
 If[\[Theta]inc>\[Pi], \[Theta]inc=2\[Pi]-\[Theta]inc];
@@ -127,14 +131,78 @@ hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 {\[Gamma]r/\[CapitalGamma],Abs[\[Gamma]\[Theta]/\[CapitalGamma]],\[Gamma]\[Phi]/\[CapitalGamma],\[CapitalGamma]}
 ]
 
+KerrGeoFreqs[a_/;a==1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{},
+	Print["Frequency calculation not yet implemented for a=M (but the equations are in the appendix of Fujita and Hikida so please implement them!)"];
+]
+
 (*Orbit stability check, Schwarzschild case*)
 KerrGeoStableOrbitQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{},
-  If[p>=6+2e,True,False]
+  If[p>6+2e,True,False](*> not \[GreaterEqual] as orbits along the separatrix are marginally stable*)
 ];
 
-KerrGeoStableOrbitQ[a_/;a!=0,p_,e_,\[Theta]inc_]:=Module[{},
-  Print["Check not implemented yet"];
+(* In Kerr the orbit is stable only if Subscript[\[CapitalOmega], r] is real*)
+KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?NumericQ]:=Module[{freqs},
+  freqs=KerrGeoFreqs[a,p,e,\[Theta]inc];
+  Element[freqs[[1]],Reals]
 ];
+
+
+Options[KerrGeoISCO] = {"orbit" -> "Prograde"}
+KerrGeoISCO[a_,OptionsPattern[]]:=Module[{Z1,Z2},
+	Z1=1+(1-a^2)^(1/3) ((1+a)^(1/3)+(1-a)^(1/3));
+	Z2=(3a^2+Z1^2)^(1/2);
+	If[OptionValue["orbit"]=="Prograde",
+		Return[3+Z2-((3-Z1)(3+Z1+2Z2))^(1/2)],
+		Return[3+Z2+((3-Z1)(3+Z1+2Z2))^(1/2)]
+	];
+];
+
+(*Photon sphere radius is where the energy for a timelike orbit diverges*)
+KerrGeoPhotonSphereRadius[a_,\[Theta]inc_]:= Module[{res},
+	res=Sort[Re[p/.Solve[Simplify[Denominator[KerrGeoELQ[a,p,0,\[Theta]inc][[1]]^2]==0,Assumptions->{a>=0,p>0}],p]],Greater];
+	If[\[Theta]inc>=\[Pi]/2,Return[res[[1]]],Return[res[[2]]]]
+]
+
+(*Photon sphere becomes light ring at r=3M in Schwarzschild*)
+KerrGeoPhotonSphereRadius[(0|0.0),\[Theta]inc_]:=3;
+
+(*Equatorial photon sphere results from Bardeen, Press, Teukolsky 1972*)
+KerrGeoPhotonSphereRadius[a_,0]:=2(1+Cos[2/3 ArcCos[-a]])
+KerrGeoPhotonSphereRadius[a_,\[Pi]]:=2(1+Cos[2/3 ArcCos[a]])
+
+(* The IBSO is where E=1. Use the fact that rph < r_ibso*)
+KerrGeoIBSO[a_,\[Theta]inc_]:= Module[{rph},
+	rph=KerrGeoPhotonSphereRadius[a,\[Theta]inc];
+	p/.FindRoot[KerrGeoELQ[a,p,0,\[Theta]inc][[1]]-1,{p,rph+10^-10,9}, Method->"Brent"]
+]
+
+(*Equatorial IBSO results from Bardeen, Press, Teukolsky 1972*)
+KerrGeoIBSO[a_,0]:= 2-a+2(1-a)^(1/2)
+KerrGeoIBSO[a_,\[Pi]]:= 2+a+2(1+a)^(1/2)
+
+
+KerrGeoRadialEqRoots[a_,p_,e_,\[Theta]inc_]:=Module[{M=1,En,L,Q,AplusB,AB,r1,r2,r3,r4},
+	{En,L,Q}=KerrGeoELQ[a,p,e,\[Theta]inc];
+
+	r1=p/(1-e);
+	r2=p/(1+e);
+	AplusB=(2M)/(1-En^2)-(r1+r2);(*Eq. (11)*)
+	AB=(a^2 Q)/((1-En^2)r1 r2);(*Eq. (11)*)
+	r3=(AplusB+Sqrt[(AplusB)^2-4AB])/2;(*Eq. (11)*)
+	r4=AB/r3;(*Eq. (11)*)
+
+	{r1,r2,r3,r4,r2-r3}
+]
+
+(*The ISSO occurs when the r2-r3=0. Also use r_ibso < r_isso*)
+KerrGeoISSO[a_,\[Theta]inc_]:=Module[{rmb},
+	rmb=KerrGeoIBSO[a,\[Theta]inc];
+	p/.FindRoot[KerrGeoRadialEqRoots[a,p,0,\[Theta]inc][[5]],{p,rmb+10^-10,9},Method->"Brent"]
+]
+
+(*For equatorial orbits the ISSO is the ISCO*)
+KerrGeoISSO[a_,0]:= KerrGeoISCO[a]
+KerrGeoISSO[a_,\[Pi]]:= KerrGeoISCO[a,orbit->"Retrograde"]
 	
 End[];
 

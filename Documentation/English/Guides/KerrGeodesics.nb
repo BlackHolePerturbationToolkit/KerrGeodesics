@@ -48,8 +48,8 @@ Cell[CellGroupData[{
 Cell["Geodesics in Kerr spacetime", "GuideTitle"],
 
 Cell["\<\
-The KerrGeodesics package provides functions for computing properties of \
-bound timelike geodesics in Kerr spacetime\
+The KerrGeodesics package provides functions for computing bound timelike \
+geodesics and their properties in Kerr spacetime\
 \>", "GuideAbstract"],
 
 Cell[CellGroupData[{
@@ -75,6 +75,29 @@ Cell[TextData[{
  " ",
  "Compute the orbital frequencies w.r.t. Boyer-Lindquist time and conversion \
 factor to frequencies w.r.t. Mino time"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoStableOrbitQ",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoStableOrbitQ"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Checks if the given (numerical) orbital parameters corresponds to a stable \
+orbit"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoISCO",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISCO"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the location of the inner-most stable circular orbit (ISCO)"
 }], "GuideText"]
 }, Open  ]]
 }, Open  ]],

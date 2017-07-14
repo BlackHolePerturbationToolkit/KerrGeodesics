@@ -14,14 +14,12 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"FileNameDrop", "[", 
       RowBox[{
-       RowBox[{
-       "FindFile", "[", "\"\<SpinWeightedSpheroidalHarmonics`\>\"", "]"}], 
-       ",", 
+       RowBox[{"FindFile", "[", "\"\<KerrGeodesics`\>\"", "]"}], ",", 
        RowBox[{"-", "2"}]}], "]"}], ",", "\"\<Documentation\>\""}], "}"}], 
    "]"}]}]], "Input"],
 
-Cell[BoxData["\<\"/Users/barry/Library/Mathematica/Applications/\
-SpinWeightedSpheroidalHarmonics/Documentation\"\>"], "Output"]
+Cell[BoxData["\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation\"\>"], "Output"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -42,19 +40,17 @@ Cell[BoxData[
 Cell[BoxData[
  TagBox[
   RowBox[{"{", 
-   RowBox[{"\<\"/Users/barry/Library/Mathematica/Applications/\
-SpinWeightedSpheroidalHarmonics/Documentation/English/Guides/\
-SpinWeightedSpheroidalHarmonics.nb\"\>", 
-    ",", "\<\"/Users/barry/Library/Mathematica/Applications/\
-SpinWeightedSpheroidalHarmonics/Documentation/English/Index/_0.cfs\"\>", ",", 
-    
+   RowBox[{"\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/Guides/KerrGeodesics.nb\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/Index/_0.cfs\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/Index/segments_3\"\>", ",", 
     RowBox[{"\[LeftSkeleton]", "7", "\[RightSkeleton]"}], 
-    ",", "\<\"/Users/barry/Library/Mathematica/Applications/\
-SpinWeightedSpheroidalHarmonics/Documentation/English/SpellIndex/segments.gen\
-\"\>", ",", \
-"\<\"/Users/barry/Library/Mathematica/Applications/\
-SpinWeightedSpheroidalHarmonics/Documentation/English/Tutorials/\
-SpinWeightedSpheroidalHarmonics.nb\"\>"}], "}"}],
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/SpellIndex/segments.gen\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/Tutorials/KerrGeodesics.nb\"\>"}], "}"}],
   Short[#, 10]& ]], "Output"]
 }, Open  ]],
 
@@ -64,18 +60,19 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input",
- EmphasizeSyntaxErrors->True],
+ RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print"],
 
-Cell[BoxData["\<\"SpinWeightedSphericalHarmonicY\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoELQ\"\>"], "Print"],
 
-Cell[BoxData["\<\"SpinWeightedSpheroidalEigenvalue\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoFreqs\"\>"], "Print"],
 
-Cell[BoxData["\<\"SpinWeightedSpheroidalHarmonicS\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoISCO\"\>"], "Print"],
+
+Cell[BoxData["\<\"KerrGeoStableOrbitQ\"\>"], "Print"],
 
 Cell[BoxData["\<\"Building guides\"\>"], "Print"],
 
@@ -83,28 +80,24 @@ Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Creating \"\>", 
    "\[InvisibleSpace]", \
-"\<\"/Users/barry/Research/Code/SpinWeightedSpheroidalHarmonics/Documentation/\
-English/Guides\"\>"}],
+"\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/Guides\"\>"}],
   SequenceForm[
   "Creating ", 
-   "/Users/barry/Research/Code/SpinWeightedSpheroidalHarmonics/Documentation/\
+   "/Users/niels/Library/Mathematica/Applications/KerrGeodesics/Documentation/\
 English/Guides"],
   Editable->False]], "Print"],
 
 Cell[BoxData["\<\"Building tutorials\"\>"], "Print"],
 
-Cell[BoxData["\<\"Source/Documentation/English/Tutorials/\
-SpinWeightedSpheroidalHarmonics.md\"\>"], "Print"],
+Cell[BoxData["\<\"Source/Documentation/English/Tutorials/KerrGeodesics.md\"\>\
+"], "Print"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"\<\"l\"\>", ",", "\<\"m\"\>", ",", "\<\"result\"\>", 
-     ",", "\<\"s\"\>", ",", "\<\"\[Gamma]\"\>", ",", "\<\"\[Theta]\"\>", 
-     ",", "\<\"\[Phi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {"l", "m", "result", "s", "\[Gamma]", "\[Theta]", "\[Phi]"}],
+   RowBox[{"{", "\<\"result\"\>", "}"}]}],
+  SequenceForm["Removing ", {"result"}],
   Editable->False]], "Print"],
 
 Cell[BoxData["\<\"Indexing Documentation\"\>"], "Print"],
@@ -119,7 +112,7 @@ PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 25, \
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
 2016)",
 StyleDefinitions->"Default.nb"
 ]
