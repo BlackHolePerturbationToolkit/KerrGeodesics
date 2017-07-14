@@ -98,6 +98,52 @@ Cell[TextData[{
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the location of the inner-most stable circular orbit (ISCO)"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoPhotonSphereRadius",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoPhotonSphereRadius"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the radius of the photon sphere for given black hole spin and \
+inclination"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoIBSO",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoIBSO"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the location of the inner-most bound spherical orbit (IBSO)"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoISSO",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISSO"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the location of the inner-most stable spherical orbit (ISSO)"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoSeparatrix",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoSeparatrix"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the value p at the separatrix between stable and \
+plunging/scattered orbits"
 }], "GuideText"]
 }, Open  ]]
 }, Open  ]],

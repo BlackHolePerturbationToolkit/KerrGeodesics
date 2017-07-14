@@ -14,21 +14,188 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["Usage", "Subsection"],
+Cell["Constants of motion and orbital frequencies", "Subsection",
+ CellChangeTimes->{{3.7090219843089333`*^9, 3.709021998381135*^9}}],
 
-Cell["Compute the orbital constants of motion", "Text"],
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"KerrGeoELQ", "[", 
-  RowBox[{"0.9", ",", "10", ",", "0.1", ",", 
-   RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input"],
+  RowBox[{"0.9`20", ",", "10", ",", "0.5`20", ",", 
+   RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.709022091864291*^9, 3.709022139984539*^9}}],
 
-Cell["Compute the orbital frequencies", "Text"],
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.96470744516135472423432642194011120077`18.851059476846583", ",", 
+   "1.81884192219757339848695633754530571694`18.139950788858965", ",", 
+   "9.96668158756961887989226101358848627111`17.835949770612423"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.709022100723956*^9, 3.7090221403610287`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"KerrGeoFreqs", "[", 
-  RowBox[{"0.9", ",", "10", ",", "0.1", ",", 
-   RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input"]
+  RowBox[{"0.9`20", ",", "10", ",", "0.5`20", ",", 
+   RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.709022111571838*^9, 3.709022142380846*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.01582697393965516869802676284172981584`12.876992816526712", ",", 
+   "0.02136716932544157769144193335532254136`12.878499260465361", ",", 
+   "0.02254148625589115431824793921656555827`11.657985022879107", ",", 
+   "170.471989197307464612816110111896818287`12.878541003977702"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.709022121120934*^9, 3.709022142714506*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Photon sphere, IBSO and ISSO", "Subsection",
+ CellChangeTimes->{{3.70902186412431*^9, 3.7090219013276176`*^9}}],
+
+Cell["Radius of the photon sphere for a=M", "Text",
+ CellChangeTimes->{{3.7090219624161787`*^9, 3.709021966689995*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"\[Theta]", ",", 
+      RowBox[{"KerrGeoPhotonSphereRadius", "[", 
+       RowBox[{"1", ",", "\[Theta]"}], "]"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]", ",", 
+      RowBox[{"\[Pi]", "/", "20."}]}], "}"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"%", ",", 
+   RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", "600"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.709021769938871*^9, 3.709021772042102*^9}, {
+  3.709021806075172*^9, 3.709021832196858*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PlotSpherical", "[", "a_", "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"rph", ",", "rmb", ",", "rms", ",", 
+      RowBox[{"n", "=", "30"}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"rph", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"KerrGeoPhotonSphereRadius", "[", 
+           RowBox[{"a", ",", "\[Theta]"}], "]"}], ",", 
+          RowBox[{"180", 
+           FractionBox["\[Theta]", "\[Pi]"]}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]", ",", 
+          FractionBox["\[Pi]", "n"]}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"rmb", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"KerrGeoIBSO", "[", 
+           RowBox[{"a", ",", "\[Theta]"}], "]"}], ",", 
+          RowBox[{"180", 
+           FractionBox["\[Theta]", "\[Pi]"]}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]", ",", 
+          FractionBox["\[Pi]", "n"]}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"rms", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"KerrGeoISSO", "[", 
+           RowBox[{"a", ",", "\[Theta]"}], "]"}], ",", 
+          RowBox[{"180", 
+           FractionBox["\[Theta]", "\[Pi]"]}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]", ",", 
+          FractionBox["\[Pi]", "n"]}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Show", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Plot", "[", 
+        RowBox[{"180", ",", 
+         RowBox[{"{", 
+          RowBox[{"r", ",", 
+           RowBox[{"rmb", "[", 
+            RowBox[{"[", 
+             RowBox[{
+              RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}], ",", 
+           RowBox[{"rms", "[", 
+            RowBox[{"[", 
+             RowBox[{
+              RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}]}], "}"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", "None"}], ",", 
+         RowBox[{"Filling", "\[Rule]", "Axis"}], ",", 
+         RowBox[{"FillingStyle", "\[Rule]", "LightRed"}], ",", 
+         RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+         RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "800"}], ",", 
+         RowBox[{"Axes", "\[Rule]", "False"}], ",", 
+         RowBox[{"BaseStyle", "\[Rule]", "20"}], ",", 
+         RowBox[{"FrameLabel", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{
+           "\"\<r/M\>\"", ",", 
+            "\"\<\!\(\*SubscriptBox[\(\[Theta]\), \(inc\)]\)\>\""}], 
+           "}"}]}]}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Plot", "[", 
+        RowBox[{"180", ",", 
+         RowBox[{"{", 
+          RowBox[{"r", ",", 
+           RowBox[{"rms", "[", 
+            RowBox[{"[", 
+             RowBox[{
+              RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}], ",", "10"}], 
+          "}"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", "None"}], ",", 
+         RowBox[{"Filling", "\[Rule]", "Axis"}], ",", 
+         RowBox[{"FillingStyle", "\[Rule]", "LightBlue"}]}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"ListPlot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"rph", ",", "rmb", ",", "rms", ",", "7"}], "}"}], ",", 
+         RowBox[{"Filling", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"2", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{"Axis", ",", "LightRed"}], "}"}]}], ",", 
+            RowBox[{"3", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{"Axis", ",", "LightBlue"}], "}"}]}]}], "}"}]}], ",", 
+         RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Green", ",", "Red", ",", "Blue"}], "}"}]}]}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}]}], "\[IndentingNewLine]", 
+      "]"}]}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.709021927364081*^9, 3.709021930456918*^9}}],
+
+Cell[BoxData[
+ RowBox[{"PlotSpherical", "[", "0.9", "]"}]], "Input",
+ CellChangeTimes->{{3.709021906480988*^9, 3.7090219095624733`*^9}}]
 }, Open  ]]
 }, Open  ]]
 },

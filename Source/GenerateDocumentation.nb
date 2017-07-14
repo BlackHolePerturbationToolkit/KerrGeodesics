@@ -70,7 +70,15 @@ Cell[BoxData["\<\"KerrGeoELQ\"\>"], "Print"],
 
 Cell[BoxData["\<\"KerrGeoFreqs\"\>"], "Print"],
 
+Cell[BoxData["\<\"KerrGeoIBSO\"\>"], "Print"],
+
 Cell[BoxData["\<\"KerrGeoISCO\"\>"], "Print"],
+
+Cell[BoxData["\<\"KerrGeoISSO\"\>"], "Print"],
+
+Cell[BoxData["\<\"KerrGeoPhotonSphereRadius\"\>"], "Print"],
+
+Cell[BoxData["\<\"KerrGeoSeparatrix\"\>"], "Print"],
 
 Cell[BoxData["\<\"KerrGeoStableOrbitQ\"\>"], "Print"],
 
