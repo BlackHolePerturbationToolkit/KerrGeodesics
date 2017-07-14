@@ -213,7 +213,15 @@ KerrGeoSeparatrix[a_,e_,\[Theta]inc_]:=Module[{},
 (*Separatrix for Schwarzschild*)
 KerrGeoSeparatrix[0,e_,\[Theta]inc_]:= 6+2e;
 
-(*TODO: Separatrix for equatorial Kerr: use Levin's implicit result*)
+(*Separatrix for equatorial Kerr from Levin and Periz-Giz arXiv:1108.1819*)
+KerrGeoSeparatrix[a1_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0]:= Module[{ru,a=a1},
+If[\[Theta]inc==\[Pi], a = -a];
+ru=ru/.Solve[e==(-ru^2+6 ru-8a ru^(1/2)+3a^2)/(ru^2-2ru+a^2),ru][[-1]];
+(4 ru (ru^(1/2)-a)^2)/(ru^2-2ru+a^2)
+]
+
+(*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)
+KerrGeoSeparatrix[1,e_,0]:=1+e
 	
 End[];
 
