@@ -45,8 +45,14 @@ Documentation/English/Guides/KerrGeodesics.nb\"\>",
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Index/_0.cfs\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Index/segments_3\"\>", ",", 
-    RowBox[{"\[LeftSkeleton]", "7", "\[RightSkeleton]"}], 
+Documentation/English/Index/segments_3\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/Index/segments.gen\"\>", ",", 
+    RowBox[{"\[LeftSkeleton]", "9", "\[RightSkeleton]"}], 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/SpellIndex/_2.cfs\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/SpellIndex/segments_7\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/SpellIndex/segments.gen\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
@@ -68,6 +74,13 @@ Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print"],
 
 Cell[BoxData["\<\"KerrGeoELQ\"\>"], "Print"],
 
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", "\<\"KerrEqProgradePlot\"\>", "}"}]}],
+  SequenceForm["Removing ", {"KerrEqProgradePlot"}],
+  Editable->False]], "Print"],
+
 Cell[BoxData["\<\"KerrGeoFreqs\"\>"], "Print"],
 
 Cell[BoxData["\<\"KerrGeoIBSO\"\>"], "Print"],
@@ -75,6 +88,8 @@ Cell[BoxData["\<\"KerrGeoIBSO\"\>"], "Print"],
 Cell[BoxData["\<\"KerrGeoISCO\"\>"], "Print"],
 
 Cell[BoxData["\<\"KerrGeoISSO\"\>"], "Print"],
+
+Cell[BoxData["\<\"KerrGeoOrbit\"\>"], "Print"],
 
 Cell[BoxData["\<\"KerrGeoPhotonSphereRadius\"\>"], "Print"],
 
@@ -104,8 +119,13 @@ Cell[BoxData["\<\"Source/Documentation/English/Tutorials/KerrGeodesics.md\"\>\
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", "\<\"result\"\>", "}"}]}],
-  SequenceForm["Removing ", {"result"}],
+   RowBox[{"{", 
+    RowBox[{"\<\"KerrEqProgradePlot\"\>", ",", "\<\"n\"\>", 
+     ",", "\<\"PlotSpherical\"\>", ",", "\<\"result\"\>", ",", "\<\"rmb\"\>", 
+     ",", "\<\"rms\"\>", ",", "\<\"rph\"\>"}], "}"}]}],
+  SequenceForm[
+  "Removing ", {
+   "KerrEqProgradePlot", "n", "PlotSpherical", "result", "rmb", "rms", "rph"}],
   Editable->False]], "Print"],
 
 Cell[BoxData["\<\"Indexing Documentation\"\>"], "Print"],
@@ -114,7 +134,7 @@ Cell[BoxData["\<\"Done\"\>"], "Print"]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{740, 867},
+WindowSize->{1016, 1103},
 WindowMargins->{{237, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},

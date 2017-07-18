@@ -63,7 +63,8 @@ Cell[TextData[{
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
- "Compute constants of motion (energy, angular momentum and Carter constant)"
+ "Computes the constants of motion (energy, angular momentum and Carter \
+constant)"
 }], "GuideText"],
 
 Cell[TextData[{
@@ -144,6 +145,16 @@ Cell[TextData[{
  " ",
  "Computes the value p at the separatrix between stable and \
 plunging/scattered orbits"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoOrbit",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbit"]], "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the orbit trajectory in Boyer-Lindquist coordinates"
 }], "GuideText"]
 }, Open  ]]
 }, Open  ]],

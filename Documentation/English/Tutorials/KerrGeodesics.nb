@@ -103,8 +103,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["Photon sphere, IBSO and ISSO", "Subsection",
- CellChangeTimes->{{3.70902186412431*^9, 3.7090219013276176`*^9}}],
+Cell["Location of the photon sphere, IBSO and ISSO", "Subsection"],
 
 Cell["Radius of the photon sphere for a=M", "Text",
  CellChangeTimes->{{3.7090219624161787`*^9, 3.709021966689995*^9}}],
@@ -137,11 +136,11 @@ Cell[BoxData[
       AbsoluteThickness[1.6], PointBox[CompressedData["
 1:eJxTTMoPSmViYGAQBWIQDQOMYPKD/YMPc8r0pY/Yf/4PAu+h/Cv2n6D8gMzX
 hsc17tkzoah/Yg/TL6HrEvJb8aX9ui3iCovefYCqf2f/8WD65Fb5r/ZHgk62
-n5z+0V7su3Lc4ZKfUP1f7FkSVpql3/1r/6evIHXqvG/2pp9a3xxSZnSAmPfT
+n5z+0V7su3Lc4ZKfUP1f7FkSVpql3/1r/6evIHXqvG/2Np9a3xxSZnSAmPfT
 /tlce2P/AGYHk9PizolLf9ufqJmpwZDN6gAx/5997feNW2ZmsTtsa46fIBbG
 4JAgt/uEvhunA8Q+Roezb3afj/jK5XBJ0bi+5iaTw2xRy8bYAh4HiP0sDuvV
 Oz6kbOB1eLefLe9RDKsD002vU7PX8zlA3MPmkMf+8lxoJr8DV9ytGI8H7A6l
-mvJ7NG7xQ93H6QAJRQEHAAY7lCI=
+mvJ7NG7xQ93H6QAJRQEHAAtDlCk=
       "]]}, {}}, {}},
   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
   Axes->{False, False},
@@ -299,18 +298,31 @@ Cell[BoxData[
  CellLabel->"In[7]:="],
 
 Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"OptionValue", "::", "nodef"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Unknown option \
+\[NoBreak]\\!\\(\\*RowBox[{\\\"\\\\\\\"orbit\\\\\\\"\\\"}]\\)\[NoBreak] for \
+\[NoBreak]\\!\\(\\*RowBox[{\\\"KerrGeoISCO\\\"}]\\)\[NoBreak]. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/OptionValue\\\", ButtonNote -> \
+\\\"OptionValue::nodef\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellLabel->"During evaluation of In[7]:="],
+
+Cell[BoxData[
  GraphicsBox[{{GraphicsComplexBox[CompressedData["
-1:eJxTTMoPSmViYGAwA2IQnciccWDSAjEHBhBoSHOIiJxxV+wegn/xp/GC4wri
-cP58gVMMvPEI/kXLhjWScxD81rUL/wbdQ/B7p+99oyAjAeeLn3FplI5H8FmF
-3yTcXYDgu1/ovWd8D8HnuTGLcbuCJJyvGrbo0Lk4BH/Rs5Pn1s5G8BcejGnY
-eRfB/yL06nyktBScf3LdoyNqcQg+U+xvlt3zEfz+Rr7Hj+8g+PM/9KRZykvD
-+czXWDuUYxH8l6yv/KwWIPjGHu8SJB4h+BcZ3gp0y8vA+R+Zw9O0khD8tNrd
-kXELEHx7TocZkXcR/Fn39Wsa5WXhfE8dqX+2sQh+1eF8VfUFCD5/7tPp1x8i
-+D96QlfIyMvB+cnfDeL6EhF85Rtsm6bMR/DdT/8JSLqD4L/liJsaIycP5z/f
-s7P8dTSCn7y74f+yeQi+iYGT6vc7CP6W24Le7LwKiPB1sQjT1EPwp7yI3iDq
-i+DfNjSNnZGH4Ae3zFtf14/gfxNkDdRfh+DfclF0LTuP4L/YZNXR/g7B19B6
-UvCHRxHOX+nmvIZdD8EPmTff7K4Pgn9um8Epj3wEP0aP4XzIfkR+mKiVwSAc
-h5BHyT9AgKIfCAB0reyf
+1:eJxTTMoPSmViYGAwA2IQffXhF03tiUwODCDQkOYgu1gm2VWcGc63b6/0WL4C
+wednf3E+zYAFznf7Vby8ZiuCHy5gqn3LlRXOFzvEHjj1DIK/fhq/8ow4NgT/
+nonrx7cIfuyhbM4Vxexw/pMT1yuXsXDA+ZLZoT1MPQj+toYP77YIcML5OjsP
+/F23AMEP6F20jk2dC873a9nJvWwHgr/53dsds9254fxjX4w53p9B8DfLrmfu
+iuVB6H9kvbDpCYJ/+OTfV4fKeOH8+Sp3WyLZ+OB8TelzB3x7EPweky8rOmX5
+4fy5L7WNlZci+FydB9o4RQUQ9q9j9VKNRfCNFwXfy1+A4Cuo7/GIe4ngH0w1
+vv3dQBDOtyjabHegGMGXEfCr0NmD4F+v/th0/D+C77Zw8VZeJyE4XymiYN/3
+TgT/6h3XGQJnEfyvn0w9zooKw/lvrumd3BGJ4E8rMSvyn4Pgr10c8bHzCYI/
+e0Gz42d1ETj/m97JdIZCBJ+lXHbbjh0I/sueqqvzfyP41iafTmm5iML5KSuL
+Jj5pR/AdbzA2eJ5C8LtnrHYJEhKD89eoxd3qDEXw+yOXbp+0AMGvPNThZnGF
+Cc6XO8DoyVeNkEfJP0CAoh8IACKN8NQ=
      "], {{}, 
       {RGBColor[1, 0.85, 0.85], EdgeForm[None], 
        GraphicsGroupBox[
@@ -319,17 +331,17 @@ h5BHyT9AgKIfCAB0reyf
          23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 
          5, 4, 3, 2, 51}}]]}, {}, {}}], {}}, {
     GraphicsComplexBox[CompressedData["
-1:eJxTTMoPSmViYGAwA2IQPVtC66xHvqIDAwg0pDnM+77xgE4Ngm/zU89drQtJ
-foLwLqPpCH7idMtlfxcj+PsOhKje24jg36+/PuHiPgR/dqJ//60zCP72TRzs
-i24h+NNnambXPEfwhRbbJ+V8RfADnfa65jMpwfkfAmoWGfAj+FpNBpPYZRF8
-DU+fvI+aCP4Bo9i7H8wR/J3d64+uc0Xwy6oyZ9UHIfhnuyWY0hIQ/BdG+mHx
-uQj+vD9WtnnVCP4W04651p0Ifh+L7SvpaQg+87dnJwWXIPg2tT+mSm1E8K8W
-e99+uBfB5+ydvHnfaQSf0ca5Yt0NBH8y74vzm58h+G1+5xaUf0HwbVVl4vwY
-leH8frn4dVb8CP6StZyvLWUQfKk1Xxd810Dwtc9ee3nKDMH/3ywvv9EZwc+L
-jX2+JhDBX3iGac7uOATfdPXLkx3ZCH7ymqNd2ZUIfqgzp0ViG4L/6I9jRc4U
-BP+86h5Ds0UIfsOTudeF1iP4Z46WCLDuRfDv2Gw25TqF4PsoG185ew3BD9dZ
-wbr8CYKvdrpFefJHBN9PVf7///8IvgzHu2O7ShHpz+pH4MSTPxDyKPkHCFD0
-AwEAFjHzcw==
+1:eJxTTMoPSmViYGAwA2IQzZ15y1R7IpMDAwg0pDkEBjWV3z3KDOffr+X60ybC
+Cudf7jAXYPZlg/MrXx5/H1vPDuen91gIbTjNAefv5vM7coWRC84Pv+y880Mg
+N5y/9O2cytezeeD8yOezTu44zwvnhypXxtTK8sP5MfJ19l1aAnD+s/BCM9fD
+CP7UjVfO/c4QhPO/V3Gtn80sBOfXpm4wMF+N4N/5xS5xyF8Yzn/339Dd7CWC
+r6J2RnxZvwicz7vHwuC/liicL1Us+ir4MoLPcHUx54wKMTh/5jKWwqNC4nB+
+2Myrle92IvjHflecYgiTgPP5Oc81ML1H8GvMJ9/4P0USzp9zVavimb4UnP9g
+itHOE9cR/L//XsfPqpGG88/eKPcLFZOB8w9eLr7HvRfBz7Bz2rY6QhbOfxF8
+6LPVRwS/p2vTpaPT5OD8xwalPy0N5eH8uB/LD668geAfm34to9FKAc4/ybFp
+sWo7gh/X5bre/RaCf9b5UNw9dUU4/xzv93ufqhF867UsQvXnEPymlt8v6qWV
+4PzonFUT/uUh+Hw9Tnc+7kHwdRs334rhVIbz77XdWekag+BnHnkns3glgp9y
+Ye+v//8R/HWx68JatBH5Ic3rWvfFKwh5lPwDBCj6gQAAc8P9Vg==
      "], {{}, 
       {RGBColor[0.87, 0.94, 1], EdgeForm[None], 
        GraphicsGroupBox[
@@ -338,29 +350,29 @@ AwEAFjHzcw==
          23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 
          5, 4, 3, 2, 51}}]]}, {}, {}}], {}}, {{}, 
     GraphicsComplexBox[CompressedData["
-1:eJxVkw1Q02UcxwezGWO8RBQvIrgjBI7K423YVPw5YEyxxfu5NjYYL827dTCs
-mBIECJxoSiDcYSXUrFQqZ3R2nNdgB3hwMuy88gR1IGA0iaQuRtNt1FP+nnU+
-d8/973Pf+9397/t5flxleXapO4PBUJD777d5T8ZD25JtJwNPNss67rtKORDG
-hH0ePn4PkaPAlMBbF5FCOQ6iJys7uccpb4V3yjP9PrRSTobhqkvGPw4/QhYA
-t9dLtQJ25DSIX74e9WmiA1kEFnWudU3lRM4AZbSm/SPzGrIYrlRuTvIWMeA/
-rMuETs7l7gfb3AD/HtxZn91rSXXHPAfu1uh8WqRMzPPgh1drz8wcWod5Pmi/
-iKjecPopzPeB8OJ3uzQGFuYSWO6OjP/q5nrMpfDbdE9MgOVpzGUw03Zjm+pX
-D8zlkC0NFn8zzcZcAWWPZPq8QU/kQkgvqnqXeYzzmKEI5poq5vQ7vXBeCVnC
-5YzO28hGJaweOzoeV+CN88Uw+mfyrr3DyFACf4VfMy9yfHC+FCxVoqGCV5CN
-pTArPXeCL0KuKwPugGFPeL/d5fslVnXQxXG7y3fehR2mqfUOl++mRlv9do3D
-5bukL6Lugo/T5XtiOSB58wOny3eivsE4FfT3/77Dz/TbX0NfxHfrbvN+eyr1
-JYKNQwdUNjX6Ir5NAn+9boT6EkPuyR52bBr6Ib49Jzk1vgvoh/gOzQm1SLqp
-jxzgnVNodaXYP/H9kyMsPjUB+ya+1W46u5yJ/RHfwVNjYDTRfiQQ3hTtKL7i
-i7kU7mWNNkZ//AzmMmhIH8nKV/lhLgf/ibSrQ5HPYq4A2UK1v3aSciHEphd3
-6bX+6KsIqt7cfuRH1nM4r4SJkC5mXT0y8R1c6dbc+Asy8V2v+PaNn5Oex/kS
-SBX3Cs0aZOI7YJbHn+5AJr5jrLzv2z9BJr5P917fFNNG+2UwLskGmhlnKQdC
-xWDmB3fvU44C4alTS+YC2n8cfD28lKj1wH0hvhdFo/zRFcrJ0NeW0m+IpD4E
-YOPPdujO0n1JA4+GkPmRt+h+iKDr9fa3x1pwH4hvdkNMx/wd+v7FUDM5sZcZ
-i/0T305vAVPSjP0T38evrQrfs2D/xPeNy+wVZxb2S3xrOHz1LQPtLx8Ob+Uu
-HokMwHwffL564Pzto4GYS0A9+7LUOh+EuRSMTq0XbNmAuQySjIc8VftDMJdD
-a+6Jq5LWjZgroJadwBB0hyIXwvu1KS+0ngx7zMR34+83Fw7yNuE82e8vXxxI
-6EAmvmfW4geD5pCJ7zs98lsVYVycL4E8q6XxfAYy8X2QucUgLUMmvu/v2G0S
-lSMT308wOU+8B3L+Ablyk+k=
+1:eJxtkw1Q03UYgAezGWN8RBQfIrgjBI7K42vYNHwdMJbY4vtcGxuMj+bdOhlW
+TAkCHJxoSiDcYSXUrFQqp3h6nOdgB3hwAnZeeYI6EDBaRFIXo+k26le+v3Xe
+9b/73+6559673fv8X65yT3apO4PBUJD3n9/GHRkPbYu2bQx8slnWUd8VyoEw
+Iuzx8PF7iBwFYwm8NREplOMgeqKinXuE8mZ4b0+m38dWyskwWHnR9PuBR8gC
+4HZ7qZbBjpwG8Us3oj5PdCCLwKLOta6qnMgZoIzWtH5iXkUWw9WKjUneIgb8
+i7WZ0M653Plgixvgvwd31hf3m1Ld0efAvWq9T5OUiT4Pvnu95uT0/jXo80H7
+VUTVuhNPod8FwnOXtmuMLPQSWOqMjP/m1lr0Uvh1qismwPI0ehlMt9zcovrF
+A70csqXB4vNTbPQKKHskM+T1eyIXQnpR5fvMw5zHDEUw21A+a9jmhfNKyBIu
+ZbTfQTYpYeXwodG4Am+cL4bhP5K37xxEhhL4M/y6eYHjg/OlYKkUDRS8gmwq
+hRnp6aN8EXJtGXD7jDvCe+2u3i+xqoLOjdpdvfPOvjo2udbh6t2gs9Vt1Thc
+vUt6ImrP+jhdvceXApI3PnC6eica6k2TQX/91zv8ZK/9DexFeje/Zt5tT6W9
+RLB+YK/KpsZepPeYwN+gH6K9xJB7rIsdm4Z9SG/PCU617zz2Ib1Dc0Itkk7a
+Iwd4pxVafSnun/T+wREWn5qA+ya91W56u5yJ+yO9gydHwDRG9yOB8IZoR/FV
+X/RSuJ81rIv+9Bn0MqhPH8rKV/mhl4P/eNq1gchn0StANl/lr52gXAix6cUd
+Bq0/9iqCyre3Hvye9RzOK2E8pINZW4dMegdXuDXqfkImvesUF976Mel5nC+B
+VHG30KxBJr0DZnj8qTZk0jvGyrvS+hky6X2i+8aGmBa6XwbjoqyvkXGKciCU
+92d+dO9nylEgPH580VxA9x8H3w4uJmo98F5I7wXRMH94mXIy9LSk9BojaQ8B
+2PgzbfpT9F7SwKM+ZG7oHXofIuh4s/XdkSa8B9KbXR/TNneXfv9iqJ4Y38mM
+xf2T3k5vAVPSiPsnvY9cXxF+YMH9k943L7OXnVm4X9Jbw+Grbxvp/vLhwGbu
+wsHIAPS74MuVvWfuHApELwH1zMtS61wQeimYnFov2LQOvQySTPs9VbtD0Muh
+OffoNUnzevQKqGEnMASdociF8GFNygvNx8IeM+mt++3W/D7eBpwn9/31i30J
+bcik9/RqfH/QLDLpfbdLfrs8jIvzJZBntejOZCCT3vuYm4zSMmTS+4m+/9P7
+ie+BPH8DsniTrw==
      "], {{{}, {}, {}, 
        {RGBColor[1, 0.85, 0.85], EdgeForm[None], 
         GraphicsGroupBox[
@@ -389,7 +401,7 @@ lSMT308wOU+8B3L+Ablyk+k=
   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
   Axes->{False, False},
   AxesLabel->{None, None},
-  AxesOrigin->{6., 0},
+  AxesOrigin->{2.5, 0},
   BaseStyle->20,
   DisplayFunction->Identity,
   Frame->{{True, True}, {True, True}},
@@ -419,6 +431,151 @@ lSMT308wOU+8B3L+Ablyk+k=
      Scaled[0.05]}},
   Ticks->{Automatic, Automatic}]], "Output",
  CellLabel->"Out[7]="]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Visualize the orbit", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"KerrEqProgradePlot", "[", 
+   RowBox[{"a_", ",", "p_", ",", "e_", ",", "\[Chi]max_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", "rmax", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}], "=", 
+      RowBox[{"KerrGeoOrbit", "[", 
+       RowBox[{"a", ",", "p", ",", "e", ",", "0", ",", 
+        RowBox[{"Result", "\[Rule]", "\"\<Interpolant\>\""}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"rmax", "=", 
+      RowBox[{
+       RowBox[{"r", "[", "\[Pi]", "]"}], "+", "1"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Show", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"ParametricPlot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"r", "[", "\[Chi]", "]"}], 
+            RowBox[{"Cos", "[", 
+             RowBox[{"\[Phi]", "[", "\[Chi]", "]"}], "]"}]}], ",", 
+           RowBox[{
+            RowBox[{"r", "[", "\[Chi]", "]"}], 
+            RowBox[{"Sin", "[", 
+             RowBox[{"\[Phi]", "[", "\[Chi]", "]"}], "]"}]}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Chi]", ",", "0", ",", "\[Chi]max"}], "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "600"}], ",", 
+         RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", 
+         RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+         RowBox[{"Axes", "\[Rule]", "False"}], ",", 
+         RowBox[{"PlotRange", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", "rmax"}], ",", "rmax"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", "rmax"}], ",", "rmax"}], "}"}]}], "}"}]}]}], "]"}],
+        ",", "\[IndentingNewLine]", 
+       RowBox[{"Graphics", "[", 
+        RowBox[{"Disk", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}], ",", 
+          RowBox[{"1", "+", 
+           RowBox[{"Sqrt", "[", 
+            RowBox[{"1", "-", 
+             SuperscriptBox["a", "2"]}], "]"}]}]}], "]"}], "]"}]}], 
+      "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellLabel->"In[8]:="],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"KerrEqProgradePlot", "[", 
+    RowBox[{"a", ",", "p", ",", "e", ",", "\[Chi]max"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "0.9"}], "}"}], ",", "0", ",", "0.99"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"p", ",", "7.1"}], "}"}], ",", "1", ",", "30"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"e", ",", "0.7"}], "}"}], ",", "0", ",", "0.9"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Chi]max", ",", 
+       RowBox[{"10", "\[Pi]"}]}], "}"}], ",", 
+     RowBox[{"2", "\[Pi]"}], ",", 
+     RowBox[{"20", "\[Pi]"}]}], "}"}]}], "]"}]], "Input",
+ CellLabel->"In[9]:="],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 0.9, $CellContext`e$$ = 
+    0.7, $CellContext`p$$ = 7.1, $CellContext`\[Chi]max$$ = 10 Pi, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`a$$], 0.9}, 0, 0.99}, {{
+       Hold[$CellContext`p$$], 7.1}, 1, 30}, {{
+       Hold[$CellContext`e$$], 0.7}, 0, 0.9}, {{
+       Hold[$CellContext`\[Chi]max$$], 10 Pi}, 2 Pi, 20 Pi}}, 
+    Typeset`size$$ = {600., {296., 300.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`a$69933$$ = 0, $CellContext`p$69934$$ = 
+    0, $CellContext`e$69935$$ = 0, $CellContext`\[Chi]max$69936$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 0.9, $CellContext`e$$ = 
+        0.7, $CellContext`p$$ = 7.1, $CellContext`\[Chi]max$$ = 10 Pi}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`a$$, $CellContext`a$69933$$, 0], 
+        Hold[$CellContext`p$$, $CellContext`p$69934$$, 0], 
+        Hold[$CellContext`e$$, $CellContext`e$69935$$, 0], 
+        Hold[$CellContext`\[Chi]max$$, $CellContext`\[Chi]max$69936$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      Temp`KerrEqProgradePlot[$CellContext`a$$, $CellContext`p$$, \
+$CellContext`e$$, $CellContext`\[Chi]max$$], 
+      "Specifications" :> {{{$CellContext`a$$, 0.9}, 0, 
+         0.99}, {{$CellContext`p$$, 7.1}, 1, 30}, {{$CellContext`e$$, 0.7}, 0,
+          0.9}, {{$CellContext`\[Chi]max$$, 10 Pi}, 2 Pi, 20 Pi}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{645., {382., 387.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellLabel->"Out[9]="]
 }, Open  ]]
 }, Open  ]],
 
