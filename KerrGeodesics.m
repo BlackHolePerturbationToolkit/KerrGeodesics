@@ -204,7 +204,7 @@ KerrGeoISSO[a_,\[Theta]inc_]:=Module[{rmb},
 
 (*For equatorial orbits the ISSO is the ISCO*)
 KerrGeoISSO[a_,0]:= KerrGeoISCO[a]
-KerrGeoISSO[a_,\[Pi]]:= KerrGeoISCO[a,orbit->"Retrograde"]
+KerrGeoISSO[a_,\[Pi]]:= KerrGeoISCO[a,Orbit->"Retrograde"]
 
 (* The separatrix occurs when Subscript[\[CapitalOmega], r]=0 which implies Subscript[r, 2]=Subscript[r, 3]. Search for the value of p at which this occurs which must be outside the p of the ISSO*)
 KerrGeoSeparatrix[a_,e_,\[Theta]inc_]:=Module[{},

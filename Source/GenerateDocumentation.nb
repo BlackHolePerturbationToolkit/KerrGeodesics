@@ -48,15 +48,15 @@ Documentation/English/Index/_0.cfs\"\>",
 Documentation/English/Index/segments_3\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Index/segments.gen\"\>", ",", 
-    RowBox[{"\[LeftSkeleton]", "9", "\[RightSkeleton]"}], 
+    RowBox[{"\[LeftSkeleton]", "8", "\[RightSkeleton]"}], 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/SpellIndex/_2.cfs\"\>", 
+Documentation/English/ReferencePages/Symbols/KerrGeoStableOrbitQ.nb\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/SpellIndex/segments_7\"\>", 
+Documentation/English/SpellIndex/_0.cfs\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/SpellIndex/segments.gen\"\>", 
+Documentation/English/SpellIndex/segments_3\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Tutorials/KerrGeodesics.nb\"\>"}], "}"}],
+Documentation/English/SpellIndex/segments.gen\"\>"}], "}"}],
   Short[#, 10]& ]], "Output"]
 }, Open  ]],
 
@@ -120,12 +120,21 @@ Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"KerrEqProgradePlot\"\>", ",", "\<\"n\"\>", 
-     ",", "\<\"PlotSpherical\"\>", ",", "\<\"result\"\>", ",", "\<\"rmb\"\>", 
-     ",", "\<\"rms\"\>", ",", "\<\"rph\"\>"}], "}"}]}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"a$30169\"\>", ",", "\<\"a$30169$$\"\>", 
+     ",", "\<\"a$$\"\>", ",", "\<\"BitDepth\"\>", ",", "\<\"e\"\>", 
+     ",", "\<\"e$30171\"\>", ",", "\<\"e$30171$$\"\>", ",", "\<\"e$$\"\>", 
+     ",", "\<\"KerrEqProgradePlot\"\>", ",", "\<\"n\"\>", ",", "\<\"p\"\>", 
+     ",", "\<\"PlotSpherical\"\>", ",", "\<\"p$30170\"\>", 
+     ",", "\<\"p$30170$$\"\>", ",", "\<\"p$$\"\>", ",", "\<\"result\"\>", 
+     ",", "\<\"rmb\"\>", ",", "\<\"rms\"\>", ",", "\<\"rph\"\>", 
+     ",", "\<\"\[Chi]max\"\>", ",", "\<\"\[Chi]max$30172\"\>", 
+     ",", "\<\"\[Chi]max$30172$$\"\>", ",", "\<\"\[Chi]max$$\"\>"}], "}"}]}],
   SequenceForm[
   "Removing ", {
-   "KerrEqProgradePlot", "n", "PlotSpherical", "result", "rmb", "rms", "rph"}],
+   "a", "a$30169", "a$30169$$", "a$$", "BitDepth", "e", "e$30171", 
+    "e$30171$$", "e$$", "KerrEqProgradePlot", "n", "p", "PlotSpherical", 
+    "p$30170", "p$30170$$", "p$$", "result", "rmb", "rms", "rph", "\[Chi]max",
+     "\[Chi]max$30172", "\[Chi]max$30172$$", "\[Chi]max$$"}],
   Editable->False]], "Print"],
 
 Cell[BoxData["\<\"Indexing Documentation\"\>"], "Print"],
