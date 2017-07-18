@@ -222,6 +222,52 @@ ru=ru/.Solve[e==(-ru^2+6 ru-8a ru^(1/2)+3a^2)/(ru^2-2ru+a^2),ru][[-1]];
 
 (*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)
 KerrGeoSeparatrix[1,e_,0]:=1+e
+
+(*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)
+KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_]:=Module[{M=1,a=a1,ELQ,F,G,B,\[CapitalDelta]1,x,\[ScriptCapitalE]0,\[ScriptCapitalL]0,Vr,Vt,V\[Phi],J,dtd\[Chi],d\[Phi]d\[Chi],\[ScriptCapitalN],\[Chi]k,dtd\[Chi]k,d\[Phi]d\[Chi]k,\[ScriptCapitalG]tn,\[ScriptCapitalG]\[Phi]n,t,\[Phi],\[Chi],\[Chi]k2,tk,rk,\[Phi]k,r\[Chi],\[CapitalDelta]\[Phi],Tr,tI,\[Phi]I,rI},
+
+ELQ=KerrGeoELQ[a,p,e,\[Theta]inc];
+{\[ScriptCapitalE]0,\[ScriptCapitalL]0}=ELQ[[1;;2]];
+(*If[\[Theta]inc\[Equal]\[Pi],a=-a];*)
+
+F = 1/p^3 (p^3-2M(3+e^2)p^2+M^2 (3+e^2)^2 p-4M a^2 (1-e^2)^2);
+G=2/p (-M p^2+(M^2 (3+e^2)-a^2)p-M a^2 (1+3e^2));
+B=(a^2-M p)^2;
+\[CapitalDelta]1=G^2-4F B;
+x=Sqrt[(-G-Sqrt[\[CapitalDelta]1])/(2 F)];
+
+Vr[\[Chi]_]:= x^2+a^2+2a x \[ScriptCapitalE]0-2M x^2/p (3+e Cos[\[Chi]]);
+Vt[\[Chi]_]:= a^2 \[ScriptCapitalE]0-(2a M x)/p (1+e Cos[\[Chi]])+(\[ScriptCapitalE]0 p^2)/(1+e Cos[\[Chi]])^2;
+V\[Phi][\[Chi]_]:= x+a \[ScriptCapitalE]0-(2M x)/p (1+e Cos[\[Chi]]);
+J[\[Chi]_]:= 1-(2M)/p (1+e Cos[\[Chi]])+a^2/p^2 (1+e Cos[\[Chi]])^2;
+
+dtd\[Chi][\[Chi]_]:=Vt[\[Chi]]/(J[\[Chi]] Vr[\[Chi]]^(1/2));
+d\[Phi]d\[Chi][\[Chi]_]:=V\[Phi][\[Chi]]/(J[\[Chi]] Vr[\[Chi]]^(1/2));
+
+\[ScriptCapitalN]=40;
+\[Chi]k=Table[( \[Pi] k)/(\[ScriptCapitalN]-1),{k,0,\[ScriptCapitalN]-1}];
+{dtd\[Chi]k,d\[Phi]d\[Chi]k}=Transpose[Table[{dtd\[Chi][\[Chi]k[[i]]],d\[Phi]d\[Chi][\[Chi]k[[i]]]},{i,1,Length[\[Chi]k]}]];
+
+\[ScriptCapitalG]tn=FourierDCT[N[dtd\[Chi]k],1];
+\[ScriptCapitalG]\[Phi]n=FourierDCT[N[d\[Phi]d\[Chi]k],1];
+
+t[\[Chi]_]:=Sqrt[2/(\[ScriptCapitalN]-1)](1/2 \[ScriptCapitalG]tn[[0+1]]\[Chi]+1/2 \[ScriptCapitalG]tn[[\[ScriptCapitalN]-1+1]] Sin[(\[ScriptCapitalN]-1)\[Chi]]/(\[ScriptCapitalN]-1)+Sum[1/n \[ScriptCapitalG]tn[[n+1]]Sin[n \[Chi]],{n,1,\[ScriptCapitalN]-2}]);
+\[Phi][\[Chi]_]:=Sqrt[2/(\[ScriptCapitalN]-1)](1/2 \[ScriptCapitalG]\[Phi]n[[0+1]]\[Chi]+1/2 \[ScriptCapitalG]\[Phi]n[[\[ScriptCapitalN]-1+1]] Sin[(\[ScriptCapitalN]-1)\[Chi]]/(\[ScriptCapitalN]-1)+Sum[1/n \[ScriptCapitalG]\[Phi]n[[n+1]]Sin[n \[Chi]],{n,1,\[ScriptCapitalN]-2}]);
+
+\[Chi]k2=Table[(2\[Pi] k)/\[ScriptCapitalN],{k,0,\[ScriptCapitalN]}];
+r\[Chi][\[Chi]_]=p/(1+e Cos[\[Chi]]);
+\[CapitalDelta]\[Phi] = \[Phi][2\[Pi]];
+Tr = t[2\[Pi]];
+
+{tk,rk,\[Phi]k}=Chop[Transpose[Table[{t[\[Chi]]-Tr/(2\[Pi]) \[Chi],r\[Chi][\[Chi]],\[Phi][\[Chi]]-\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi]}/.\[Chi] -> \[Chi]k2[[i]],{i,1,Length[\[Chi]k2]}]]];
+
+tI = Interpolation[Transpose[{\[Chi]k2,tk}],PeriodicInterpolation->True];
+rI = Interpolation[Transpose[{\[Chi]k2,rk}],PeriodicInterpolation->True];
+\[Phi]I = Interpolation[Transpose[{\[Chi]k2,\[Phi]k}],PeriodicInterpolation->True];
+
+{Function[\[Chi],Tr/(2\[Pi]) \[Chi]+tI[\[Chi]]], Function[\[Chi],rI[\[Chi]]] , Function[\[Chi],\[Pi]/2], Function[\[Chi],\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi] +\[Phi]I[\[Chi]]]}
+
+]
 	
 End[];
 
