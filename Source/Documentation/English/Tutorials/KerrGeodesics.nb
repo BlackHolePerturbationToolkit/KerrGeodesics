@@ -206,95 +206,103 @@ Cell[CellGroupData[{
 Cell["Visualize the orbit", "Subsection"],
 
 Cell[BoxData[
- RowBox[{"Block", "[", 
+ RowBox[{
   RowBox[{
-   RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
-   RowBox[{
+   RowBox[{"KerrEqProgradePlot", "[", 
+    RowBox[{"a_", ",", "p_", ",", "e_", ",", "\[Chi]max_"}], "]"}], ":=", 
+   RowBox[{"Block", "[", 
     RowBox[{
-     RowBox[{"KerrEqProgradePlot", "[", 
-      RowBox[{"a_", ",", "p_", ",", "e_", ",", "\[Chi]max_"}], "]"}], ":=", 
-     RowBox[{"Block", "[", 
+     RowBox[{"{", "rmax", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
       RowBox[{
-       RowBox[{"{", "rmax", "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}], "=", 
+       RowBox[{"KerrGeoOrbit", "[", 
+        RowBox[{"a", ",", "p", ",", "e", ",", "0", ",", 
+         RowBox[{"Result", "\[Rule]", "\"\<Interpolant\>\""}]}], "]"}]}], ";",
+       "\[IndentingNewLine]", 
+      RowBox[{"rmax", "=", 
        RowBox[{
-        RowBox[{
-         RowBox[{"{", 
-          RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}], "=", 
-         RowBox[{"KerrGeoOrbit", "[", 
-          RowBox[{"a", ",", "p", ",", "e", ",", "0", ",", 
-           RowBox[{"Result", "\[Rule]", "\"\<Interpolant\>\""}]}], "]"}]}], 
-        ";", "\[IndentingNewLine]", 
-        RowBox[{"rmax", "=", 
+        RowBox[{"r", "[", "\[Pi]", "]"}], "+", "1"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Show", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"ParametricPlot", "[", 
          RowBox[{
-          RowBox[{"r", "[", "\[Pi]", "]"}], "+", "1"}]}], ";", 
-        "\[IndentingNewLine]", 
-        RowBox[{"Show", "[", "\[IndentingNewLine]", 
-         RowBox[{
-          RowBox[{"ParametricPlot", "[", 
+          RowBox[{"{", 
            RowBox[{
-            RowBox[{"{", 
-             RowBox[{
-              RowBox[{
-               RowBox[{"r", "[", "\[Chi]", "]"}], 
-               RowBox[{"Cos", "[", 
-                RowBox[{"\[Phi]", "[", "\[Chi]", "]"}], "]"}]}], ",", 
-              RowBox[{
-               RowBox[{"r", "[", "\[Chi]", "]"}], 
-               RowBox[{"Sin", "[", 
-                RowBox[{"\[Phi]", "[", "\[Chi]", "]"}], "]"}]}]}], "}"}], ",", 
-            RowBox[{"{", 
-             RowBox[{"\[Chi]", ",", "0", ",", "\[Chi]max"}], "}"}], ",", 
-            RowBox[{"ImageSize", "\[Rule]", "600"}], ",", 
-            RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", 
-            RowBox[{"Frame", "\[Rule]", "True"}], ",", 
-            RowBox[{"Axes", "\[Rule]", "False"}], ",", 
-            RowBox[{"PlotRange", "\[Rule]", 
-             RowBox[{"{", 
-              RowBox[{
-               RowBox[{"{", 
-                RowBox[{
-                 RowBox[{"-", "rmax"}], ",", "rmax"}], "}"}], ",", 
-               RowBox[{"{", 
-                RowBox[{
-                 RowBox[{"-", "rmax"}], ",", "rmax"}], "}"}]}], "}"}]}]}], 
-           "]"}], ",", "\[IndentingNewLine]", 
-          RowBox[{"Graphics", "[", 
-           RowBox[{"Disk", "[", 
+            RowBox[{
+             RowBox[{"r", "[", "\[Chi]", "]"}], 
+             RowBox[{"Cos", "[", 
+              RowBox[{"\[Phi]", "[", "\[Chi]", "]"}], "]"}]}], ",", 
+            RowBox[{
+             RowBox[{"r", "[", "\[Chi]", "]"}], 
+             RowBox[{"Sin", "[", 
+              RowBox[{"\[Phi]", "[", "\[Chi]", "]"}], "]"}]}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"\[Chi]", ",", "0", ",", "\[Chi]max"}], "}"}], ",", 
+          RowBox[{"ImageSize", "\[Rule]", "600"}], ",", 
+          RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", 
+          RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+          RowBox[{"Axes", "\[Rule]", "False"}], ",", 
+          RowBox[{"PlotRange", "\[Rule]", 
+           RowBox[{"{", 
             RowBox[{
              RowBox[{"{", 
-              RowBox[{"0", ",", "0"}], "}"}], ",", 
-             RowBox[{"1", "+", 
-              RowBox[{"Sqrt", "[", 
-               RowBox[{"1", "-", 
-                SuperscriptBox["a", "2"]}], "]"}]}]}], "]"}], "]"}]}], 
-         "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
-    ";", "\[IndentingNewLine]", 
-    RowBox[{"Manipulate", "[", 
+              RowBox[{
+               RowBox[{"-", "rmax"}], ",", "rmax"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "rmax"}], ",", "rmax"}], "}"}]}], "}"}]}]}], 
+         "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Graphics", "[", 
+         RowBox[{"Disk", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0"}], "}"}], ",", 
+           RowBox[{"1", "+", 
+            RowBox[{"Sqrt", "[", 
+             RowBox[{"1", "-", 
+              SuperscriptBox["a", "2"]}], "]"}]}]}], "]"}], "]"}]}], 
+       "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"KerrEqProgradePlot", "[", 
+  RowBox[{"0.9", ",", "4", ",", "0.7", ",", 
+   RowBox[{"10", "\[Pi]"}]}], "]"}]], "Input"],
+
+Cell["\<\
+Use the following command to Manipulate the orbital parameters\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"(*", "\[IndentingNewLine]", 
+  RowBox[{"Manipulate", "[", 
+   RowBox[{
+    RowBox[{"KerrEqProgradePlot", "[", 
+     RowBox[{"a", ",", "p", ",", "e", ",", "\[Chi]max"}], "]"}], ",", 
+    RowBox[{"{", 
      RowBox[{
-      RowBox[{"KerrEqProgradePlot", "[", 
-       RowBox[{"a", ",", "p", ",", "e", ",", "\[Chi]max"}], "]"}], ",", 
       RowBox[{"{", 
-       RowBox[{
-        RowBox[{"{", 
-         RowBox[{"a", ",", "0.9"}], "}"}], ",", "0", ",", "0.99"}], "}"}], 
-      ",", 
+       RowBox[{"a", ",", "0.9"}], "}"}], ",", "0", ",", "0.99"}], "}"}], ",", 
+    
+    RowBox[{"{", 
+     RowBox[{
       RowBox[{"{", 
-       RowBox[{
-        RowBox[{"{", 
-         RowBox[{"p", ",", "7.1"}], "}"}], ",", "1", ",", "30"}], "}"}], ",", 
-      
+       RowBox[{"p", ",", "7.1"}], "}"}], ",", "1", ",", "30"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
       RowBox[{"{", 
-       RowBox[{
-        RowBox[{"{", 
-         RowBox[{"e", ",", "0.7"}], "}"}], ",", "0", ",", "0.9"}], "}"}], ",", 
+       RowBox[{"e", ",", "0.7"}], "}"}], ",", "0", ",", "0.9"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
       RowBox[{"{", 
-       RowBox[{
-        RowBox[{"{", 
-         RowBox[{"\[Chi]max", ",", 
-          RowBox[{"10", "\[Pi]"}]}], "}"}], ",", 
-        RowBox[{"2", "\[Pi]"}], ",", 
-        RowBox[{"20", "\[Pi]"}]}], "}"}]}], "]"}]}]}], "\[IndentingNewLine]", 
-  "]"}]], "Input"]
+       RowBox[{"\[Chi]max", ",", 
+        RowBox[{"10", "\[Pi]"}]}], "}"}], ",", 
+      RowBox[{"2", "\[Pi]"}], ",", 
+      RowBox[{"20", "\[Pi]"}]}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+  "*)"}]], "Input"]
 }, Open  ]]
 }, Open  ]]
 },
