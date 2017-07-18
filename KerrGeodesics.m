@@ -10,6 +10,7 @@ KerrGeoPhotonSphereRadius::usage = "KerrGeoPhotonSphereRadius[a,\[Theta]inc] com
 KerrGeoIBSO::usage = "KerrGeoIBSO[a,\[Theta]inc] computes the radius of the inner-most bound spherical orbit (IBSO)"
 KerrGeoISSO::usage = "KerrGeoISSO[a,\[Theta]inc] computes the radius of the inner-most stable spherical orbit (ISSO)"
 KerrGeoSeparatrix::usage = "KerrGeoSepatrix[a,e,\[Theta]inc] calculates the value of p at the sepatrix between stable and plunging/scattered orbits*)"
+KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,\[Theta]inc] calculates the orbital trajectory in Boyer-Lindquist coordinates"
 
 
 Begin["`Private`"];
@@ -148,11 +149,11 @@ KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?Numer
 ];
 
 
-Options[KerrGeoISCO] = {"orbit" -> "Prograde"}
+Options[KerrGeoISCO] = {"Orbit" -> "Prograde"}
 KerrGeoISCO[a_,OptionsPattern[]]:=Module[{Z1,Z2},
 	Z1=1+(1-a^2)^(1/3) ((1+a)^(1/3)+(1-a)^(1/3));
 	Z2=(3a^2+Z1^2)^(1/2);
-	If[OptionValue["orbit"]=="Prograde",
+	If[OptionValue["Orbit"]=="Prograde",
 		Return[3+Z2-((3-Z1)(3+Z1+2Z2))^(1/2)],
 		Return[3+Z2+((3-Z1)(3+Z1+2Z2))^(1/2)]
 	];
@@ -215,26 +216,31 @@ KerrGeoSeparatrix[0,e_,\[Theta]inc_]:= 6+2e;
 
 (*Separatrix for equatorial Kerr from Levin and Periz-Giz arXiv:1108.1819*)
 KerrGeoSeparatrix[a1_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0]:= Module[{ru,a=a1},
-If[\[Theta]inc==\[Pi], a = -a];
-ru=ru/.Solve[e==(-ru^2+6 ru-8a ru^(1/2)+3a^2)/(ru^2-2ru+a^2),ru][[-1]];
-(4 ru (ru^(1/2)-a)^2)/(ru^2-2ru+a^2)
+	If[Mod[\[Theta]inc,2\[Pi]] == \[Pi], a = -a];
+	ru=ru/.Solve[e==(-ru^2+6 ru-8a ru^(1/2)+3a^2)/(ru^2-2ru+a^2),ru][[-1]];
+	(4 ru (ru^(1/2)-a)^2)/(ru^2-2ru+a^2)
 ]
 
 (*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)
 KerrGeoSeparatrix[1,e_,0]:=1+e
 
 (*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)
-KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_]:=Module[{M=1,a=a1,ELQ,F,G,B,\[CapitalDelta]1,x,\[ScriptCapitalE]0,\[ScriptCapitalL]0,Vr,Vt,V\[Phi],J,dtd\[Chi],d\[Phi]d\[Chi],\[ScriptCapitalN],\[Chi]k,dtd\[Chi]k,d\[Phi]d\[Chi]k,\[ScriptCapitalG]tn,\[ScriptCapitalG]\[Phi]n,t,\[Phi],\[Chi],\[Chi]k2,tk,rk,\[Phi]k,r\[Chi],\[CapitalDelta]\[Phi],Tr,tI,\[Phi]I,rI},
+Options[KerrGeoOrbit] = {"Result" -> "Precision","MaxIterations"->10}
+KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0,OptionsPattern[]]:=Module[{M=1,a=a1,ELQ,freqs,F,G,B,\[CapitalDelta]1,x,\[ScriptCapitalE]0,\[ScriptCapitalL]0,Vr,Vt,V\[Phi],J,dtd\[Chi],d\[Phi]d\[Chi],\[ScriptCapitalN],\[Chi]k,dtd\[Chi]k,d\[Phi]d\[Chi]k,\[ScriptCapitalG]tn,\[ScriptCapitalG]\[Phi]n,t,\[Phi],\[Chi],\[Chi]k2,tk,rk,\[Phi]k,r\[Chi],\[CapitalDelta]\[Phi],Tr,tI,\[Phi]I,rI,\[CapitalDelta]\[ScriptCapitalN],estPrec,jmax},
+If[Precision[{a1,p,e,\[Theta]inc}]==Infinity, 
+	Print["Cannot get infinite precision orbit trajectory, will work to MachinePrecision. Specify specific precision values for input if that precision is sought"];
+	a=N[a];
+];
 
 ELQ=KerrGeoELQ[a,p,e,\[Theta]inc];
 {\[ScriptCapitalE]0,\[ScriptCapitalL]0}=ELQ[[1;;2]];
-(*If[\[Theta]inc\[Equal]\[Pi],a=-a];*)
+If[Mod[\[Theta]inc,2\[Pi]] == \[Pi], a = -a];
 
 F = 1/p^3 (p^3-2M(3+e^2)p^2+M^2 (3+e^2)^2 p-4M a^2 (1-e^2)^2);
 G=2/p (-M p^2+(M^2 (3+e^2)-a^2)p-M a^2 (1+3e^2));
 B=(a^2-M p)^2;
 \[CapitalDelta]1=G^2-4F B;
-x=Sqrt[(-G-Sqrt[\[CapitalDelta]1])/(2 F)];
+x=Sqrt[(-G-Sign[\[ScriptCapitalL]0]Sqrt[\[CapitalDelta]1])/(2 F)];
 
 Vr[\[Chi]_]:= x^2+a^2+2a x \[ScriptCapitalE]0-2M x^2/p (3+e Cos[\[Chi]]);
 Vt[\[Chi]_]:= a^2 \[ScriptCapitalE]0-(2a M x)/p (1+e Cos[\[Chi]])+(\[ScriptCapitalE]0 p^2)/(1+e Cos[\[Chi]])^2;
@@ -244,21 +250,47 @@ J[\[Chi]_]:= 1-(2M)/p (1+e Cos[\[Chi]])+a^2/p^2 (1+e Cos[\[Chi]])^2;
 dtd\[Chi][\[Chi]_]:=Vt[\[Chi]]/(J[\[Chi]] Vr[\[Chi]]^(1/2));
 d\[Phi]d\[Chi][\[Chi]_]:=V\[Phi][\[Chi]]/(J[\[Chi]] Vr[\[Chi]]^(1/2));
 
-\[ScriptCapitalN]=40;
-\[Chi]k=Table[( \[Pi] k)/(\[ScriptCapitalN]-1),{k,0,\[ScriptCapitalN]-1}];
+(*Initial guesses that should give MachinePrecision. As e\[Rule]1, \[ScriptCapitalN] diverges.*)
+Which[e<=0.2, \[ScriptCapitalN]=10, e<=0.5, \[ScriptCapitalN]=20, e<=0.7, \[ScriptCapitalN]=30, e<=0.9, \[ScriptCapitalN]=45, e<=0.95,\[ScriptCapitalN]=70, e>0.95, \[ScriptCapitalN]=100];
+
+jmax=OptionValue["MaxIterations"];
+freqs=KerrGeoFreqs[a,p,e,\[Theta]inc];
+Table[
+\[Chi]k=Table[( \[Pi] k)/(\[ScriptCapitalN]-1),{k, 0, \[ScriptCapitalN]-1}];
 {dtd\[Chi]k,d\[Phi]d\[Chi]k}=Transpose[Table[{dtd\[Chi][\[Chi]k[[i]]],d\[Phi]d\[Chi][\[Chi]k[[i]]]},{i,1,Length[\[Chi]k]}]];
 
-\[ScriptCapitalG]tn=FourierDCT[N[dtd\[Chi]k],1];
-\[ScriptCapitalG]\[Phi]n=FourierDCT[N[d\[Phi]d\[Chi]k],1];
+\[ScriptCapitalG]tn=FourierDCT[N[dtd\[Chi]k,Precision[{a,p,e}]],1];
+\[ScriptCapitalG]\[Phi]n=FourierDCT[N[d\[Phi]d\[Chi]k,Precision[{a,p,e}]],1];
 
 t[\[Chi]_]:=Sqrt[2/(\[ScriptCapitalN]-1)](1/2 \[ScriptCapitalG]tn[[0+1]]\[Chi]+1/2 \[ScriptCapitalG]tn[[\[ScriptCapitalN]-1+1]] Sin[(\[ScriptCapitalN]-1)\[Chi]]/(\[ScriptCapitalN]-1)+Sum[1/n \[ScriptCapitalG]tn[[n+1]]Sin[n \[Chi]],{n,1,\[ScriptCapitalN]-2}]);
 \[Phi][\[Chi]_]:=Sqrt[2/(\[ScriptCapitalN]-1)](1/2 \[ScriptCapitalG]\[Phi]n[[0+1]]\[Chi]+1/2 \[ScriptCapitalG]\[Phi]n[[\[ScriptCapitalN]-1+1]] Sin[(\[ScriptCapitalN]-1)\[Chi]]/(\[ScriptCapitalN]-1)+Sum[1/n \[ScriptCapitalG]\[Phi]n[[n+1]]Sin[n \[Chi]],{n,1,\[ScriptCapitalN]-2}]);
 
-\[Chi]k2=Table[(2\[Pi] k)/\[ScriptCapitalN],{k,0,\[ScriptCapitalN]}];
-r\[Chi][\[Chi]_]=p/(1+e Cos[\[Chi]]);
 \[CapitalDelta]\[Phi] = \[Phi][2\[Pi]];
 Tr = t[2\[Pi]];
 
+estPrec=Abs[MantissaExponent[1-2\[Pi]/freqs[[1]]/Tr]][[2]];
+
+\[CapitalDelta]\[ScriptCapitalN]=3 Abs[Precision[freqs[[1]]] - estPrec];(*FIXME, make a better e-dependent estimate here*)
+
+(*Print["Freq precision: ", Precision[freqs[[1]]]];
+Print["Estimated precision in result: ", estPrec];*)
+If[Precision[{a,p,e,\[Theta]inc}] == MachinePrecision || \[CapitalDelta]\[ScriptCapitalN]<3,Return[Null,Table]];
+\[ScriptCapitalN]=Ceiling[\[ScriptCapitalN]+\[CapitalDelta]\[ScriptCapitalN]];
+If[j==jmax,Print["Failed to reach desired precision within ", jmax, " iterations"]];
+,
+{j,1,jmax}
+];
+
+
+
+r\[Chi][\[Chi]_]=p/(1+e Cos[\[Chi]]);
+
+If[OptionValue["Result"]=="Precision",
+	Return[{Function[\[Chi],t[\[Chi]]],Function[\[Chi],r\[Chi][\[Chi]]],Function[\[Chi],\[Pi]/2],Function[\[Chi],\[Phi][\[Chi]]]}];
+];
+
+(*Else return Interpolation functions which are much faster to evaluate. Useful for plotting orbits*)
+\[Chi]k2=Table[(2\[Pi] k)/\[ScriptCapitalN],{k,0,\[ScriptCapitalN]}];
 {tk,rk,\[Phi]k}=Chop[Transpose[Table[{t[\[Chi]]-Tr/(2\[Pi]) \[Chi],r\[Chi][\[Chi]],\[Phi][\[Chi]]-\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi]}/.\[Chi] -> \[Chi]k2[[i]],{i,1,Length[\[Chi]k2]}]]];
 
 tI = Interpolation[Transpose[{\[Chi]k2,tk}],PeriodicInterpolation->True];
@@ -267,6 +299,10 @@ rI = Interpolation[Transpose[{\[Chi]k2,rk}],PeriodicInterpolation->True];
 
 {Function[\[Chi],Tr/(2\[Pi]) \[Chi]+tI[\[Chi]]], Function[\[Chi],rI[\[Chi]]] , Function[\[Chi],\[Pi]/2], Function[\[Chi],\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi] +\[Phi]I[\[Chi]]]}
 
+]
+
+KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]!=0,OptionsPattern[]]:=Module[{},
+	Print["Orbit trajectory not yet implemented for non-equatorial orbits"];
 ]
 	
 End[];

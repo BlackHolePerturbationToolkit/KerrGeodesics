@@ -57,8 +57,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["Photon sphere, IBSO and ISSO", "Subsection",
- CellChangeTimes->{{3.70902186412431*^9, 3.7090219013276176`*^9}}],
+Cell["Location of the photon sphere, IBSO and ISSO", "Subsection"],
 
 Cell["Radius of the photon sphere for a=M", "Text",
  CellChangeTimes->{{3.7090219624161787`*^9, 3.709021966689995*^9}}],
@@ -196,6 +195,97 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{"PlotSpherical", "[", "0.9", "]"}]], "Input",
  CellChangeTimes->{{3.709021906480988*^9, 3.7090219095624733`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Visualize the orbit", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"KerrEqProgradePlot", "[", 
+   RowBox[{"a_", ",", "p_", ",", "e_", ",", "\[Chi]max_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", "rmax", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}], "=", 
+      RowBox[{"KerrGeoOrbit", "[", 
+       RowBox[{"a", ",", "p", ",", "e", ",", "0", ",", 
+        RowBox[{"Result", "\[Rule]", "\"\<Interpolant\>\""}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"rmax", "=", 
+      RowBox[{
+       RowBox[{"r", "[", "\[Pi]", "]"}], "+", "1"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Show", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"ParametricPlot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"r", "[", "\[Chi]", "]"}], 
+            RowBox[{"Cos", "[", 
+             RowBox[{"\[Phi]", "[", "\[Chi]", "]"}], "]"}]}], ",", 
+           RowBox[{
+            RowBox[{"r", "[", "\[Chi]", "]"}], 
+            RowBox[{"Sin", "[", 
+             RowBox[{"\[Phi]", "[", "\[Chi]", "]"}], "]"}]}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Chi]", ",", "0", ",", "\[Chi]max"}], "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "600"}], ",", 
+         RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", 
+         RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+         RowBox[{"Axes", "\[Rule]", "False"}], ",", 
+         RowBox[{"PlotRange", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", "rmax"}], ",", "rmax"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", "rmax"}], ",", "rmax"}], "}"}]}], "}"}]}]}], "]"}],
+        ",", "\[IndentingNewLine]", 
+       RowBox[{"Graphics", "[", 
+        RowBox[{"Disk", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}], ",", 
+          RowBox[{"1", "+", 
+           RowBox[{"Sqrt", "[", 
+            RowBox[{"1", "-", 
+             SuperscriptBox["a", "2"]}], "]"}]}]}], "]"}], "]"}]}], 
+      "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"KerrEqProgradePlot", "[", 
+    RowBox[{"a", ",", "p", ",", "e", ",", "\[Chi]max"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "0.9"}], "}"}], ",", "0", ",", "0.99"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"p", ",", "7.1"}], "}"}], ",", "1", ",", "30"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"e", ",", "0.7"}], "}"}], ",", "0", ",", "0.9"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Chi]max", ",", 
+       RowBox[{"10", "\[Pi]"}]}], "}"}], ",", 
+     RowBox[{"2", "\[Pi]"}], ",", 
+     RowBox[{"20", "\[Pi]"}]}], "}"}]}], "]"}]], "Input"]
 }, Open  ]]
 }, Open  ]]
 },
