@@ -286,7 +286,7 @@ If[j==jmax,Print["Failed to reach desired precision within ", jmax, " iterations
 r\[Chi][\[Chi]_]=p/(1+e Cos[\[Chi]]);
 
 If[OptionValue["Result"]=="Precision",
-	Return[{Function[\[Chi],t[\[Chi]]],Function[\[Chi],r\[Chi][\[Chi]]],Function[\[Chi],\[Pi]/2],Function[\[Chi],\[Phi][\[Chi]]]}];
+	Return[{t,r\[Chi],Function[\[Chi],\[Pi]/2],\[Phi]}];
 ];
 
 (*Else return Interpolation functions which are much faster to evaluate. Useful for plotting orbits*)
