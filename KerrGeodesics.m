@@ -11,6 +11,7 @@ KerrGeoIBSO::usage = "KerrGeoIBSO[a,\[Theta]inc] computes the radius of the inne
 KerrGeoISSO::usage = "KerrGeoISSO[a,\[Theta]inc] computes the radius of the inner-most stable spherical orbit (ISSO)"
 KerrGeoSeparatrix::usage = "KerrGeoSepatrix[a,e,\[Theta]inc] calculates the value of p at the sepatrix between stable and plunging/scattered orbits*)"
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,\[Theta]inc] calculates the orbital trajectory in Boyer-Lindquist coordinates"
+KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] function containing information relating to a specific Kerr orbit"
 
 
 Begin["`Private`"];
@@ -90,6 +91,7 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2,
   ]
 ]
 
+
 (*Calculate the frequencies [\[Gamma]r,\[Gamma]\[Theta],\[Gamma]\[Phi]] with respect to Mino time as per Fujita and Hikida [Class.Quantum Grav.26 (2009) 135002]*)	  
 KerrGeoFreqs[a_/;Abs[a]<1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{M=1,En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[Gamma]r,\[Gamma]\[Theta],\[Gamma]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp,\[Theta]min,\[Theta]inc=\[Theta]inc1},
 
@@ -136,6 +138,8 @@ hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 KerrGeoFreqs[a_/;a==1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{},
 	Print["Frequency calculation not yet implemented for a=M (but the equations are in the appendix of Fujita and Hikida so please implement them!)"];
 ]
+
+
 
 (*Orbit stability check, Schwarzschild case*)
 KerrGeoStableOrbitQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{},
@@ -224,8 +228,11 @@ KerrGeoSeparatrix[a1_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0]:= Module[{ru,a
 (*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)
 KerrGeoSeparatrix[1,e_,0]:=1+e
 
+
+
+
 (*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)
-Options[KerrGeoOrbit] = {"Result" -> "Precision","MaxIterations"->10}
+Options[KerrGeoOrbit] = {"MaxIterations"->10}
 KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0,OptionsPattern[]]:=Module[{M=1,a=a1,ELQ,freqs,F,G,B,\[CapitalDelta]1,x,\[ScriptCapitalE]0,\[ScriptCapitalL]0,Vr,Vt,V\[Phi],J,dtd\[Chi],d\[Phi]d\[Chi],\[ScriptCapitalN],\[Chi]k,dtd\[Chi]k,d\[Phi]d\[Chi]k,\[ScriptCapitalG]tn,\[ScriptCapitalG]\[Phi]n,t,\[Phi],\[Chi],\[Chi]k2,tk,rk,\[Phi]k,r\[Chi],\[CapitalDelta]\[Phi],Tr,tI,\[Phi]I,rI,\[CapitalDelta]\[ScriptCapitalN],estPrec,jmax},
 If[Precision[{a1,p,e,\[Theta]inc}]==Infinity, 
 	Print["Cannot get infinite precision orbit trajectory, will work to MachinePrecision. Specify specific precision values for input if that precision is sought"];
@@ -281,29 +288,56 @@ If[j==jmax,Print["Failed to reach desired precision within ", jmax, " iterations
 {j,1,jmax}
 ];
 
-
-
 r\[Chi][\[Chi]_]=p/(1+e Cos[\[Chi]]);
 
-If[OptionValue["Result"]=="Precision",
-	Return[{t,r\[Chi],Function[\[Chi],\[Pi]/2],\[Phi]}];
-];
-
-(*Else return Interpolation functions which are much faster to evaluate. Useful for plotting orbits*)
-\[Chi]k2=Table[(2\[Pi] k)/\[ScriptCapitalN],{k,0,\[ScriptCapitalN]}];
-{tk,rk,\[Phi]k}=Chop[Transpose[Table[{t[\[Chi]]-Tr/(2\[Pi]) \[Chi],r\[Chi][\[Chi]],\[Phi][\[Chi]]-\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi]}/.\[Chi] -> \[Chi]k2[[i]],{i,1,Length[\[Chi]k2]}]]];
-
-tI = Interpolation[Transpose[{\[Chi]k2,tk}],PeriodicInterpolation->True];
-rI = Interpolation[Transpose[{\[Chi]k2,rk}],PeriodicInterpolation->True];
-\[Phi]I = Interpolation[Transpose[{\[Chi]k2,\[Phi]k}],PeriodicInterpolation->True];
-
-{Function[\[Chi],Tr/(2\[Pi]) \[Chi]+tI[\[Chi]]], Function[\[Chi],rI[\[Chi]]] , Function[\[Chi],\[Pi]/2], Function[\[Chi],\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi] +\[Phi]I[\[Chi]]]}
+Return[KerrGeoOrbitFunction[a,p,e,\[Theta]inc,{\[ScriptCapitalN],ELQ,freqs,t,r\[Chi],\[Pi]/2&,\[Phi]}]];
 
 ]
 
 KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]!=0,OptionsPattern[]]:=Module[{},
 	Print["Orbit trajectory not yet implemented for non-equatorial orbits"];
 ]
+
+
+Format[KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]]:=KerrGeoOrbitFunction[a,p,e,\[Theta]inc,"<<>>"];
+
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}][\[Chi]_?NumericQ] := {t[\[Chi]],r[\[Chi]],\[Theta][\[Chi]],\[Phi][\[Chi]]}
+
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["Energy"]:=ELQ[[1]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["AngMom"]:=ELQ[[2]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["CarterConst"]:=ELQ[[3]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["ELQ"]:=ELQ
+
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["Freqs"]:=freqs
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalOmega]r"]:=freqs[[1]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalOmega]\[Theta]"]:=freqs[[2]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalOmega]\[Phi]"]:=freqs[[3]]
+
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalUpsilon]r"]:=freqs[[1]]freqs[[4]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalUpsilon]\[Theta]"]:=freqs[[2]]freqs[[4]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalUpsilon]\[Phi]"]:=freqs[[3]]freqs[[4]]
+
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["Interpolation"]:=Module[{\[Chi],\[Chi]k,tk,rk,\[Phi]k,tI,rI,\[Phi]I,Tr,\[CapitalDelta]\[Phi]},
+
+Tr = 2\[Pi]/freqs[[1]];
+\[CapitalDelta]\[Phi] = freqs[[3]] Tr;
+
+\[Chi]k=Table[(2\[Pi] k)/\[ScriptCapitalN],{k,0,\[ScriptCapitalN]}];
+{tk,rk,\[Phi]k}=Chop[Transpose[Table[{t[\[Chi]]-Tr/(2\[Pi]) \[Chi],r[\[Chi]],\[Phi][\[Chi]]-\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi]}/.\[Chi]-> \[Chi]k[[i]],{i,1,Length[\[Chi]k]}]]];
+
+tI = Interpolation[Transpose[{\[Chi]k,tk}],PeriodicInterpolation->True];
+rI = Interpolation[Transpose[{\[Chi]k,rk}],PeriodicInterpolation->True];
+\[Phi]I = Interpolation[Transpose[{\[Chi]k,\[Phi]k}],PeriodicInterpolation->True];
+
+t[\[Chi]_]:=Tr/(2\[Pi])\[Chi]+tI[\[Chi]];
+r[\[Chi]_]:=rI[\[Chi]];
+\[Phi][\[Chi]_]:=\[CapitalDelta]\[Phi]/(2\[Pi])\[Chi] +\[Phi]I[\[Chi]];
+
+{t, r , \[Theta], \[Phi]}
+
+]
+
+
 	
 End[];
 
