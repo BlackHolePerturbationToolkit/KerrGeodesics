@@ -233,7 +233,7 @@ KerrGeoSeparatrix[1,e_,0]:=1+e
 
 (*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)
 Options[KerrGeoOrbit] = {"MaxIterations"->10}
-KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0,OptionsPattern[]]:=Module[{M=1,a=a1,ELQ,freqs,F,G,B,\[CapitalDelta]1,x,\[ScriptCapitalE]0,\[ScriptCapitalL]0,Vr,Vt,V\[Phi],J,dtd\[Chi],d\[Phi]d\[Chi],\[ScriptCapitalN],\[Chi]k,dtd\[Chi]k,d\[Phi]d\[Chi]k,\[ScriptCapitalG]tn,\[ScriptCapitalG]\[Phi]n,t,\[Phi],\[Chi],\[Chi]k2,tk,rk,\[Phi]k,r\[Chi],\[CapitalDelta]\[Phi],Tr,tI,\[Phi]I,rI,\[CapitalDelta]\[ScriptCapitalN],estPrec,jmax},
+KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0,OptionsPattern[]]:=Module[{M=1,a=a1,ELQ,freqs,F,G,B,\[CapitalDelta]1,x,\[ScriptCapitalE]0,\[ScriptCapitalL]0,Vr,Vt,V\[Phi],J,dtd\[Chi],d\[Phi]d\[Chi],\[ScriptCapitalN],\[Chi]k,dtd\[Chi]k,d\[Phi]d\[Chi]k,\[ScriptCapitalG]tn,\[ScriptCapitalG]\[Phi]n,t,\[Phi],\[Chi],\[Chi]k2,tk,rk,\[Phi]k,r\[Chi],\[CapitalDelta]\[Phi],Tr,tI,\[Phi]I,rI,\[CapitalDelta]\[ScriptCapitalN],estPrec,jmax,d\[Tau]d\[Chi],u,ut,ur,u\[Theta],u\[Phi],drd\[Chi],xp},
 If[Precision[{a1,p,e,\[Theta]inc}]==Infinity, 
 	Print["Cannot get infinite precision orbit trajectory, will work to MachinePrecision. Specify specific precision values for input if that precision is sought"];
 	a=N[a];
@@ -256,6 +256,11 @@ J[\[Chi]_]:= 1-(2M)/p (1+e Cos[\[Chi]])+a^2/p^2 (1+e Cos[\[Chi]])^2;
 
 dtd\[Chi][\[Chi]_]:=Vt[\[Chi]]/(J[\[Chi]] Vr[\[Chi]]^(1/2));
 d\[Phi]d\[Chi][\[Chi]_]:=V\[Phi][\[Chi]]/(J[\[Chi]] Vr[\[Chi]]^(1/2));
+
+
+
+d\[Tau]d\[Chi][\[Chi]_]:=p^2/((1+e Cos[\[Chi]])^2 Sqrt[a^2+2 a \[ScriptCapitalE]0 x+x^2-(2 M x^2 (3+e Cos[\[Chi]]))/p]);
+
 
 (*Initial guesses that should give MachinePrecision. As e\[Rule]1, \[ScriptCapitalN] diverges.*)
 Which[e<=0.2, \[ScriptCapitalN]=10, e<=0.5, \[ScriptCapitalN]=20, e<=0.7, \[ScriptCapitalN]=30, e<=0.9, \[ScriptCapitalN]=45, e<=0.95,\[ScriptCapitalN]=70, e>0.95, \[ScriptCapitalN]=100];
@@ -288,9 +293,21 @@ If[j==jmax,Print["Failed to reach desired precision within ", jmax, " iterations
 {j,1,jmax}
 ];
 
-r\[Chi][\[Chi]_]=p/(1+e Cos[\[Chi]]);
 
-Return[KerrGeoOrbitFunction[a,p,e,\[Theta]inc,{\[ScriptCapitalN],ELQ,freqs,t,r\[Chi],\[Pi]/2&,\[Phi]}]];
+r\[Chi][\[Chi]_]=p/(1+e Cos[\[Chi]]);
+drd\[Chi][\[Chi]_]:=(e p Sin[\[Chi]])/(1+e Cos[\[Chi]])^2;
+
+xp={t,r\[Chi],\[Pi]/2&,\[Phi]};
+
+ut[\[Chi]_]:=dtd\[Chi][\[Chi]]/d\[Tau]d\[Chi][\[Chi]];
+ur[\[Chi]_]:=drd\[Chi][\[Chi]]/d\[Tau]d\[Chi][\[Chi]];
+u\[Theta][\[Chi]_]:=0;
+u\[Phi][\[Chi]_]:=d\[Phi]d\[Chi][\[Chi]]/d\[Tau]d\[Chi][\[Chi]];
+
+u={ut,ur,u\[Theta],u\[Phi]};
+
+
+KerrGeoOrbitFunction[a,p,e,\[Theta]inc,{\[ScriptCapitalN],ELQ,freqs,xp,u}]
 
 ]
 
@@ -299,31 +316,35 @@ KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]!=0,OptionsPattern[]]
 ]
 
 
-Format[KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]]:=KerrGeoOrbitFunction[a,p,e,\[Theta]inc,"<<>>"];
+Format[KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]]:=KerrGeoOrbitFunction[a,p,e,\[Theta]inc,"<<>>"];
 
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}][\[Chi]_?NumericQ] := {t[\[Chi]],r[\[Chi]],\[Theta][\[Chi]],\[Phi][\[Chi]]}
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}][\[Chi]_?NumericQ] := Through[x[\[Chi]]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["4Velocity"][\[Chi]_?NumericQ] := Through[u[\[Chi]]]
 
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["Energy"]:=ELQ[[1]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["AngMom"]:=ELQ[[2]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["CarterConst"]:=ELQ[[3]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["ELQ"]:=ELQ
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["Energy"]:=ELQ[[1]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["AngMom"]:=ELQ[[2]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["CarterConst"]:=ELQ[[3]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["ELQ"]:=ELQ
 
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["Freqs"]:=freqs
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalOmega]r"]:=freqs[[1]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalOmega]\[Theta]"]:=freqs[[2]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalOmega]\[Phi]"]:=freqs[[3]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["Freqs"]:=freqs
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalOmega]r"]:=freqs[[1]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalOmega]\[Theta]"]:=freqs[[2]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalOmega]\[Phi]"]:=freqs[[3]]
 
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalUpsilon]r"]:=freqs[[1]]freqs[[4]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalUpsilon]\[Theta]"]:=freqs[[2]]freqs[[4]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["\[CapitalUpsilon]\[Phi]"]:=freqs[[3]]freqs[[4]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalUpsilon]r"]:=freqs[[1]]freqs[[4]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalUpsilon]\[Theta]"]:=freqs[[2]]freqs[[4]]
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalUpsilon]\[Phi]"]:=freqs[[3]]freqs[[4]]
 
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,t_,r_,\[Theta]_,\[Phi]_}]["Interpolation"]:=Module[{\[Chi],\[Chi]k,tk,rk,\[Phi]k,tI,rI,\[Phi]I,Tr,\[CapitalDelta]\[Phi]},
+KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["Interpolation"]:=Module[{\[Chi],\[Chi]k,tk,rk,\[Phi]k,tI,rI,\[Phi]I,Tr,\[CapitalDelta]\[Phi]},
 
 Tr = 2\[Pi]/freqs[[1]];
 \[CapitalDelta]\[Phi] = freqs[[3]] Tr;
 
 \[Chi]k=Table[(2\[Pi] k)/\[ScriptCapitalN],{k,0,\[ScriptCapitalN]}];
-{tk,rk,\[Phi]k}=Chop[Transpose[Table[{t[\[Chi]]-Tr/(2\[Pi]) \[Chi],r[\[Chi]],\[Phi][\[Chi]]-\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi]}/.\[Chi]-> \[Chi]k[[i]],{i,1,Length[\[Chi]k]}]]];
+{tk,rk,\[Phi]k}=Transpose[Table[{t[\[Chi]]-Tr/(2\[Pi]) \[Chi],r[\[Chi]],\[Phi][\[Chi]]-\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi]}/.\[Chi]-> \[Chi]k[[i]],{i,1,Length[\[Chi]k]-1}]];
+AppendTo[tk,tk[[1]]]; (*Fix to stop PeriodicInterpolation complaining about the end points not being equal*)
+AppendTo[rk,rk[[1]]];
+AppendTo[\[Phi]k,\[Phi]k[[1]]];
 
 tI = Interpolation[Transpose[{\[Chi]k,tk}],PeriodicInterpolation->True];
 rI = Interpolation[Transpose[{\[Chi]k,rk}],PeriodicInterpolation->True];

@@ -212,15 +212,23 @@ Cell[BoxData[
     RowBox[{"a_", ",", "p_", ",", "e_", ",", "\[Chi]max_"}], "]"}], ":=", 
    RowBox[{"Block", "[", 
     RowBox[{
-     RowBox[{"{", "rmax", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "orbit", ",", "rmax", ",", "t", ",", "r", ",", "\[Theta]", ",", 
+       "\[Phi]"}], "}"}], ",", "\[IndentingNewLine]", 
      RowBox[{
+      RowBox[{"orbit", "=", 
+       RowBox[{"KerrGeoOrbit", "[", 
+        RowBox[{"a", ",", "p", ",", "e", ",", "0"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
       RowBox[{
        RowBox[{"{", 
         RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}], "=", 
-       RowBox[{"KerrGeoOrbit", "[", 
-        RowBox[{"a", ",", "p", ",", "e", ",", "0", ",", 
-         RowBox[{"Result", "\[Rule]", "\"\<Interpolant\>\""}]}], "]"}]}], ";",
-       "\[IndentingNewLine]", 
+       RowBox[{"orbit", "[", "\"\<Interpolation\>\"", "]"}]}], ";", " ", 
+      RowBox[{"(*", 
+       RowBox[{
+       "The", " ", "interpolated", " ", "version", " ", "is", " ", "faster", 
+        " ", "to", " ", "evaluate"}], "*)"}], "\[IndentingNewLine]", 
       RowBox[{"rmax", "=", 
        RowBox[{
         RowBox[{"r", "[", "\[Pi]", "]"}], "+", "1"}]}], ";", 
