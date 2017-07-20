@@ -341,10 +341,12 @@ Tr = 2\[Pi]/freqs[[1]];
 \[CapitalDelta]\[Phi] = freqs[[3]] Tr;
 
 \[Chi]k=Table[(2\[Pi] k)/\[ScriptCapitalN],{k,0,\[ScriptCapitalN]}];
-{tk,rk,\[Phi]k}=Transpose[Table[{t[\[Chi]]-Tr/(2\[Pi]) \[Chi],r[\[Chi]],\[Phi][\[Chi]]-\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi]}/.\[Chi]-> \[Chi]k[[i]],{i,1,Length[\[Chi]k]-1}]];
+{tk,rk,\[Phi]k}=Transpose[Table[{x[[1]][\[Chi]]-Tr/(2\[Pi]) \[Chi], x[[2]][\[Chi]], x[[4]][\[Chi]]-\[CapitalDelta]\[Phi]/(2\[Pi]) \[Chi]}/.\[Chi]-> \[Chi]k[[i]],{i,1,Length[\[Chi]k]-1}]];
 AppendTo[tk,tk[[1]]]; (*Fix to stop PeriodicInterpolation complaining about the end points not being equal*)
 AppendTo[rk,rk[[1]]];
 AppendTo[\[Phi]k,\[Phi]k[[1]]];
+
+
 
 tI = Interpolation[Transpose[{\[Chi]k,tk}],PeriodicInterpolation->True];
 rI = Interpolation[Transpose[{\[Chi]k,rk}],PeriodicInterpolation->True];
