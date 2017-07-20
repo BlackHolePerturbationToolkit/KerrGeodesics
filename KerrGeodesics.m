@@ -280,7 +280,7 @@ t[\[Chi]_]:=Sqrt[2/(\[ScriptCapitalN]-1)](1/2 \[ScriptCapitalG]tn[[0+1]]\[Chi]+1
 \[CapitalDelta]\[Phi] = \[Phi][2\[Pi]];
 Tr = t[2\[Pi]];
 
-estPrec=Abs[MantissaExponent[1-2\[Pi]/freqs[[1]]/Tr]][[2]];
+estPrec=Abs[MantissaExponent[Abs[1-2\[Pi]/freqs[[1]]/Tr]]][[2]];
 
 \[CapitalDelta]\[ScriptCapitalN]=3 Abs[Precision[freqs[[1]]] - estPrec];(*FIXME, make a better e-dependent estimate here*)
 
