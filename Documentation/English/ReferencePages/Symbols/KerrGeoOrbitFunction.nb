@@ -1,0 +1,79 @@
+Notebook[{
+Cell[" ", "SymbolColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"1f10be2f-a404-4c95-b3e9-c33844cbf7e3"],
+
+Cell[TextData[{
+ ButtonBox["KerrGeodesics",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["KerrGeodesics",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["KerrGeoOrbitFunction",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbitFunction"]
+}], "LinkTrail",ExpressionUUID->"ed635af1-e498-4b49-8e4f-654a6f899643"],
+
+Cell[CellGroupData[{
+
+Cell["KerrGeoOrbitFunction", \
+"ObjectName",ExpressionUUID->"ae63f497-16f4-4528-b8cf-c3ac49f22b94"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["KerrGeoOrbitFunction",
+        BaseStyle->"Link",
+        ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbitFunction"], "[", 
+       StyleBox[
+        RowBox[{"a", ",", "p", ",", "e", ",", "\[Theta]inc", ",", "data"}], 
+        "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "c4f3a079-3e3b-4610-8e93-a652e945bb44"],
+     "\[LineSeparator]function containing information relating to a specific \
+Kerr orbit"
+    }],ExpressionUUID->"36babc44-b3ec-4595-ad22-b75778eb3484"]}
+  }]], "Usage",ExpressionUUID->"7b512c6c-8674-4b35-8501-fa32e7ef4c20"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"da407fa9-e5f6-44ed-aabb-ba628d9521b9"],
+
+Cell[BoxData[""],ExpressionUUID->"80273244-696d-436d-9f81-3a90327ecf79"]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"KerrGeoOrbitFunction",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "KerrGeodesics`", 
+    "keywords" -> {
+     "KerrGeoOrbitFunction", "KERRGEOORBITFUNCTION", "kerrgeoorbitfunction"}, 
+    "index" -> True, "label" -> "KerrGeodesics/KerrGeodesics Symbol", 
+    "language" -> "en", "paclet" -> "KerrGeodesics", "status" -> "None", 
+    "summary" -> 
+    "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] function containing \
+information relating to a specific Kerr orbit", 
+    "synonyms" -> {
+     "KerrGeoOrbitFunction", "KERRGEOORBITFUNCTION", "kerrgeoorbitfunction"}, 
+    "title" -> "KerrGeoOrbitFunction", "windowTitle" -> 
+    "KerrGeoOrbitFunction", "type" -> "Symbol", "uri" -> 
+    "KerrGeodesics/ref/KerrGeoOrbitFunction"}, "SearchTextTranslated" -> "", 
+  "LinkTrails" -> ""},
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 18, \
+2017)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+
