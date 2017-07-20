@@ -1,6 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
- CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"3bf7f388-79e9-459f-b944-4ca80b3dcf16"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -14,10 +15,11 @@ Cell[TextData[{
  ButtonBox["KerrGeoELQ",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoELQ"]
-}], "LinkTrail"],
+}], "LinkTrail",ExpressionUUID->"80aa160e-d4f2-4b3c-9247-73e5d58e3c66"],
 
 Cell[BoxData[GridBox[{
-   {Cell["KERRGEODESICS PACLET SYMBOL", "PacletNameCell"], Cell[TextData[{
+   {Cell["KERRGEODESICS PACLET SYMBOL", "PacletNameCell",ExpressionUUID->
+     "fd87df38-edb6-4b7e-87f8-dae2f17bbe43"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
@@ -25,7 +27,8 @@ Cell[BoxData[GridBox[{
        "paclet:KerrGeodesics/tutorial/KerrGeodesics"]},
        Appearance->None,
        MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0}],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "b72982fd-20dd-4601-b121-a9d361e685cb"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -35,7 +38,8 @@ Cell[BoxData[GridBox[{
        "paclet:KerrGeodesics/ref/KerrGeoFreqs"]},
        Appearance->None,
        MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0}],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "298192ef-6d6a-48ad-8b1a-0ee1fc5732c7"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -45,15 +49,17 @@ Cell[BoxData[GridBox[{
        "paclet:KerrGeodesics/guide/KerrGeodesics"]},
        Appearance->None,
        MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0}],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "2744d3bd-9475-4bab-a0f7-97090ae0e992"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar"]}
-  }]], "AnchorBarGrid"],
-
-Cell["KerrGeoELQ", "ObjectName"],
+    }], "AnchorBar",ExpressionUUID->"87c8e73b-5ae9-4193-95a6-60dfd26797ef"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"7ef803b4-115f-4518-8e59-2e3da0ac1e0a"],
 
 Cell[CellGroupData[{
+
+Cell["KerrGeoELQ", \
+"ObjectName",ExpressionUUID->"30defd5f-80c5-4fa9-8da1-8fd936884b29"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -64,11 +70,13 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:KerrGeodesics/ref/KerrGeoELQ"], "[", 
        StyleBox[
         RowBox[{"a", ",", " ", "p", ",", " ", "e", ",", " ", "\[Theta]inc"}], 
-        "TI"], "]"}]], "InlineFormula"],
+        "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "465dbb67-f98a-42cb-ae65-cc71bd3cc785"],
      "\[LineSeparator]returns the energy, z-component of the angular momentum \
 and the Carter constant"
-    }]]}
-  }]], "Usage"],
+    }],ExpressionUUID->"e8d60c47-cc24-4f30-8b9a-f3122f5e0e17"]}
+  }]], "Usage",ExpressionUUID->"0de467b1-a6a9-40c8-8ca7-c273d82e9e87"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -107,8 +115,8 @@ Cell["", "NotesSection",
               
               GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
                Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "Details and Options"}], "NotesSection"], 
-       Appearance -> {Automatic, None}, BaseStyle -> None, 
+             Spacer[24], Selectable -> False]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
        ButtonFunction :> (FrontEndExecute[{
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], All, ButtonCell], 
@@ -117,10 +125,11 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->0,
- "WholeCelGroupOpener" -> True],
+ "WholeCelGroupOpener" -> 
+ True,ExpressionUUID->"eceb1ccc-37ee-4d56-968c-48cadcb40a7f"],
 
-Cell["Computes the energy, angular momentum and Carter constant", "Notes"]
-}, Open  ]]
+Cell["Computes the energy, angular momentum and Carter constant", \
+"Notes",ExpressionUUID->"3ae03b4e-b280-4e9d-925a-6138a1f22d31"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -155,16 +164,18 @@ Cell["", "SeeAlsoSection",
               
               GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
                Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "See Also"}], "SeeAlsoSection"], BaseStyle -> 
-       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
-       "Preemptive", ButtonFunction :> (FrontEndExecute[{
+             Spacer[24], Selectable -> False]]], "See Also"}], 
+        "SeeAlsoSection"], BaseStyle -> None, Appearance -> {Automatic, None},
+        Evaluator -> None, Method -> "Preemptive", 
+       ButtonFunction :> (FrontEndExecute[{
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], All, ButtonCell], 
           FrontEndToken["OpenCloseGroup"], 
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
- CellFrameLabelMargins->0],
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"b8cf8300-2b1f-4172-9bc7-8993a73af57f"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -172,12 +183,13 @@ Cell[TextData[{
    ButtonBox["KerrGeoFreqs",
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFreqs"],
-   FontFamily->"Verdana"]], "InlineFormula"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "886c482d-1426-474e-af43-d75dfc08e68e"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
  " "
-}], "SeeAlso"]
+}], "SeeAlso",ExpressionUUID->"0846e121-c269-47c1-affc-2822ee4b351e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -213,8 +225,9 @@ Cell["", "TutorialsSection",
               
               GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
                Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "Tutorials"}], "TutorialsSection"], BaseStyle -> 
-       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+             Spacer[24], Selectable -> False]]], "Tutorials"}], 
+        "TutorialsSection"], BaseStyle -> None, 
+       Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
        "Preemptive", ButtonFunction :> (FrontEndExecute[{
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], All, ButtonCell], 
@@ -222,11 +235,14 @@ Cell["", "TutorialsSection",
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
- CellFrameLabelMargins->0],
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"1d04b509-fc09-4ed0-a359-0b4c7eed86fb"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
- ButtonData->"paclet:KerrGeodesics/tutorial/KerrGeodesics"]], "Tutorials"]
+ ButtonData->
+  "paclet:KerrGeodesics/tutorial/KerrGeodesics"]], \
+"Tutorials",ExpressionUUID->"6f8be1d4-f79f-4239-8ebd-cfeeaae78240"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -261,8 +277,9 @@ Cell["", "MoreAboutSection",
               
               GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
                Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "More About"}], "MoreAboutSection"], BaseStyle -> 
-       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+             Spacer[24], Selectable -> False]]], "More About"}], 
+        "MoreAboutSection"], BaseStyle -> None, 
+       Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
        "Preemptive", ButtonFunction :> (FrontEndExecute[{
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], All, ButtonCell], 
@@ -270,18 +287,21 @@ Cell["", "MoreAboutSection",
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
- CellFrameLabelMargins->0],
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"d4083247-ce00-4656-84ca-2c372375ff87"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
- ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"]], "MoreAbout"]
+ ButtonData->
+  "paclet:KerrGeodesics/guide/KerrGeodesics"]], \
+"MoreAbout",ExpressionUUID->"6a354172-ca93-47a1-b5c7-2e9780636fca"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell"],
+Cell[" ", "FooterCell",ExpressionUUID->"154ee4b4-1447-48ac-9423-3a406f1b3f7b"],
 
-Cell[BoxData[""]]
+Cell[BoxData[""],ExpressionUUID->"908c381a-587f-4284-a160-077cbdf54c2a"]
 }, Open  ]]
 },
 Saveable->False,
@@ -305,8 +325,8 @@ angular momentum and the Carter constant",
     "KerrGeodesics/ref/KerrGeoELQ"}, "SearchTextTranslated" -> "", 
   "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
-2016)",
+FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 18, \
+2017)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]

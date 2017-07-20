@@ -210,10 +210,7 @@ KerrGeoISSO[a_,\[Theta]inc_]:=Module[{rmb},
 KerrGeoISSO[a_,0]:= KerrGeoISCO[a]
 KerrGeoISSO[a_,\[Pi]]:= KerrGeoISCO[a,Orbit->"Retrograde"]
 
-(* The separatrix occurs when Subscript[\[CapitalOmega], r]=0 which implies Subscript[r, 2]=Subscript[r, 3]. Search for the value of p at which this occurs which must be outside the p of the ISSO*)
-KerrGeoSeparatrix[a_,e_,\[Theta]inc_]:=Module[{},
-	p/.FindRoot[KerrGeoRadialEqRoots[a,p,e,\[Theta]inc][[5]],{p,KerrGeoISSO[a,\[Theta]inc],20},Method->"Brent"]
-]
+
 
 (*Separatrix for Schwarzschild*)
 KerrGeoSeparatrix[0,e_,\[Theta]inc_]:= 6+2e;
@@ -223,6 +220,12 @@ KerrGeoSeparatrix[a1_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0]:= Module[{ru,a
 	If[Mod[\[Theta]inc,2\[Pi]] == \[Pi], a = -a];
 	ru=ru/.Solve[e==(-ru^2+6 ru-8a ru^(1/2)+3a^2)/(ru^2-2ru+a^2),ru][[-1]];
 	(4 ru (ru^(1/2)-a)^2)/(ru^2-2ru+a^2)
+]
+
+(* The separatrix occurs when Subscript[\[CapitalOmega], r]=0 which implies Subscript[r, 2]=Subscript[r, 3]. Search for the value of p at which this occurs which must be outside the p of the ISSO*)
+(*FIXME: values near the equatorial plane seem to be problematic*)
+KerrGeoSeparatrix[a_?NumericQ,e_?NumericQ,\[Theta]inc_?NumericQ]:=Module[{},
+	p/.FindRoot[KerrGeoRadialEqRoots[a,p,e,\[Theta]inc][[5]],{p,KerrGeoISSO[a,\[Theta]inc],20},Method->"Brent"]
 ]
 
 (*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)

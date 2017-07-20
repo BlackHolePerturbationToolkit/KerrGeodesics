@@ -3,7 +3,8 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"SetDirectory", "[", 
    RowBox[{"ParentDirectory", "[", 
-    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], ";"}]], "Input"],
+    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], 
+  ";"}]], "Input",ExpressionUUID->"7dc1f01a-58a2-4516-9d6b-de21e85431ea"],
 
 Cell[CellGroupData[{
 
@@ -16,10 +17,11 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"FindFile", "[", "\"\<KerrGeodesics`\>\"", "]"}], ",", 
        RowBox[{"-", "2"}]}], "]"}], ",", "\"\<Documentation\>\""}], "}"}], 
-   "]"}]}]], "Input"],
+   "]"}]}]], "Input",ExpressionUUID->"e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
 
 Cell[BoxData["\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation\"\>"], "Output"]
+Documentation\"\>"], \
+"Output",ExpressionUUID->"812cd981-3a4d-4766-a218-47cf70e191a1"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -35,7 +37,8 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"!", 
         RowBox[{"DirectoryQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], ",", 
-   "10"}], "]"}]], "Input"],
+   "10"}], "]"}]], \
+"Input",ExpressionUUID->"b346dc9a-48f4-468f-ad6a-8546c58f02fc"],
 
 Cell[BoxData[
  TagBox[
@@ -48,7 +51,7 @@ Documentation/English/Index/_0.cfs\"\>",
 Documentation/English/Index/segments_3\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Index/segments.gen\"\>", ",", 
-    RowBox[{"\[LeftSkeleton]", "9", "\[RightSkeleton]"}], 
+    RowBox[{"\[LeftSkeleton]", "10", "\[RightSkeleton]"}], 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/SpellIndex/_2.cfs\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
@@ -57,55 +60,58 @@ Documentation/English/SpellIndex/segments_7\"\>",
 Documentation/English/SpellIndex/segments.gen\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Tutorials/KerrGeodesics.nb\"\>"}], "}"}],
-  Short[#, 10]& ]], "Output"]
+  Short[#, 
+   10]& ]], "Output",ExpressionUUID->"4acc6f74-9dfe-4485-b9a8-ffedeb28ca33"]
 }, Open  ]],
 
 Cell[BoxData[
- RowBox[{"DeleteFile", "[", "docFiles", "]"}]], "Input"],
+ RowBox[{"DeleteFile", "[", "docFiles", 
+  "]"}]], "Input",ExpressionUUID->"3cd9bbce-a1fb-4da5-afc8-aa5b5b92ebb3"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input"],
+ RowBox[{"<<", 
+  "\"\<Source/GenerateDocumentation.m\>\""}]], \
+"Input",ExpressionUUID->"bf1d7897-7569-4360-9a3f-4a944c03b2ad"],
 
 Cell[CellGroupData[{
 
-Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print"],
+Cell[BoxData["\<\"Building symbol reference pages\"\>"], \
+"Print",ExpressionUUID->"629db621-510d-4d17-a65c-472c1dab0754"],
 
-Cell[BoxData["\<\"KerrGeoELQ\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoELQ\"\>"], \
+"Print",ExpressionUUID->"fe5babc4-0f1a-41cf-b190-ab62e4b95220"],
 
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"a$30169$$\"\>", ",", "\<\"a$$\"\>", 
-     ",", "\<\"e\"\>", ",", "\<\"e$30171$$\"\>", ",", "\<\"e$$\"\>", 
-     ",", "\<\"KerrEqProgradePlot\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"p$30170$$\"\>", ",", "\<\"p$$\"\>", ",", "\<\"\[Chi]max\"\>", 
-     ",", "\<\"\[Chi]max$30172$$\"\>", ",", "\<\"\[Chi]max$$\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "a$30169$$", "a$$", "e", "e$30171$$", "e$$", "KerrEqProgradePlot", 
-    "p", "p$30170$$", "p$$", "\[Chi]max", "\[Chi]max$30172$$", "\[Chi]max$$"}],
-  Editable->False]], "Print"],
+Cell[BoxData["\<\"KerrGeoFreqs\"\>"], \
+"Print",ExpressionUUID->"e3e2dd62-2648-49d7-8fbb-d3d923cfda92"],
 
-Cell[BoxData["\<\"KerrGeoFreqs\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoIBSO\"\>"], \
+"Print",ExpressionUUID->"da44fc44-c50f-463a-9639-2d41b9ec0725"],
 
-Cell[BoxData["\<\"KerrGeoIBSO\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoISCO\"\>"], \
+"Print",ExpressionUUID->"11b576bd-f8a2-4582-a715-5d4e52e893e7"],
 
-Cell[BoxData["\<\"KerrGeoISCO\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoISSO\"\>"], \
+"Print",ExpressionUUID->"ff5b2ada-3a2f-4fa0-8a03-66f140a2197d"],
 
-Cell[BoxData["\<\"KerrGeoISSO\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoOrbit\"\>"], \
+"Print",ExpressionUUID->"bcc9f46a-84f0-46e6-aedb-5e1c8e621fb7"],
 
-Cell[BoxData["\<\"KerrGeoOrbit\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoOrbitFunction\"\>"], \
+"Print",ExpressionUUID->"62f8a5c3-6e61-4c7f-b85a-74d3bea6c6ba"],
 
-Cell[BoxData["\<\"KerrGeoPhotonSphereRadius\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoPhotonSphereRadius\"\>"], \
+"Print",ExpressionUUID->"ac7eeaf8-8f43-417a-b94d-e35e05ef793a"],
 
-Cell[BoxData["\<\"KerrGeoSeparatrix\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoSeparatrix\"\>"], \
+"Print",ExpressionUUID->"5e8d12d6-af67-481e-ad07-625c1e738d4c"],
 
-Cell[BoxData["\<\"KerrGeoStableOrbitQ\"\>"], "Print"],
+Cell[BoxData["\<\"KerrGeoStableOrbitQ\"\>"], \
+"Print",ExpressionUUID->"50aaece5-8c13-4ebe-acd3-d4a3076d5518"],
 
-Cell[BoxData["\<\"Building guides\"\>"], "Print"],
+Cell[BoxData["\<\"Building guides\"\>"], \
+"Print",ExpressionUUID->"b6e8c684-f84e-4ba9-942f-a840cffd0c29"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -117,26 +123,39 @@ Documentation/English/Guides\"\>"}],
   "Creating ", 
    "/Users/niels/Library/Mathematica/Applications/KerrGeodesics/Documentation/\
 English/Guides"],
-  Editable->False]], "Print"],
+  Editable->
+   False]], "Print",ExpressionUUID->"d54e9378-c94c-48bc-a0d7-316d37523d5a"],
 
-Cell[BoxData["\<\"Building tutorials\"\>"], "Print"],
+Cell[BoxData["\<\"Building tutorials\"\>"], \
+"Print",ExpressionUUID->"6a36b299-d46c-42ab-9f85-4e9e06709ecf"],
 
 Cell[BoxData["\<\"Source/Documentation/English/Tutorials/KerrGeodesics.md\"\>\
-"], "Print"],
+"], "Print",ExpressionUUID->"b106ec40-8818-4742-a7de-b2bad2672cfc"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"n\"\>", ",", "\<\"PlotSpherical\"\>", ",", "\<\"result\"\>", 
-     ",", "\<\"rmb\"\>", ",", "\<\"rms\"\>", ",", "\<\"rph\"\>"}], "}"}]}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"e\"\>", ",", "\<\"KerrEqProgradePlot\"\>", 
+     ",", "\<\"n\"\>", ",", "\<\"orbit\"\>", ",", "\<\"Orbit\"\>", 
+     ",", "\<\"p\"\>", ",", "\<\"PlotSpherical\"\>", ",", "\<\"r\"\>", 
+     ",", "\<\"result\"\>", ",", "\<\"rmax\"\>", ",", "\<\"rmb\"\>", 
+     ",", "\<\"rms\"\>", ",", "\<\"rph\"\>", ",", "\<\"stable\"\>", 
+     ",", "\<\"t\"\>", ",", "\<\"\[Theta]\"\>", ",", "\<\"\[Phi]\"\>", 
+     ",", "\<\"\[Chi]\"\>", ",", "\<\"\[Chi]max\"\>"}], "}"}]}],
   SequenceForm[
-  "Removing ", {"n", "PlotSpherical", "result", "rmb", "rms", "rph"}],
-  Editable->False]], "Print"],
+  "Removing ", {
+   "a", "e", "KerrEqProgradePlot", "n", "orbit", "Orbit", "p", 
+    "PlotSpherical", "r", "result", "rmax", "rmb", "rms", "rph", "stable", 
+    "t", "\[Theta]", "\[Phi]", "\[Chi]", "\[Chi]max"}],
+  Editable->
+   False]], "Print",ExpressionUUID->"c8d58281-d57a-4964-9b92-2fe965c62356"],
 
-Cell[BoxData["\<\"Indexing Documentation\"\>"], "Print"],
+Cell[BoxData["\<\"Indexing Documentation\"\>"], \
+"Print",ExpressionUUID->"32bbfc00-6a9b-40eb-9ecf-1a35124f2aff"],
 
-Cell[BoxData["\<\"Done\"\>"], "Print"]
+Cell[BoxData["\<\"Done\"\>"], \
+"Print",ExpressionUUID->"ce98169f-1efb-4fae-872f-18e159646e01"]
 }, Open  ]]
 }, Open  ]]
 },
@@ -146,8 +165,8 @@ PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
-2016)",
+FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 18, \
+2017)",
 StyleDefinitions->"Default.nb"
 ]
 

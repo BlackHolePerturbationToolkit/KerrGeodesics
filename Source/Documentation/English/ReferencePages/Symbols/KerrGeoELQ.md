@@ -2,6 +2,9 @@
   "More Information" -> {
     "Computes the energy, angular momentum and Carter constant"
   },
+  "Examples" -> {
+  "Test"
+  },
   "Numerical Evaluation" -> {
     "KerrGeoELQ[0.9, 4, 0.5, Pi/3]"
     },
