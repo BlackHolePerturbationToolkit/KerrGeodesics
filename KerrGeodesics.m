@@ -147,9 +147,9 @@ KerrGeoStableOrbitQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{},
 ];
 
 (* The orbit is stable only if Subscript[\[CapitalOmega], r] is real*)
-KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?NumericQ]:=Module[{freqs},
-  freqs=KerrGeoFreqs[a,p,e,\[Theta]inc];
-  Element[freqs[[1]],Reals]
+KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?NumericQ]:=Module[{ps},
+  ps=KerrGeoSeparatrix[a,e,\[Theta]inc];
+  If[p<ps,False,True]
 ];
 
 
