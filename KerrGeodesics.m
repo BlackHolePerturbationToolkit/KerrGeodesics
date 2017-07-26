@@ -180,28 +180,34 @@ KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?Numer
 ];
 
 
-Options[KerrGeoISCO] = {"Orbit" -> "Prograde"}
-KerrGeoISCO[a_,OptionsPattern[]]:=Module[{Z1,Z2},
-	Z1=1+(1-a^2)^(1/3) ((1+a)^(1/3)+(1-a)^(1/3));
-	Z2=(3a^2+Z1^2)^(1/2);
-	If[OptionValue["Orbit"]=="Prograde",
-		Return[3+Z2-((3-Z1)(3+Z1+2Z2))^(1/2)],
-		Return[3+Z2+((3-Z1)(3+Z1+2Z2))^(1/2)]
+(*Kerr inner-most circular orbit ISCO*)
+(*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
+(*Eq. 2.21*)
+KerrGeoISCO[a_,\[Theta]inc1_/;Mod[\[Theta]inc1,\[Pi]]==0,M_:1]:=Module[{\[Theta]inc=\[Theta]inc1,Z1,Z2},
+    \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
+	Z1=1+(1-a^2/M^2)^(1/3) ((1+a/M)^(1/3)+(1-a/M)^(1/3));
+	Z2=(3a^2/M^2 + Z1^2)^(1/2);
+	If[\[Theta]inc==0,
+		Return[M(3+Z2-((3-Z1)(3+Z1+2Z2))^(1/2))],
+		Return[M(3+Z2+((3-Z1)(3+Z1+2Z2))^(1/2))]
 	];
 ];
+
+
+(*Photon sphere becomes light ring at r=3M in Schwarzschild*)
+KerrGeoPhotonSphereRadius[(0|0.0),\[Theta]inc_,M_:1]:=3M;
+
+(*Radius of photon sphere  for equatorial orbits*)
+(*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
+(*Eq. 2.18*)
+KerrGeoPhotonSphereRadius[a_,0,M_:1]:=2M(1+Cos[2/3 ArcCos[-a/M]])
+KerrGeoPhotonSphereRadius[a_,\[Pi],M_:1]:=2M(1+Cos[2/3 ArcCos[a/M]])
 
 (*Photon sphere radius is where the energy for a timelike orbit diverges*)
 KerrGeoPhotonSphereRadius[a_,\[Theta]inc_]:= Module[{res},
 	res=Sort[Re[p/.Solve[Simplify[Denominator[KerrGeoELQ[a,p,0,\[Theta]inc][[1]]^2]==0,Assumptions->{a>=0,p>0}],p]],Greater];
 	If[\[Theta]inc>=\[Pi]/2,Return[res[[1]]],Return[res[[2]]]]
 ]
-
-(*Photon sphere becomes light ring at r=3M in Schwarzschild*)
-KerrGeoPhotonSphereRadius[(0|0.0),\[Theta]inc_]:=3;
-
-(*Equatorial photon sphere results from Bardeen, Press, Teukolsky 1972*)
-KerrGeoPhotonSphereRadius[a_,0]:=2(1+Cos[2/3 ArcCos[-a]])
-KerrGeoPhotonSphereRadius[a_,\[Pi]]:=2(1+Cos[2/3 ArcCos[a]])
 
 (* The IBSO is where E=1. Use the fact that rph < r_ibso*)
 KerrGeoIBSO[a_,\[Theta]inc_]:= Module[{rph},
