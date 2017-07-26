@@ -17,31 +17,57 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] func
 Begin["`Private`"];
 
 (*ELQ calculation for Schwarzschild spacetime*)
+(*Cutler, Kennefick and Poisson, Phys. Rev. D, 50, 6, p3816, (1994)*)
+(*Eqs. 2.5 and 2.6*)
 KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{E0,L0,Q},
  E0=Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))];
  L0=p/Sqrt[-3-e^2+p];
  {E0,Cos[\[Theta]inc]L0,Sin[\[Theta]inc]^2 L0^2}
 ]
 
+(*Kerr circular equatorial - prograde*)
+(*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
+(*Eqs. 2.12 and 2.13*)
+KerrGeoELQ[a_,p_,0,0,M_:1]:=Module[{E0,L0,Q},
+E0 = (p^(3/2)-2M p^(1/2)+a M^(1/2))/(p^(3/4) (p^(3/2)-3M p^(1/2)+2a M^(1/2))^(1/2));
+L0 = (M^(1/2) (p^2-2a M^(1/2) p^(1/2)+a^2))/(p^(3/4) (p^(3/2)-3M p^(1/2)+2a M^(1/2))^(1/2));
+Q = 0;
+{E0,L0,Q}
+]
 
-(*This function computes the orbital constants of motion from W. Schmidt, arXiv:gr-qc/0202090 *)
+(*Kerr circular equatorial - retrograde*)
+(*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
+(*Eqs. 2.12 and 2.13*)
+KerrGeoELQ[a_,p_,0,\[Pi],M_:1]:=Module[{E0,L0,Q},
+E0 = (p^(3/2)-2M p^(1/2)-a M^(1/2))/(p^(3/4) (p^(3/2)-3M p^(1/2)-2a M^(1/2))^(1/2));
+L0 = (-M^(1/2)(p^2+2a M^(1/2) p^(1/2)+a^2))/(p^(3/4) (p^(3/2)-3M p^(1/2)-2a M^(1/2))^(1/2));
+Q = 0;
+{E0,L0,Q}
+]
+
+
+(*ELQ calculation for spherical polar orbits*)
+(*Stoghianidis & Tsoubelis, Gen. Rel. and Grav., Gen. Rel, Gravitation, vol. 19, No. 12, p. 1235 (1987)*)
+(*Eqs. 17-19*)
+KerrGeoELQ[a_,p_,0,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==\[Pi]/2,M_:1]:=Module[{r0,\[CapitalDelta]0,Z,En,Q},
+		r0 = p;
+		\[CapitalDelta]0 = r0^2-2M r0+a^2;
+		Z = r0^3 - 3M r0^2 + a^2 r0+M a^2;
+		En =Sqrt[(r0 \[CapitalDelta]0^2)/((r0^2+a^2)Z)];
+		Q = r0 (M r0^3+a^2 r0^2-3M a^2 r0 +a^4)/Z - a^2 En^2;
+		{En,0,Q}
+]
+
+(*ELQ calculation for generic orbits in Kerr*)
+(*W. Schmidt, Class. Quant. Grav. 19 (2002) 2743, arXiv:gr-qc/0202090*)
+(*Appendix B*)
 KerrGeoELQ[a_(*/;Abs[a]<=1*), p_, e_, \[Theta]inc1_?NumericQ] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z,\[Theta]min,\[Theta]inc=\[Theta]inc1},
 
 \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
 If[\[Theta]inc>\[Pi], \[Theta]inc=2\[Pi]-\[Theta]inc];
 If[\[Theta]inc <= \[Pi]/2 , \[Theta]min = \[Pi]/2-\[Theta]inc, \[Theta]min=-\[Pi]/2+\[Theta]inc];
 
-(*Equations for polar orbits from Stoghianidis & Tsoubelis GRG, vol. 19, No. 12, p. 1235 (1987)*)
-If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2,
-	If[e!=0,Print["Polar, non-spherical orbits not yet implemented"];Return[];,
-		r0 = p;
-		\[CapitalDelta]0 = r0^2-2M r0+a^2;
-		Z = r0^3-3M r0^2+a^2 r0+M a^2;
-		En =Sqrt[(r0 \[CapitalDelta]0^2)/((r0^2+a^2)Z)];
-		Q = r0 (M r0^3+a^2 r0^2-3M a^2 r0 +a^4)/Z - a^2 En^2;
-		Return[{En,0,Q}]
-	];
-];
+If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2 && e!=0,Print["Polar, non-spherical orbits not yet implemented"]; Return[]];
 
  rp = p/(1 + e);
  ra = p/(1 - e);
