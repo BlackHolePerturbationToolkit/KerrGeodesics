@@ -287,9 +287,11 @@ KerrGeoSeparatrix[1,e_,0]:=1+e
 
 
 
-(*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)
+(*Calculate the trajectory and properties of an eccentric, equatorial Kerr orbit*)
+(*Differential form of trajectory equations from Glampedakis and Kennefick, Phys. Rev. D66 (2002) 044002, arXiv:gr-qc/0203086*)
+(*Integration of trajectory equations using method from Hopper et al., Phys. Rev. D 92, 044048 (2015), arXiv:1506.04742*)
 Options[KerrGeoOrbit] = {"MaxIterations"->10}
-KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0,OptionsPattern[]]:=Module[{M=1,a=a1,ELQ,freqs,F,G,B,\[CapitalDelta]1,x,\[ScriptCapitalE]0,\[ScriptCapitalL]0,Vr,Vt,V\[Phi],J,dtd\[Chi],d\[Phi]d\[Chi],\[ScriptCapitalN],\[Chi]k,dtd\[Chi]k,d\[Phi]d\[Chi]k,\[ScriptCapitalG]tn,\[ScriptCapitalG]\[Phi]n,t,\[Phi],\[Chi],\[Chi]k2,tk,rk,\[Phi]k,r\[Chi],\[CapitalDelta]\[Phi],Tr,tI,\[Phi]I,rI,\[CapitalDelta]\[ScriptCapitalN],estPrec,jmax,d\[Tau]d\[Chi],u,ut,ur,u\[Theta],u\[Phi],drd\[Chi],xp},
+KerrGeoOrbit[a1_?NumericQ,p_?NumericQ,e_?NumericQ,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0,OptionsPattern[]]:=Module[{M=1,a=a1,ELQ,freqs,F,G,B,\[CapitalDelta]1,x,\[ScriptCapitalE]0,\[ScriptCapitalL]0,Vr,Vt,V\[Phi],J,dtd\[Chi],d\[Phi]d\[Chi],\[ScriptCapitalN],\[Chi]k,dtd\[Chi]k,d\[Phi]d\[Chi]k,\[ScriptCapitalG]tn,\[ScriptCapitalG]\[Phi]n,t,\[Phi],\[Chi],\[Chi]k2,tk,rk,\[Phi]k,r\[Chi],\[CapitalDelta]\[Phi],Tr,tI,\[Phi]I,rI,\[CapitalDelta]\[ScriptCapitalN],estPrec,jmax,d\[Tau]d\[Chi],u,ut,ur,u\[Theta],u\[Phi],drd\[Chi],xp},
 If[Precision[{a1,p,e,\[Theta]inc}]==Infinity, 
 	Print["Cannot get infinite precision orbit trajectory, will work to MachinePrecision. Specify specific precision values for input if that precision is sought"];
 	a=N[a];
