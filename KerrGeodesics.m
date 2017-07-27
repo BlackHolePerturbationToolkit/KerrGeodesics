@@ -19,9 +19,9 @@ Begin["`Private`"];
 (*ELQ calculation for Schwarzschild spacetime*)
 (*Cutler, Kennefick and Poisson, Phys. Rev. D, 50, 6, p3816, (1994)*)
 (*Eqs. 2.5 and 2.6*)
-KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{E0,L0,Q},
- E0=Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))];
- L0=p/Sqrt[-3-e^2+p];
+KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_,M_:1]:=Module[{E0,L0,Q},
+ E0=Sqrt[(-4 e^2+(p/M-2)^2)/(p/M(p/M+e^2-3))];
+ L0=p/Sqrt[p/M+e^2-3];
  {E0,Cos[\[Theta]inc]L0,Sin[\[Theta]inc]^2 L0^2}
 ]
 
