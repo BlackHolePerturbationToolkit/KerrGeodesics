@@ -220,7 +220,7 @@ KerrGeoPhotonSphereRadius[(0|0.0),\[Theta]inc_,M_:1]:=3M;
 (*Radius of photon sphere  for equatorial orbits*)
 (*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
 (*Eq. 2.18*)
-KerrGeoPhotonSphereRadius[a_,0,M_:1]:=2M(1+Cos[2/3 ArcCos[-a/M]])
+KerrGeoPhotonSphereRadius[a_,(0|0.),M_:1]:=2M(1+Cos[2/3 ArcCos[-a/M]])
 KerrGeoPhotonSphereRadius[a_,\[Pi],M_:1]:=2M(1+Cos[2/3 ArcCos[a/M]])
 
 (*Photon sphere radius is where the energy for a timelike orbit diverges*)
@@ -260,8 +260,8 @@ KerrGeoISSO[a_,\[Theta]inc_]:=Module[{rmb},
 ]
 
 (*For equatorial orbits the ISSO is the ISCO*)
-KerrGeoISSO[a_,0]:= KerrGeoISCO[a]
-KerrGeoISSO[a_,\[Pi]]:= KerrGeoISCO[a,Orbit->"Retrograde"]
+KerrGeoISSO[a_,0]:= KerrGeoISCO[a,0]
+KerrGeoISSO[a_,\[Pi]]:= KerrGeoISCO[a,\[Pi]]
 
 
 
