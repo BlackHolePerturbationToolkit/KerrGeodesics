@@ -25,7 +25,7 @@ KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_,M_:1]:=Module[{E0,L0,Q},
  {E0,Cos[\[Theta]inc]L0,Sin[\[Theta]inc]^2 L0^2}
 ]
 
-(*Kerr circular equatorial - prograde*)
+(*ELQ calculation for Kerr circular equatorial - prograde*)
 (*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
 (*Eqs. 2.12 and 2.13*)
 KerrGeoELQ[a_,p_,0,0,M_:1]:=Module[{E0,L0,Q},
@@ -35,7 +35,7 @@ Q = 0;
 {E0,L0,Q}
 ]
 
-(*Kerr circular equatorial - retrograde*)
+(*ELQ calculation for Kerr circular equatorial - retrograde*)
 (*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
 (*Eqs. 2.12 and 2.13*)
 KerrGeoELQ[a_,p_,0,\[Pi],M_:1]:=Module[{E0,L0,Q},
@@ -43,6 +43,26 @@ E0 = (p^(3/2)-2M p^(1/2)-a M^(1/2))/(p^(3/4) (p^(3/2)-3M p^(1/2)-2a M^(1/2))^(1/
 L0 = (-M^(1/2)(p^2+2a M^(1/2) p^(1/2)+a^2))/(p^(3/4) (p^(3/2)-3M p^(1/2)-2a M^(1/2))^(1/2));
 Q = 0;
 {E0,L0,Q}
+]
+
+(*ELQ calculation for Kerr eccentric equatorial*)
+(*Glampedakis and Kennefick, Phys. Rev. D66 (2002) 044002, arXiv:gr-qc/0203086*)
+(*Eq. 7 and appendix A*)
+KerrGeoELQ[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0,M_:1]:=Module[{a=a1,F,G,B,\[CapitalDelta]1,x,E0,L0,Q=0,sign=1},
+
+If[Mod[\[Theta]inc,2\[Pi]]==\[Pi], a=-a;sign=-1];
+
+F = 1/p^3 (p^3-2M(3+e^2)p^2+M^2 (3+e^2)^2 p-4M a^2 (1-e^2)^2);
+G=2/p (-M p^2+(M^2 (3+e^2)-a^2)p-M a^2 (1+3e^2));
+B=(a^2-M p)^2;
+\[CapitalDelta]1=G^2-4F B;
+x=Sqrt[(-G-sign Sqrt[\[CapitalDelta]1])/(2 F)];
+
+E0=(1-M/p (1-e^2)(1-x^2/p^2 (1-e^2)))^(1/2);
+L0=a E0 + x;
+
+{E0,sign L0,Q}
+
 ]
 
 
