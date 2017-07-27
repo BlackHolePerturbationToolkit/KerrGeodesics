@@ -19,30 +19,69 @@ Cell[CellGroupData[{
 
 Cell["Constants of motion and orbital frequencies", "Subsection",
  CellChangeTimes->{{3.7090219843089333`*^9, 
-  3.709021998381135*^9}},ExpressionUUID->"c98d57d2-0338-47a0-b431-\
-8a1656c7ea6e"],
+  3.709021998381135*^9}},ExpressionUUID->"18a102d1-7238-4900-8062-\
+23ae533772b7"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"KerrGeoELQ", "[", 
   RowBox[{"0.9`20", ",", "10", ",", "0.5`20", ",", 
    RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.709022091864291*^9, 
-  3.709022139984539*^9}},ExpressionUUID->"fd617fc5-5cd5-426b-a85f-\
-916983b01938"],
+  3.709022139984539*^9}},ExpressionUUID->"7d894a01-5f2c-4b5a-bf0a-\
+7a25a04493f9"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.96470744516135472423432642194011113221`18.851059476846583", ",", 
+   "1.81884192219757339848695633754530516623`18.139950788858965", ",", 
+   "9.9666815875696188798922610135884803416`17.835949770612423"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.709022100723956*^9, 3.7090221403610287`*^9}, 
+   3.709386898371593*^9, 3.709536120686747*^9, 3.7095523278957644`*^9, 
+   3.70955325598131*^9, 3.70955734087744*^9, 3.7095606292252407`*^9, 
+   3.709563719287019*^9, 3.709569290941719*^9, 3.7099688297809877`*^9, 
+   3.710142062298224*^9, 
+   3.710142385345519*^9},ExpressionUUID->"ea6f4242-410a-4255-a3a1-\
+64fce100b19a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"KerrGeoFreqs", "[", 
   RowBox[{"0.9`20", ",", "10", ",", "0.5`20", ",", 
    RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.709022111571838*^9, 
-  3.709022142380846*^9}},ExpressionUUID->"ef616b6c-435b-493d-98e8-\
-9ef73e9f363a"],
+  3.709022142380846*^9}},ExpressionUUID->"5c437c53-5337-4f39-af9a-\
+a417e213f035"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.01582697393965516869802676284172895002`12.876992816526712", ",", 
+   "0.02136716932544157769144193335532126737`12.878499260465361", ",", 
+   "0.02254148625589115431824793921656389167`11.657985022879107", ",", 
+   "170.47198919730746461281611011190693132332`12.878541003977702"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.709022121120934*^9, 3.709022142714506*^9}, 
+   3.709386898426621*^9, 3.7095361207123013`*^9, 3.709552327966917*^9, 
+   3.709553256042405*^9, 3.70955734091543*^9, 3.7095606293032837`*^9, 
+   3.709563719328238*^9, 3.709569290994849*^9, 3.709968829827733*^9, 
+   3.710142062336499*^9, 
+   3.7101423861077147`*^9},ExpressionUUID->"91506a92-5b96-4552-a7e2-\
+e47ce4ddf1bb"]
+}, Open  ]],
 
 Cell["Some cases can be evaluated analytically, e.g.,", "Text",
  CellChangeTimes->{{3.709536698884091*^9, 3.7095367045863333`*^9}, {
   3.7095367424760437`*^9, 3.709536744084807*^9}, {3.709537182068915*^9, 
-  3.709537183911771*^9}},ExpressionUUID->"8382a6e2-1672-4ede-ba16-\
-19671c71c9e3"],
+  3.709537183911771*^9}},ExpressionUUID->"202bdbac-6f3d-4ad6-b84f-\
+eca1257bb778"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -51,8 +90,40 @@ Cell[BoxData[
   RowBox[{"(*", 
    RowBox[{"Schwarzschild", " ", "orbit"}], "*)"}]}]], "Input",
  CellChangeTimes->{{3.709536727999929*^9, 
-  3.709536736592464*^9}},ExpressionUUID->"ec4c3ad7-4135-4ed8-a623-\
-cbc6bdea5a67"],
+  3.709536736592464*^9}},ExpressionUUID->"8661feef-248e-4377-9c05-\
+b18ead5f6348"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   SqrtBox[
+    FractionBox[
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "4"}], " ", 
+       SuperscriptBox["e", "2"]}], "+", 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", "2"}], "+", "p"}], ")"}], "2"]}], 
+     RowBox[{"p", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", "3"}], "+", 
+        SuperscriptBox["e", "2"], "+", "p"}], ")"}]}]]], ",", 
+   FractionBox["p", 
+    SqrtBox[
+     RowBox[{
+      RowBox[{"-", "3"}], "+", 
+      SuperscriptBox["e", "2"], "+", "p"}]]], ",", "0"}], "}"}]], "Output",
+ CellChangeTimes->{3.709536736952413*^9, 3.7095523280168743`*^9, 
+  3.709553256108315*^9, 3.709557340977065*^9, 3.70956062944799*^9, 
+  3.709563719393705*^9, 3.709569291072649*^9, 3.709968829878284*^9, 
+  3.710142062395894*^9, 
+  3.710142388294326*^9},ExpressionUUID->"ec2753bd-5029-41e3-8b2f-7c35a511ff09"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -64,8 +135,184 @@ Cell[BoxData[
     RowBox[{"spherical", " ", "orbit"}]}], "*)"}]}]], "Input",
  CellChangeTimes->{{3.709536591418736*^9, 3.709536674672944*^9}, {
   3.709536711112834*^9, 3.7095367174908943`*^9}, {3.709536754055223*^9, 
-  3.7095367562685957`*^9}},ExpressionUUID->"f5c7e77e-74d7-40bd-bec2-\
-8f4975a740db"]
+  3.7095367562685957`*^9}},ExpressionUUID->"3546b65e-201a-4bfa-baf2-\
+76f2e2d7aad3"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   SqrtBox[
+    FractionBox[
+     RowBox[{"p", " ", 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["a", "2"], "-", 
+         RowBox[{"2", " ", "p"}], "+", 
+         SuperscriptBox["p", "2"]}], ")"}], "2"]}], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        SuperscriptBox["a", "2"], "+", 
+        SuperscriptBox["p", "2"]}], ")"}], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        SuperscriptBox["a", "2"], "+", 
+        RowBox[{
+         SuperscriptBox["a", "2"], " ", "p"}], "-", 
+        RowBox[{"3", " ", 
+         SuperscriptBox["p", "2"]}], "+", 
+        SuperscriptBox["p", "3"]}], ")"}]}]]], ",", "0", ",", 
+   RowBox[{
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{
+       SuperscriptBox["a", "2"], " ", "p", " ", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          SuperscriptBox["a", "2"], "-", 
+          RowBox[{"2", " ", "p"}], "+", 
+          SuperscriptBox["p", "2"]}], ")"}], "2"]}], 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["a", "2"], "+", 
+         SuperscriptBox["p", "2"]}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["a", "2"], "+", 
+         RowBox[{
+          SuperscriptBox["a", "2"], " ", "p"}], "-", 
+         RowBox[{"3", " ", 
+          SuperscriptBox["p", "2"]}], "+", 
+         SuperscriptBox["p", "3"]}], ")"}]}]]}], "+", 
+    FractionBox[
+     RowBox[{"p", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        SuperscriptBox["a", "4"], "-", 
+        RowBox[{"3", " ", 
+         SuperscriptBox["a", "2"], " ", "p"}], "+", 
+        RowBox[{
+         SuperscriptBox["a", "2"], " ", 
+         SuperscriptBox["p", "2"]}], "+", 
+        SuperscriptBox["p", "3"]}], ")"}]}], 
+     RowBox[{
+      SuperscriptBox["a", "2"], "+", 
+      RowBox[{
+       SuperscriptBox["a", "2"], " ", "p"}], "-", 
+      RowBox[{"3", " ", 
+       SuperscriptBox["p", "2"]}], "+", 
+      SuperscriptBox["p", "3"]}]]}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.7095366219755497`*^9, 3.709536674901033*^9}, 
+   3.7095523280855923`*^9, 3.709553256175305*^9, 3.7095573410450373`*^9, 
+   3.709560264695032*^9, 3.709560629519144*^9, 3.709563719458982*^9, 
+   3.709569291154501*^9, 3.709968829927905*^9, 3.71014206246316*^9, 
+   3.71014238954486*^9},ExpressionUUID->"31444e5c-620a-47bc-aa33-2626a3831705"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Units", "Subsection",
+ CellChangeTimes->{{3.710142517159315*^9, 
+  3.7101425176202173`*^9}},ExpressionUUID->"146f1d5b-3722-4805-b51d-\
+7bb522f73fa4"],
+
+Cell[TextData[{
+ "The default is that M=1 but, for some functions, there is an optional final \
+parameter where M can be set. In this case the units for the other parameters \
+are [a]=M, [p]=M, [e]=1, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"[", 
+     SubscriptBox["\[Theta]", "inc"], "]"}], "=", "1"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "85e4db10-983e-42cd-8073-968b4c0a27ef"]
+}], "Text",
+ CellChangeTimes->{{3.710142520814645*^9, 3.7101425885506353`*^9}, {
+  3.7101426475225677`*^9, 3.710142710589595*^9}, {3.710142764681291*^9, 
+  3.710142794840118*^9}},ExpressionUUID->"7d51f53e-57b5-4e8a-b2a6-\
+5b0c641bf12f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"KerrGeoELQ", "[", 
+  RowBox[{"a", ",", "p", ",", "0", ",", "0", ",", "M"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Simplify", "[", 
+  RowBox[{
+   RowBox[{"KerrGeoELQ", "[", 
+    RowBox[{
+     RowBox[{"0.9`20", "M"}], ",", 
+     RowBox[{"10", "M"}], ",", "0.1`20", ",", "0", ",", "M"}], "]"}], ",", 
+   RowBox[{"Assumptions", "\[Rule]", 
+    RowBox[{"M", ">", "0"}]}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.710142566612501*^9, 
+  3.710142641830933*^9}},ExpressionUUID->"e153921d-e43b-4254-be12-\
+4ef62b7f0c65"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   FractionBox[
+    RowBox[{
+     RowBox[{"a", " ", 
+      SqrtBox["M"]}], "-", 
+     RowBox[{"2", " ", "M", " ", 
+      SqrtBox["p"]}], "+", 
+     SuperscriptBox["p", 
+      RowBox[{"3", "/", "2"}]]}], 
+    RowBox[{
+     SuperscriptBox["p", 
+      RowBox[{"3", "/", "4"}]], " ", 
+     SqrtBox[
+      RowBox[{
+       RowBox[{"2", " ", "a", " ", 
+        SqrtBox["M"]}], "-", 
+       RowBox[{"3", " ", "M", " ", 
+        SqrtBox["p"]}], "+", 
+       SuperscriptBox["p", 
+        RowBox[{"3", "/", "2"}]]}]]}]], ",", 
+   FractionBox[
+    RowBox[{
+     SqrtBox["M"], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["a", "2"], "-", 
+       RowBox[{"2", " ", "a", " ", 
+        SqrtBox["M"], " ", 
+        SqrtBox["p"]}], "+", 
+       SuperscriptBox["p", "2"]}], ")"}]}], 
+    RowBox[{
+     SuperscriptBox["p", 
+      RowBox[{"3", "/", "4"}]], " ", 
+     SqrtBox[
+      RowBox[{
+       RowBox[{"2", " ", "a", " ", 
+        SqrtBox["M"]}], "-", 
+       RowBox[{"3", " ", "M", " ", 
+        SqrtBox["p"]}], "+", 
+       SuperscriptBox["p", 
+        RowBox[{"3", "/", "2"}]]}]]}]], ",", "0"}], "}"}]], "Output",
+ CellChangeTimes->{{3.7101425803388433`*^9, 
+  3.7101426421803217`*^9}},ExpressionUUID->"549df67f-66eb-40a0-b1cb-\
+12d4d840a66e"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.95269686920740586676413343958686028975`18.834324455399756", ",", 
+   RowBox[{
+   "3.45857449603391045738172421721445127122`19.333225628651824", " ", "M"}], 
+   ",", "0"}], "}"}]], "Output",
+ CellChangeTimes->{{3.7101425803388433`*^9, 
+  3.710142642189268*^9}},ExpressionUUID->"1f4ace8f-5932-42ba-870e-\
+6c651c7df291"]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -73,26 +320,51 @@ Cell[CellGroupData[{
 Cell["ISCO, separatrix, photon sphere, IBSO and ISSO", "Subsection",
  CellChangeTimes->{{3.70902186412431*^9, 3.7090219013276176`*^9}, {
   3.7095497864367456`*^9, 3.7095497874035463`*^9}, {3.709550641239944*^9, 
-  3.709550646672068*^9}},ExpressionUUID->"09c0734d-11c4-4e7b-8797-\
-0fc999247883"],
+  3.709550646672068*^9}},ExpressionUUID->"5d43659d-96f4-4d0e-b637-\
+cd5c1587947f"],
 
 Cell["\<\
 Radius of the ISCO for prograde and retrograde orbits for given a\
 \>", "Text",
  CellChangeTimes->{{3.709549790496475*^9, 3.709549794704348*^9}, {
   3.709550147942068*^9, 3.7095501518672047`*^9}, {3.709550897300111*^9, 
-  3.709550898850286*^9}},ExpressionUUID->"286178dc-ec15-47db-956a-\
-2f6f703d6ffc"],
+  3.709550898850286*^9}},ExpressionUUID->"17710782-fbed-4ae5-b767-\
+9e56483935f3"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[{
- RowBox[{"KerrGeoISCO", "[", "0.99`20", "]"}], "\[IndentingNewLine]", 
  RowBox[{"KerrGeoISCO", "[", 
-  RowBox[{"0.99`20", ",", 
-   RowBox[{"Orbit", "\[Rule]", "\"\<Retrograde\>\""}]}], "]"}]}], "Input",
+  RowBox[{"0.99`20", ",", "0"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"KerrGeoISCO", "[", 
+  RowBox[{"0.99`20", ",", "\[Pi]"}], "]"}]}], "Input",
  CellChangeTimes->{{3.7095496667565413`*^9, 3.709549670483057*^9}, {
-  3.709549801455576*^9, 
-  3.709549813210681*^9}},ExpressionUUID->"089057a2-6229-44b9-966d-\
-d6af8dd32422"],
+  3.709549801455576*^9, 3.709549813210681*^9}, {3.710142103888865*^9, 
+  3.7101421087986317`*^9}},ExpressionUUID->"b5a145c2-f71c-44d0-83b7-\
+d34a8b925550"],
+
+Cell[BoxData["1.45449793805967163063770101874648865652`18.601239711049704"], \
+"Output",
+ CellChangeTimes->{
+  3.709549670785418*^9, {3.709549804797044*^9, 3.709549813536528*^9}, 
+   3.709552328137618*^9, 3.709553256242146*^9, 3.709557341111058*^9, 
+   3.7095606295873938`*^9, 3.709563719527555*^9, 3.709569291238419*^9, 
+   3.7099688299777603`*^9, 3.710142062529727*^9, {3.710142105175168*^9, 
+   3.7101421092656393`*^9}, 
+   3.710142394468948*^9},ExpressionUUID->"7ea909a1-950e-4fac-9371-\
+e19cc449d98c"],
+
+Cell[BoxData["8.97186134254696814383077242421882397161`19.391409154205732"], \
+"Output",
+ CellChangeTimes->{
+  3.709549670785418*^9, {3.709549804797044*^9, 3.709549813536528*^9}, 
+   3.709552328137618*^9, 3.709553256242146*^9, 3.709557341111058*^9, 
+   3.7095606295873938`*^9, 3.709563719527555*^9, 3.709569291238419*^9, 
+   3.7099688299777603`*^9, 3.710142062529727*^9, {3.710142105175168*^9, 
+   3.7101421092656393`*^9}, 
+   3.710142394476115*^9},ExpressionUUID->"05f45dee-9f51-4388-a1a4-\
+ba7b7283ed58"]
+}, Open  ]],
 
 Cell["\<\
 Find the value of p at the separatrix for generic orbits given \
@@ -100,8 +372,8 @@ Find the value of p at the separatrix for generic orbits given \
 \>", "Text",
  CellChangeTimes->{{3.709550652760126*^9, 3.7095506874306917`*^9}, {
   3.709550882314752*^9, 
-  3.709550893709198*^9}},ExpressionUUID->"1a6aa218-4003-485e-8c21-\
-c06ddb3ad5d7"],
+  3.709550893709198*^9}},ExpressionUUID->"f472e2cf-5f16-4235-b48d-\
+05e55030b410"],
 
 Cell[CellGroupData[{
 
@@ -111,20 +383,23 @@ Cell[BoxData[
    RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.7095506630080023`*^9, 3.70955070887333*^9}, {
   3.709550811438899*^9, 
-  3.709550867260751*^9}},ExpressionUUID->"4f681a08-dab8-48af-a160-\
-9367958da17c"],
+  3.709550867260751*^9}},ExpressionUUID->"ed4b3f5f-e1d1-4f29-9d03-\
+809365795b6c"],
 
 Cell[BoxData["4.342259681112754`"], "Output",
  CellChangeTimes->{{3.709550672757448*^9, 3.709550709954001*^9}, {
    3.709550801289008*^9, 3.709550867797613*^9}, 3.709552328384576*^9, 
-   3.709553256510779*^9},ExpressionUUID->"35d4d025-8081-45fa-a0d0-\
-5df96e6eda6a"]
+   3.709553256510779*^9, 3.709557341346263*^9, 3.70956062987225*^9, 
+   3.709563719750618*^9, 3.7095692914731073`*^9, 3.709968830280869*^9, 
+   3.7101420627734632`*^9, 3.710142114327291*^9, 
+   3.7101424031475687`*^9},ExpressionUUID->"8be744c0-beed-4679-a302-\
+366013485fb9"]
 }, Open  ]],
 
 Cell["Radius of the photon sphere for a=M", "Text",
  CellChangeTimes->{{3.7090219624161787`*^9, 
-  3.709021966689995*^9}},ExpressionUUID->"bcd70226-2998-45db-934d-\
-156d0f651204"],
+  3.709021966689995*^9}},ExpressionUUID->"74b65a6e-d8af-47f3-9e6f-\
+918f540ca9c2"],
 
 Cell[CellGroupData[{
 
@@ -152,21 +427,22 @@ Cell[BoxData[{
    RowBox[{"BaseStyle", "\[Rule]", "20"}]}], "]"}]}], "Input",
  CellChangeTimes->{{3.709021769938871*^9, 3.709021772042102*^9}, {
   3.709021806075172*^9, 3.709021832196858*^9}, {3.70953685632786*^9, 
-  3.70953688847861*^9}, {3.70955040792754*^9, 
-  3.709550410098296*^9}},ExpressionUUID->"7e0e8bc2-33f7-45eb-a628-\
-74b33699df54"],
+  3.70953688847861*^9}, {3.70955040792754*^9, 3.709550410098296*^9}, {
+  3.710142131354917*^9, 
+  3.710142137283827*^9}},ExpressionUUID->"623a293d-c789-48b7-b919-\
+939fbae75170"],
 
 Cell[BoxData[
  GraphicsBox[{{}, {{}, 
     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`],
       AbsoluteThickness[1.6], PointBox[CompressedData["
-1:eJxTTMoPSmViYGAQBWIQDQOMYPKD/YMPc8r0pY/Yf/4PAu+h/Cv2n6D8gMzX
-hsc17tkzoah/Yg/TL6HrEvJb8aW9225xhUXvPkDVv7P/eDB9cqv8V/sjQSfb
-T07/aC/2XTnucMlPqP4v9iwJK83S7/61/9NXkDp13jd700+tbw4pMzpAzPtp
-/2yuvbF/ALODyWlx58Slv+1P1MzUYMhmdYCY/8++9vvGLTOz2B22NcdPEAtj
-cEiQ231C343TAWIfo8PZN7vPR3zlcrikaFxfc5PJYa6oZWNsAY8DxH4Wh/Xq
-HR9SNvA6vNvPlvcohtWB6abXqdnr+Rwg7mFzyGN/eS40k9+BK+5WjMcDdodS
-Tfk9Grf4oe7jdICEooADAKjdk8M=
+1:eJxTTMoPSmViYGAQAWIQjQo+2D/4MKdMX/qI/ef/IPAeyr9i/wnKD8h8bXhc
+4549E4r6J/aMUL6ErkvIb8WX9uu2iCssevcBqv6d/ceD6ZNb5b/aHwk62X5y
++kd7se/KcYdLfkL1f7FnSVhpln73r/2fvoLUqfO+2Zt+an1zSJnRAWLeT/tn
+c+2N/QOYHUxOizsnLv1tf6JmpgZDNqsDxPx/9rXfN26ZmcXusK05foJYGIND
+gtzuE/punA4Q+xgdzr7ZfT7iK5fDJUXj+pqbTA6zRS0bYwt4HCD2szisV+/4
+kLKB1+Hdfra8RzGsDkw3vU7NXs/nAHEPm0Me+8tzoZn8Dlxxt2I8HrA7lGrK
+79G4xe8AAM3dkY4=
       "]]}, {}}, {}, {}, {{}, {}}, {{}, {}}},
   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
   Axes->{False, False},
@@ -200,7 +476,7 @@ Tfk9Grf4oe7jdICEooADAKjdk8M=
          Part[#, 1]], 
         (Identity[#]& )[
          Part[#, 2]]}& )}},
-  PlotRange->{{0, 3.141592653589793}, {0, 4.}},
+  PlotRange->{{0, 2.9845130209103035`}, {0, 3.9815230080613966`}},
   PlotRangeClipping->True,
   PlotRangePadding->{{
      Scaled[0.02], 
@@ -212,8 +488,12 @@ Tfk9Grf4oe7jdICEooADAKjdk8M=
   3.709021772950861*^9, {3.709021807956254*^9, 3.709021832620194*^9}, 
    3.7093868998091173`*^9, 3.709536121974578*^9, {3.7095368777610683`*^9, 
    3.7095368890629272`*^9}, 3.709550411167768*^9, 3.709552329582271*^9, 
-   3.709553257679388*^9},ExpressionUUID->"7064fe21-ff2e-4ab7-9b1d-\
-d96352ec09de"]
+   3.709553257679388*^9, 3.709557342615979*^9, 3.7095606311349173`*^9, 
+   3.7095637208724318`*^9, 3.709569292661414*^9, 3.709968831523252*^9, 
+   3.710142064028232*^9, {3.7101421176184397`*^9, 3.7101421377283497`*^9}, 
+   3.710142305014352*^9, 
+   3.710142405701722*^9},ExpressionUUID->"cd51e060-04db-4a86-8e15-\
+5ebf415d04c4"]
 }, Open  ]],
 
 Cell[TextData[{
@@ -221,19 +501,20 @@ Cell[TextData[{
  Cell[BoxData[
   FormBox[
    RowBox[{
-    SubscriptBox["r", "0"], "/", "M"}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
-  "c3800461-45f8-4de3-9c9d-51af45e0fb24"],
+    SubscriptBox["r", "0"], "/", "M"}], TraditionalForm]],ExpressionUUID->
+  "cbed558e-957e-4e55-bc8b-fe3711544b27"],
  " = 1 for low inclination values"
 }], "Text",
  CellChangeTimes->{{3.70955038853281*^9, 
-  3.709550431663273*^9}},ExpressionUUID->"d5e35249-a04f-40ee-96b5-\
-0e74dedd59d3"],
+  3.709550431663273*^9}},ExpressionUUID->"a99ed844-fad5-49bb-a819-\
+0f23700efe83"],
 
 Cell["Some values (particularly for a={0,M}) give exact results", "Text",
  CellChangeTimes->{{3.709550351260653*^9, 
-  3.7095503725119867`*^9}},ExpressionUUID->"73651cd0-9ba9-476b-8a7f-\
-99401b05d6e9"],
+  3.7095503725119867`*^9}},ExpressionUUID->"3886abfe-5903-4aa8-9e75-\
+841dfecef0a6"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -248,8 +529,34 @@ Cell[BoxData[
      RowBox[{"\[Pi]", "/", "4"}]}]}], "}"}]}]], "Input",
  CellChangeTimes->{{3.709550168335039*^9, 3.7095502489654217`*^9}, {
   3.70955028897143*^9, 
-  3.709550345196723*^9}},ExpressionUUID->"e1d29d82-8ef4-4add-8969-\
-980967ee3de2"],
+  3.709550345196723*^9}},ExpressionUUID->"60ff4fa6-a883-4140-ae8f-\
+aeb0c71f68e0"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"1", "-", 
+    FractionBox["1", 
+     SqrtBox["2"]], "+", 
+    SqrtBox[
+     RowBox[{"2", "-", 
+      SqrtBox["2"]}]]}], ",", 
+   RowBox[{"1", "+", 
+    SqrtBox["2"]}], ",", 
+   RowBox[{"1", "+", 
+    FractionBox["1", 
+     SqrtBox["2"]], "+", 
+    SqrtBox[
+     RowBox[{"2", "+", 
+      SqrtBox["2"]}]]}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.7095501769054337`*^9, 3.709550217859097*^9}, {
+   3.709550310393487*^9, 3.709550345499599*^9}, 3.7095523297996597`*^9, 
+   3.7095532578835077`*^9, 3.7095573428821383`*^9, 3.7095606313265953`*^9, 
+   3.709563721052236*^9, 3.7095692928448687`*^9, 3.709968831749598*^9, 
+   3.7101420642047253`*^9, 
+   3.710142408123087*^9},ExpressionUUID->"8ac76b72-9750-4aa2-abdf-\
+ef360b7822b5"]
+}, Open  ]],
 
 Cell[TextData[{
  "Compute the radius of the photon sphere, inner-most bound/stable orbits \
@@ -259,14 +566,15 @@ Cell[TextData[{
    RowBox[{
     SubscriptBox["r", "ph"], "\[LessEqual]", " ", 
     SubscriptBox["r", "IBSO"], "\[LessEqual]", " ", 
-    SubscriptBox["r", "ISSO"]}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
-  "fe619a9b-d32a-497b-93da-5492485f330b"]
+    SubscriptBox["r", "ISSO"]}], TraditionalForm]],ExpressionUUID->
+  "feb1151a-9b8f-44b9-9480-b8d8217934f4"]
 }], "Text",
  CellChangeTimes->{{3.709551456307303*^9, 3.709551481090498*^9}, {
   3.70955152516747*^9, 3.7095515431820583`*^9}, {3.709552201619526*^9, 
-  3.709552208164707*^9}},ExpressionUUID->"bd59670e-efc0-4f4c-a207-\
-2701faf12df9"],
+  3.709552208164707*^9}},ExpressionUUID->"7d8b695d-2c9e-493a-8150-\
+00cda9d2d277"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{"KerrGeoPhotonSphereRadius", "[", 
@@ -279,16 +587,41 @@ Cell[BoxData[{
   RowBox[{"0.9", ",", 
    RowBox[{"\[Pi]", "/", "3"}]}], "]"}]}], "Input",
  CellChangeTimes->{{3.709551469721259*^9, 
-  3.709551521151205*^9}},ExpressionUUID->"e02a9274-529d-4da3-80e5-\
-d32cdef9692d"],
+  3.709551521151205*^9}},ExpressionUUID->"604574a8-35a9-486d-9ff8-\
+e934a58130aa"],
+
+Cell[BoxData["1.9291034431831453`"], "Output",
+ CellChangeTimes->{{3.709551490335679*^9, 3.709551521816475*^9}, 
+   3.7095523299073267`*^9, 3.709553258030665*^9, 3.709557342984304*^9, 
+   3.709560631432453*^9, 3.7095637211554403`*^9, 3.709569292954174*^9, 
+   3.709968831967277*^9, 3.710142064309526*^9, 
+   3.710142411791451*^9},ExpressionUUID->"b9cec4bd-1b3e-4464-a4d1-\
+88a49acc3407"],
+
+Cell[BoxData["2.4710134199197906`"], "Output",
+ CellChangeTimes->{{3.709551490335679*^9, 3.709551521816475*^9}, 
+   3.7095523299073267`*^9, 3.709553258030665*^9, 3.709557342984304*^9, 
+   3.709560631432453*^9, 3.7095637211554403`*^9, 3.709569292954174*^9, 
+   3.709968831967277*^9, 3.710142064309526*^9, 
+   3.710142411799016*^9},ExpressionUUID->"dde65207-abb5-480a-930f-\
+ee2a2005156a"],
+
+Cell[BoxData["3.732855947091825`"], "Output",
+ CellChangeTimes->{{3.709551490335679*^9, 3.709551521816475*^9}, 
+   3.7095523299073267`*^9, 3.709553258030665*^9, 3.709557342984304*^9, 
+   3.709560631432453*^9, 3.7095637211554403`*^9, 3.709569292954174*^9, 
+   3.709968831967277*^9, 3.710142064309526*^9, 
+   3.7101424118994837`*^9},ExpressionUUID->"fbe05a74-fcd9-4f46-983a-\
+c456bfd93e96"]
+}, Open  ]],
 
 Cell["\<\
 Plot the photo sphere radius, IBSO and ISSO for given black hole spin\
 \>", "Text",
  CellChangeTimes->{{3.709551551324498*^9, 3.709551562764736*^9}, {
   3.7095516549131517`*^9, 
-  3.7095516773563833`*^9}},ExpressionUUID->"28310b58-addb-4a7f-bd9b-\
-6909e78fd2a5"],
+  3.7095516773563833`*^9}},ExpressionUUID->"6189b4c4-77c2-4134-b981-\
+34780b7a03d1"],
 
 Cell[BoxData[
  RowBox[{
@@ -382,7 +715,7 @@ Cell[BoxData[
        RowBox[{"ListPlot", "[", 
         RowBox[{
          RowBox[{"{", 
-          RowBox[{"rph", ",", "rmb", ",", "rms", ",", "7"}], "}"}], ",", 
+          RowBox[{"rph", ",", "rmb", ",", "rms"}], "}"}], ",", 
          RowBox[{"Filling", "\[Rule]", 
           RowBox[{"{", 
            RowBox[{
@@ -399,17 +732,18 @@ Cell[BoxData[
        "\[IndentingNewLine]", 
        RowBox[{"PlotRange", "\[Rule]", "All"}]}], "\[IndentingNewLine]", 
       "]"}]}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
- CellChangeTimes->{{3.709021927364081*^9, 
-  3.709021930456918*^9}},ExpressionUUID->"5e0dd473-2d29-4e28-a7b1-\
-a035db7a4934"],
+ CellChangeTimes->{{3.709021927364081*^9, 3.709021930456918*^9}, {
+  3.709562984322218*^9, 
+  3.709562984567782*^9}},ExpressionUUID->"f26f47b0-ee1e-49a2-92cb-\
+cea8ef44d73c"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"PlotSpherical", "[", "0.9", "]"}]], "Input",
  CellChangeTimes->{{3.709021906480988*^9, 
-  3.7090219095624733`*^9}},ExpressionUUID->"fab7175c-e0b0-4021-bdb4-\
-fed8b198d76a"],
+  3.7090219095624733`*^9}},ExpressionUUID->"1a0d2555-bfb5-4df9-8c68-\
+33a30d15fb3d"],
 
 Cell[BoxData[
  GraphicsBox[{{GraphicsComplexBox[CompressedData["
@@ -484,8 +818,7 @@ lSMT308wOU+8B3L+Ablyk+k=
         GraphicsGroupBox[
          PolygonBox[{{63, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 
           81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 
-          64}}]]}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
-{}, {}, {}, {}, {}, {}, {}, {}}, {{}, {}, 
+          64}}]]}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}}, {{}, {}, 
        {RGBColor[0, 1, 0], PointSize[0.011000000000000001`], 
         AbsoluteThickness[1.6], 
         LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
@@ -1003,8 +1336,10 @@ lSMT308wOU+8B3L+Ablyk+k=
   Ticks->{Automatic, Automatic}]], "Output",
  CellChangeTimes->{{3.709021918191216*^9, 3.709021939825739*^9}, 
    3.70938690765316*^9, 3.709536129306031*^9, 3.709552337158332*^9, 
-   3.709553265282098*^9},ExpressionUUID->"9536a6c0-e9c8-493c-b2b2-\
-e7fbb93d85f2"]
+   3.709553265282098*^9, 3.709557350314858*^9, 3.709560638500236*^9, 
+   3.709562995517705*^9, 3.7095637281953373`*^9, 3.709569300196003*^9, 
+   3.709968839329686*^9, 3.710142072066759*^9, 3.7101423319003763`*^9, 
+   3.71014242219241*^9},ExpressionUUID->"8a59ed03-221a-4459-a695-25c7100ea436"]
 }, Open  ]],
 
 Cell["\<\
@@ -1012,7 +1347,7 @@ In the above plot the blue curve is the ISSO, the red the IBSO and the green \
 the photon sphere\
 \>", "Text",
  CellChangeTimes->{{3.709536367742066*^9, 
-  3.70953639387516*^9}},ExpressionUUID->"87ed43b2-a41f-4821-9585-8c1d46220acb"]
+  3.70953639387516*^9}},ExpressionUUID->"eb2d9ae0-2473-4a12-a4b3-fc3f43e1f74c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1156,7 +1491,7 @@ Cell[BoxData[
 },
 Saveable->True,
 WindowSize->{1393, 1201},
-WindowMargins->{{Automatic, 295}, {Automatic, 0}},
+WindowMargins->{{328, Automatic}, {Automatic, 90}},
 PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 ShowSelection->True,
