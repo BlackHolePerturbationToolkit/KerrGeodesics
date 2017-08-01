@@ -138,6 +138,12 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2 && e!=0,Print["Polar, non-spherical orbits no
 ]
 
 
+(*Orbital frequencies for circular orbits in Schwarzschild spacetime*)
+KerrGeoFreqs[(0|0.),p_,(0|0.),\[Theta]inc_]:=Module[{M=1},
+	{Sqrt[((p-6M)M)/p^4], (M/p^3)^(1/2), (M/p^3)^(1/2), Sqrt[p^5/(p-3)]}
+]
+
+
 (*Calculate the orbital frequencies, Subscript[\[CapitalOmega], \[Alpha]], w.r.t Boyer-Lindquist time and the conversion factor, \[CapitalGamma], to frequencies w.r.t. Mino time, Subscript[\[CapitalUpsilon], \[Alpha]]=\[CapitalGamma] Subscript[\[CapitalOmega], \[Alpha]]*)
 (*Fujita and Hikida, Class. Quantum Grav.26 (2009) 135002, arXiv:0906.1420*)
 KerrGeoFreqs[a_/;Abs[a]<1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{M=1,En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp,\[Theta]min,\[Theta]inc=\[Theta]inc1},
