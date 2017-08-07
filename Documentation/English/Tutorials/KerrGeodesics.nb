@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "TutorialColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"d9286c72-b751-49cc-840b-0d44aab79e48"],
+   0}},ExpressionUUID->"d940f9f8-1ddb-4d23-8879-5d320355236e"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -11,11 +11,11 @@ Cell[TextData[{
  ButtonBox["KerrGeodesics",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/tutorial/KerrGeodesics"]
-}], "LinkTrail",ExpressionUUID->"cb24a51b-c9e5-4a7c-a1b6-333977a9411d"],
+}], "LinkTrail",ExpressionUUID->"dc294087-a924-42b9-985c-aaad3ace7295"],
 
 Cell[BoxData[GridBox[{
    {Cell["KERRGEODESICS TUTORIAL", "PacletNameCell",ExpressionUUID->
-     "8e736a43-675d-4882-9010-43fa86afbd85"], Cell[TextData[{
+     "010457a0-f967-4247-9abf-fb1c1772956e"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Related Tutorials \[RightGuillemet]\"\>",
@@ -23,7 +23,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "39db5202-bf1b-4f23-a3b3-a26d398ececd"],
+      "368a6839-35bf-4626-8c2a-c751a5174638"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -42,31 +42,31 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "49677632-b30f-47c8-bd49-98b21fc2b277"]
-    }], "AnchorBar",ExpressionUUID->"bf19a9f1-482b-4fff-94bc-66c343ff6471"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"f8371c39-8f1e-4fc1-95f4-d07c47afed22"],
+      "ff2b2373-3323-44e4-9cdd-b11e6165d245"]
+    }], "AnchorBar",ExpressionUUID->"25f0af25-7249-4827-b1a0-3fcfa60ed8d1"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"b2cb5bd7-83b4-4603-a70e-96d72adf5251"],
 
 Cell[CellGroupData[{
 
 Cell["Kerr Geodesics", \
-"Title",ExpressionUUID->"0f5543c3-0f0b-46e1-be59-cb911215b6a8"],
+"Title",ExpressionUUID->"768648b8-c053-49db-87b7-08d8879fb0b4"],
 
 Cell["\<\
 The KerrGeodesics package provides functions for computing quantities related \
 to bound timelike geodesic orbits in Kerr spacetime. Before using the \
 functions, first load the package\
-\>", "Text",ExpressionUUID->"4f19e811-adcf-4813-b02e-9d57410b1a74"],
+\>", "Text",ExpressionUUID->"4a7d05d8-cbd9-4bee-a54e-a0c1270646a7"],
 
 Cell[BoxData[
  RowBox[{"<<", "KerrGeodesics`"}]], "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"d055faa1-a20b-44df-a82c-54b881c83341"],
+ CellLabel->"In[1]:=",ExpressionUUID->"64441bdd-04a8-4bbc-b4b2-780dbc946069"],
 
 Cell[CellGroupData[{
 
 Cell["Constants of motion and orbital frequencies", "Subsection",
  CellChangeTimes->{{3.7090219843089333`*^9, 
-  3.709021998381135*^9}},ExpressionUUID->"ca456f6c-d324-4760-8bd2-\
-f0a03def515c"],
+  3.709021998381135*^9}},ExpressionUUID->"1b7a3fdd-e653-4d8f-a518-\
+2fab29cdce3a"],
 
 Cell[CellGroupData[{
 
@@ -75,7 +75,7 @@ Cell[BoxData[
   RowBox[{"0.9`20", ",", "10", ",", "0.5`20", ",", 
    RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.709022091864291*^9, 3.709022139984539*^9}},
- CellLabel->"In[2]:=",ExpressionUUID->"66f08bf3-02ef-4f23-9c27-514a67ff27d3"],
+ CellLabel->"In[2]:=",ExpressionUUID->"d70336b9-2ee6-43d9-aeef-3dee46d8a3d1"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -84,7 +84,7 @@ Cell[BoxData[
    "1.81884192219757339848695633754530516623`18.139950788858965", ",", 
    "9.9666815875696188798922610135884803416`17.835949770612423"}], 
   "}"}]], "Output",
- CellLabel->"Out[2]=",ExpressionUUID->"38aca6ef-44b9-4204-b0d1-7734db4cb5aa"]
+ CellLabel->"Out[2]=",ExpressionUUID->"344d0064-e370-4752-a0cb-066f4ab27598"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -94,7 +94,7 @@ Cell[BoxData[
   RowBox[{"0.9`20", ",", "10", ",", "0.5`20", ",", 
    RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.709022111571838*^9, 3.709022142380846*^9}},
- CellLabel->"In[3]:=",ExpressionUUID->"a9a6a7e5-bea9-4425-886f-afda0af8848d"],
+ CellLabel->"In[3]:=",ExpressionUUID->"100c330d-cb35-436f-b0cd-d8adf09c6985"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -104,14 +104,14 @@ Cell[BoxData[
    "0.02254148625589115431824793921656389167`11.657985022879107", ",", 
    "170.47198919730746461281611011190693132332`12.878541003977702"}], 
   "}"}]], "Output",
- CellLabel->"Out[3]=",ExpressionUUID->"9374d157-56e9-4393-bffa-78ea0e04cc82"]
+ CellLabel->"Out[3]=",ExpressionUUID->"ff95887e-c38b-4e31-b053-077463ca16b2"]
 }, Open  ]],
 
 Cell["Some cases can be evaluated analytically, e.g.,", "Text",
  CellChangeTimes->{{3.709536698884091*^9, 3.7095367045863333`*^9}, {
   3.7095367424760437`*^9, 3.709536744084807*^9}, {3.709537182068915*^9, 
-  3.709537183911771*^9}},ExpressionUUID->"da161906-518d-488e-be99-\
-da4e9a058258"],
+  3.709537183911771*^9}},ExpressionUUID->"5be4ff31-0dc7-45ed-8a24-\
+0ec30b768a83"],
 
 Cell[CellGroupData[{
 
@@ -122,7 +122,7 @@ Cell[BoxData[
   RowBox[{"(*", 
    RowBox[{"Schwarzschild", " ", "orbit"}], "*)"}]}]], "Input",
  CellChangeTimes->{{3.709536727999929*^9, 3.709536736592464*^9}},
- CellLabel->"In[4]:=",ExpressionUUID->"67b2b260-4cd1-4604-af98-b7a13c453807"],
+ CellLabel->"In[4]:=",ExpressionUUID->"43f5adfd-eeda-4081-8619-143f630d55d8"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -148,7 +148,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"-", "3"}], "-", 
       SuperscriptBox["e", "2"], "+", "p"}]]], ",", "0"}], "}"}]], "Output",
- CellLabel->"Out[4]=",ExpressionUUID->"bc9a80ac-547b-4713-8f41-1cc24c53581b"]
+ CellLabel->"Out[4]=",ExpressionUUID->"019261ad-a179-47f1-8534-1d47cfb0f3f7"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -164,7 +164,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.709536591418736*^9, 3.709536674672944*^9}, {
   3.709536711112834*^9, 3.7095367174908943`*^9}, {3.709536754055223*^9, 
   3.7095367562685957`*^9}},
- CellLabel->"In[5]:=",ExpressionUUID->"317b907f-0ae6-4a75-b96f-3be62cc26c08"],
+ CellLabel->"In[5]:=",ExpressionUUID->"5bf39c8e-24d2-43d3-a8ad-ef5edb900f5a"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -233,7 +233,7 @@ Cell[BoxData[
       RowBox[{"3", " ", 
        SuperscriptBox["p", "2"]}], "+", 
       SuperscriptBox["p", "3"]}]]}]}], "}"}]], "Output",
- CellLabel->"Out[5]=",ExpressionUUID->"24fa328d-8012-4ae1-b34b-12aeb34f6043"]
+ CellLabel->"Out[5]=",ExpressionUUID->"c222ab2f-a531-4b54-8079-2eaebfeb1882"]
 }, Open  ]]
 }, Open  ]],
 
@@ -241,8 +241,8 @@ Cell[CellGroupData[{
 
 Cell["Units", "Subsection",
  CellChangeTimes->{{3.710142517159315*^9, 
-  3.7101425176202173`*^9}},ExpressionUUID->"2869da8c-0ba1-4b22-a2d9-\
-40c995f3d457"],
+  3.7101425176202173`*^9}},ExpressionUUID->"ca3d4a34-c2ec-4327-80a2-\
+cbf835c079b2"],
 
 Cell[TextData[{
  "The default is that M=1 but, for some functions, there is an optional final \
@@ -257,8 +257,8 @@ are [a]=M, [p]=M, [e]=1, ",
 }], "Text",
  CellChangeTimes->{{3.710142520814645*^9, 3.7101425885506353`*^9}, {
   3.7101426475225677`*^9, 3.710142710589595*^9}, {3.710142764681291*^9, 
-  3.710142794840118*^9}},ExpressionUUID->"a5a144ac-17a2-4504-adc0-\
-89aea1e70507"],
+  3.710142794840118*^9}},ExpressionUUID->"bff8b884-c46b-4baf-8156-\
+1d2fb7223fca"],
 
 Cell[CellGroupData[{
 
@@ -275,7 +275,7 @@ Cell[BoxData[{
    RowBox[{"Assumptions", "\[Rule]", 
     RowBox[{"M", ">", "0"}]}]}], "]"}]}], "Input",
  CellChangeTimes->{{3.710142566612501*^9, 3.710142641830933*^9}},
- CellLabel->"In[6]:=",ExpressionUUID->"b9cf173c-de09-4617-a4d3-cada0fd40114"],
+ CellLabel->"In[6]:=",ExpressionUUID->"38426291-4259-4fa0-8350-8cfbd473eb32"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -320,7 +320,7 @@ Cell[BoxData[
         SqrtBox["p"]}], "+", 
        SuperscriptBox["p", 
         RowBox[{"3", "/", "2"}]]}]]}]], ",", "0"}], "}"}]], "Output",
- CellLabel->"Out[6]=",ExpressionUUID->"ba2c44da-e00e-4adc-8300-d1db399a7e47"],
+ CellLabel->"Out[6]=",ExpressionUUID->"8700b54d-557a-4384-a2a6-637fbb12d2a8"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -329,7 +329,7 @@ Cell[BoxData[
    RowBox[{
    "3.45857449603391045738172421721445127122`19.333225628651824", " ", "M"}], 
    ",", "0"}], "}"}]], "Output",
- CellLabel->"Out[7]=",ExpressionUUID->"bb0c1cd1-e5fb-4e4c-a95a-142cc3e2de90"]
+ CellLabel->"Out[7]=",ExpressionUUID->"14bd14d5-cf7b-46a3-86af-4a11661922e0"]
 }, Open  ]]
 }, Open  ]],
 
@@ -338,16 +338,16 @@ Cell[CellGroupData[{
 Cell["ISCO, separatrix, photon sphere, IBSO and ISSO", "Subsection",
  CellChangeTimes->{{3.70902186412431*^9, 3.7090219013276176`*^9}, {
   3.7095497864367456`*^9, 3.7095497874035463`*^9}, {3.709550641239944*^9, 
-  3.709550646672068*^9}},ExpressionUUID->"656779d1-6455-40d0-b969-\
-aa05a8b2ac43"],
+  3.709550646672068*^9}},ExpressionUUID->"34a39f8b-3d95-4e06-9e32-\
+d20951aa0721"],
 
 Cell["\<\
 Radius of the ISCO for prograde and retrograde orbits for given a\
 \>", "Text",
  CellChangeTimes->{{3.709549790496475*^9, 3.709549794704348*^9}, {
   3.709550147942068*^9, 3.7095501518672047`*^9}, {3.709550897300111*^9, 
-  3.709550898850286*^9}},ExpressionUUID->"90266ed1-9a67-45ec-86c1-\
-bb7b5dc0f643"],
+  3.709550898850286*^9}},ExpressionUUID->"3557e176-1746-4747-970e-\
+6420688fcadf"],
 
 Cell[CellGroupData[{
 
@@ -359,15 +359,15 @@ Cell[BoxData[{
  CellChangeTimes->{{3.7095496667565413`*^9, 3.709549670483057*^9}, {
   3.709549801455576*^9, 3.709549813210681*^9}, {3.710142103888865*^9, 
   3.7101421087986317`*^9}},
- CellLabel->"In[8]:=",ExpressionUUID->"4c0e22f3-27cd-4722-a018-f96df27b565f"],
+ CellLabel->"In[8]:=",ExpressionUUID->"a3e66b00-c420-4be6-87e0-67f9cffa31ec"],
 
 Cell[BoxData["1.45449793805967163063770101874648865652`18.601239711049704"], \
 "Output",
- CellLabel->"Out[8]=",ExpressionUUID->"5eb5dbfc-7ed3-4ad8-a163-a1fa43a6845a"],
+ CellLabel->"Out[8]=",ExpressionUUID->"feb65686-de33-425c-936b-32a1db18ab15"],
 
 Cell[BoxData["8.97186134254696814383077242421882397161`19.391409154205732"], \
 "Output",
- CellLabel->"Out[9]=",ExpressionUUID->"181cabd3-d53c-4b90-b900-bf981cae3259"]
+ CellLabel->"Out[9]=",ExpressionUUID->"e2202d94-ecb3-4060-b790-f1d27dbcfc25"]
 }, Open  ]],
 
 Cell["\<\
@@ -376,8 +376,8 @@ Find the value of p at the separatrix for generic orbits given \
 \>", "Text",
  CellChangeTimes->{{3.709550652760126*^9, 3.7095506874306917`*^9}, {
   3.709550882314752*^9, 
-  3.709550893709198*^9}},ExpressionUUID->"4e4d2861-1765-4a2d-85aa-\
-eb075d480b7a"],
+  3.709550893709198*^9}},ExpressionUUID->"0142cdf0-4572-4f2d-8bd6-\
+04074e218a9e"],
 
 Cell[CellGroupData[{
 
@@ -387,17 +387,17 @@ Cell[BoxData[
    RowBox[{"\[Pi]", "/", "3"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.7095506630080023`*^9, 3.70955070887333*^9}, {
   3.709550811438899*^9, 3.709550867260751*^9}},
- CellLabel->"In[10]:=",ExpressionUUID->"3f598e11-fbd3-4a1a-8484-3e5bd06bda50"],
+ CellLabel->"In[10]:=",ExpressionUUID->"25bc05c9-846a-4c50-8864-f370e2b3879b"],
 
 Cell[BoxData["4.342259681112754`"], "Output",
  CellLabel->
-  "Out[10]=",ExpressionUUID->"19c2df3d-daf2-44d5-99aa-6339285cb761"]
+  "Out[10]=",ExpressionUUID->"75542d8c-e1a4-49c0-be98-eb4734374756"]
 }, Open  ]],
 
 Cell["Radius of the photon sphere for a=M", "Text",
  CellChangeTimes->{{3.7090219624161787`*^9, 
-  3.709021966689995*^9}},ExpressionUUID->"2cad568e-5e35-4db1-b505-\
-14838db7eb5e"],
+  3.709021966689995*^9}},ExpressionUUID->"0feabc7c-cded-4c8c-8fda-\
+1b856949f12d"],
 
 Cell[CellGroupData[{
 
@@ -427,19 +427,19 @@ Cell[BoxData[{
   3.709021806075172*^9, 3.709021832196858*^9}, {3.70953685632786*^9, 
   3.70953688847861*^9}, {3.70955040792754*^9, 3.709550410098296*^9}, {
   3.710142131354917*^9, 3.710142137283827*^9}},
- CellLabel->"In[11]:=",ExpressionUUID->"082e6600-f5ab-48b5-88e1-159aa86c7dd8"],
+ CellLabel->"In[11]:=",ExpressionUUID->"9960f0b0-2b6a-493d-bf89-65921024ea68"],
 
 Cell[BoxData[
  GraphicsBox[{{}, {{}, 
     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`],
       AbsoluteThickness[1.6], PointBox[CompressedData["
 1:eJxTTMoPSmViYGAQAWIQjQo+2D/4MKdMX/qI/ef/IPAeyr9i/wnKD8h8bXhc
-4549E4r6J/aMUL6ErkvIb8WX9uu2iCssevcBqv6d/ceD6ZNb5b/aHwk62X5y
-+kd7se/KcYdLfkL1f7FnSVhpln73r/2fvoLUqfO+2Zt+an1zSJnRAWLeT/tn
-c+2N/QOYHUxOizsnLv1tf6JmpgZDNqsDxPx/9rXfN26ZmcXusK05foJYGIND
-gtzuE/punA4Q+xgdzr7ZfT7iK5fDJUXj+pqbTA6zRS0bYwt4HCD2szisV+/4
+4549E4r6J/aMUL6ErkvIb8WX9pe2iSssevcBqv6d/ceD6ZNb5b/aHwk62X5y
++kd7se/KcYdLfkL1f7FnSVhpln73r/2fvoLUqfO+2cd9an1zSJnRAWLeT/tn
+c+2N/QOYHUxOizsnLv1tf7RmpgZDNqsDxPx/9rXfN26ZmcXusK05foJYGIND
+gtzuE/punA4Q+xgdzr7ZfT7iK5fDJUXj+pqbTA5zRC0bYwt4HCD2szisV+/4
 kLKB1+Hdfra8RzGsDkw3vU7NXs/nAHEPm0Me+8tzoZn8Dlxxt2I8HrA7lGrK
-79G4xe8AAM3dkY4=
+79G4xe8AAAnykds=
       "]]}, {}}, {}, {}, {{}, {}}, {{}, {}}},
   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
   Axes->{False, False},
@@ -482,7 +482,7 @@ kLKB1+Hdfra8RzGsDkw3vU7NXs/nAHEPm0Me+8tzoZn8Dlxxt2I8HrA7lGrK
      Scaled[0.05]}},
   Ticks->{Automatic, Automatic}]], "Output",
  CellLabel->
-  "Out[12]=",ExpressionUUID->"c4a37d03-0170-4529-8d8a-d5ed1afc684b"]
+  "Out[12]=",ExpressionUUID->"a0082edc-9ca9-40bd-a9a4-23f95e5ddd62"]
 }, Open  ]],
 
 Cell[TextData[{
@@ -495,13 +495,13 @@ Cell[TextData[{
  " = 1 for low inclination values"
 }], "Text",
  CellChangeTimes->{{3.70955038853281*^9, 
-  3.709550431663273*^9}},ExpressionUUID->"a8b1de38-a5ac-4b78-9101-\
-871538960e8e"],
+  3.709550431663273*^9}},ExpressionUUID->"d0f02ae1-df27-438f-87f3-\
+c337ea6b678c"],
 
 Cell["Some values (particularly for a={0,M}) give exact results", "Text",
  CellChangeTimes->{{3.709550351260653*^9, 
-  3.7095503725119867`*^9}},ExpressionUUID->"3b6748de-236c-467d-b3e4-\
-9b72bbb5452c"],
+  3.7095503725119867`*^9}},ExpressionUUID->"0a8809f8-148f-4976-8229-\
+a6debc7df62b"],
 
 Cell[CellGroupData[{
 
@@ -518,7 +518,7 @@ Cell[BoxData[
      RowBox[{"\[Pi]", "/", "4"}]}]}], "}"}]}]], "Input",
  CellChangeTimes->{{3.709550168335039*^9, 3.7095502489654217`*^9}, {
   3.70955028897143*^9, 3.709550345196723*^9}},
- CellLabel->"In[13]:=",ExpressionUUID->"9c3f7cde-fb2f-4e57-a955-6117a0f8d4d9"],
+ CellLabel->"In[13]:=",ExpressionUUID->"9baa4c10-155a-481c-b102-48ff198c16cb"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -538,7 +538,7 @@ Cell[BoxData[
      RowBox[{"2", "+", 
       SqrtBox["2"]}]]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[13]=",ExpressionUUID->"7023dca1-7025-4249-8fc4-f8382748008b"]
+  "Out[13]=",ExpressionUUID->"a2f46317-eea1-4055-b7c1-994bb23935d0"]
 }, Open  ]],
 
 Cell[TextData[{
@@ -554,8 +554,8 @@ Cell[TextData[{
 }], "Text",
  CellChangeTimes->{{3.709551456307303*^9, 3.709551481090498*^9}, {
   3.70955152516747*^9, 3.7095515431820583`*^9}, {3.709552201619526*^9, 
-  3.709552208164707*^9}},ExpressionUUID->"562f1606-648d-4184-8f0c-\
-d1ba68aaf484"],
+  3.709552208164707*^9}},ExpressionUUID->"78543495-d69a-4723-a582-\
+81067f6abc28"],
 
 Cell[CellGroupData[{
 
@@ -570,17 +570,17 @@ Cell[BoxData[{
   RowBox[{"0.9", ",", 
    RowBox[{"\[Pi]", "/", "3"}]}], "]"}]}], "Input",
  CellChangeTimes->{{3.709551469721259*^9, 3.709551521151205*^9}},
- CellLabel->"In[14]:=",ExpressionUUID->"3d02b76f-7234-428b-b8db-fb48dda21c8e"],
+ CellLabel->"In[14]:=",ExpressionUUID->"5b586c3f-22f7-485b-a803-7c18f7211a61"],
 
 Cell[BoxData["1.9291034431831453`"], "Output",
- CellLabel->"Out[14]=",ExpressionUUID->"87ce5cda-0c8e-413d-bde7-fb6a8f0d731a"],
+ CellLabel->"Out[14]=",ExpressionUUID->"80cc6779-baf8-4d05-bc44-827b1839e5da"],
 
 Cell[BoxData["2.4710134199197906`"], "Output",
- CellLabel->"Out[15]=",ExpressionUUID->"32e75eef-04f2-43e3-a5d7-ae30af6df0ca"],
+ CellLabel->"Out[15]=",ExpressionUUID->"ca291e58-011e-45b7-bc0e-80750988a086"],
 
 Cell[BoxData["3.732855947091825`"], "Output",
  CellLabel->
-  "Out[16]=",ExpressionUUID->"ad641856-5dfa-42c3-8b68-7820cfeb0d2d"]
+  "Out[16]=",ExpressionUUID->"18a2a2a4-441c-42e4-808d-e83d07564570"]
 }, Open  ]],
 
 Cell["\<\
@@ -588,8 +588,8 @@ Plot the photo sphere radius, IBSO and ISSO for given black hole spin\
 \>", "Text",
  CellChangeTimes->{{3.709551551324498*^9, 3.709551562764736*^9}, {
   3.7095516549131517`*^9, 
-  3.7095516773563833`*^9}},ExpressionUUID->"75878d0d-0ba8-41c9-9641-\
-575bdc8d7827"],
+  3.7095516773563833`*^9}},ExpressionUUID->"df4d2901-66ce-4cf4-a83c-\
+79950a821841"],
 
 Cell[BoxData[
  RowBox[{
@@ -702,14 +702,14 @@ Cell[BoxData[
       "]"}]}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
  CellChangeTimes->{{3.709021927364081*^9, 3.709021930456918*^9}, {
   3.709562984322218*^9, 3.709562984567782*^9}},
- CellLabel->"In[17]:=",ExpressionUUID->"900cc33d-58e1-4455-bfc4-a4e10caed8dc"],
+ CellLabel->"In[17]:=",ExpressionUUID->"dcf54bd5-3ff4-4308-a96b-0fd11ceeb981"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"PlotSpherical", "[", "0.9", "]"}]], "Input",
  CellChangeTimes->{{3.709021906480988*^9, 3.7090219095624733`*^9}},
- CellLabel->"In[18]:=",ExpressionUUID->"0b727345-da3d-4936-ab25-48e1699dcd63"],
+ CellLabel->"In[18]:=",ExpressionUUID->"9ef03631-dc1e-42c0-ac21-2ac4891883b6"],
 
 Cell[BoxData[
  GraphicsBox[{{GraphicsComplexBox[CompressedData["
@@ -1259,7 +1259,7 @@ lSMT308wOU+8B3L+Ablyk+k=
      Scaled[0.05]}},
   Ticks->{Automatic, Automatic}]], "Output",
  CellLabel->
-  "Out[18]=",ExpressionUUID->"18fcd720-80ab-41ef-b091-c8cf21ed3a10"]
+  "Out[18]=",ExpressionUUID->"2fe4413c-05db-49df-9573-3d2dbb4b6f34"]
 }, Open  ]],
 
 Cell["\<\
@@ -1267,13 +1267,13 @@ In the above plot the blue curve is the ISSO, the red the IBSO and the green \
 the photon sphere\
 \>", "Text",
  CellChangeTimes->{{3.709536367742066*^9, 
-  3.70953639387516*^9}},ExpressionUUID->"2ac2fcda-c6b8-4f3a-b950-28d468e83d01"]
+  3.70953639387516*^9}},ExpressionUUID->"4f8e4536-ea98-464b-a85d-34fcf3bf61d3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Visualize the orbit", \
-"Subsection",ExpressionUUID->"6aa4375d-d07b-43f5-9a25-2f3694af884e"],
+"Subsection",ExpressionUUID->"97da9944-1c55-4e6e-9e56-24e11e70fe75"],
 
 Cell[BoxData[
  RowBox[{
@@ -1368,7 +1368,7 @@ Cell[BoxData[
              RowBox[{"-", "rmax"}], ",", "rmax"}], "}"}]}], "}"}]}]}], 
        "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
   ";"}]], "Input",
- CellLabel->"In[19]:=",ExpressionUUID->"b52afcb7-4347-4ab8-8ddc-ec9838920907"],
+ CellLabel->"In[19]:=",ExpressionUUID->"830a0610-d401-4b4b-b13b-13c4e2798b3e"],
 
 Cell[CellGroupData[{
 
@@ -1376,7 +1376,7 @@ Cell[BoxData[
  RowBox[{"KerrEqProgradePlot", "[", 
   RowBox[{"0.9", ",", "4", ",", "0.7", ",", 
    RowBox[{"10", "\[Pi]"}]}], "]"}]], "Input",
- CellLabel->"In[20]:=",ExpressionUUID->"9b9f5553-c77a-493c-b2c8-9afa504334ee"],
+ CellLabel->"In[20]:=",ExpressionUUID->"a3136d91-53c0-48c7-9aa0-0fd081be58b5"],
 
 Cell[BoxData[
  GraphicsBox[{{{}, {}, 
@@ -2807,7 +2807,7 @@ YbvyPPbUkKDFs++7PaTKQcZDM1fXMhL04BpmUnauBoh6sFyliAQ3u6bhakI9
 O0DW0yGuoxEkCIKSImdzfwE9CU1r4dskGFwRIhZ9uAs4hzuVBl0kweZYohlH
 dzdI/RgWGmFHgvVhc3YpBb3gf1t2yAo=
        "]]},
-     Annotation[#, "Charting`Private`Tag$5808#1"]& ]}, 
+     Annotation[#, "Charting`Private`Tag$12251#1"]& ]}, 
    DiskBox[{0, 0}, 1.4358898943540672]},
   Axes->{False, False},
   AxesLabel->{None, None},
@@ -2830,12 +2830,12 @@ dzdI/RgWGmFHgvVhc3YpBb3gf1t2yAo=
      Scaled[0.05]}},
   Ticks->{Automatic, Automatic}]], "Output",
  CellLabel->
-  "Out[20]=",ExpressionUUID->"231efbc6-6886-42d6-b2b4-0dbaa76926ca"]
+  "Out[20]=",ExpressionUUID->"18009dfc-ed5e-4e3c-bb8f-bbc179bbce52"]
 }, Open  ]],
 
 Cell["\<\
 Use the following command to Manipulate the orbital parameters\
-\>", "Text",ExpressionUUID->"40aa5c5c-2699-4257-8f9f-b5994ba97795"],
+\>", "Text",ExpressionUUID->"c80c8420-d114-4d54-a216-ff831eb09b49"],
 
 Cell[BoxData[
  RowBox[{"(*", "\[IndentingNewLine]", 
@@ -2865,7 +2865,7 @@ Cell[BoxData[
       RowBox[{"20", "\[Pi]"}]}], "}"}]}], "]"}], "\[IndentingNewLine]", 
   "*)"}]], "Input",
  CellLabel->
-  "In[21]:=",ExpressionUUID->"3d4fa627-1bc3-40d1-aae3-3e8934521594"]
+  "In[21]:=",ExpressionUUID->"9bb6efbe-a24e-485c-9887-0fce07521f46"]
 }, Open  ]],
 
 Cell["", "RelatedTutorialsSection",
@@ -2910,11 +2910,11 @@ Cell["", "RelatedTutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"bf072227-15a0-4704-9a01-431b302259ae"]
+  0,ExpressionUUID->"bc2e2f28-2ec2-4b4b-9f5e-c3905825fe6d"]
 }, Open  ]],
 
 Cell[" ", \
-"FooterCell",ExpressionUUID->"819a231f-6742-4c50-afee-ff84a3f0db35"]
+"FooterCell",ExpressionUUID->"990f5365-cbd8-4a65-9221-f08b6fffc59b"]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",

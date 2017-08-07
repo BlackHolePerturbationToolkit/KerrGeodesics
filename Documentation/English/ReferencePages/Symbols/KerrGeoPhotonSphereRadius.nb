@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"778c1ce5-e2a1-428d-9250-4b5742e4d639"],
+   0}},ExpressionUUID->"84e80208-18f2-45a5-bf9d-1ec4f42f321a"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -15,11 +15,11 @@ Cell[TextData[{
  ButtonBox["KerrGeoPhotonSphereRadius",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoPhotonSphereRadius"]
-}], "LinkTrail",ExpressionUUID->"919e0fa5-c347-485e-a784-48ea579edf73"],
+}], "LinkTrail",ExpressionUUID->"3c039596-712b-4b2e-a442-fd4d50b238c9"],
 
 Cell[BoxData[GridBox[{
    {Cell["KERRGEODESICS PACLET SYMBOL", "PacletNameCell",ExpressionUUID->
-     "f64911f8-2507-4b0c-b61d-d48da610c1b0"], Cell[TextData[{
+     "59d7275f-06b5-44d9-a3f1-a1be4ee311f2"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
@@ -28,7 +28,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "8bfd9282-4377-40e5-8fed-cfa5d0d6c276"],
+      "27c1254f-6288-4ae0-a573-9b2a1fd50dda"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -42,7 +42,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "620d4892-4e33-4fb9-a231-6ccd20dd3ad3"],
+      "0555b863-c2ef-4f23-9d87-e37903352c79"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -53,16 +53,16 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "e73aa66f-9c76-4c07-b859-85e950e9e38b"],
+      "136405af-709d-44c9-9aae-d4ff59b16836"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"34f7f9de-266a-4f05-ba32-794c701f866e"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"4e86276d-3bee-4a01-9dc7-0190e5a933dd"],
+    }], "AnchorBar",ExpressionUUID->"09ef79a1-0be0-477f-ab5e-024f64be5e72"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"7a9c71ae-0417-4795-aec8-64dcd5855ef6"],
 
 Cell[CellGroupData[{
 
 Cell["KerrGeoPhotonSphereRadius", \
-"ObjectName",ExpressionUUID->"6fa25ee8-b15b-4bf4-9722-932d6609b997"],
+"ObjectName",ExpressionUUID->"d2a6a890-5cdc-4143-8ca3-61caa0b4673b"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -74,10 +74,10 @@ Cell[BoxData[GridBox[{
        "[", 
        StyleBox[
         RowBox[{"a", ",", "\[Theta]inc"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"05cfce1f-a49a-4e31-823e-7915934d54e4"],
+      ExpressionUUID->"e48e5a44-2bcd-4da0-b690-64a897f3192e"],
      "\[LineSeparator]computes the radius of the photon sphere"
-    }],ExpressionUUID->"9fb63772-eba5-4529-82ce-9c947cf7eea6"]}
-  }]], "Usage",ExpressionUUID->"e9e656e5-3c17-49b4-b594-692517fba3ec"]
+    }],ExpressionUUID->"5a6d75a2-445e-4924-ae82-b5cab0ca63de"]}
+  }]], "Usage",ExpressionUUID->"7dd9368e-f387-4c37-93e4-583c43b53e95"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -128,12 +128,99 @@ one, ButtonFunction :> (FrontEndExecute[{
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->0,
  "WholeCelGroupOpener" -> 
- True,ExpressionUUID->"b894df07-f756-4082-8c92-260861200498"],
+ True,ExpressionUUID->"95b58a12-1c52-4c7b-8412-48a7d64afca5"],
 
 Cell["\<\
 Computes Boyer-Lindquist radius of the photon sphere for given black hole \
 spin and orbital inclination\
-\>", "Notes",ExpressionUUID->"b5817777-e8be-4580-9181-6c729363d4e5"]
+\>", "Notes",ExpressionUUID->"def18f84-0ac9-44d0-b45f-01718a1ae15a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "PrimaryExamplesSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "EXAMPLES", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            InterpretationBox[
+             StyleBox[
+              
+              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
+               Baseline], "CacheGraphics" -> False], 
+             Spacer[24], Selectable -> False]]], "Examples"}], 
+        "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0,
+ CellTags->
+  "PrimaryExamplesSection",ExpressionUUID->"63206b86-ce9a-4b20-9961-\
+a9de8364f16f"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(2)", "ExampleCount",ExpressionUUID->
+  "6c26afa6-d30c-4f32-bb38-2a89ef21d37f"]
+}], "ExampleSection",ExpressionUUID->"a2d67d41-e829-45da-85ae-3f353047573a"],
+
+Cell[CellGroupData[{
+
+Cell["KerrGeoPhotonSphere[0.9, Pi/3]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"ae369c8a-2159-4060-9971-fab2a9826be2"],
+
+Cell[BoxData[
+ RowBox[{"KerrGeoPhotonSphere", "[", 
+  RowBox[{"0.9`", ",", 
+   FractionBox["\[Pi]", "3"]}], "]"}]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"46d2936f-17f2-4a84-a486-62acd1811597"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["KerrGeoPhotonSphereRadius[a, 0]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"06bd919a-e5e9-4fa3-9145-0337864692f5"],
+
+Cell[BoxData[
+ RowBox[{"2", " ", 
+  RowBox[{"(", 
+   RowBox[{"1", "+", 
+    RowBox[{"Cos", "[", 
+     FractionBox[
+      RowBox[{"2", " ", 
+       RowBox[{"ArcCos", "[", 
+        RowBox[{"-", "a"}], "]"}]}], "3"], "]"}]}], ")"}]}]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"f73b3a76-1c06-4e94-bfef-85be654556d2"]
+}, Open  ]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -179,7 +266,7 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"f32e3c5a-9f71-43af-b627-834c0fc77c0f"],
+  0,ExpressionUUID->"6e28331e-90dd-4bf3-96ad-4dae21e9783b"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -188,7 +275,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoIBSO"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "827b5e81-73dc-4457-adbb-3425d9d2dba9"],
+  "fcb8472a-14a9-48c5-bd56-339eaa06ca84"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -199,7 +286,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISSO"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "cb73ba3a-292b-4682-ad56-404f96dffa48"],
+  "2ff9792e-d25c-411f-9c73-f5a87fc90000"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -210,8 +297,8 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoSeparatrix"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "24a1b327-8c84-4c9e-a8af-19b0ede37fa4"]
-}], "SeeAlso",ExpressionUUID->"a0ed1cee-da81-4df9-abd1-8fcdb055e000"]
+  "7bf89cca-957d-404d-a8b7-749af72e60fb"]
+}], "SeeAlso",ExpressionUUID->"4acfd047-e119-45ac-ab16-7d00289cfba5"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -258,13 +345,13 @@ Cell["", "TutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"041865a9-a016-494b-965d-b1e16042c88f"],
+  0,ExpressionUUID->"cb04de7a-0509-4ca6-81e0-2122b7f4f42a"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/tutorial/KerrGeodesics"]], \
-"Tutorials",ExpressionUUID->"df0978bc-9d38-4cfc-83af-ce6b60b9cc8c"]
+"Tutorials",ExpressionUUID->"cd2f0f2c-2be4-4519-aafb-5dc6d6b4d92e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -310,20 +397,20 @@ Cell["", "MoreAboutSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"bcf6b46a-7e79-4fef-99b7-18c41cd314be"],
+  0,ExpressionUUID->"6ef8e5e4-cb41-43a2-a54b-192b08ff2d9f"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/guide/KerrGeodesics"]], \
-"MoreAbout",ExpressionUUID->"601e6ec6-cf2f-476c-80e5-2c44ddf2e1cc"]
+"MoreAbout",ExpressionUUID->"1226d3de-56e7-4876-9f26-2f5a0488130d"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"e29da63c-4f4c-4822-9a96-87abb55bd8bf"],
+Cell[" ", "FooterCell",ExpressionUUID->"24d1a10f-97b6-484d-b581-adeed49fa996"],
 
-Cell[BoxData[""],ExpressionUUID->"164443a1-c40e-4a8c-ab25-3c1c707c2954"]
+Cell[BoxData[""],ExpressionUUID->"61607f8d-be96-4794-b356-9f5de46b05bd"]
 }, Open  ]]
 },
 Saveable->False,

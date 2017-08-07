@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"f628aa36-9ef8-4fea-b1e4-914a21385591"],
+   0}},ExpressionUUID->"bb5b04e2-41be-4b42-af3e-cdd1c8da8b6a"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -15,11 +15,11 @@ Cell[TextData[{
  ButtonBox["KerrGeoStableOrbitQ",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoStableOrbitQ"]
-}], "LinkTrail",ExpressionUUID->"53e89f15-14cd-4f10-8153-e2b280b9e385"],
+}], "LinkTrail",ExpressionUUID->"4cac5fcb-b80f-4cc0-9067-c7058daf0b1d"],
 
 Cell[BoxData[GridBox[{
    {Cell["KERRGEODESICS PACLET SYMBOL", "PacletNameCell",ExpressionUUID->
-     "378e1997-14b1-4fbd-8902-ed9f7447af61"], Cell[TextData[{
+     "e0606b87-94b6-49bd-9ceb-768722f4f228"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
@@ -28,7 +28,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "2f5d4c8e-d656-4c11-b847-17525f0e83e8"],
+      "a189d951-4870-4815-be65-08274abf4d95"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -40,7 +40,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "71d89d62-2e9f-4a05-b441-6994ac6b3e1c"],
+      "480f7014-7353-4bc6-b9a0-2cbdb5f34d07"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -51,16 +51,16 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "d4f6b830-4eff-451e-a2c5-ff2997246bf4"],
+      "8b10e912-b909-4248-915d-4611b9198c5b"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"62d30d01-69e8-4b7e-8ab8-b977ba6b0bb9"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"ee148093-ae79-419d-a06e-c79a60422095"],
+    }], "AnchorBar",ExpressionUUID->"b70da56c-76f5-404c-b118-25e0b8d8c1a6"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"91256c90-4a92-4e17-a32e-58694b8c833a"],
 
 Cell[CellGroupData[{
 
 Cell["KerrGeoStableOrbitQ", \
-"ObjectName",ExpressionUUID->"363d9efc-b8ae-4856-92f4-d01d04fd1eb5"],
+"ObjectName",ExpressionUUID->"83b97abb-78d3-4709-a1a2-c392a134d74d"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -71,12 +71,12 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:KerrGeodesics/ref/KerrGeoStableOrbitQ"], "[", 
        StyleBox[
         RowBox[{"a", ",", "p", ",", "e", ",", "\[Theta]inc"}], "TI"], "]"}]], 
-      "InlineFormula",ExpressionUUID->"a63180d0-a598-4818-8ec0-6aa22e26caf6"],
+      "InlineFormula",ExpressionUUID->"e49eacfc-b948-4a4b-b9e7-84f0276d7868"],
      
      "\[LineSeparator]checks if given parameters correspond to a stable \
 orbit"
-    }],ExpressionUUID->"10f11704-f1ed-4f3e-8e9a-70e3fbd767c0"]}
-  }]], "Usage",ExpressionUUID->"840b4843-a310-4963-9959-56b0d77f12ec"]
+    }],ExpressionUUID->"cd512a2a-7ea8-46b3-884b-6b13d4e5cd13"]}
+  }]], "Usage",ExpressionUUID->"70dc29a3-092f-429b-8327-96ebdb900dd6"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -127,12 +127,12 @@ Cell["", "NotesSection",
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->0,
  "WholeCelGroupOpener" -> 
- True,ExpressionUUID->"31be02ec-7fc4-4994-85f1-b9560b335243"],
+ True,ExpressionUUID->"6b045778-3094-4bdd-9663-3ec58466e2f9"],
 
 Cell["\<\
 Checks if the given (numerical) orbital parameters corresponds to a stable \
 orbit\
-\>", "Notes",ExpressionUUID->"305474c9-1795-499c-93f3-98aa1f341206"]
+\>", "Notes",ExpressionUUID->"0ec72655-1355-4192-813b-eee675d9c515"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -178,7 +178,7 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"79258072-8cb0-4164-83f3-a4da73999c8a"],
+  0,ExpressionUUID->"a977ddbc-c8e4-4189-bb98-6b589ddf205c"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -187,7 +187,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoELQ"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "d713e22d-b4ce-441a-aec7-5c5e9cc2a7ad"],
+  "46c91d21-1483-44a8-bc16-19a82f66e313"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -198,8 +198,8 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFreqs"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "83be5e01-9852-4f22-baec-f2381e0798b6"]
-}], "SeeAlso",ExpressionUUID->"c20fe724-7126-49e7-9f61-4c18470d0711"]
+  "04875d73-1d59-4a5f-8faf-01a54a6d181a"]
+}], "SeeAlso",ExpressionUUID->"6e56efd3-afd9-4444-8a1d-23726022b07b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -246,13 +246,13 @@ Cell["", "TutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"2ded86a9-ba47-4f3e-ba76-4103b0f78f37"],
+  0,ExpressionUUID->"75f5b783-1ee0-4dc3-b875-85485a95271b"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/tutorial/KerrGeodesics"]], \
-"Tutorials",ExpressionUUID->"2c2a5bc6-6a0b-4235-9979-a13d7d0379e6"]
+"Tutorials",ExpressionUUID->"e6b51785-71b5-4569-b688-a3da93dca2d3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -298,20 +298,20 @@ Cell["", "MoreAboutSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"1db49de9-1c6e-4581-8784-c3265c0a9392"],
+  0,ExpressionUUID->"5c3a6d98-6de3-4a64-8f96-8f0b4cd90a95"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/guide/KerrGeodesics"]], \
-"MoreAbout",ExpressionUUID->"c83be686-c16f-4837-b2c8-7d00c0bda759"]
+"MoreAbout",ExpressionUUID->"87113ee0-3000-4e7b-8bae-66fb9bd2e374"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"7ef8ffbe-715e-4b0b-b630-f3e6e693fdc3"],
+Cell[" ", "FooterCell",ExpressionUUID->"2b621dbb-ba74-4963-95b4-1ca224d65fcd"],
 
-Cell[BoxData[""],ExpressionUUID->"9214fef1-3089-43e4-a757-8732856af42b"]
+Cell[BoxData[""],ExpressionUUID->"c4332309-bb6b-4650-b09e-5be32e7866b9"]
 }, Open  ]]
 },
 Saveable->False,
