@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"1f10be2f-a404-4c95-b3e9-c33844cbf7e3"],
+   0}},ExpressionUUID->"52f57257-b931-4be9-a028-a34694de6ebd"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -15,12 +15,12 @@ Cell[TextData[{
  ButtonBox["KerrGeoOrbitFunction",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbitFunction"]
-}], "LinkTrail",ExpressionUUID->"ed635af1-e498-4b49-8e4f-654a6f899643"],
+}], "LinkTrail",ExpressionUUID->"d318b654-16d3-4012-9ab1-f57c09cc998a"],
 
 Cell[CellGroupData[{
 
 Cell["KerrGeoOrbitFunction", \
-"ObjectName",ExpressionUUID->"ae63f497-16f4-4528-b8cf-c3ac49f22b94"],
+"ObjectName",ExpressionUUID->"3777f056-b6d8-4167-84ae-e54ae475fe3f"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -32,18 +32,18 @@ Cell[BoxData[GridBox[{
        StyleBox[
         RowBox[{"a", ",", "p", ",", "e", ",", "\[Theta]inc", ",", "data"}], 
         "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "c4f3a079-3e3b-4610-8e93-a652e945bb44"],
+      "75f6ca6a-cb00-4577-92c7-f405f9bf2a0c"],
      "\[LineSeparator]function containing information relating to a specific \
 Kerr orbit"
-    }],ExpressionUUID->"36babc44-b3ec-4595-ad22-b75778eb3484"]}
-  }]], "Usage",ExpressionUUID->"7b512c6c-8674-4b35-8501-fa32e7ef4c20"]
+    }],ExpressionUUID->"4c4dcc32-0509-4abe-9b13-fa2c2327f5d1"]}
+  }]], "Usage",ExpressionUUID->"c96ede96-ff4e-45ba-a24c-1d7770f39d97"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"da407fa9-e5f6-44ed-aabb-ba628d9521b9"],
+Cell[" ", "FooterCell",ExpressionUUID->"101a0163-ca44-4211-8479-1d4863f6b275"],
 
-Cell[BoxData[""],ExpressionUUID->"80273244-696d-436d-9f81-3a90327ecf79"]
+Cell[BoxData[""],ExpressionUUID->"7e323e2d-2879-4456-b49c-5eb5092be891"]
 }, Open  ]]
 },
 Saveable->False,

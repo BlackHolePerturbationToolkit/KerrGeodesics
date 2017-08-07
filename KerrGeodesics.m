@@ -5,7 +5,7 @@ BeginPackage["KerrGeodesics`"];
 KerrGeoELQ::usage = "KerrGeoELQ[a, p, e, \[Theta]inc] returns the energy, z-component of the angular momentum and the Carter constant";
 KerrGeoFreqs::usage = "KerrGeoFreqs[a, p, e, \[Theta]inc] returns the radial, polar and azimuthal frequencies and the conversion factor between Boyer-Lindquist and Mino time frequencies";
 KerrGeoStableOrbitQ::usage = "KerrGeoStableOrbitQ[a,p,e,\[Theta]inc] checks if given parameters correspond to a stable orbit";
-KerrGeoISCO::usage = "KerrGeoISCO[a,opts] computes the location of the inner-most stable circular orbit (ISCO)"
+KerrGeoISCO::usage = "KerrGeoISCO[a,\[Theta]inc] computes the location of the inner-most stable circular orbit (ISCO)"
 KerrGeoPhotonSphereRadius::usage = "KerrGeoPhotonSphereRadius[a,\[Theta]inc] computes the radius of the photon sphere"
 KerrGeoIBSO::usage = "KerrGeoIBSO[a,\[Theta]inc] computes the radius of the inner-most bound spherical orbit (IBSO)"
 KerrGeoISSO::usage = "KerrGeoISSO[a,\[Theta]inc] computes the radius of the inner-most stable spherical orbit (ISSO)"
@@ -20,8 +20,8 @@ Begin["`Private`"];
 (*Cutler, Kennefick and Poisson, Phys. Rev. D, 50, 6, p3816, (1994)*)
 (*Eqs. 2.5 and 2.6*)
 KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_,M_:1]:=Module[{E0,L0,Q},
- E0=Sqrt[(-4 e^2+(p/M-2)^2)/(p/M(p/M+e^2-3))];
- L0=p/Sqrt[p/M+e^2-3];
+ E0=Sqrt[((p-2-2e)(p-2+2e))/(p(p-3-e^2))];
+ L0=p/Sqrt[p/M-e^2-3];
  {E0,Cos[\[Theta]inc]L0,Sin[\[Theta]inc]^2 L0^2}
 ]
 
@@ -141,6 +141,26 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2 && e!=0,Print["Polar, non-spherical orbits no
 (*Orbital frequencies for circular orbits in Schwarzschild spacetime*)
 KerrGeoFreqs[(0|0.),p_,(0|0.),\[Theta]inc_]:=Module[{M=1},
 	{Sqrt[((p-6M)M)/p^4], (M/p^3)^(1/2), (M/p^3)^(1/2), Sqrt[p^5/(p-3)]}
+]
+
+(*Orbital frequencies for eccentric orbits in Schwarzschild spacetime*)
+KerrGeoFreqs[(0|0.),p_,e_,\[Theta]inc_]:=Module[{En,L,Q,r1,r2,r3,kr,\[CapitalUpsilon]r,\[CapitalGamma],hp,hr,M=1},
+{En,L,Q}=KerrGeoELQ[0,p,e,0];
+
+r1=p/(1-e);
+r2=p/(1+e);
+r3=(2M)/(1-En^2)-(r1+r2);(*Eq. (11)*)
+
+
+kr=(r1-r2)/(r1-r3) r3/r2;(*Eq.(13)*)
+\[CapitalUpsilon]r=(Pi Sqrt[(1-En^2)(r1-r3)r2])/(2EllipticK[kr]);(*Eq.(15)*)
+hr=(r1-r2)/(r1-r3);
+hp=((r1-r2)(r3-2M))/((r1-r3)(r2-2M));
+(*Convert to frequencies w.r.t BL time Subscript[\[CapitalOmega], k]=Subscript[\[Gamma], k]/\[CapitalGamma] using Fujita and Hikida's formula Eq. (21)*)
+\[CapitalGamma]=4M^2 En +En/2 ((r3(r1+r2+r3)-r1 r2)+(r2-r3)(r1+r2+r3) EllipticPi[hr,kr]/EllipticK[kr]+(r1-r3)r2 EllipticE[kr]/EllipticK[kr])+2M En(r3 +(r2-r3) EllipticPi[hr,kr]/EllipticK[kr])+((8M^3 En)/(r3-2M) (1-(r2-r3)/(r2-2M) EllipticPi[hp,kr]/EllipticK[kr]));
+
+{\[CapitalUpsilon]r/\[CapitalGamma],L/\[CapitalGamma],L/\[CapitalGamma],\[CapitalGamma]}
+
 ]
 
 
