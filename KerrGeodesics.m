@@ -256,7 +256,7 @@ KerrGeoPhotonSphereRadius[a_,\[Theta]inc_]:= Module[{res},
 ]
 
 (* The IBSO is where E=1. Use the fact that rph < r_ibso*)
-KerrGeoIBSO[a_,\[Theta]inc_]:= Module[{rph},
+KerrGeoIBSO[a_?NumericQ,\[Theta]inc_?NumericQ]:= Module[{rph},
 	rph=KerrGeoPhotonSphereRadius[a,\[Theta]inc];
 	p/.FindRoot[KerrGeoELQ[a,p,0,\[Theta]inc][[1]]-1,{p,rph+10^-10,9}, Method->"Brent"]
 ]
@@ -280,7 +280,7 @@ KerrGeoRadialEqRoots[a_,p_,e_,\[Theta]inc_]:=Module[{M=1,En,L,Q,AplusB,AB,r1,r2,
 ]
 
 (*The ISSO occurs when the r2-r3=0. Also use r_ibso < r_isso*)
-KerrGeoISSO[a_,\[Theta]inc_]:=Module[{rmb},
+KerrGeoISSO[a_?NumericQ,\[Theta]inc_?NumericQ]:=Module[{rmb},
 	rmb=KerrGeoIBSO[a,\[Theta]inc];
 	p/.FindRoot[KerrGeoRadialEqRoots[a,p,0,\[Theta]inc][[5]],{p,rmb+10^-10,9},Method->"Brent"]
 ]
