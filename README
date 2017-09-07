@@ -40,12 +40,13 @@ The package may be loaded into Mathematica using the command:
 Examples
 --------
 Examples are included in the documentation. See the
-SpinWeightedSpheroidalHarmonics page in Documentation Center.
+KerrGeodesics page in Documentation Center.
 
 
 Changelog
 ---------
-10 June 2017: Initial version released.
+7 September 2017: Initial version publicly released
+10 June 2017: Initial version created.
 
 
 Known problems
