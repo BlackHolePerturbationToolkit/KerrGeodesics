@@ -1,5 +1,7 @@
 <img src="generic_orbit_3d_corotating.png" width="300px">
 
+The KerrGeodesics package for Mathematica provides functions for computing bound timelike geodesics and their properties in Kerr spacetime
+
 ## Getting the package
 
 The latest development version will always be available from the project git
