@@ -1,3 +1,5 @@
+<img src="generic_orbit_3d_corotating.png">
+
 ## Getting the package
 
 The latest development version will always be available from the project git
