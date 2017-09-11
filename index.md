@@ -1,4 +1,4 @@
-<img src="generic_orbit_3d_corotating.png">
+<img src="generic_orbit_3d_corotating.png" width="300px">
 
 ## Getting the package
 
