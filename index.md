@@ -36,7 +36,7 @@ KerrGeodesics page in Documentation Center.
 
 ## Changelog
 
-7 September 2017: Initial version publicly released  
+7 September 2017: Initial version publicly released\s\s
 10 June 2017: Initial version created.
 
 ## Known problems
