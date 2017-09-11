@@ -33,10 +33,16 @@ The package may be loaded into Mathematica using the command:
 ```
 
 
-## Examples
+## Documentation and examples
 
 Examples are included in the documentation. See the
-KerrGeodesics page in Documentation Center.
+KerrGeodesics page in Documentation Center. The package includes functions to calculate, e.g.,
+
+* Constants of motion and orbital frequencies
+* The orbital trajectory and 4-velocity
+* The location of the photon sphere
+* The location of inner-most bound and inner-most stable circular/spherical orbits
+* The location of the separatrix between bound and plunging orbits
 
 ## Changelog
 
