@@ -67,7 +67,7 @@ L0=a E0 + x;
 
 
 (*ELQ calculation for spherical polar orbits*)
-(*Stoghianidis & Tsoubelis, Gen. Rel. and Grav., Gen. Rel, Gravitation, vol. 19, No. 12, p. 1235 (1987)*)
+(*Stoghianidis & Tsoubelis, Gen. Rel, Gravitation, vol. 19, No. 12, p. 1235 (1987)*)
 (*Eqs. 17-19*)
 KerrGeoELQ[a_,p_,0,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==\[Pi]/2,M_:1]:=Module[{r0,\[CapitalDelta]0,Z,En,Q},
 		r0 = p;
