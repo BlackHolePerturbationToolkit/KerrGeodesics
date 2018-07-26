@@ -19,7 +19,7 @@ Begin["`Private`"];
 (*ELQ calculation for Schwarzschild spacetime*)
 (*Cutler, Kennefick and Poisson, Phys. Rev. D, 50, 6, p3816, (1994)*)
 (*Eqs. 2.5 and 2.6*)
-KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_,M_:1]:=Module[{E0,L0,Q},
+KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{M=1,E0,L0,Q},
  E0=Sqrt[((p-2-2e)(p-2+2e))/(p(p-3-e^2))];
  L0=p/Sqrt[p/M-e^2-3];
  {E0,Cos[\[Theta]inc]L0,Sin[\[Theta]inc]^2 L0^2}
@@ -28,7 +28,7 @@ KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_,M_:1]:=Module[{E0,L0,Q},
 (*ELQ calculation for Kerr circular equatorial - prograde*)
 (*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
 (*Eqs. 2.12 and 2.13*)
-KerrGeoELQ[a_,p_,0,0,M_:1]:=Module[{E0,L0,Q},
+KerrGeoELQ[a_,p_,0,0]:=Module[{M=1,E0,L0,Q},
 E0 = (p^(3/2)-2M p^(1/2)+a M^(1/2))/(p^(3/4) (p^(3/2)-3M p^(1/2)+2a M^(1/2))^(1/2));
 L0 = (M^(1/2) (p^2-2a M^(1/2) p^(1/2)+a^2))/(p^(3/4) (p^(3/2)-3M p^(1/2)+2a M^(1/2))^(1/2));
 Q = 0;
@@ -38,7 +38,7 @@ Q = 0;
 (*ELQ calculation for Kerr circular equatorial - retrograde*)
 (*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
 (*Eqs. 2.12 and 2.13*)
-KerrGeoELQ[a_,p_,0,\[Pi],M_:1]:=Module[{E0,L0,Q},
+KerrGeoELQ[a_,p_,0,\[Pi]]:=Module[{M=1,E0,L0,Q},
 E0 = (p^(3/2)-2M p^(1/2)-a M^(1/2))/(p^(3/4) (p^(3/2)-3M p^(1/2)-2a M^(1/2))^(1/2));
 L0 = (-M^(1/2)(p^2+2a M^(1/2) p^(1/2)+a^2))/(p^(3/4) (p^(3/2)-3M p^(1/2)-2a M^(1/2))^(1/2));
 Q = 0;
@@ -48,7 +48,7 @@ Q = 0;
 (*ELQ calculation for Kerr eccentric equatorial*)
 (*Glampedakis and Kennefick, Phys. Rev. D66 (2002) 044002, arXiv:gr-qc/0203086*)
 (*Eq. 7 and appendix A*)
-KerrGeoELQ[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0,M_:1]:=Module[{a=a1,F,G,B,\[CapitalDelta]1,x,E0,L0,Q=0,sign=1},
+KerrGeoELQ[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0]:=Module[{M=1,a=a1,F,G,B,\[CapitalDelta]1,x,E0,L0,Q=0,sign=1},
 
 If[Mod[\[Theta]inc,2\[Pi]]==\[Pi], a=-a;sign=-1];
 
@@ -69,7 +69,7 @@ L0=a E0 + x;
 (*ELQ calculation for spherical polar orbits*)
 (*Stoghianidis & Tsoubelis, Gen. Rel, Gravitation, vol. 19, No. 12, p. 1235 (1987)*)
 (*Eqs. 17-19*)
-KerrGeoELQ[a_,p_,0,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==\[Pi]/2,M_:1]:=Module[{r0,\[CapitalDelta]0,Z,En,Q},
+KerrGeoELQ[a_,p_,0,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==\[Pi]/2]:=Module[{M=1,r0,\[CapitalDelta]0,Z,En,Q},
 		r0 = p;
 		\[CapitalDelta]0 = r0^2-2M r0+a^2;
 		Z = r0^3 - 3M r0^2 + a^2 r0+M a^2;
@@ -229,7 +229,7 @@ KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?Numer
 (*Kerr inner-most circular orbit ISCO*)
 (*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
 (*Eq. 2.21*)
-KerrGeoISCO[a_,\[Theta]inc1_/;Mod[\[Theta]inc1,\[Pi]]==0,M_:1]:=Module[{\[Theta]inc=\[Theta]inc1,Z1,Z2},
+KerrGeoISCO[a_,\[Theta]inc1_/;Mod[\[Theta]inc1,\[Pi]]==0]:=Module[{M=1,\[Theta]inc=\[Theta]inc1,Z1,Z2},
     \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
 	Z1=1+(1-a^2/M^2)^(1/3) ((1+a/M)^(1/3)+(1-a/M)^(1/3));
 	Z2=(3a^2/M^2 + Z1^2)^(1/2);
@@ -241,13 +241,13 @@ KerrGeoISCO[a_,\[Theta]inc1_/;Mod[\[Theta]inc1,\[Pi]]==0,M_:1]:=Module[{\[Theta]
 
 
 (*Photon sphere becomes light ring at r=3M in Schwarzschild*)
-KerrGeoPhotonSphereRadius[(0|0.0),\[Theta]inc_,M_:1]:=3M;
+KerrGeoPhotonSphereRadius[(0|0.0),\[Theta]inc_]:=3;
 
 (*Radius of photon sphere  for equatorial orbits*)
 (*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
 (*Eq. 2.18*)
-KerrGeoPhotonSphereRadius[a_,(0|0.),M_:1]:=2M(1+Cos[2/3 ArcCos[-a/M]])
-KerrGeoPhotonSphereRadius[a_,\[Pi],M_:1]:=2M(1+Cos[2/3 ArcCos[a/M]])
+KerrGeoPhotonSphereRadius[a_,(0|0.)]:=2(1+Cos[2/3 ArcCos[-a]])
+KerrGeoPhotonSphereRadius[a_,\[Pi]]:=2(1+Cos[2/3 ArcCos[a]])
 
 (*Photon sphere radius is where the energy for a timelike orbit diverges*)
 KerrGeoPhotonSphereRadius[a_,\[Theta]inc_]:= Module[{res},
