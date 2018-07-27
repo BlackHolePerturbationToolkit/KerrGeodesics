@@ -475,6 +475,12 @@ KerrGeoPolarRoots[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp}
 ]
 
 
+(*
+Generic bound orbits. Based on code from Maarten van de Meent which is an 
+implementation of Fujita and Hikida's analytic formula 
+Class.Quantum Grav.26 (2009) 135002,arXiv:0906.1420
+*)
+
 KerrGeoOrbit[a_, p_, e_, \[Theta]inc_]:=Module[{M=1, r1, r2, r3, r4, kr, k\[Theta], En, L, Q, zp, zm, \[Psi]r, \[Psi]z, rq, zq, rp, rm, hr, hp, hm, \[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma], \[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \[CapitalUpsilon]\[Phi], \[CapitalUpsilon]t, qr0, qz0, qt0, q\[Phi]0, tr,tz,\[Phi]r,\[Phi]z,t,r,\[Theta],\[Phi]},
 
 {En,L,Q} = KerrGeoELQ[a, p, e, \[Theta]inc];
