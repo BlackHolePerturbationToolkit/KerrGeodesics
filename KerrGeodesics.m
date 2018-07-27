@@ -12,6 +12,7 @@ KerrGeoISSO::usage = "KerrGeoISSO[a,\[Theta]inc] computes the radius of the inne
 KerrGeoSeparatrix::usage = "KerrGeoSepatrix[a,e,\[Theta]inc] calculates the value of p at the sepatrix between stable and plunging/scattered orbits*)"
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,\[Theta]inc] calculates the orbital trajectory in Boyer-Lindquist coordinates"
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] function containing information relating to a specific Kerr orbit"
+KerrGeoOrbitFunction2::usage = "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] function containing information relating to a specific Kerr orbit"
 
 
 Begin["`Private`"];
@@ -395,9 +396,9 @@ KerrGeoOrbitFunction[a,p,e,\[Theta]inc,{\[ScriptCapitalN],ELQ,freqs,xp,u}]
 
 ]
 
-KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]!=0,OptionsPattern[]]:=Module[{},
+(*KerrGeoOrbit[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]!=0,OptionsPattern[]]:=Module[{},
 	Print["Orbit trajectory not yet implemented for non-equatorial orbits"];
-]
+]*)
 
 
 Format[KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]]:=KerrGeoOrbitFunction[a,p,e,\[Theta]inc,"<<>>"];
@@ -445,7 +446,93 @@ r[\[Chi]_]:=rI[\[Chi]];
 ]
 
 
-	
+(* ::Subsection:: *)
+(*Generic orbit implementation*)
+
+
+(* FIXME this function is a copy of one above, merge the two together *)
+KerrGeoRadialRoots[a_, p_, e_, \[Theta]inc_] := Module[{M=1,En,L,Q,r1,r2,r3,r4,AplusB,AB},
+{En,L,Q}=KerrGeoELQ[a, p, e, \[Theta]inc];
+
+r1=p/(1-e);
+r2=p/(1+e);
+AplusB=(2M)/(1-En^2)-(r1+r2);(*Eq. (11)*)
+AB=(a^2 Q)/((1-En^2)r1 r2);(*Eq. (11)*)
+r3=(AplusB+Sqrt[(AplusB)^2-4AB])/2;(*Eq. (11)*)
+r4=AB/r3;
+
+{r1,r2,r3,r4}
+
+]
+
+
+KerrGeoPolarRoots[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp},
+  {En,L,Q} = KerrGeoELQ[a, p, e, \[Theta]inc];
+  \[Theta]min=(\[Pi]/2-\[Theta]inc)/Sign[L];
+  zm = Cos[\[Theta]min];
+  zp = (a^2 (1-En^2)+L^2/(1-zm^2))^(1/2);
+  {zp,zm}
+]
+
+
+KerrGeoOrbit[a_, p_, e_, \[Theta]inc_]:=Module[{M=1, r1, r2, r3, r4, kr, k\[Theta], En, L, Q, zp, zm, \[Psi]r, \[Psi]z, rq, zq, rp, rm, hr, hp, hm, \[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma], \[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \[CapitalUpsilon]\[Phi], \[CapitalUpsilon]t, qr0, qz0, qt0, q\[Phi]0, tr,tz,\[Phi]r,\[Phi]z,t,r,\[Theta],\[Phi]},
+
+{En,L,Q} = KerrGeoELQ[a, p, e, \[Theta]inc];
+{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, \[Theta]inc];
+{zp,zm} = KerrGeoPolarRoots[a, p, e, \[Theta]inc];
+{\[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma]} = KerrGeoFreqs[a, p, e, \[Theta]inc];
+{\[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \[CapitalUpsilon]\[Phi], \[CapitalUpsilon]t} = {\[CapitalOmega]r \[CapitalGamma], \[CapitalOmega]\[Theta] \[CapitalGamma], \[CapitalOmega]\[Phi] \[CapitalGamma], \[CapitalGamma]};
+
+kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
+k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
+
+rp=M+Sqrt[M^2-a^2];
+rm=M-Sqrt[M^2-a^2];
+hr=(r1-r2)/(r1-r3);
+hp=((r1-r2)(r3-rp))/((r1-r3)(r2-rp));
+hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
+
+rq = Function[{qr},(r3(r1 - r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-r2(r1-r3))/((r1-r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-(r1-r3))];
+
+zq = Function[{qz}, -zm JacobiSN[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]]];
+
+\[Psi]r[qr_]:=\[Psi]r[qr]= JacobiAmplitude[EllipticK[kr]/\[Pi] qr,kr];
+
+tr[qr_]:= -En/Sqrt[(1-En^2) (r1-r3) (r2-r4)] (
+4(r2-r3) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr])
+-2 (r2-r3)/(rp-rm) (
+-(1/((-rm+r2) (-rm+r3)))(-2 a^2+rm (4-(a L)/En)) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr] )
++1/((-rp+r2) (-rp+r3)) (-2 a^2+rp (4-(a L)/En)) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr])
+)
++(r2-r3) (r1+r2+r3+r4) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr] )
++(r1-r3) (r2-r4) (EllipticE[kr] qr/\[Pi]-EllipticE[\[Psi]r[qr],kr]+hr((Sin[\[Psi]r[qr]]Cos[\[Psi]r[qr]] Sqrt[1-kr Sin[\[Psi]r[qr]]^2])/(1-hr Sin[\[Psi]r[qr]]^2))) );
+
+\[Phi]r[qr_]:= (2 a En (-1/((-rm+r2) (-rm+r3))(2 rm-(a L)/En) (r2-r3) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr])+1/((-rp+r2) (-rp+r3))(2 rp-(a L)/En) (r2-r3) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr] )))/((-rm+rp) Sqrt[(1-En^2) (r1-r3) (r2-r4)]);
+
+\[Psi]z[qz_]:=\[Psi]z[rq]= JacobiAmplitude[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]];
+tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE[\[Psi]z[qz],k\[Theta]]);
+\[Phi]z[qz_]:= -1/zp L ( EllipticPi[zm^2,k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticPi[zm^2,\[Psi]z[qz],k\[Theta]]);
+
+(*FIXME; need to be able to give these as input*)
+{qt0, qr0, qz0, q\[Phi]0}={0,0,0,0};
+
+t[\[Lambda]_]:= qt0 + \[CapitalUpsilon]t \[Lambda] + tr[\[CapitalUpsilon]r \[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
+r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
+\[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
+\[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
+
+KerrGeoOrbitFunction2[a, p, e, \[Theta]inc, {t,r,\[Theta],\[Phi]}]
+
+
+]
+
+
+Format[KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, {t_,r_,\[Theta]_,\[Phi]_}]]:=KerrGeoOrbitFunction2[a,p,e,\[Theta]inc,"<<>>"];
+
+KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, {t_,r_,\[Theta]_,\[Phi]_}][\[Lambda]_]:={t[\[Lambda]], r[\[Lambda]], \[Theta][\[Lambda]], \[Phi][\[Lambda]]}
+
+
+
 End[];
 
 EndPackage[];
