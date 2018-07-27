@@ -177,12 +177,7 @@ If[\[Theta]inc==\[Pi]/2, Print["Equations for polar orbits not implemented yet"]
 {En,L,Q}=KerrGeoELQ[a,p,e,\[Theta]inc];
 \[Theta]min=(\[Pi]/2-\[Theta]inc)/Sign[L];
 
-r1=p/(1-e);
-r2=p/(1+e);
-AplusB=(2M)/(1-En^2)-(r1+r2);(*Eq. (11)*)
-AB=(a^2 Q)/((1-En^2)r1 r2);(*Eq. (11)*)
-r3=(AplusB+Sqrt[(AplusB)^2-4AB])/2;(*Eq. (11)*)
-r4=AB/r3;(*Eq. (11)*)
+{r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,\[Theta]inc];
 \[Epsilon]0=a^2 (1-En^2)/L^2;
 zm=Cos[\[Theta]min]^2;
 a2zp=(L^2+a^2 (-1+En^2) (-1+zm))/( (-1+En^2) (-1+zm));
@@ -266,24 +261,11 @@ KerrGeoIBSO[a_?NumericQ,\[Theta]inc_?NumericQ]:= Module[{rph},
 KerrGeoIBSO[a_,0]:= 2-a+2(1-a)^(1/2)
 KerrGeoIBSO[a_,\[Pi]]:= 2+a+2(1+a)^(1/2)
 
-(*Returns the roots of the radial equation and r2-r3 *)
-KerrGeoRadialEqRoots[a_,p_,e_,\[Theta]inc_]:=Module[{M=1,En,L,Q,AplusB,AB,r1,r2,r3,r4},
-	{En,L,Q}=KerrGeoELQ[a,p,e,\[Theta]inc];
-
-	r1=p/(1-e);
-	r2=p/(1+e);
-	AplusB=(2M)/(1-En^2)-(r1+r2);(*Eq. (11)*)
-	AB=(a^2 Q)/((1-En^2)r1 r2);(*Eq. (11)*)
-	r3=(AplusB+Sqrt[(AplusB)^2-4AB])/2;(*Eq. (11)*)
-	r4=AB/r3;(*Eq. (11)*)
-
-	{r1,r2,r3,r4,r2-r3}
-]
-
 (*The ISSO occurs when the r2-r3=0. Also use r_ibso < r_isso*)
-KerrGeoISSO[a_?NumericQ,\[Theta]inc_?NumericQ]:=Module[{rmb},
+KerrGeoISSO[a_?NumericQ, \[Theta]inc_?NumericQ]:=Module[{rmb,r2minusr3},
 	rmb=KerrGeoIBSO[a,\[Theta]inc];
-	p/.FindRoot[KerrGeoRadialEqRoots[a,p,0,\[Theta]inc][[5]],{p,rmb+10^-10,9},Method->"Brent"]
+	r2minusr3[p_]:=With[{roots=KerrGeoRadialRoots[a,p,0,\[Theta]inc]},roots[[2]]-roots[[3]]];
+	p/.FindRoot[r2minusr3[p],{p,rmb+10^-10,9},Method->"Brent"]
 ]
 
 (*For equatorial orbits the ISSO is the ISCO*)
@@ -304,8 +286,9 @@ KerrGeoSeparatrix[a1_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0]:= Module[{ru,a
 
 (* The separatrix occurs when Subscript[\[CapitalOmega], r]=0 which implies Subscript[r, 2]=Subscript[r, 3]. Search for the value of p at which this occurs which must be outside the p of the ISSO*)
 (*FIXME: values near the equatorial plane seem to be problematic*)
-KerrGeoSeparatrix[a_?NumericQ,e_?NumericQ,\[Theta]inc_?NumericQ]:=Module[{},
-	p/.FindRoot[KerrGeoRadialEqRoots[a,p,e,\[Theta]inc][[5]],{p,KerrGeoISSO[a,\[Theta]inc],20},Method->"Brent"]
+KerrGeoSeparatrix[a_?NumericQ,e_?NumericQ,\[Theta]inc_?NumericQ]:=Module[{r2minusr3},
+    r2minusr3[p_]:=With[{roots=KerrGeoRadialRoots[a,p,e,\[Theta]inc]},roots[[2]]-roots[[3]]];
+	p/.FindRoot[r2minusr3[p],{p,KerrGeoISSO[a,\[Theta]inc],20},Method->"Brent"]
 ]
 
 (*From Glampedakis and Kennefick arXiv:gr-qc/0203086*)
@@ -450,7 +433,7 @@ r[\[Chi]_]:=rI[\[Chi]];
 (*Generic orbit implementation*)
 
 
-(* FIXME this function is a copy of one above, merge the two together *)
+(* Returns the roots of the radial equation *)
 KerrGeoRadialRoots[a_, p_, e_, \[Theta]inc_] := Module[{M=1,En,L,Q,r1,r2,r3,r4,AplusB,AB},
 {En,L,Q}=KerrGeoELQ[a, p, e, \[Theta]inc];
 
@@ -533,7 +516,7 @@ KerrGeoOrbitFunction2[a, p, e, \[Theta]inc, {t,r,\[Theta],\[Phi]}]
 ]
 
 
-Format[KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, {t_,r_,\[Theta]_,\[Phi]_}]]:=KerrGeoOrbitFunction2[a,p,e,\[Theta]inc,"<<>>"];
+Format[KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, {t_,r_,\[Theta]_,\[Phi]_}]] := KerrGeoOrbitFunction2[a,p,e,\[Theta]inc,"<<>>"];
 
 KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, {t_,r_,\[Theta]_,\[Phi]_}][\[Lambda]_]:={t[\[Lambda]], r[\[Lambda]], \[Theta][\[Lambda]], \[Phi][\[Lambda]]}
 
