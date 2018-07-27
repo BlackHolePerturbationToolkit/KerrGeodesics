@@ -433,7 +433,7 @@ r[\[Chi]_]:=rI[\[Chi]];
 (*Generic orbit implementation*)
 
 
-(* Returns the roots of the radial equation *)
+(* Returns the roots of the radial equation, as given by Fujita and Hikida *)
 KerrGeoRadialRoots[a_, p_, e_, \[Theta]inc_] := Module[{M=1,En,L,Q,r1,r2,r3,r4,AplusB,AB},
 {En,L,Q}=KerrGeoELQ[a, p, e, \[Theta]inc];
 
