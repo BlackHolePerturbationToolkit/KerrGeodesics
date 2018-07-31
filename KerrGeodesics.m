@@ -464,7 +464,7 @@ implementation of Fujita and Hikida's analytic formula
 Class.Quantum Grav.26 (2009) 135002,arXiv:0906.1420
 *)
 
-KerrGeoOrbit[a_, p_, e_, \[Theta]inc_]:=Module[{M=1, r1, r2, r3, r4, kr, k\[Theta], En, L, Q, zp, zm, \[Psi]r, \[Psi]z, rq, zq, rp, rm, hr, hp, hm, \[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma], \[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \[CapitalUpsilon]\[Phi], \[CapitalUpsilon]t, qr0, qz0, qt0, q\[Phi]0, tr,tz,\[Phi]r,\[Phi]z,t,r,\[Theta],\[Phi]},
+KerrGeoOrbit[a_, p_, e_, \[Theta]inc_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1, r1, r2, r3, r4, kr, k\[Theta], En, L, Q, zp, zm, \[Psi]r, \[Psi]z, rq, zq, rp, rm, hr, hp, hm, \[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma], \[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \[CapitalUpsilon]\[Phi], \[CapitalUpsilon]t, qr0, qz0, qt0, q\[Phi]0, tr,tz,\[Phi]r,\[Phi]z,t,r,\[Theta],\[Phi]},
 
 {En,L,Q} = KerrGeoELQ[a, p, e, \[Theta]inc];
 {r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, \[Theta]inc];
@@ -502,8 +502,7 @@ tr[qr_]:= -En/Sqrt[(1-En^2) (r1-r3) (r2-r4)] (
 tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE[\[Psi]z[qz],k\[Theta]]);
 \[Phi]z[qz_]:= -1/zp L ( EllipticPi[zm^2,k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticPi[zm^2,\[Psi]z[qz],k\[Theta]]);
 
-(*FIXME; need to be able to give these as input*)
-{qt0, qr0, qz0, q\[Phi]0}={0,0,0,0};
+{qt0, qr0, qz0, q\[Phi]0} = {initPhases[[1]], initPhases[[2]], initPhases[[3]], initPhases[[4]]};
 
 t[\[Lambda]_]:= qt0 + \[CapitalUpsilon]t \[Lambda] + tr[\[CapitalUpsilon]r \[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
 r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
