@@ -56,8 +56,6 @@ KerrGeoPolarRoots[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp}
 (*Constants of motion*)
 
 
-
-
 (*ELQ calculation for Schwarzschild spacetime*)
 (*Cutler, Kennefick and Poisson, Phys. Rev. D, 50, 6, p3816, (1994)*)
 (*Eqs. 2.5 and 2.6*)
@@ -180,7 +178,7 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2 && e!=0,Print["Polar, non-spherical orbits no
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Orbital frequencies*)
 
 
@@ -593,7 +591,7 @@ KerrGeoOrbitFunction2[a, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Kerr generic orbits (Mino parameterization)*)
 
 
@@ -629,7 +627,7 @@ zq = Function[{qz}, -zm JacobiSN[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Th
 
 tr[qr_]:= -En/Sqrt[(1-En^2) (r1-r3) (r2-r4)] (
 4(r2-r3) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr])
--2 (r2-r3)/(rp-rm) (
+-4 (r2-r3)/(rp-rm) (
 -(1/((-rm+r2) (-rm+r3)))(-2 a^2+rm (4-(a L)/En)) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr] )
 +1/((-rp+r2) (-rp+r3)) (-2 a^2+rp (4-(a L)/En)) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr])
 )
