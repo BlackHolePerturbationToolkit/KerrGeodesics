@@ -20,6 +20,8 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] func
 KerrGeoOrbit2::usage = "KerrGeoOrbit[a,p,e,\[Theta]inc] calculates the orbital trajectory in Boyer-Lindquist coordinates"
 KerrGeoOrbitFunction2::usage = "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] function containing information relating to a specific Kerr orbit"
 
+Begin["`Private`"];
+
 
 (* ::Section::Closed:: *)
 (*Useful functions*)
@@ -54,7 +56,7 @@ KerrGeoPolarRoots[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp}
 (*Constants of motion*)
 
 
-Begin["`Private`"];
+
 
 (*ELQ calculation for Schwarzschild spacetime*)
 (*Cutler, Kennefick and Poisson, Phys. Rev. D, 50, 6, p3816, (1994)*)
@@ -178,7 +180,7 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2 && e!=0,Print["Polar, non-spherical orbits no
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Orbital frequencies*)
 
 
@@ -484,6 +486,10 @@ r[\[Chi]_]:=rI[\[Chi]];
 (*Orbital trajectory (new generic implementation)*)
 
 
+(* ::Subsection::Closed:: *)
+(*Orbital function definitions*)
+
+
 Options[KerrGeoOrbit2] = {Parametrization -> "Mino"}
 SyntaxInformation[KerrGeoOrbit2] = {"ArgumentsPattern"->{_,_,OptionsPattern[]}};
 
@@ -493,7 +499,10 @@ KerrGeoOrbit2[a_, p_, e_, \[Theta]inc_, initPhases:{_,_,_,_}:{0,0,0,0}, OptionsP
 If[OptionValue["Parametrization"] == "Mino", Return[KerrGeoOrbitMino[a, p, e, \[Theta]inc, initPhases]]];
 
 If[OptionValue["Parametrization"] == "Darwin", 
-  If[a == 0 && \[Theta]inc == 0 , Return[KerrGeoOrbitSchwarzDarwin[p,e]], Print["Darwin parmeterization only implemented for equatorial motion in Schwarzschild so far"]; Return[];]
+  If[\[Theta]inc == 0 , 
+    If[a==0,Return[KerrGeoOrbitSchwarzDarwin[p,e]],Return[KerrGeoOrbitEquatorialDarwin[a,p,e]]];,
+    Print["Darwin parametrization only implemented for equatorial orbits"];Return[];
+  ];
 ];
 
 Print["Unknown parameterization: " <> OptionValue["Parametrization"]];
@@ -501,19 +510,15 @@ Print["Unknown parameterization: " <> OptionValue["Parametrization"]];
 ]
 
 
-(* ::Subsection:: *)
-(*Orbital function*)
-
-
-Format[KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, assoc_]] := "KerrGeoOrbitFunction2[a,p,e,\[Theta]inc,<<>>]";
+Format[KerrGeoOrbitFunction2[a_, p_, e_, \[Theta]inc_, assoc_]] := "KerrGeoOrbitFunction2["<>ToString[a]<>","<>ToString[p]<>","<>ToString[e]<>","<>ToString[\[Theta]inc]<>",<<>>]";
 
 KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == False] := Through[assoc["Trajectory"][\[Lambda]]]
 KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, assoc_][x_?StringQ] := assoc[x]
 
 
 
-(* ::Subsection:: *)
-(*Schwarzschild (Darwin parameterization)*)
+(* ::Subsection::Closed:: *)
+(*Schwarzschild (Darwin parametrization)*)
 
 
 (* ::Text:: *)
@@ -538,15 +543,58 @@ r[\[Chi]_] := rSchwarzDarwin[p,e,\[Chi]];
 \[Theta][\[Chi]_] := \[Theta]SchwarzDarwin[p,e,\[Chi]];
 \[Phi][\[Chi]_] := \[Phi]SchwarzDarwin[p,e,\[Chi]];
 
-assoc = Association["Trajectory" -> {t,r,\[Theta],\[Phi]},"Parametrization"->"Darwin"];
+assoc = Association["Trajectory" -> {t,r,\[Theta],\[Phi]}, "Parametrization"->"Darwin"];
 
 KerrGeoOrbitFunction2[0, p, e, 0, assoc]
 
 ]
 
 
-(* ::Subsection:: *)
-(*Kerr (Mino parameterization)*)
+(* ::Subsection::Closed:: *)
+(*Kerr equatorial orbits (Darwin parametrization)*)
+
+
+(* ::Text:: *)
+(*Compute the orbit using Mino time and then convert to Darwin time using \[Lambda][r[\[Chi]]] where \[Lambda][r] is found in Fujita and Hikida (2009).*)
+
+
+KerrGeoOrbitEquatorialDarwin[a_,p_,e_]:=Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc},
+
+orbitMino = KerrGeoOrbit2[a,p,e,0];
+
+{r1,r2,r3,r4} = orbitMino["RadialRoots"];
+freqs = orbitMino["Freqs"];
+{En,L,Q} = orbitMino["ELQ"];
+\[CapitalLambda]r = (2\[Pi])/(freqs[[1]]freqs[[4]]);
+
+yr[r_]:=Sqrt[(r1-r3)/(r1-r2) (r-r2)/(r-r3)];
+kr=(r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
+\[Lambda]0r[r_]:=1/Sqrt[1-En^2] 2/Sqrt[(r1-r3)(r2-r4)] EllipticF[ArcSin[yr[r]],kr];
+
+
+r[\[Chi]_]:=p/(1+e Cos[\[Chi]]);
+
+r01=r2;
+\[CapitalLambda]r1=\[Lambda]0r[r01];
+
+
+\[Lambda][\[Chi]_]:=\[CapitalLambda]r Floor[\[Chi]/(2\[Pi])]+If[Mod[\[Chi],2\[Pi]]<=\[Pi], \[Lambda]0r[r[\[Chi]]]-\[CapitalLambda]r1,\[CapitalLambda]r-\[Lambda]0r[r[\[Chi]]]];
+{tMino, rMino, \[Theta]Mino, \[Phi]Mino} = orbitMino["Trajectory"];
+
+tDarwin[\[Chi]_]:= tMino[\[Lambda][\[Chi]]];
+rDarwin[\[Chi]_]:= rMino[\[Lambda][\[Chi]]];
+\[Theta]Darwin[\[Chi]_]:= \[Theta]Mino[\[Lambda][\[Chi]]];
+\[Phi]Darwin[\[Chi]_]:= \[Phi]Mino[\[Lambda][\[Chi]]];
+
+assoc = Association["Trajectory" -> {tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin}, "Parametrization" -> "Darwin", "ELQ"->{En,L,Q}, "Freqs" -> freqs, "RadialRoots"->{r1,r2,r3,r4}];
+
+KerrGeoOrbitFunction2[a, p, e, 0, assoc]
+
+]
+
+
+(* ::Subsection::Closed:: *)
+(*Kerr generic orbits (Mino parameterization)*)
 
 
 (*
@@ -565,6 +613,7 @@ KerrGeoOrbitMino[a_, p_, e_, \[Theta]inc_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Modul
 
 kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
 k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
+
 
 rp=M+Sqrt[M^2-a^2];
 rm=M-Sqrt[M^2-a^2];
@@ -600,7 +649,7 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 \[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
 \[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
 
-assoc = Association["Trajectory" -> {t,r,\[Theta],\[Phi]}, "Parametrization" -> "Mino", "ELQ"->{En,L,Q}, "Freqs" -> {\[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi]}];
+assoc = Association["Trajectory" -> {t,r,\[Theta],\[Phi]}, "Parametrization" -> "Mino", "ELQ"->{En,L,Q}, "Freqs" -> {\[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma]}, "RadialRoots"->{r1,r2,r3,r4}];
 
 KerrGeoOrbitFunction2[a, p, e, \[Theta]inc, assoc]
 
