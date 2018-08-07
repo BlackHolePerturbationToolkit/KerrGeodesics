@@ -46,6 +46,7 @@ KerrGeodesics page in Documentation Center. The package includes functions to ca
 
 ## Changelog
 
+7 August 2018: Added generic orbit calculation of the orbit (thanks for M. van de Meent for contributing code). Currently the code is separated in KerrGeoOrbit2[..] but will soon replace the earlier code.
 7 September 2017: Initial version publicly released<br>
 10 June 2017: Initial version created.
 
@@ -61,4 +62,5 @@ Open Source License. Details can be found in the LICENSE file.
 
 ## Authors
 
-Niels Warburton  
+Niels Warburton
+Maarten van de Meent
