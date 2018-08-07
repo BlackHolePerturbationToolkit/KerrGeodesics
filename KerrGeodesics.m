@@ -591,7 +591,7 @@ KerrGeoOrbitFunction2[a, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Kerr generic orbits (Mino parameterization)*)
 
 
