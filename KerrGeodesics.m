@@ -484,7 +484,7 @@ r[\[Chi]_]:=rI[\[Chi]];
 (*Orbital trajectory (new generic implementation)*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Orbital function definitions*)
 
 
@@ -591,7 +591,7 @@ KerrGeoOrbitFunction2[a, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Kerr generic orbits (Mino parameterization)*)
 
 
@@ -647,12 +647,170 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 \[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
 \[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
 
-assoc = Association["Trajectory" -> {t,r,\[Theta],\[Phi]}, "Parametrization" -> "Mino", "ELQ"->{En,L,Q}, "Freqs" -> {\[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma]}, "RadialRoots"->{r1,r2,r3,r4}];
+assoc = Association["Trajectory" -> {t,r,\[Theta],\[Phi]}, "Parametrization" -> "Mino", "ELQ"->{En,L,Q}, "Freqs" -> {\[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma]}, "RadialRoots"->{r1,r2,r3,r4}, "Parameters"->{a,p,e,\[Theta]inc}];
 
 KerrGeoOrbitFunction2[a, p, e, \[Theta]inc, assoc]
 
 
 ]
+
+
+(* ::Subsection:: *)
+(*Generic with FastFourier*)
+
+
+<<FastFourierSeries`
+
+Options[KerrGeoOrbit3] = {Evaluation -> "Analytic"}
+
+KerrGeoOrbit3["r", {r1_,r2_,r3_,r4_}, OptionsPattern[]]:=Module[{kr,rq},
+
+kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
+rq = Function[qr,(r3(r1 - r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-r2(r1-r3))/((r1-r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-(r1-r3))];
+
+If[OptionValue["Evaluation"]=="Fourier",rq = FastFourierSeriesEven[rq,2\[Pi],StepSize->1/8,PrecisionGoal->2/3$MachinePrecision]];
+
+rq
+
+]
+
+
+KerrGeoOrbit3["\[Theta]", {a_,zp_,zm_,En_}, OptionsPattern[]]:=Module[{k\[Theta],zq},
+
+k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
+zq = Function[{qz}, -zm JacobiSN[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]]];
+
+If[OptionValue["Evaluation"]=="Fourier",zq = FastFourierSeriesEven[zq,2\[Pi],StepSize->1/8,PrecisionGoal->2/3$MachinePrecision]];
+
+zq
+
+]
+
+
+KerrGeoOrbit3["\!\(\*SubscriptBox[\(\[Phi]\), \(r\)]\)",{a_,En_,L_,r1_,r2_,r3_,r4_},OptionsPattern[]]:=Module[{M=1,\[Phi]r,rp,rm,hr,hp,hm,kr,\[Psi]r},
+
+rp=M+Sqrt[M^2-a^2];
+rm=M-Sqrt[M^2-a^2];
+hr=(r1-r2)/(r1-r3);
+hp=((r1-r2)(r3-rp))/((r1-r3)(r2-rp));
+hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
+
+kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
+
+\[Psi]r[qr_]:=\[Psi]r[qr]= JacobiAmplitude[EllipticK[kr]/\[Pi] qr,kr];
+
+\[Phi]r = Function[qr,(2 a En (-1/((-rm+r2) (-rm+r3))(2 rm-(a L)/En) (r2-r3) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr])+1/((-rp+r2) (-rp+r3))(2 rp-(a L)/En) (r2-r3) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr] )))/((-rm+rp) Sqrt[(1-En^2) (r1-r3) (r2-r4)])];
+
+If[OptionValue["Evaluation"]=="Fourier",\[Phi]r = FastFourierSeriesOdd[\[Phi]r,2\[Pi],StepSize->1/8,PrecisionGoal->2/3$MachinePrecision]];
+
+\[Phi]r
+
+]
+
+
+KerrGeoOrbit3["\!\(\*SubscriptBox[\(\[Phi]\), \(z\)]\)",{a_,En_,L_,zp_,zm_},OptionsPattern[]]:=Module[{k\[Theta],\[Phi]z,\[Psi]z},
+
+k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
+
+\[Psi]z[qz_]:=\[Psi]z[rq]= JacobiAmplitude[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]];
+
+\[Phi]z = Function[qz, -1/zp L ( EllipticPi[zm^2,k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticPi[zm^2,\[Psi]z[qz],k\[Theta]])];
+
+If[OptionValue["Evaluation"]=="Fourier",\[Phi]z = FastFourierSeriesOdd[\[Phi]z,2\[Pi],StepSize->1/8,PrecisionGoal->2/3$MachinePrecision]];
+
+\[Phi]z
+
+]
+
+
+KerrGeoOrbit3["\!\(\*SubscriptBox[\(t\), \(r\)]\)",{a_,En_,L_,r1_,r2_,r3_,r4_},OptionsPattern[]]:=Module[{M=1,tr,rp,rm,hr,hp,hm,kr,\[Psi]r},
+
+rp=M+Sqrt[M^2-a^2];
+rm=M-Sqrt[M^2-a^2];
+hr=(r1-r2)/(r1-r3);
+hp=((r1-r2)(r3-rp))/((r1-r3)(r2-rp));
+hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
+
+kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
+
+\[Psi]r[qr_]:=\[Psi]r[qr]= JacobiAmplitude[EllipticK[kr]/\[Pi] qr,kr];
+
+tr= Function[qr, -En/Sqrt[(1-En^2) (r1-r3) (r2-r4)] (
+4(r2-r3) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr])
+-4 (r2-r3)/(rp-rm) (
+-(1/((-rm+r2) (-rm+r3)))(-2 a^2+rm (4-(a L)/En)) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr] )
++1/((-rp+r2) (-rp+r3)) (-2 a^2+rp (4-(a L)/En)) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr])
+)
++(r2-r3) (r1+r2+r3+r4) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr] )
++(r1-r3) (r2-r4) (EllipticE[kr] qr/\[Pi]-EllipticE[\[Psi]r[qr],kr]+hr((Sin[\[Psi]r[qr]]Cos[\[Psi]r[qr]] Sqrt[1-kr Sin[\[Psi]r[qr]]^2])/(1-hr Sin[\[Psi]r[qr]]^2))) )];
+
+If[OptionValue["Evaluation"]=="Fourier",tr = FastFourierSeriesOdd[tr,2\[Pi],StepSize->1/8,PrecisionGoal->2/3$MachinePrecision]];
+
+tr
+
+]
+
+
+KerrGeoOrbit3["\!\(\*SubscriptBox[\(t\), \(z\)]\)",{a_,En_,zp_,zm_},OptionsPattern[]]:=Module[{k\[Theta],\[Psi]z,tz},
+
+k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
+
+\[Psi]z[qz_]:=\[Psi]z[rq]= JacobiAmplitude[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]];
+
+
+tz = Function[qz,1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE[\[Psi]z[qz],k\[Theta]])];
+
+If[OptionValue["Evaluation"]=="Fourier",tz = FastFourierSeriesOdd[tz,2\[Pi],StepSize->1/8,PrecisionGoal->2/3$MachinePrecision]];
+
+tz
+
+]
+
+
+Options[KerrGeoOrbitMino3] = {Evaluation -> "Analytic"}
+
+KerrGeoOrbitMino3[a_, p_, e_, \[Theta]inc_,initPhases:{_,_,_,_}:{0,0,0,0},opts:OptionsPattern[]]:=Module[{M=1, r1, r2, r3, r4, kr, k\[Theta], En, L, Q, zp, zm, \[Psi]r, \[Psi]z, rq, zq, rp, rm, hr, hp, hm, \[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma], \[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \[CapitalUpsilon]\[Phi], \[CapitalUpsilon]t, qr0, qz0, qt0, q\[Phi]0, tr,tz,\[Phi]r,\[Phi]z,t,r,\[Theta],\[Phi],assoc,orbit},
+
+{En,L,Q} = KerrGeoELQ[a, p, e, \[Theta]inc];
+{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, \[Theta]inc];
+{zp,zm} = KerrGeoPolarRoots[a, p, e, \[Theta]inc];
+{\[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma]} = KerrGeoFreqs[a, p, e, \[Theta]inc];
+{\[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \[CapitalUpsilon]\[Phi], \[CapitalUpsilon]t} = {\[CapitalOmega]r \[CapitalGamma], \[CapitalOmega]\[Theta] \[CapitalGamma], \[CapitalOmega]\[Phi] \[CapitalGamma], \[CapitalGamma]};
+
+kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
+k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
+
+
+rp=M+Sqrt[M^2-a^2];
+rm=M-Sqrt[M^2-a^2];
+hr=(r1-r2)/(r1-r3);
+hp=((r1-r2)(r3-rp))/((r1-r3)(r2-rp));
+hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
+
+rq = KerrGeoOrbit3["r",{r1,r2,r3,r4},opts];
+zq = KerrGeoOrbit3["\[Theta]",{a,zp,zm,En},opts];
+\[Phi]r = KerrGeoOrbit3["\!\(\*SubscriptBox[\(\[Phi]\), \(r\)]\)",{a,En,L,r1,r2,r3,r4},opts];
+\[Phi]z = KerrGeoOrbit3["\!\(\*SubscriptBox[\(\[Phi]\), \(z\)]\)",{a, En, L, zp, zm},opts];
+tr = KerrGeoOrbit3["\!\(\*SubscriptBox[\(t\), \(r\)]\)",{a, En, L, r1,r2,r3,r4},opts];
+tz = KerrGeoOrbit3["\!\(\*SubscriptBox[\(t\), \(z\)]\)",{a, En, zp, zm}, opts];
+
+{qt0, qr0, qz0, q\[Phi]0} = {initPhases[[1]], initPhases[[2]], initPhases[[3]], initPhases[[4]]};
+
+t[\[Lambda]_]:= qt0 + \[CapitalUpsilon]t \[Lambda] + tr[\[CapitalUpsilon]r \[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
+r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
+\[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
+\[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
+
+assoc = Association["Trajectory" -> {t,r,\[Theta],\[Phi]}, "Parametrization" -> "Mino", "ELQ"->{En,L,Q}, "Freqs" -> {\[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma]}, "RadialRoots"->{r1,r2,r3,r4}, "Parameters"->{a,p,e,\[Theta]inc}];
+
+KerrGeoOrbitFunction2[a, p, e, \[Theta]inc, assoc]
+
+
+]
+
+
+(* ::Section::Closed:: *)
+(*Close the package*)
 
 
 End[];
