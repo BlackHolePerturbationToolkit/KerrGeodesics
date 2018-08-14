@@ -4,23 +4,185 @@
 (*Package for the calculation of bound time-like geodesics and their properties in Kerr spacetime*)
 
 
+(* ::Chapter::Closed:: *)
+(*Define usage for public functions*)
+
+
 BeginPackage["KerrGeodesics`"];
 
-KerrGeoELQ::usage = "KerrGeoELQ[a, p, e, \[Theta]inc] returns the energy, z-component of the angular momentum and the Carter constant";
-KerrGeoFreqs::usage = "KerrGeoFreqs[a, p, e, \[Theta]inc] returns the radial, polar and azimuthal frequencies and the conversion factor between Boyer-Lindquist and Mino time frequencies";
-KerrGeoStableOrbitQ::usage = "KerrGeoStableOrbitQ[a,p,e,\[Theta]inc] checks if given parameters correspond to a stable orbit";
-KerrGeoISCO::usage = "KerrGeoISCO[a,\[Theta]inc] computes the location of the inner-most stable circular orbit (ISCO)"
-KerrGeoPhotonSphereRadius::usage = "KerrGeoPhotonSphereRadius[a,\[Theta]inc] computes the radius of the photon sphere"
-KerrGeoIBSO::usage = "KerrGeoIBSO[a,\[Theta]inc] computes the radius of the inner-most bound spherical orbit (IBSO)"
-KerrGeoISSO::usage = "KerrGeoISSO[a,\[Theta]inc] computes the radius of the inner-most stable spherical orbit (ISSO)"
-KerrGeoSeparatrix::usage = "KerrGeoSepatrix[a,e,\[Theta]inc] calculates the value of p at the sepatrix between stable and plunging/scattered orbits*)"
-KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,\[Theta]inc] calculates the orbital trajectory in Boyer-Lindquist coordinates"
-KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] function containing information relating to a specific Kerr orbit"
+KerrGeoEnergy::usage = "KerrGeoEnergy[a, p, e, x] returns the orbital energy."
+KerrGeoAngularMomentum::usage = "KerrGeoAngularMomentum[a, p, e, x] returns the orbital angular momentum about the symmetry axis."
+KerrGeoCarterConstant::usage = "KerrGeoCarterConstant[a, p, e, x] returns the Carter constant of the orbit."
+KerrGeoConstantsOfMotion::usage = "KerrGeoConstantsOfMotion[a, p, e, x] returns the three constants of motion {E,L,Q}."
 
-KerrGeoOrbit2::usage = "KerrGeoOrbit[a,p,e,\[Theta]inc] calculates the orbital trajectory in Boyer-Lindquist coordinates"
-KerrGeoOrbitFunction2::usage = "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] function containing information relating to a specific Kerr orbit"
+KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital frequencies"
 
 Begin["`Private`"];
+
+
+(* ::Chapter::Closed:: *)
+(*Constants of Motion*)
+
+
+(* ::Section::Closed:: *)
+(*Schwarzschild (a=0)*)
+
+
+(* ::Subsection::Closed:: *)
+(*Circular (e=0)*)
+
+
+KerrGeoEnergy[0,p_,0,x_]:=(-2+p)/Sqrt[(-3+p) p]
+
+
+KerrGeoAngularMomentum[0,p_,0,x_]:=(p x)/Sqrt[-3+p]
+
+
+KerrGeoCarterConstant[0,p_,0,x_]:=-((p^2 (-1+x^2))/(-3+p))
+
+
+(* ::Subsection::Closed:: *)
+(*Eccentric*)
+
+
+KerrGeoEnergy[0,p_,e_,x_]:=Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))]
+
+
+KerrGeoAngularMomentum[0,p_,e_,x_]:=(p x)/Sqrt[-3-e^2+p]
+
+
+KerrGeoCarterConstant[0,p_,e_,x_]:=(p^2 (-1+x^2))/(3+e^2-p)
+
+
+(* ::Section:: *)
+(*Kerr*)
+
+
+(* ::Subsection:: *)
+(*Equatorial orbits (x^2 = 1)*)
+
+
+(* ::Text:: *)
+(*The Carter constant is zero for all equatorial orbits*)
+
+
+KerrGeoCarterConstant[a_,p_,e_,x_/;x^2==1]:=0
+
+
+(* ::Subsubsection:: *)
+(*Circular (e=0)*)
+
+
+KerrGeoEnergy[a_,p_,0,x_/;x^2==1]:=((-2+p) Sqrt[p]+a/x)/Sqrt[2 a/x p^(3/2)+(-3+p) p^2]
+
+
+KerrGeoAngularMomentum[a_,p_,0,x_/;x^2==1]:=(a^2-2 a/x Sqrt[p]+p^2)/(Sqrt[2 a/x+(-3+p) Sqrt[p]] p^(3/4))
+
+
+(* ::Subsubsection:: *)
+(*Eccentric*)
+
+
+(* ::Text:: *)
+(*This still needs to be implemented*)
+
+
+(* ::Subsection:: *)
+(*Polar orbits (x=0)*)
+
+
+(* ::Text:: *)
+(*The angular momentum is zero for all polar orbits*)
+
+
+KerrGeoAngularMomentum[a_,p_,e_,0]:=0
+
+
+(* ::Subsubsection:: *)
+(*Spherical (e=0)*)
+
+
+(* ::Text:: *)
+(*Simplified formula starting from Stoghianidis & Tsoubelis, Gen. Rel, Grav., vol. 19, No. 12, p. 1235 (1987), Eqs. (17)-(19)*)
+
+
+KerrGeoEnergy[a_,p_,0,0]:=Sqrt[(p (a^2-2 p+p^2)^2)/((a^2+p^2) (a^2+a^2 p-3 p^2+p^3))]
+
+
+KerrGeoCarterConstant[a_,p_,0,0]:=(p^2 (a^4+2 a^2 (-2+p) p+p^4))/((a^2+p^2) ((-3+p) p^2+a^2 (1+p)))
+
+
+(* ::Subsubsection:: *)
+(*Eccentric*)
+
+
+(* ::Text:: *)
+(*Eccentric, polar orbits still needs to be implemented*)
+
+
+(* ::Subsection::Closed:: *)
+(*Spherical orbits (e=0)*)
+
+
+KerrGeoEnergy[a_,p_,0,x_]:=\[Sqrt](((-3+p) (-2+p)^2 p^5-2 a^5 x (-1+x^2) Sqrt[p^3+a^2 p (-1+x^2)]+a^4 p^2 (-1+x^2) (4-5 p (-1+x^2)+3 p^2 (-1+x^2))-a^6 (-1+x^2)^2 (x^2+p^2 (-1+x^2)-p (1+2 x^2))+a^2 p^3 (4-4 x^2+p (12-7 x^2)-3 p^3 (-1+x^2)+p^2 (-13+10 x^2))+a (-2 p^(9/2) x Sqrt[p^2+a^2 (-1+x^2)]+4 p^3 x Sqrt[p^3+a^2 p (-1+x^2)])+2 a^3 (2 p x (-1+x^2) Sqrt[p^3+a^2 p (-1+x^2)]-x^3 Sqrt[p^7+a^2 p^5 (-1+x^2)]))/((p^2-a^2 (-1+x^2)) ((-3+p)^2 p^4-2 a^2 p^2 (3+2 p-3 x^2+p^2 (-1+x^2))+a^4 (-1+x^2) (-1+x^2+p^2 (-1+x^2)-2 p (1+x^2)))))
+
+
+KerrGeoAngularMomentum[a_,p_,0,x_,En1_:Null]:=Block[{En=En1,g,d,h,f},
+If[En==Null,En=KerrGeoEnergy[a,p,0,x]];
+
+g=2 a p;
+d=(a^2+(-2+p) p) (p^2-a^2 (-1+x^2));
+h=((-2+p) p-a^2 (-1+x^2))/x^2;
+f=p^4+a^2 (p (2+p)-(a^2+(-2+p) p) (-1+x^2));
+
+(-En g + x Sqrt[(-d h + En^2 (g^2+ f h))/x^2])/h
+
+]
+
+
+KerrGeoCarterConstant[a_,p_,0,x_,En1_:Null,L1_:Null]:=Module[{En=En1,L=L1,zm},
+If[En==Null,En=KerrGeoEnergy[a,p,0,x]];
+If[L==Null,L= KerrGeoAngularMomentum[a,p,0,x,En]];
+ zm = Sqrt[1-x^2];
+
+zm^2 (a^2 (1 - En^2) + L^2/(1 - zm^2))
+]
+
+
+KerrGeoConstantsOfMotion[a_,p_,0,x_]:=Module[{En,L,Q},
+En=KerrGeoEnergy[a,p,0,x];
+L=KerrGeoAngularMomentum[a,p,0,x,En];
+Q=KerrGeoCarterConstant[a,p,0,x,En,L];
+{En,L,Q}
+]
+
+
+(* ::Subsection:: *)
+(*Generic orbits*)
+
+
+(* ::Text:: *)
+(*This still needs to be implemented*)
+
+
+(* ::Chapter:: *)
+(*Orbital Frequencies*)
+
+
+Options[KerrGeoFrequencies] = {Time -> "BoyerLindquist"}
+SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};
+KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]]:=Module[{},
+
+Switch[OptionValue["Time"], 
+	"BoyerLindquist", Print["Computing frequencies w.r.t. BoyerLindquist time"],
+	"Mino", Print["Computing frequencies w.r.t. Mino time"],
+	"Proper", Print["Computing frequencies w.r.t. Proper-time"]
+	]
+]
+
+
+(* ::Title:: *)
+(*Old code below*)
 
 
 (* ::Section::Closed:: *)
@@ -29,7 +191,7 @@ Begin["`Private`"];
 
 (* Returns the roots of the radial equation, as given by Fujita and Hikida *)
 KerrGeoRadialRoots[a_, p_, e_, \[Theta]inc_] := Module[{M=1,En,L,Q,r1,r2,r3,r4,AplusB,AB},
-{En,L,Q}=KerrGeoELQ[a, p, e, \[Theta]inc];
+{En,L,Q} = KerrGeoELQ[a, p, e, \[Theta]inc];
 
 r1=p/(1-e);
 r2=p/(1+e);
@@ -266,6 +428,10 @@ KerrGeoStableOrbitQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{},
 KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?NumericQ]:=Module[{ps},
   ps=KerrGeoSeparatrix[a,e,\[Theta]inc];
   If[p<ps,False,True]
+  (*I think like the below could be a much faster test*)
+  (*FIXME: check this for robustness*)
+  (*{r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,\[Theta]inc];
+  r2\[GreaterEqual]r3*)
 ];
 
 
@@ -548,7 +714,7 @@ KerrGeoOrbitFunction2[0, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Kerr equatorial orbits (Darwin parametrization)*)
 
 
@@ -591,7 +757,7 @@ KerrGeoOrbitFunction2[a, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Kerr generic orbits (Mino parameterization)*)
 
 
@@ -687,7 +853,7 @@ zq
 ]
 
 
-KerrGeoOrbit3["\!\(\*SubscriptBox[\(\[Phi]\), \(r\)]\)",{a_,En_,L_,r1_,r2_,r3_,r4_},OptionsPattern[]]:=Module[{M=1,\[Phi]r,rp,rm,hr,hp,hm,kr,\[Psi]r},
+KerrGeoOrbit3["\[Phi]r",{a_,En_,L_,r1_,r2_,r3_,r4_},OptionsPattern[]]:=Module[{M=1,\[Phi]r,rp,rm,hr,hp,hm,kr,\[Psi]r},
 
 rp=M+Sqrt[M^2-a^2];
 rm=M-Sqrt[M^2-a^2];
@@ -708,7 +874,7 @@ If[OptionValue["Evaluation"]=="Fourier",\[Phi]r = FastFourierSeriesOdd[\[Phi]r,2
 ]
 
 
-KerrGeoOrbit3["\!\(\*SubscriptBox[\(\[Phi]\), \(z\)]\)",{a_,En_,L_,zp_,zm_},OptionsPattern[]]:=Module[{k\[Theta],\[Phi]z,\[Psi]z},
+KerrGeoOrbit3["\[Phi]z",{a_,En_,L_,zp_,zm_},OptionsPattern[]]:=Module[{k\[Theta],\[Phi]z,\[Psi]z},
 
 k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
 
@@ -723,7 +889,7 @@ If[OptionValue["Evaluation"]=="Fourier",\[Phi]z = FastFourierSeriesOdd[\[Phi]z,2
 ]
 
 
-KerrGeoOrbit3["\!\(\*SubscriptBox[\(t\), \(r\)]\)",{a_,En_,L_,r1_,r2_,r3_,r4_},OptionsPattern[]]:=Module[{M=1,tr,rp,rm,hr,hp,hm,kr,\[Psi]r},
+KerrGeoOrbit3["tr",{a_,En_,L_,r1_,r2_,r3_,r4_},OptionsPattern[]]:=Module[{M=1,tr,rp,rm,hr,hp,hm,kr,\[Psi]r},
 
 rp=M+Sqrt[M^2-a^2];
 rm=M-Sqrt[M^2-a^2];
@@ -751,7 +917,7 @@ tr
 ]
 
 
-KerrGeoOrbit3["\!\(\*SubscriptBox[\(t\), \(z\)]\)",{a_,En_,zp_,zm_},OptionsPattern[]]:=Module[{k\[Theta],\[Psi]z,tz},
+KerrGeoOrbit3["tz",{a_,En_,zp_,zm_},OptionsPattern[]]:=Module[{k\[Theta],\[Psi]z,tz},
 
 k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
 
@@ -789,10 +955,10 @@ hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 
 rq = KerrGeoOrbit3["r",{r1,r2,r3,r4},opts];
 zq = KerrGeoOrbit3["\[Theta]",{a,zp,zm,En},opts];
-\[Phi]r = KerrGeoOrbit3["\!\(\*SubscriptBox[\(\[Phi]\), \(r\)]\)",{a,En,L,r1,r2,r3,r4},opts];
-\[Phi]z = KerrGeoOrbit3["\!\(\*SubscriptBox[\(\[Phi]\), \(z\)]\)",{a, En, L, zp, zm},opts];
-tr = KerrGeoOrbit3["\!\(\*SubscriptBox[\(t\), \(r\)]\)",{a, En, L, r1,r2,r3,r4},opts];
-tz = KerrGeoOrbit3["\!\(\*SubscriptBox[\(t\), \(z\)]\)",{a, En, zp, zm}, opts];
+\[Phi]r = KerrGeoOrbit3["\[Phi]r",{a,En,L,r1,r2,r3,r4},opts];
+\[Phi]z = KerrGeoOrbit3["\[Phi]z",{a, En, L, zp, zm},opts];
+tr = KerrGeoOrbit3["tr",{a, En, L, r1,r2,r3,r4},opts];
+tz = KerrGeoOrbit3["tz",{a, En, zp, zm}, opts];
 
 {qt0, qr0, qz0, q\[Phi]0} = {initPhases[[1]], initPhases[[2]], initPhases[[3]], initPhases[[4]]};
 
