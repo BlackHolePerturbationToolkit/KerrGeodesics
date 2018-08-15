@@ -20,7 +20,7 @@ KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital 
 Begin["`Private`"];
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Constants of Motion*)
 
 
@@ -54,11 +54,18 @@ KerrGeoAngularMomentum[0,p_,e_,x_]:=(p x)/Sqrt[-3-e^2+p]
 KerrGeoCarterConstant[0,p_,e_,x_]:=(p^2 (-1+x^2))/(3+e^2-p)
 
 
-(* ::Section:: *)
+(* ::Subsection::Closed:: *)
+(*Convenience function to compute all three constants of motion*)
+
+
+KerrGeoConstantsOfMotion[0,p_,e_,x_]:= {KerrGeoEnergy[0,p,e,x],KerrGeoAngularMomentum[0,p,e,x],KerrGeoCarterConstant[0,p,e,x]}
+
+
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Equatorial orbits (x^2 = 1)*)
 
 
@@ -83,11 +90,20 @@ KerrGeoAngularMomentum[a_,p_,0,x_/;x^2==1]:=(a^2-2 a/x Sqrt[p]+p^2)/(Sqrt[2 a/x+
 (*Eccentric*)
 
 
-(* ::Text:: *)
-(*This still needs to be implemented*)
+KerrGeoEnergy[a_,p_,e_,x_/;x^2==1]:=Print["FIXME: Energy calculation for eccentric equatorial orbits still need to be reimplemented"];
 
 
-(* ::Subsection:: *)
+KerrGeoAngularMomentum[a_,p_,e_,x_/;x^2==1]:=Print["FIXME: Angular Momentum calculation for eccentric equatorial orbits still need to be reimplemented"];
+
+
+(* ::Subsubsection:: *)
+(*Convenience function to compute all three constants of motion*)
+
+
+KerrGeoConstantsOfMotion[a_,p_,e_,x_/;x^2==1]:= {KerrGeoEnergy[a,p,e,x],KerrGeoAngularMomentum[a,p,e,x],KerrGeoCarterConstant[a,p,e,x]}
+
+
+(* ::Subsection::Closed:: *)
 (*Polar orbits (x=0)*)
 
 
@@ -116,8 +132,10 @@ KerrGeoCarterConstant[a_,p_,0,0]:=(p^2 (a^4+2 a^2 (-2+p) p+p^4))/((a^2+p^2) ((-3
 (*Eccentric*)
 
 
-(* ::Text:: *)
-(*Eccentric, polar orbits still needs to be implemented*)
+KerrGeoEnergy[a_,p_,e_,0]:=Print["FIXME: Energy calculation for eccentric polar orbits still needs to be implemented"];
+
+
+KerrGeoCarterConstant[a_,p_,e_,0]:=Print["FIXME: Carter constant calculation for eccentric polar orbits still needs to be implemented"];
 
 
 (* ::Subsection::Closed:: *)
@@ -140,29 +158,71 @@ f=p^4+a^2 (p (2+p)-(a^2+(-2+p) p) (-1+x^2));
 ]
 
 
-KerrGeoCarterConstant[a_,p_,0,x_,En1_:Null,L1_:Null]:=Module[{En=En1,L=L1,zm},
-If[En==Null,En=KerrGeoEnergy[a,p,0,x]];
-If[L==Null,L= KerrGeoAngularMomentum[a,p,0,x,En]];
- zm = Sqrt[1-x^2];
-
-zm^2 (a^2 (1 - En^2) + L^2/(1 - zm^2))
-]
+(* ::Text:: *)
+(*CarterConstant and ConstantsOfMotion calculations are covered by the generic case*)
 
 
-KerrGeoConstantsOfMotion[a_,p_,0,x_]:=Module[{En,L,Q},
-En=KerrGeoEnergy[a,p,0,x];
-L=KerrGeoAngularMomentum[a,p,0,x,En];
-Q=KerrGeoCarterConstant[a,p,0,x,En,L];
-{En,L,Q}
-]
-
-
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic orbits*)
 
 
-(* ::Text:: *)
-(*This still needs to be implemented*)
+KerrGeoEnergy[a_,p_,e_,x_]:= Module[{r1,r2,zm,\[CapitalDelta],f,g,h,d,\[Kappa],\[Rho],\[Epsilon],\[Sigma],\[Eta],r},
+	
+	r1 = p/(1-e);
+	r2 = p/(1+e);
+
+	zm = Sqrt[1-x^2];
+
+    \[CapitalDelta][r_] = r^2 - 2 r + a^2;
+
+    f[r_] = r^4 + a^2 (r (r + 2) + zm^2 \[CapitalDelta][r]);
+    g[r_] = 2 a r;
+    h[r_] = r (r - 2) + zm^2/(1 - zm^2) \[CapitalDelta][r];
+    d[r_] = (r^2 + a^2 zm^2) \[CapitalDelta][r];
+    
+    \[Kappa] = d[r1] h[r2] - h[r1] d[r2];
+    \[Epsilon] = d[r1] g[r2] - g[r1] d[r2];
+    \[Rho] = f[r1] h[r2] - h[r1] f[r2];
+    \[Eta] = f[r1] g[r2] - g[r1] f[r2];
+    \[Sigma] = g[r1] h[r2] - h[r1] g[r2];
+
+	Sqrt[(\[Kappa] \[Rho] + 2 \[Epsilon] \[Sigma] - x 2 Sqrt[\[Sigma] (\[Sigma] \[Epsilon]^2 + \[Rho] \[Epsilon] \[Kappa] - \[Eta] \[Kappa]^2)/x^2])/(\[Rho]^2 + 4 \[Eta] \[Sigma])]
+]
+
+
+KerrGeoAngularMomentum[a_,p_,e_,x_,En1_:Null]:= Module[{En=En1,r1,zm,\[CapitalDelta],f,g,h,d,r},
+	If[En==Null,En=KerrGeoEnergy[a,p,e,x]];
+	
+	r1 = p/(1-e);
+
+	zm = Sqrt[1-x^2];
+
+    \[CapitalDelta][r_] = r^2 - 2 r + a^2;
+
+    f[r_] = r^4 + a^2 (r (r + 2) + zm^2 \[CapitalDelta][r]);
+    g[r_] = 2 a r;
+    h[r_] = r (r - 2) + zm^2/(1 - zm^2) \[CapitalDelta][r];
+    d[r_] = (r^2 + a^2 zm^2) \[CapitalDelta][r];
+    
+    (-En g[r1] + x Sqrt[(-d[r1] h[r1] + En^2 (g[r1]^2+ f[r1] h[r1]))/x^2])/h[r1]
+]
+
+
+KerrGeoCarterConstant[a_,p_,e_,x_,En1_:Null,L1_:Null]:= Module[{En=En1,L=L1,zm},
+	If[En==Null,En=KerrGeoEnergy[a,p,e,x]];
+	If[L==Null,L= KerrGeoAngularMomentum[a,p,e,x,En]];
+    zm = Sqrt[1-x^2];
+
+	zm^2 (a^2 (1 - En^2) + L^2/(1 - zm^2))
+]
+
+
+KerrGeoConstantsOfMotion[a_,p_,e_,x_]:=Module[{En,L,Q},
+	En=KerrGeoEnergy[a,p,e,x];
+	L=KerrGeoAngularMomentum[a,p,e,x,En];
+	Q=KerrGeoCarterConstant[a,p,e,x,En,L];
+	{En,L,Q}
+]
 
 
 (* ::Chapter:: *)
@@ -181,7 +241,7 @@ Switch[OptionValue["Time"],
 ]
 
 
-(* ::Title:: *)
+(* ::Title::Closed:: *)
 (*Old code below*)
 
 
@@ -646,7 +706,7 @@ r[\[Chi]_]:=rI[\[Chi]];
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Orbital trajectory (new generic implementation)*)
 
 
