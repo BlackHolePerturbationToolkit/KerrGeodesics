@@ -117,7 +117,7 @@ KerrGeoConstantsOfMotion[a_,p_,e_,x_/;x^2==1]:= {KerrGeoEnergy[a,p,e,x],KerrGeoA
 KerrGeoAngularMomentum[a_,p_,e_,0]:=0
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Spherical (e=0)*)
 
 
@@ -131,7 +131,7 @@ KerrGeoEnergy[a_,p_,0,0]:=Sqrt[(p (a^2-2 p+p^2)^2)/((a^2+p^2) (a^2+a^2 p-3 p^2+p
 KerrGeoCarterConstant[a_,p_,0,0]:=(p^2 (a^4+2 a^2 (-2+p) p+p^4))/((a^2+p^2) ((-3+p) p^2+a^2 (1+p)))
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Eccentric*)
 
 
@@ -139,6 +139,13 @@ KerrGeoEnergy[a_,p_,e_,0]:=Print["FIXME: Energy calculation for eccentric polar 
 
 
 KerrGeoCarterConstant[a_,p_,e_,0]:=Print["FIXME: Carter constant calculation for eccentric polar orbits still needs to be implemented"];
+
+
+(* ::Subsection::Closed:: *)
+(*Convenience function to compute all three constants of motion*)
+
+
+KerrGeoConstantsOfMotion[a_,p_,e_,0]:={KerrGeoEnergy[a,p,e,0],KerrGeoAngularMomentum[a,p,e,0],KerrGeoCarterConstant[a,p,e,0]}
 
 
 (* ::Subsection::Closed:: *)
@@ -165,7 +172,7 @@ f=p^4+a^2 (p (2+p)-(a^2+(-2+p) p) (-1+x^2));
 (*CarterConstant and ConstantsOfMotion calculations are covered by the generic case*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic orbits*)
 
 
