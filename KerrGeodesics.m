@@ -422,8 +422,9 @@ SyntaxInformation[KerrGeoOrbit] = {"ArgumentsPattern"->{_,_,OptionsPattern[]}};
 
 KerrGeoOrbit[a_,p_,e_,x_, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Module[{En,L,Q,assoc},
 
-If[!VectorQ[{a,p,e,x},NumericQ] || OptionValue["Method"] == "Analytic" , Print["Using analytic formula to evaluating orbit"]];
-If[VectorQ[{a,p,e,x},NumericQ] && OptionValue["Method"] == Automatic, Print["Numerically evaluating orbit"]];
+(*Below is an example of the switching that will be done once we have the SSI implementation*)
+(*If[!VectorQ[{a,p,e,x},NumericQ] || OptionValue["Method"] == "Analytic" , Print["Using analytic formula to evaluating orbit"]];
+If[VectorQ[{a,p,e,x},NumericQ] && OptionValue["Method"] == Automatic, Print["Numerically evaluating orbit"]];*)
 
 
 If[OptionValue["Parametrization"] == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
