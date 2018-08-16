@@ -4,7 +4,7 @@
 (*Package for the calculation of bound time-like geodesics and their properties in Kerr spacetime*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Define usage for public functions*)
 
 
@@ -61,7 +61,7 @@ KerrGeoCarterConstant[0,p_,e_,x_]:=(p^2 (-1+x^2))/(3+e^2-p)
 KerrGeoConstantsOfMotion[0,p_,e_,x_]:= {KerrGeoEnergy[0,p,e,x],KerrGeoAngularMomentum[0,p,e,x],KerrGeoCarterConstant[0,p,e,x]}
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -138,7 +138,7 @@ KerrGeoEnergy[a_,p_,e_,0]:=Print["FIXME: Energy calculation for eccentric polar 
 KerrGeoCarterConstant[a_,p_,e_,0]:=Print["FIXME: Carter constant calculation for eccentric polar orbits still needs to be implemented"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Spherical orbits (e=0)*)
 
 
@@ -226,32 +226,13 @@ KerrGeoConstantsOfMotion[a_,p_,e_,x_]:=Module[{En,L,Q},
 
 
 (* ::Chapter:: *)
-(*Orbital Frequencies*)
-
-
-Options[KerrGeoFrequencies] = {Time -> "BoyerLindquist"}
-SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};
-KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]]:=Module[{},
-
-Switch[OptionValue["Time"], 
-	"BoyerLindquist", Print["Computing frequencies w.r.t. BoyerLindquist time"],
-	"Mino", Print["Computing frequencies w.r.t. Mino time"],
-	"Proper", Print["Computing frequencies w.r.t. Proper-time"]
-	]
-]
-
-
-(* ::Title::Closed:: *)
-(*Old code below*)
-
-
-(* ::Section::Closed:: *)
-(*Useful functions*)
+(*Roots of the radial and polar equations*)
 
 
 (* Returns the roots of the radial equation, as given by Fujita and Hikida *)
-KerrGeoRadialRoots[a_, p_, e_, \[Theta]inc_] := Module[{M=1,En,L,Q,r1,r2,r3,r4,AplusB,AB},
-{En,L,Q} = KerrGeoELQ[a, p, e, \[Theta]inc];
+KerrGeoRadialRoots[a_, p_, e_, x_, En1_:Null,Q1_:Null] := Module[{M=1,En=En1,Q=Q1,r1,r2,r3,r4,AplusB,AB},
+If[En==Null, En = KerrGeoEnergy[a, p, e, x]];
+If[Q==Null,  Q = KerrGeoCarterConstant[a, p, e, x]];
 
 r1=p/(1-e);
 r2=p/(1+e);
@@ -265,8 +246,124 @@ r4=AB/r3;
 ]
 
 
-KerrGeoPolarRoots[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp},
-  {En,L,Q} = KerrGeoELQ[a, p, e, \[Theta]inc];
+KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
+  {En,L,Q} = KerrGeoConstantsOfMotion[a, p, e, x];
+  zm = Sqrt[1-x^2];
+  zp = (a^2 (1-En^2)+L^2/(1-zm^2))^(1/2);
+  {zp,zm}
+]
+
+
+(* ::Chapter:: *)
+(*Orbital Frequencies*)
+
+
+(* ::Text:: *)
+(*Orbital frequency calculations from Fujita and Hikida, Class. Quantum Grav .26 (2009) 135002, arXiv:0906.1420*)
+
+
+(* ::Section:: *)
+(*Schwarzschild*)
+
+
+KerrGeoMinoFrequencies[0,p_,0,x_]:={Sqrt[((-6+p) p)/(-3+p)],p Sqrt[1/((-3+p) x^2)] x,(p x)/Sqrt[(-3+p) x^2],Sqrt[p^5/(-3+p)]}
+
+
+KerrGeoMinoFrequencies[0,p_,e_,x_]:={(Sqrt[-((p (-6+2 e+p))/(3+e^2-p))] \[Pi])/(2 EllipticK[(4 e)/(-6+2 e+p)]),p Sqrt[1/((-3-e^2+p) x^2)] x,(p x)/Sqrt[(-3-e^2+p) x^2],1/2 Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))] (8+1/((-4+p)^2 EllipticK[(4 e)/(-6+2 e+p)]) (-(((-4+p) p^2 (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)])/(-1+e^2))+(p^2 (28+4 e^2-12 p+p^2) EllipticK[(4 e)/(-6+2 e+p)])/(-1+e^2)-(2 (6+2 e-p) (3+e^2-p) p^2 EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)])/((-1+e) (1+e)^2)+(4 (-4+p) p (2 (1+e) EllipticK[(4 e)/(-6+2 e+p)]+(-6-2 e+p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)]))/(1+e)+2 (-4+p)^2 ((-4+p) EllipticK[(4 e)/(-6+2 e+p)]-((6+2 e-p) p EllipticPi[(16 e)/(12+8 e-4 e^2-8 p+p^2),(4 e)/(-6+2 e+p)])/(2+2 e-p))))}
+
+
+KerrGeoBoyerLindquistFrequencies[0,p_,0,x_]:={Sqrt[-6+p]/p^2,(Sqrt[1/x^2] x)/p^(3/2),(p x)/Sqrt[p^5 x^2]}
+
+
+(* ::Section:: *)
+(*Kerr*)
+
+
+KerrGeoMinoFrequencies[a_,p_,e_,x_]:=Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
+{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+
+{r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,x,En,Q];
+\[Epsilon]0=a^2 (1-En^2)/L^2;
+zm=1-x^2;
+a2zp=(L^2+a^2 (-1+En^2) (-1+zm))/( (-1+En^2) (-1+zm));
+
+\[Epsilon]0zp=-((L^2+a^2 (-1+En^2) (-1+zm))/(L^2 (-1+zm)));
+
+(*zmOverZp=If[a==0,0,zm/((L^2+a^2 (-1+En^2) (-1+zm))/(a^2 (-1+En^2) (-1+zm)))];*)
+zmOverZp=zm/((L^2+a^2 (-1+En^2) (-1+zm))/(a^2 (-1+En^2) (-1+zm)));
+
+
+kr=Sqrt[(r1-r2)/(r1-r3) (r3-r4)/(r2-r4)];(*Eq.(13)*)
+k\[Theta]=Sqrt[zmOverZp];(*Eq.(13)*)
+\[CapitalUpsilon]r=(Pi Sqrt[(1-En^2)(r1-r3)(r2-r4)])/(2EllipticK[kr^2]);(*Eq.(15)*)
+\[CapitalUpsilon]\[Theta]=(Pi L Sqrt[\[Epsilon]0zp])/(2EllipticK[k\[Theta]^2]);(*Eq.(15)*)
+
+rp=M+Sqrt[M^2-a^2];
+rm=M-Sqrt[M^2-a^2];
+hr=(r1-r2)/(r1-r3);
+hp=((r1-r2)(r3-rp))/((r1-r3)(r2-rp));
+hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
+
+(*Eq. (21)*)
+\[CapitalUpsilon]\[Phi]=(2\[CapitalUpsilon]\[Theta])/(Pi Sqrt[\[Epsilon]0zp]) EllipticPi[zm,k\[Theta]^2]+(2a \[CapitalUpsilon]r)/(Pi(rp-rm)Sqrt[(1-En^2)(r1-r3)(r2-r4)])((2M En rp - a L)/(r3-rp) (EllipticK[kr^2]-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2])-(2M En rm - a L)/(r3-rm) (EllipticK[kr^2]-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2]));
+
+\[CapitalGamma]=4M^2 En + (2a2zp En  \[CapitalUpsilon]\[Theta])/(Pi L Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]- EllipticE[k\[Theta]^2]) + (2\[CapitalUpsilon]r)/(Pi Sqrt[(1-En^2)(r1-r3)(r2-r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,kr^2])+(2M)/(rp-rm) (((4M^2 En-a L)rp-2M a^2 En)/(r3-rp) (EllipticK[kr^2]-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2])-((4M^2 En-a L)rm-2M a^2 En)/(r3-rm) (EllipticK[kr^2]-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2])));
+
+
+{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma]}
+
+]
+
+
+KerrGeoBoyerLindquistFrequencies[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
+
+{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma]} = KerrGeoMinoFrequencies[a,p,e,x];
+
+{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi]}/\[CapitalGamma]
+
+]
+
+
+Options[KerrGeoFrequencies] = {Time -> "BoyerLindquist"}
+SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};
+KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]]:=Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
+
+
+If[OptionValue["Time"]=="Mino",Return[KerrGeoMinoFrequencies[a,p,e,x][[1;;3]]]];
+
+If[OptionValue["Time"]=="BoyerLindquist", Return[KerrGeoBoyerLindquistFrequencies[a,p,e,x]]];
+
+If[OptionValue["Time"]=="Proper",Print["Propertime frequencies not implemented yet"]];
+
+]
+
+
+(* ::Title:: *)
+(*Old code below*)
+
+
+(* ::Section:: *)
+(*Useful functions*)
+
+
+(* Returns the roots of the radial equation, as given by Fujita and Hikida *)
+KerrGeoRadialRoots2[a_, p_, e_, \[Theta]inc_] := Module[{M=1,En,L,Q,r1,r2,r3,r4,AplusB,AB},
+{En,L,Q} = KerrGeoELQ2[a, p, e, \[Theta]inc];
+
+r1=p/(1-e);
+r2=p/(1+e);
+AplusB=(2M)/(1-En^2)-(r1+r2);(*Eq. (11)*)
+AB=(a^2 Q)/((1-En^2)r1 r2);(*Eq. (11)*)
+r3=(AplusB+Sqrt[(AplusB)^2-4AB])/2;(*Eq. (11)*)
+r4=AB/r3;
+
+{r1,r2,r3,r4}
+
+]
+
+
+KerrGeoPolarRoots2[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp},
+  {En,L,Q} = KerrGeoELQ2[a, p, e, \[Theta]inc];
   \[Theta]min=(\[Pi]/2-\[Theta]inc)/Sign[L];
   zm = Cos[\[Theta]min];
   zp = (a^2 (1-En^2)+L^2/(1-zm^2))^(1/2);
@@ -274,14 +371,14 @@ KerrGeoPolarRoots[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp}
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Constants of motion*)
 
 
 (*ELQ calculation for Schwarzschild spacetime*)
 (*Cutler, Kennefick and Poisson, Phys. Rev. D, 50, 6, p3816, (1994)*)
 (*Eqs. 2.5 and 2.6*)
-KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{M=1,E0,L0,Q},
+KerrGeoELQ2[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{M=1,E0,L0,Q},
  E0=Sqrt[((p-2-2e)(p-2+2e))/(p(p-3-e^2))];
  L0=p/Sqrt[p/M-e^2-3];
  {E0,Cos[\[Theta]inc]L0,Sin[\[Theta]inc]^2 L0^2}
@@ -290,7 +387,7 @@ KerrGeoELQ[(0|0.0),p_,e_,\[Theta]inc_]:=Module[{M=1,E0,L0,Q},
 (*ELQ calculation for Kerr circular equatorial - prograde*)
 (*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
 (*Eqs. 2.12 and 2.13*)
-KerrGeoELQ[a_,p_,0,0]:=Module[{M=1,E0,L0,Q},
+KerrGeoELQ2[a_,p_,0,0]:=Module[{M=1,E0,L0,Q},
 E0 = (p^(3/2)-2M p^(1/2)+a M^(1/2))/(p^(3/4) (p^(3/2)-3M p^(1/2)+2a M^(1/2))^(1/2));
 L0 = (M^(1/2) (p^2-2a M^(1/2) p^(1/2)+a^2))/(p^(3/4) (p^(3/2)-3M p^(1/2)+2a M^(1/2))^(1/2));
 Q = 0;
@@ -300,7 +397,7 @@ Q = 0;
 (*ELQ calculation for Kerr circular equatorial - retrograde*)
 (*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
 (*Eqs. 2.12 and 2.13*)
-KerrGeoELQ[a_,p_,0,\[Pi]]:=Module[{M=1,E0,L0,Q},
+KerrGeoELQ2[a_,p_,0,\[Pi]]:=Module[{M=1,E0,L0,Q},
 E0 = (p^(3/2)-2M p^(1/2)-a M^(1/2))/(p^(3/4) (p^(3/2)-3M p^(1/2)-2a M^(1/2))^(1/2));
 L0 = (-M^(1/2)(p^2+2a M^(1/2) p^(1/2)+a^2))/(p^(3/4) (p^(3/2)-3M p^(1/2)-2a M^(1/2))^(1/2));
 Q = 0;
@@ -310,7 +407,7 @@ Q = 0;
 (*ELQ calculation for Kerr eccentric equatorial*)
 (*Glampedakis and Kennefick, Phys. Rev. D66 (2002) 044002, arXiv:gr-qc/0203086*)
 (*Eq. 7 and appendix A*)
-KerrGeoELQ[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0]:=Module[{M=1,a=a1,F,G,B,\[CapitalDelta]1,x,E0,L0,Q=0,sign=1},
+KerrGeoELQ2[a1_,p_,e_,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0]:=Module[{M=1,a=a1,F,G,B,\[CapitalDelta]1,x,E0,L0,Q=0,sign=1},
 
 If[Mod[\[Theta]inc,2\[Pi]]==\[Pi], a=-a;sign=-1];
 
@@ -331,7 +428,7 @@ L0=a E0 + x;
 (*ELQ calculation for spherical polar orbits*)
 (*Stoghianidis & Tsoubelis, Gen. Rel, Gravitation, vol. 19, No. 12, p. 1235 (1987)*)
 (*Eqs. 17-19*)
-KerrGeoELQ[a_,p_,0,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==\[Pi]/2]:=Module[{M=1,r0,\[CapitalDelta]0,Z,En,Q},
+KerrGeoELQ2[a_,p_,0,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==\[Pi]/2]:=Module[{M=1,r0,\[CapitalDelta]0,Z,En,Q},
 		r0 = p;
 		\[CapitalDelta]0 = r0^2-2M r0+a^2;
 		Z = r0^3 - 3M r0^2 + a^2 r0+M a^2;
@@ -343,7 +440,7 @@ KerrGeoELQ[a_,p_,0,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==\[Pi]/2]:=Module[{M=1,r
 (*ELQ calculation for generic orbits in Kerr*)
 (*W. Schmidt, Class. Quant. Grav. 19 (2002) 2743, arXiv:gr-qc/0202090*)
 (*Appendix B*)
-KerrGeoELQ[a_(*/;Abs[a]<=1*), p_, e_, \[Theta]inc1_?NumericQ] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z,\[Theta]min,\[Theta]inc=\[Theta]inc1},
+KerrGeoELQ2[a_(*/;Abs[a]<=1*), p_, e_, \[Theta]inc1_?NumericQ] := Module[{M=1,f, g, h, d, fp, gp, hp, dp, r, rp, ra, zm, \[CapitalDelta], \[Rho], \[Kappa], \[Epsilon], \[Eta], \[Sigma], En, L, Q, E1, Em1, f1, g1, h1, d1, f2, g2, h2, d2, L1, L2,r0,\[CapitalDelta]0,Z,\[Theta]min,\[Theta]inc=\[Theta]inc1},
 
 \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
 If[\[Theta]inc>\[Pi], \[Theta]inc=2\[Pi]-\[Theta]inc];
@@ -400,18 +497,18 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2 && e!=0,Print["Polar, non-spherical orbits no
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Orbital frequencies*)
 
 
 (*Orbital frequencies for circular orbits in Schwarzschild spacetime*)
-KerrGeoFreqs[(0|0.),p_,(0|0.),\[Theta]inc_]:=Module[{M=1},
+KerrGeoFreqs2[(0|0.),p_,(0|0.),\[Theta]inc_]:=Module[{M=1},
 	{Sqrt[((p-6M)M)/p^4], (M/p^3)^(1/2), (M/p^3)^(1/2), Sqrt[p^5/(p-3)]}
 ]
 
 (*Orbital frequencies for eccentric orbits in Schwarzschild spacetime*)
-KerrGeoFreqs[(0|0.),p_,e_,\[Theta]inc_]:=Module[{En,L,Q,r1,r2,r3,kr,\[CapitalUpsilon]r,\[CapitalGamma],hp,hr,M=1},
-{En,L,Q}=KerrGeoELQ[0,p,e,0];
+KerrGeoFreqs2[(0|0.),p_,e_,\[Theta]inc_]:=Module[{En,L,Q,r1,r2,r3,kr,\[CapitalUpsilon]r,\[CapitalGamma],hp,hr,M=1},
+{En,L,Q}=KerrGeoELQ2[0,p,e,0];
 
 r1=p/(1-e);
 r2=p/(1+e);
@@ -432,17 +529,17 @@ hp=((r1-r2)(r3-2M))/((r1-r3)(r2-2M));
 
 (*Calculate the orbital frequencies, Subscript[\[CapitalOmega], \[Alpha]], w.r.t Boyer-Lindquist time and the conversion factor, \[CapitalGamma], to frequencies w.r.t. Mino time, Subscript[\[CapitalUpsilon], \[Alpha]]=\[CapitalGamma] Subscript[\[CapitalOmega], \[Alpha]]*)
 (*Fujita and Hikida, Class. Quantum Grav.26 (2009) 135002, arXiv:0906.1420*)
-KerrGeoFreqs[a_/;Abs[a]<1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{M=1,En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp,\[Theta]min,\[Theta]inc=\[Theta]inc1},
+KerrGeoFreqs2[a_/;Abs[a]<1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{M=1,En,L,Q,r1,r2,AplusB,AB,r3,r4,\[Epsilon]0,zm,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma],rp,rm,hp,hm,hr,EnLQ,a2zp,\[Epsilon]0zp,zmOverZp,\[Theta]min,\[Theta]inc=\[Theta]inc1},
 
 \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
 If[\[Theta]inc>\[Pi], \[Theta]inc=2\[Pi]-\[Theta]inc];
 
 If[\[Theta]inc==\[Pi]/2, Print["Equations for polar orbits not implemented yet"];Return[];];
 
-{En,L,Q}=KerrGeoELQ[a,p,e,\[Theta]inc];
+{En,L,Q}=KerrGeoELQ2[a,p,e,\[Theta]inc];
 \[Theta]min=(\[Pi]/2-\[Theta]inc)/Sign[L];
 
-{r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,\[Theta]inc];
+{r1,r2,r3,r4} = KerrGeoRadialRoots2[a,p,e,\[Theta]inc];
 \[Epsilon]0=a^2 (1-En^2)/L^2;
 zm=Cos[\[Theta]min]^2;
 a2zp=(L^2+a^2 (-1+En^2) (-1+zm))/( (-1+En^2) (-1+zm));
@@ -475,7 +572,7 @@ KerrGeoFreqs[a_/;a==1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{},
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Special orbits (separatrix, ISCO, ISSO, etc...)*)
 
 
@@ -570,7 +667,7 @@ KerrGeoSeparatrix[1,e_,0]:=1+e
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Orbital trajectory*)
 
 
