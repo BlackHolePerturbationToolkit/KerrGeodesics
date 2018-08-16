@@ -4,7 +4,7 @@
 (*Package for the calculation of bound time-like geodesics and their properties in Kerr spacetime*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Define usage for public functions*)
 
 
@@ -17,10 +17,13 @@ KerrGeoConstantsOfMotion::usage = "KerrGeoConstantsOfMotion[a, p, e, x] returns 
 
 KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital frequencies"
 
+KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
+KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association."
+
 Begin["`Private`"];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Constants of Motion*)
 
 
@@ -61,7 +64,7 @@ KerrGeoCarterConstant[0,p_,e_,x_]:=(p^2 (-1+x^2))/(3+e^2-p)
 KerrGeoConstantsOfMotion[0,p_,e_,x_]:= {KerrGeoEnergy[0,p,e,x],KerrGeoAngularMomentum[0,p,e,x],KerrGeoCarterConstant[0,p,e,x]}
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -138,7 +141,7 @@ KerrGeoEnergy[a_,p_,e_,0]:=Print["FIXME: Energy calculation for eccentric polar 
 KerrGeoCarterConstant[a_,p_,e_,0]:=Print["FIXME: Carter constant calculation for eccentric polar orbits still needs to be implemented"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spherical orbits (e=0)*)
 
 
@@ -225,7 +228,7 @@ KerrGeoConstantsOfMotion[a_,p_,e_,x_]:=Module[{En,L,Q},
 ]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Roots of the radial and polar equations*)
 
 
@@ -254,7 +257,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 ]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Orbital Frequencies*)
 
 
@@ -262,7 +265,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 (*Orbital frequency calculations from Fujita and Hikida, Class. Quantum Grav .26 (2009) 135002, arXiv:0906.1420*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Schwarzschild*)
 
 
@@ -275,7 +278,7 @@ KerrGeoMinoFrequencies[0,p_,e_,x_]:={(Sqrt[-((p (-6+2 e+p))/(3+e^2-p))] \[Pi])/(
 KerrGeoBoyerLindquistFrequencies[0,p_,0,x_]:={Sqrt[-6+p]/p^2,(Sqrt[1/x^2] x)/p^(3/2),(p x)/Sqrt[p^5 x^2]}
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -324,6 +327,10 @@ KerrGeoBoyerLindquistFrequencies[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]r,\[Capi
 ]
 
 
+(* ::Section::Closed:: *)
+(*Generic function for choosing between frequencies w.r.t different time coordinates*)
+
+
 Options[KerrGeoFrequencies] = {Time -> "BoyerLindquist"}
 SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};
 KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]]:=Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
@@ -338,11 +345,95 @@ If[OptionValue["Time"]=="Proper",Print["Propertime frequencies not implemented y
 ]
 
 
+(* ::Chapter:: *)
+(*Orbital Trajectory*)
+
+
+KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = KerrGeoMinoFrequencies[a,p,e,x];
+	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
+	{zp,zm} = KerrGeoPolarRoots[a, p, e, x];
+	
+	kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
+	k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
+
+
+rp=M+Sqrt[M^2-a^2];
+rm=M-Sqrt[M^2-a^2];
+hr=(r1-r2)/(r1-r3);
+hp=((r1-r2)(r3-rp))/((r1-r3)(r2-rp));
+hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
+
+rq = Function[{qr},(r3(r1 - r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-r2(r1-r3))/((r1-r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-(r1-r3))];
+
+zq = Function[{qz}, -zm JacobiSN[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]]];
+
+\[Psi]r[qr_]:=\[Psi]r[qr]= JacobiAmplitude[EllipticK[kr]/\[Pi] qr,kr];
+
+tr[qr_]:= -En/Sqrt[(1-En^2) (r1-r3) (r2-r4)] (
+4(r2-r3) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr])
+-4 (r2-r3)/(rp-rm) (
+-(1/((-rm+r2) (-rm+r3)))(-2 a^2+rm (4-(a L)/En)) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr] )
++1/((-rp+r2) (-rp+r3)) (-2 a^2+rp (4-(a L)/En)) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr])
+)
++(r2-r3) (r1+r2+r3+r4) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr] )
++(r1-r3) (r2-r4) (EllipticE[kr] qr/\[Pi]-EllipticE[\[Psi]r[qr],kr]+hr((Sin[\[Psi]r[qr]]Cos[\[Psi]r[qr]] Sqrt[1-kr Sin[\[Psi]r[qr]]^2])/(1-hr Sin[\[Psi]r[qr]]^2))) );
+
+\[Phi]r[qr_]:= (2 a En (-1/((-rm+r2) (-rm+r3))(2 rm-(a L)/En) (r2-r3) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr])+1/((-rp+r2) (-rp+r3))(2 rp-(a L)/En) (r2-r3) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr] )))/((-rm+rp) Sqrt[(1-En^2) (r1-r3) (r2-r4)]);
+
+\[Psi]z[qz_]:=\[Psi]z[rq]= JacobiAmplitude[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]];
+tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE[\[Psi]z[qz],k\[Theta]]);
+\[Phi]z[qz_]:= -1/zp L ( EllipticPi[zm^2,k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticPi[zm^2,\[Psi]z[qz],k\[Theta]]);
+
+{qt0, qr0, qz0, q\[Phi]0} = {initPhases[[1]], initPhases[[2]], initPhases[[3]], initPhases[[4]]};
+
+t[\[Lambda]_]:= qt0 + \[CapitalUpsilon]t \[Lambda] + tr[\[CapitalUpsilon]r \[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
+r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
+\[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
+\[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
+
+	assoc = Association[
+	"Parametrization"->"Mino", 
+	"Energy" -> En, 
+	"AngularMomentum" -> L, 
+	"CarterConstant" -> Q, 
+	"RadialFrequency" -> \[CapitalUpsilon]r,
+	"PolarFrequency" -> \[CapitalUpsilon]\[Theta],
+	"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
+	"Trajectory" -> {t,r,\[Theta],\[Phi]}
+	];
+
+	KerrGeoOrbitFunction[a,p,e,x,assoc]
+
+]
+
+
+Options[KerrGeoOrbit] = {Parametrization -> "Mino", Method -> Automatic}
+SyntaxInformation[KerrGeoOrbit] = {"ArgumentsPattern"->{_,_,OptionsPattern[]}};
+
+
+KerrGeoOrbit[a_,p_,e_,x_, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Module[{En,L,Q,assoc},
+
+If[!VectorQ[{a,p,e,x},NumericQ] || OptionValue["Method"] == "Analytic" , Print["Using analytic formula to evaluating orbit"]];
+If[VectorQ[{a,p,e,x},NumericQ] && OptionValue["Method"] == Automatic, Print["Numerically evaluating orbit"]];
+
+
+If[OptionValue["Parametrization"] == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
+
+]
+
+
+Format[KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_]] := "KerrGeoOrbitFunction["<>ToString[a]<>","<>ToString[p]<>","<>ToString[e]<>","<>ToString[N[x]]<>",<<>>]";
+KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == False] := Through[assoc["Trajectory"][\[Lambda]]]
+KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
+
+
 (* ::Title:: *)
 (*Old code below*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Useful functions*)
 
 
@@ -371,7 +462,7 @@ KerrGeoPolarRoots2[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Constants of motion*)
 
 
@@ -497,7 +588,7 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2 && e!=0,Print["Polar, non-spherical orbits no
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Orbital frequencies*)
 
 
@@ -572,7 +663,7 @@ KerrGeoFreqs[a_/;a==1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{},
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Special orbits (separatrix, ISCO, ISSO, etc...)*)
 
 
@@ -667,15 +758,15 @@ KerrGeoSeparatrix[1,e_,0]:=1+e
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Orbital trajectory*)
 
 
 (*Calculate the trajectory and properties of an eccentric, equatorial Kerr orbit*)
 (*Differential form of trajectory equations from Glampedakis and Kennefick, Phys. Rev. D66 (2002) 044002, arXiv:gr-qc/0203086*)
 (*Integration of trajectory equations using method from Hopper et al., Phys. Rev. D 92, 044048 (2015), arXiv:1506.04742*)
-Options[KerrGeoOrbit] = {"MaxIterations"->10}
-KerrGeoOrbit[a1_?NumericQ,p_?NumericQ,e_?NumericQ,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0,OptionsPattern[]]:=Module[{M=1,a=a1,ELQ,freqs,F,G,B,\[CapitalDelta]1,x,\[ScriptCapitalE]0,\[ScriptCapitalL]0,Vr,Vt,V\[Phi],J,dtd\[Chi],d\[Phi]d\[Chi],\[ScriptCapitalN],\[Chi]k,dtd\[Chi]k,d\[Phi]d\[Chi]k,\[ScriptCapitalG]tn,\[ScriptCapitalG]\[Phi]n,t,\[Phi],\[Chi],\[Chi]k2,tk,rk,\[Phi]k,r\[Chi],\[CapitalDelta]\[Phi],Tr,tI,\[Phi]I,rI,\[CapitalDelta]\[ScriptCapitalN],estPrec,jmax,d\[Tau]d\[Chi],u,ut,ur,u\[Theta],u\[Phi],drd\[Chi],xp},
+Options[KerrGeoOrbitOld] = {"MaxIterations"->10}
+KerrGeoOrbitOld[a1_?NumericQ,p_?NumericQ,e_?NumericQ,\[Theta]inc_/;Mod[\[Theta]inc,\[Pi]]==0,OptionsPattern[]]:=Module[{M=1,a=a1,ELQ,freqs,F,G,B,\[CapitalDelta]1,x,\[ScriptCapitalE]0,\[ScriptCapitalL]0,Vr,Vt,V\[Phi],J,dtd\[Chi],d\[Phi]d\[Chi],\[ScriptCapitalN],\[Chi]k,dtd\[Chi]k,d\[Phi]d\[Chi]k,\[ScriptCapitalG]tn,\[ScriptCapitalG]\[Phi]n,t,\[Phi],\[Chi],\[Chi]k2,tk,rk,\[Phi]k,r\[Chi],\[CapitalDelta]\[Phi],Tr,tI,\[Phi]I,rI,\[CapitalDelta]\[ScriptCapitalN],estPrec,jmax,d\[Tau]d\[Chi],u,ut,ur,u\[Theta],u\[Phi],drd\[Chi],xp},
 If[Precision[{a1,p,e,\[Theta]inc}]==Infinity, 
 	Print["Cannot get infinite precision orbit trajectory, will work to MachinePrecision. Specify specific precision values for input if that precision is sought"];
 	a=N[a];
@@ -758,26 +849,26 @@ KerrGeoOrbitFunction[a,p,e,\[Theta]inc,{\[ScriptCapitalN],ELQ,freqs,xp,u}]
 ]*)
 
 
-Format[KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]]:=KerrGeoOrbitFunction[a,p,e,\[Theta]inc,"<<>>"];
+Format[KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]]:=KerrGeoOrbitFunctionOld[a,p,e,\[Theta]inc,"<<>>"];
 
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}][\[Chi]_?NumericQ] := Through[x[\[Chi]]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["4Velocity"][\[Chi]_?NumericQ] := Through[u[\[Chi]]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}][\[Chi]_?NumericQ] := Through[x[\[Chi]]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["4Velocity"][\[Chi]_?NumericQ] := Through[u[\[Chi]]]
 
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["Energy"]:=ELQ[[1]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["AngMom"]:=ELQ[[2]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["CarterConst"]:=ELQ[[3]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["ELQ"]:=ELQ
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["Energy"]:=ELQ[[1]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["AngMom"]:=ELQ[[2]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["CarterConst"]:=ELQ[[3]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["ELQ"]:=ELQ
 
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["Freqs"]:=freqs
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalOmega]r"]:=freqs[[1]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalOmega]\[Theta]"]:=freqs[[2]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalOmega]\[Phi]"]:=freqs[[3]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["Freqs"]:=freqs
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalOmega]r"]:=freqs[[1]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalOmega]\[Theta]"]:=freqs[[2]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalOmega]\[Phi]"]:=freqs[[3]]
 
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalUpsilon]r"]:=freqs[[1]]freqs[[4]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalUpsilon]\[Theta]"]:=freqs[[2]]freqs[[4]]
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalUpsilon]\[Phi]"]:=freqs[[3]]freqs[[4]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalUpsilon]r"]:=freqs[[1]]freqs[[4]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalUpsilon]\[Theta]"]:=freqs[[2]]freqs[[4]]
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["\[CapitalUpsilon]\[Phi]"]:=freqs[[3]]freqs[[4]]
 
-KerrGeoOrbitFunction[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["Interpolation"]:=Module[{\[Chi],\[Chi]k,tk,rk,\[Phi]k,tI,rI,\[Phi]I,Tr,\[CapitalDelta]\[Phi]},
+KerrGeoOrbitFunctionOld[a_,p_,e_,\[Theta]inc_, {\[ScriptCapitalN]_,ELQ_,freqs_,x_,u_}]["Interpolation"]:=Module[{\[Chi],\[Chi]k,tk,rk,\[Phi]k,tI,rI,\[Phi]I,Tr,\[CapitalDelta]\[Phi]},
 
 Tr = 2\[Pi]/freqs[[1]];
 \[CapitalDelta]\[Phi] = freqs[[3]] Tr;
@@ -803,7 +894,7 @@ r[\[Chi]_]:=rI[\[Chi]];
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Orbital trajectory (new generic implementation)*)
 
 
@@ -817,7 +908,7 @@ SyntaxInformation[KerrGeoOrbit2] = {"ArgumentsPattern"->{_,_,OptionsPattern[]}};
 
 KerrGeoOrbit2[a_, p_, e_, \[Theta]inc_, initPhases:{_,_,_,_}:{0,0,0,0}, OptionsPattern[]]:=Module[{},
 
-If[OptionValue["Parametrization"] == "Mino", Return[KerrGeoOrbitMino[a, p, e, \[Theta]inc, initPhases]]];
+If[OptionValue["Parametrization"] == "Mino", Return[KerrGeoOrbitMinoOld[a, p, e, \[Theta]inc, initPhases]]];
 
 If[OptionValue["Parametrization"] == "Darwin", 
   If[\[Theta]inc == 0 , 
@@ -871,7 +962,7 @@ KerrGeoOrbitFunction2[0, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Kerr equatorial orbits (Darwin parametrization)*)
 
 
@@ -914,7 +1005,7 @@ KerrGeoOrbitFunction2[a, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Kerr generic orbits (Mino parameterization)*)
 
 
@@ -924,7 +1015,7 @@ implementation of Fujita and Hikida's analytic formula
 Class.Quantum Grav.26 (2009) 135002,arXiv:0906.1420
 *)
 
-KerrGeoOrbitMino[a_, p_, e_, \[Theta]inc_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1, r1, r2, r3, r4, kr, k\[Theta], En, L, Q, zp, zm, \[Psi]r, \[Psi]z, rq, zq, rp, rm, hr, hp, hm, \[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma], \[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \[CapitalUpsilon]\[Phi], \[CapitalUpsilon]t, qr0, qz0, qt0, q\[Phi]0, tr,tz,\[Phi]r,\[Phi]z,t,r,\[Theta],\[Phi],assoc},
+KerrGeoOrbitMinoOld[a_, p_, e_, \[Theta]inc_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1, r1, r2, r3, r4, kr, k\[Theta], En, L, Q, zp, zm, \[Psi]r, \[Psi]z, rq, zq, rp, rm, hr, hp, hm, \[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi], \[CapitalGamma], \[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \[CapitalUpsilon]\[Phi], \[CapitalUpsilon]t, qr0, qz0, qt0, q\[Phi]0, tr,tz,\[Phi]r,\[Phi]z,t,r,\[Theta],\[Phi],assoc},
 
 {En,L,Q} = KerrGeoELQ[a, p, e, \[Theta]inc];
 {r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, \[Theta]inc];
@@ -978,7 +1069,7 @@ KerrGeoOrbitFunction2[a, p, e, \[Theta]inc, assoc]
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic with FastFourier*)
 
 
