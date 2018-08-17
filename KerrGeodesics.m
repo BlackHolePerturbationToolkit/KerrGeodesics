@@ -23,7 +23,7 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 Begin["`Private`"];
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Constants of Motion*)
 
 
@@ -93,10 +93,14 @@ KerrGeoAngularMomentum[a_,p_,0,x_/;x^2==1]:=(a^2-2 a/x Sqrt[p]+p^2)/(Sqrt[2 a/x+
 (*Eccentric*)
 
 
-KerrGeoEnergy[a_,p_,e_,x_/;x^2==1]:=Print["FIXME: Energy calculation for eccentric equatorial orbits still need to be reimplemented"];
+(* ::Text:: *)
+(*Simplified from Glampedakis and Kennefick, Phys. Rev. D66 (2002) 044002, arXiv:gr-qc/0203086, Eq. 7 and appendix A*)
 
 
-KerrGeoAngularMomentum[a_,p_,e_,x_/;x^2==1]:=Print["FIXME: Angular Momentum calculation for eccentric equatorial orbits still need to be reimplemented"];
+KerrGeoEnergy[a_,p_,e_,x_/;x^2==1]:= Sqrt[1-((1-e^2) (1+((-1+e^2) (a^2 (1+3 e^2+p)+p (-3-e^2+p-2x Sqrt[(a^6 (-1+e^2)^2+a^2 (-4 e^2+(-2+p)^2) p^2+2 a^4 p (-2+p+e^2 (2+p)))/(p^3 x^2)])))/(-4 a^2 (-1+e^2)^2+(3+e^2-p)^2 p)))/p];
+
+
+KerrGeoAngularMomentum[a_,p_,e_,x_/;x^2==1]:= p x Sqrt[(a^2 (1+3 e^2+p)+p (-3-e^2+p-2x Sqrt[(a^6 (-1+e^2)^2+a^2 (-4 e^2+(-2+p)^2) p^2+2 a^4 p (-2+p+e^2 (2+p)))/(x^2 p^3)]))/((-4 a^2 (-1+e^2)^2+(3+e^2-p)^2 p)x^2)]+a Sqrt[1-((1-e^2) (1+((-1+e^2) (a^2 (1+3 e^2+p)+p (-3-e^2+p-2x Sqrt[(a^6 (-1+e^2)^2+a^2 (-4 e^2+(-2+p)^2) p^2+2 a^4 p (-2+p+e^2 (2+p)))/(p^3 x^2)])))/(-4 a^2 (-1+e^2)^2+(3+e^2-p)^2 p)))/p];
 
 
 (* ::Subsubsection:: *)
@@ -356,6 +360,102 @@ If[OptionValue["Time"]=="Proper",Print["Propertime frequencies not implemented y
 (*Orbital Trajectory*)
 
 
+(* ::Section:: *)
+(*Schwarzschild*)
+
+
+(* ::Text:: *)
+(*The analytic equations below are taken from Appendix B of "Fast Self-forced Inspirals" by M. van de Meent and N. Warburton, Class. Quant. Grav. 35:144003 (2018), arXiv:1802.05281*)
+
+
+(*t and \[Phi] accumulated over one orbit*)
+\[CapitalPhi]SchwarzDarwin[p_,e_]:=4 Sqrt[p/(p-6+2e)] EllipticK[(4 e)/(p-6+2e)]
+TSchwarzDarwin[p_,e_]:=(2p Sqrt[(p-6+2e)((p-2)^2-4e^2)])/((1-e^2)(p-4)) EllipticE[(4e)/(p-6+2e)]-2p Sqrt[(p-2)^2-4e^2]/((1-e^2)Sqrt[p-6+2e]) EllipticK[(4e)/(p-6+2e)]-(4(8(1-e^2)+p(1+3e^2-p))Sqrt[(p-2)^2-4e^2])/((1-e)(1-e^2)(p-4)Sqrt[p-6+2e]) EllipticPi[-((2e)/(1-e)),(4e)/(p-6+2e)]+(16Sqrt[(p-2)^2-4e^2])/((p-2+2e)Sqrt[p-6+2e]) EllipticPi[(4e)/(p-2+2e),(4e)/(p-6+2e)]
+
+
+tSchwarzDarwin[p_,e_,\[Xi]_]:=TSchwarzDarwin[p,e]/2+((p Sqrt[(p-6+2e)((p-2)^2-4e^2)])/((1-e^2)(p-4)) EllipticE[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-p Sqrt[(p-2)^2-4e^2]/((1-e^2)Sqrt[p-6+2e]) EllipticF[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-(2(8(1-e^2)+p(1+3e^2-p))Sqrt[(p-2)^2-4e^2])/((1-e)(1-e^2)(p-4)Sqrt[p-6+2e]) EllipticPi[-((2e)/(1-e)),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]+(8Sqrt[(p-2)^2-4e^2])/((p-2+2e)Sqrt[p-6+2e]) EllipticPi[(4e)/(p-2+2e),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-e p Sqrt[((p-2)^2-4e^2)(p-6-2e Cos[\[Xi]])]/((1-e^2)(p-4)(1+e Cos[\[Xi]])) Sin[\[Xi]])
+rSchwarzDarwin[p_,e_,\[Chi]_]:=p/(1 + e Cos[\[Chi]])
+\[Theta]SchwarzDarwin[p_,e_,\[Chi]_]:= \[Pi]/2 
+\[Phi]SchwarzDarwin[p_,e_,\[Xi]_]:=\[CapitalPhi]SchwarzDarwin[p,e]/2+2Sqrt[p/(p-6+2e)]EllipticF[\[Xi]/2-\[Pi]/2,(4 e)/(p-6+2e)]
+
+
+(* ::Text:: *)
+(*FIXME: make the below work for inclined orbits and accept initial phases*)
+
+
+KerrGeoOrbitSchwarzDarwin[p_, e_]:=Module[{t, r, \[Theta], \[Phi], assoc},
+
+t[\[Chi]_] := tSchwarzDarwin[p,e,\[Chi]];
+r[\[Chi]_] := rSchwarzDarwin[p,e,\[Chi]];
+\[Theta][\[Chi]_] := \[Theta]SchwarzDarwin[p,e,\[Chi]];
+\[Phi][\[Chi]_] := \[Phi]SchwarzDarwin[p,e,\[Chi]];
+
+assoc = Association["Trajectory" -> {t,r,\[Theta],\[Phi]}, "Parametrization"->"Darwin"];
+
+KerrGeoOrbitFunction[0, p, e, 0, assoc]
+
+]
+
+
+(* ::Section:: *)
+(*Kerr*)
+
+
+(* ::Subsection:: *)
+(*Equatorial (Darwin)*)
+
+
+(* ::Text:: *)
+(*Compute the orbit using Mino time and then convert to Darwin time using \[Lambda][r[\[Chi]]] where \[Lambda][r] is found in Fujita and Hikida (2009).*)
+
+
+KerrGeoOrbitEquatorialDarwin[a_,p_,e_,x_/;x^2==1]:=Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc},
+
+orbitMino = KerrGeoOrbit[a,p,e,x];
+
+{r1,r2,r3,r4} = orbitMino["RadialRoots"];
+freqs = orbitMino["Frequencies"];
+{En,L,Q} = orbitMino["ConstantsOfMotion"];
+\[CapitalLambda]r = (2\[Pi])/freqs[[1]];
+
+yr[r_]:=Sqrt[(r1-r3)/(r1-r2) (r-r2)/(r-r3)];
+kr=(r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
+\[Lambda]0r[r_]:=1/Sqrt[1-En^2] 2/Sqrt[(r1-r3)(r2-r4)] EllipticF[ArcSin[yr[r]],kr];
+
+
+r[\[Chi]_]:=p/(1+e Cos[\[Chi]]);
+
+r01=r2;
+\[CapitalLambda]r1=\[Lambda]0r[r01];
+
+
+\[Lambda][\[Chi]_]:=\[CapitalLambda]r Floor[\[Chi]/(2\[Pi])]+If[Mod[\[Chi],2\[Pi]]<=\[Pi], \[Lambda]0r[r[\[Chi]]]-\[CapitalLambda]r1,\[CapitalLambda]r-\[Lambda]0r[r[\[Chi]]]];
+{tMino, rMino, \[Theta]Mino, \[Phi]Mino} = orbitMino["Trajectory"];
+
+tDarwin[\[Chi]_]:= tMino[\[Lambda][\[Chi]]];
+rDarwin[\[Chi]_]:= rMino[\[Lambda][\[Chi]]];
+\[Theta]Darwin[\[Chi]_]:= \[Theta]Mino[\[Lambda][\[Chi]]];
+\[Phi]Darwin[\[Chi]_]:= \[Phi]Mino[\[Lambda][\[Chi]]];
+
+assoc = Association[
+			"Trajectory" -> {tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin}, 
+			"Parametrization" -> "Darwin", 
+			"ConstantsOfMotion"->{En,L,Q}, 
+			"RadialRoots"->{r1,r2,r3,r4},
+			"Energy" -> En,
+			"AngularMomentum" -> L,
+			"CarterConstant" -> Q
+		];
+
+KerrGeoOrbitFunction[a, p, e, 0, assoc]
+
+]
+
+
+(* ::Subsection:: *)
+(*Generic (Mino)*)
+
+
 KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r},
 	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = KerrGeoMinoFrequencies[a,p,e,x];
@@ -405,15 +505,22 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 	"Energy" -> En, 
 	"AngularMomentum" -> L, 
 	"CarterConstant" -> Q, 
+	"ConstantsOfMotion" -> {En,L,Q},
 	"RadialFrequency" -> \[CapitalUpsilon]r,
-	"PolarFrequency" -> \[CapitalUpsilon]\[Theta],
+	"PolarFrequency" ->  \[CapitalUpsilon]\[Theta],
 	"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
-	"Trajectory" -> {t,r,\[Theta],\[Phi]}
+	"Frequencies" -> {\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi]},
+	"Trajectory" -> {t,r,\[Theta],\[Phi]},
+	"RadialRoots" -> {r1,r2,r3,r4}
 	];
 
 	KerrGeoOrbitFunction[a,p,e,x,assoc]
 
 ]
+
+
+(* ::Section:: *)
+(*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
 Options[KerrGeoOrbit] = {Parametrization -> "Mino", Method -> Automatic}
@@ -428,6 +535,10 @@ If[VectorQ[{a,p,e,x},NumericQ] && OptionValue["Method"] == Automatic, Print["Num
 
 
 If[OptionValue["Parametrization"] == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
+
+If[OptionValue["Parametrization"] == "Darwin" && a == 0, Return[KerrGeoOrbitSchwarzDarwin[p, e]]];
+
+If[OptionValue["Parametrization"] == "Darwin" && x^2 == 1, Return[KerrGeoOrbitEquatorialDarwin[a, p, e, x]]];
 
 ]
 
@@ -470,7 +581,7 @@ KerrGeoPolarRoots2[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Constants of motion*)
 
 
@@ -937,80 +1048,12 @@ KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, assoc_][x_?StringQ] := assoc[x]
 
 
 
-(* ::Subsection::Closed:: *)
-(*Schwarzschild (Darwin parametrization)*)
-
-
-(* ::Text:: *)
-(*The analytic equations below are taken from Appendix B of "Fast Self-forced Inspirals" by M. van de Meent and N. Warburton, Class. Quant. Grav. 35:144003 (2018), arXiv:1802.05281*)
-
-
-(*t and \[Phi] accumulated over one orbit*)
-\[CapitalPhi]SchwarzDarwin[p_,e_]:=4 Sqrt[p/(p-6+2e)] EllipticK[(4 e)/(p-6+2e)]
-TSchwarzDarwin[p_,e_]:=(2p Sqrt[(p-6+2e)((p-2)^2-4e^2)])/((1-e^2)(p-4)) EllipticE[(4e)/(p-6+2e)]-2p Sqrt[(p-2)^2-4e^2]/((1-e^2)Sqrt[p-6+2e]) EllipticK[(4e)/(p-6+2e)]-(4(8(1-e^2)+p(1+3e^2-p))Sqrt[(p-2)^2-4e^2])/((1-e)(1-e^2)(p-4)Sqrt[p-6+2e]) EllipticPi[-((2e)/(1-e)),(4e)/(p-6+2e)]+(16Sqrt[(p-2)^2-4e^2])/((p-2+2e)Sqrt[p-6+2e]) EllipticPi[(4e)/(p-2+2e),(4e)/(p-6+2e)]
-
-
-tSchwarzDarwin[p_,e_,\[Xi]_]:=TSchwarzDarwin[p,e]/2+((p Sqrt[(p-6+2e)((p-2)^2-4e^2)])/((1-e^2)(p-4)) EllipticE[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-p Sqrt[(p-2)^2-4e^2]/((1-e^2)Sqrt[p-6+2e]) EllipticF[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-(2(8(1-e^2)+p(1+3e^2-p))Sqrt[(p-2)^2-4e^2])/((1-e)(1-e^2)(p-4)Sqrt[p-6+2e]) EllipticPi[-((2e)/(1-e)),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]+(8Sqrt[(p-2)^2-4e^2])/((p-2+2e)Sqrt[p-6+2e]) EllipticPi[(4e)/(p-2+2e),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-e p Sqrt[((p-2)^2-4e^2)(p-6-2e Cos[\[Xi]])]/((1-e^2)(p-4)(1+e Cos[\[Xi]])) Sin[\[Xi]])
-rSchwarzDarwin[p_,e_,\[Chi]_]:=p/(1 + e Cos[\[Chi]])
-\[Theta]SchwarzDarwin[p_,e_,\[Chi]_]:= \[Pi]/2 
-\[Phi]SchwarzDarwin[p_,e_,\[Xi]_]:=\[CapitalPhi]SchwarzDarwin[p,e]/2+2Sqrt[p/(p-6+2e)]EllipticF[\[Xi]/2-\[Pi]/2,(4 e)/(p-6+2e)]
-
-
-KerrGeoOrbitSchwarzDarwin[p_, e_]:=Module[{t, r, \[Theta], \[Phi], assoc},
-
-t[\[Chi]_] := tSchwarzDarwin[p,e,\[Chi]];
-r[\[Chi]_] := rSchwarzDarwin[p,e,\[Chi]];
-\[Theta][\[Chi]_] := \[Theta]SchwarzDarwin[p,e,\[Chi]];
-\[Phi][\[Chi]_] := \[Phi]SchwarzDarwin[p,e,\[Chi]];
-
-assoc = Association["Trajectory" -> {t,r,\[Theta],\[Phi]}, "Parametrization"->"Darwin"];
-
-KerrGeoOrbitFunction2[0, p, e, 0, assoc]
-
-]
-
-
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Kerr equatorial orbits (Darwin parametrization)*)
 
 
 (* ::Text:: *)
 (*Compute the orbit using Mino time and then convert to Darwin time using \[Lambda][r[\[Chi]]] where \[Lambda][r] is found in Fujita and Hikida (2009).*)
-
-
-KerrGeoOrbitEquatorialDarwin[a_,p_,e_]:=Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc},
-
-orbitMino = KerrGeoOrbit2[a,p,e,0];
-
-{r1,r2,r3,r4} = orbitMino["RadialRoots"];
-freqs = orbitMino["Freqs"];
-{En,L,Q} = orbitMino["ELQ"];
-\[CapitalLambda]r = (2\[Pi])/(freqs[[1]]freqs[[4]]);
-
-yr[r_]:=Sqrt[(r1-r3)/(r1-r2) (r-r2)/(r-r3)];
-kr=(r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
-\[Lambda]0r[r_]:=1/Sqrt[1-En^2] 2/Sqrt[(r1-r3)(r2-r4)] EllipticF[ArcSin[yr[r]],kr];
-
-
-r[\[Chi]_]:=p/(1+e Cos[\[Chi]]);
-
-r01=r2;
-\[CapitalLambda]r1=\[Lambda]0r[r01];
-
-
-\[Lambda][\[Chi]_]:=\[CapitalLambda]r Floor[\[Chi]/(2\[Pi])]+If[Mod[\[Chi],2\[Pi]]<=\[Pi], \[Lambda]0r[r[\[Chi]]]-\[CapitalLambda]r1,\[CapitalLambda]r-\[Lambda]0r[r[\[Chi]]]];
-{tMino, rMino, \[Theta]Mino, \[Phi]Mino} = orbitMino["Trajectory"];
-
-tDarwin[\[Chi]_]:= tMino[\[Lambda][\[Chi]]];
-rDarwin[\[Chi]_]:= rMino[\[Lambda][\[Chi]]];
-\[Theta]Darwin[\[Chi]_]:= \[Theta]Mino[\[Lambda][\[Chi]]];
-\[Phi]Darwin[\[Chi]_]:= \[Phi]Mino[\[Lambda][\[Chi]]];
-
-assoc = Association["Trajectory" -> {tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin}, "Parametrization" -> "Darwin", "ELQ"->{En,L,Q}, "Freqs" -> freqs, "RadialRoots"->{r1,r2,r3,r4}];
-
-KerrGeoOrbitFunction2[a, p, e, 0, assoc]
-
-]
 
 
 (* ::Subsection:: *)
