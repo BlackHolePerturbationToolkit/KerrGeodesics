@@ -4,7 +4,7 @@
 (*Package for the calculation of bound time-like geodesics and their properties in Kerr spacetime*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Define usage for public functions*)
 
 
@@ -20,10 +20,12 @@ KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association."
 
+KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the ISCO for pro- and retrograde orbits"
+
 Begin["`Private`"];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Constants of Motion*)
 
 
@@ -356,11 +358,11 @@ If[OptionValue["Time"]=="Proper",Print["Propertime frequencies not implemented y
 ]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Orbital Trajectory*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Schwarzschild*)
 
 
@@ -397,11 +399,11 @@ KerrGeoOrbitFunction[0, p, e, 0, assoc]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Equatorial (Darwin)*)
 
 
@@ -452,7 +454,7 @@ KerrGeoOrbitFunction[a, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
 
 
@@ -519,7 +521,7 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
@@ -546,6 +548,20 @@ If[OptionValue["Parametrization"] == "Darwin" && x^2 == 1, Return[KerrGeoOrbitEq
 Format[KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_]] := "KerrGeoOrbitFunction["<>ToString[a]<>","<>ToString[p]<>","<>ToString[e]<>","<>ToString[N[x]]<>",<<>>]";
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == False] := Through[assoc["Trajectory"][\[Lambda]]]
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
+
+
+(* ::Chapter:: *)
+(*Special orbits (separatrix, ISCO, ISSO etc...) *)
+
+
+(*Kerr inner-most circular orbit ISCO*)
+(*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
+(*Eq. 2.21*)
+KerrGeoISCO[a_,x_/;x^2==1]:=Module[{M=1,Z1,Z2},
+	Z1=1+(1-a^2/M^2)^(1/3) ((1+a/M)^(1/3)+(1-a/M)^(1/3));
+	Z2=(3a^2/M^2 + Z1^2)^(1/2);
+	M(3+Z2-x ((3-Z1)(3+Z1+2Z2)/x^2)^(1/2))
+];
 
 
 (* ::Title:: *)
@@ -581,7 +597,7 @@ KerrGeoPolarRoots2[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Constants of motion*)
 
 
@@ -782,7 +798,7 @@ KerrGeoFreqs[a_/;a==1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{},
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Special orbits (separatrix, ISCO, ISSO, etc...)*)
 
 
@@ -799,20 +815,6 @@ KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?Numer
   (*FIXME: check this for robustness*)
   (*{r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,\[Theta]inc];
   r2\[GreaterEqual]r3*)
-];
-
-
-(*Kerr inner-most circular orbit ISCO*)
-(*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
-(*Eq. 2.21*)
-KerrGeoISCO[a_,\[Theta]inc1_/;Mod[\[Theta]inc1,\[Pi]]==0]:=Module[{M=1,\[Theta]inc=\[Theta]inc1,Z1,Z2},
-    \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
-	Z1=1+(1-a^2/M^2)^(1/3) ((1+a/M)^(1/3)+(1-a/M)^(1/3));
-	Z2=(3a^2/M^2 + Z1^2)^(1/2);
-	If[\[Theta]inc==0,
-		Return[M(3+Z2-((3-Z1)(3+Z1+2Z2))^(1/2))],
-		Return[M(3+Z2+((3-Z1)(3+Z1+2Z2))^(1/2))]
-	];
 ];
 
 
