@@ -23,10 +23,12 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 (*Temporary function until this is integrated with KerrGeoOrbitFunction*)
 KerrGeoOrbitFastSpec::usage = "KerrGeoOrbitFastSpec[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 
+KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the ISCO for pro- and retrograde orbits"
+
 Begin["`Private`"];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Constants of Motion*)
 
 
@@ -525,7 +527,7 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
@@ -834,7 +836,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -936,6 +938,20 @@ KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == F
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
 
+(* ::Chapter:: *)
+(*Special orbits (separatrix, ISCO, ISSO etc...) *)
+
+
+(*Kerr inner-most circular orbit ISCO*)
+(*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
+(*Eq. 2.21*)
+KerrGeoISCO[a_,x_/;x^2==1]:=Module[{M=1,Z1,Z2},
+	Z1=1+(1-a^2/M^2)^(1/3) ((1+a/M)^(1/3)+(1-a/M)^(1/3));
+	Z2=(3a^2/M^2 + Z1^2)^(1/2);
+	M(3+Z2-x ((3-Z1)(3+Z1+2Z2)/x^2)^(1/2))
+];
+
+
 (* ::Title:: *)
 (*Old code below*)
 
@@ -969,7 +985,7 @@ KerrGeoPolarRoots2[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Constants of motion*)
 
 
@@ -1170,7 +1186,7 @@ KerrGeoFreqs[a_/;a==1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{},
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Special orbits (separatrix, ISCO, ISSO, etc...)*)
 
 
@@ -1187,20 +1203,6 @@ KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?Numer
   (*FIXME: check this for robustness*)
   (*{r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,\[Theta]inc];
   r2\[GreaterEqual]r3*)
-];
-
-
-(*Kerr inner-most circular orbit ISCO*)
-(*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
-(*Eq. 2.21*)
-KerrGeoISCO[a_,\[Theta]inc1_/;Mod[\[Theta]inc1,\[Pi]]==0]:=Module[{M=1,\[Theta]inc=\[Theta]inc1,Z1,Z2},
-    \[Theta]inc=Mod[\[Theta]inc,2\[Pi]];
-	Z1=1+(1-a^2/M^2)^(1/3) ((1+a/M)^(1/3)+(1-a/M)^(1/3));
-	Z2=(3a^2/M^2 + Z1^2)^(1/2);
-	If[\[Theta]inc==0,
-		Return[M(3+Z2-((3-Z1)(3+Z1+2Z2))^(1/2))],
-		Return[M(3+Z2+((3-Z1)(3+Z1+2Z2))^(1/2))]
-	];
 ];
 
 
