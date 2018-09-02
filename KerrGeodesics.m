@@ -4,7 +4,7 @@
 (*Package for the calculation of bound time-like geodesics and their properties in Kerr spacetime*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Define usage for public functions*)
 
 
@@ -562,6 +562,75 @@ KerrGeoISCO[a_,x_/;x^2==1]:=Module[{M=1,Z1,Z2},
 	Z2=(3a^2/M^2 + Z1^2)^(1/2);
 	M(3+Z2-x ((3-Z1)(3+Z1+2Z2)/x^2)^(1/2))
 ];
+
+
+(* ::Section:: *)
+(*Photon Sphere*)
+
+
+(* ::Text:: *)
+(*The photon sphere is at 3M for all radii in Schwarzschild*)
+
+
+KerrGeoPhotonSphereRadius[0,x_]:=3
+
+
+(* ::Text:: *)
+(*Radius of photon sphere  for equatorial orbits from Bardeen, Press, Teukolsky ApJ, 178, p347 (1972), Eq. 2.18*)
+
+
+KerrGeoPhotonSphereRadius[a_,1]:=2(1+Cos[2/3 ArcCos[-a]])
+KerrGeoPhotonSphereRadius[a_,-1]:=2(1+Cos[2/3 ArcCos[a]])
+
+
+(* ::Text:: *)
+(*For polar orbits the radius was given by E. Teo, General Relativity and Gravitation, v. 35, Issue 11, p. 1909-1926 (2003), Eq. (14)*)
+
+
+KerrGeoPhotonSphereRadius[a_,0]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3 a^2)^(3/2)]]
+
+
+(* ::Section:: *)
+(*Innermost bound spherical orbits*)
+
+
+KerrGeoIBSO[0,x_]:=4
+
+
+(* ::Text:: *)
+(*Equatorial IBSO results from Bardeen, Press, Teukolsky 1972*)
+
+
+KerrGeoIBSO[a_,1]:= 2-a+2(1-a)^(1/2)
+KerrGeoIBSO[a_,-1]:= 2+a+2(1+a)^(1/2)
+
+
+(* ::Text:: *)
+(*At the IBSO E=1. Solve[KerrGeo[a,p,0,0]==1,p] to get the formula for the IBSO for polar orbits*)
+
+
+KerrGeoIBSO[a_,0]:=Module[{\[Delta]},
+	\[Delta]=27 a^4-8 a^6+3 Sqrt[3] Sqrt[27 a^8-16 a^10];
+	1+Sqrt[12-4 a^2-(6 Sqrt[6] (-2+a^2))/Sqrt[6-2 a^2+(4 a^4)/\[Delta]^(1/3)+\[Delta]^(1/3)]-(4 a^4)/\[Delta]^(1/3)-\[Delta]^(1/3)]/Sqrt[6]+Sqrt[6-2 a^2+(4 a^4)/\[Delta]^(1/3)+\[Delta]^(1/3)]/Sqrt[6]
+]
+
+
+(* ::Section:: *)
+(*Separatrix*)
+
+
+(* ::Text:: *)
+(*Schwarzschild Subscript[p, s]=6+2e*)
+
+
+KerrGeoSeparatrix[0,e_,x_]:= 6+2e;
+
+
+(* ::Text:: *)
+(*From Glampedakis and Kennefick arXiv:gr-qc/0203086, for a=M we have Subscript[p, s]=1+e*)
+
+
+KerrGeoSeparatrix[1,e_,1]:= 1+e
 
 
 (* ::Title:: *)
