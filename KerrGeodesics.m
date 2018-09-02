@@ -20,6 +20,9 @@ KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association."
 
+(*Temporary function until this is integrated with KerrGeoOrbitFunction*)
+KerrGeoOrbitFastSpec::usage = "KerrGeoOrbitFastSpec[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
+
 KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the ISCO for pro- and retrograde orbits"
 
 Begin["`Private`"];
@@ -66,7 +69,7 @@ KerrGeoCarterConstant[0,p_,e_,x_]:=(p^2 (-1+x^2))/(3+e^2-p)
 KerrGeoConstantsOfMotion[0,p_,e_,x_]:= {KerrGeoEnergy[0,p,e,x],KerrGeoAngularMomentum[0,p,e,x],KerrGeoCarterConstant[0,p,e,x]}
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -112,7 +115,7 @@ KerrGeoAngularMomentum[a_,p_,e_,x_/;x^2==1]:= p x Sqrt[(a^2 (1+3 e^2+p)+p (-3-e^
 KerrGeoConstantsOfMotion[a_,p_,e_,x_/;x^2==1]:= {KerrGeoEnergy[a,p,e,x],KerrGeoAngularMomentum[a,p,e,x],KerrGeoCarterConstant[a,p,e,x]}
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Polar orbits (x=0)*)
 
 
@@ -137,7 +140,7 @@ KerrGeoEnergy[a_,p_,0,0]:=Sqrt[(p (a^2-2 p+p^2)^2)/((a^2+p^2) (a^2+a^2 p-3 p^2+p
 KerrGeoCarterConstant[a_,p_,0,0]:=(p^2 (a^4+2 a^2 (-2+p) p+p^4))/((a^2+p^2) ((-3+p) p^2+a^2 (1+p)))
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Eccentric*)
 
 
@@ -178,7 +181,7 @@ f=p^4+a^2 (p (2+p)-(a^2+(-2+p) p) (-1+x^2));
 (*CarterConstant and ConstantsOfMotion calculations are covered by the generic case*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic orbits*)
 
 
@@ -241,7 +244,7 @@ KerrGeoConstantsOfMotion[a_,p_,e_,x_]:=Module[{En,L,Q},
 ]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Roots of the radial and polar equations*)
 
 
@@ -270,7 +273,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 ]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Orbital Frequencies*)
 
 
@@ -340,7 +343,7 @@ KerrGeoBoyerLindquistFrequencies[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]r,\[Capi
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Generic function for choosing between frequencies w.r.t different time coordinates*)
 
 
@@ -358,7 +361,7 @@ If[OptionValue["Time"]=="Proper",Print["Propertime frequencies not implemented y
 ]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Orbital Trajectory*)
 
 
@@ -399,7 +402,7 @@ KerrGeoOrbitFunction[0, p, e, 0, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -458,7 +461,7 @@ KerrGeoOrbitFunction[a, p, e, 0, assoc]
 (*Generic (Mino)*)
 
 
-KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r},
+KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi]},
 	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = KerrGeoMinoFrequencies[a,p,e,x];
 	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
@@ -496,11 +499,14 @@ tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE
 \[Phi]z[qz_]:= -1/zp L ( EllipticPi[zm^2,k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticPi[zm^2,\[Psi]z[qz],k\[Theta]]);
 
 {qt0, qr0, qz0, q\[Phi]0} = {initPhases[[1]], initPhases[[2]], initPhases[[3]], initPhases[[4]]};
+(*Calculate normalization constants so that t=0 and \[Phi]=0 at \[Lambda]=0 when qt0=0 and q\[Phi]0=0 *)
+Ct=tr[qr0]+tz[qz0];
+C\[Phi]=\[Phi]r[qr0]+\[Phi]z[qz0];
 
-t[\[Lambda]_]:= qt0 + \[CapitalUpsilon]t \[Lambda] + tr[\[CapitalUpsilon]r \[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
+t[\[Lambda]_]:= qt0 + \[CapitalUpsilon]t \[Lambda] + tr[\[CapitalUpsilon]r \[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-Ct;
 r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 \[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
-\[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0];
+\[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-C\[Phi];
 
 	assoc = Association[
 	"Parametrization"->"Mino", 
@@ -521,7 +527,389 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Subsection::Closed:: *)
+(*Generic (Fast Spec - Mino)*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*Misc*)
+
+
+KerrGeoZPlusMinus[a_/;Abs[a]>0,p_,e_,x_]:=Module[{En,L,Q,zp,zm,\[Alpha],\[Beta]},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	\[Alpha]=L^2+Q+\[Beta];
+	\[Beta]=a^2(1-En^2);
+	
+	zp=Sqrt[(\[Alpha]+Sqrt[\[Alpha]^2-4 Q \[Beta]])/(2\[Beta])];
+	zm=Sqrt[(\[Alpha]-Sqrt[\[Alpha]^2-4 Q \[Beta]])/(2\[Beta])];
+	{zp,zm}
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Subroutines for calculating \[Lambda](\[Psi]) and \[Lambda](\[Chi])*)
+
+
+MinoRFastSpec[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=
+Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,\[Psi]r,r0,p3,p4,Pr,PrSample,NrInit=2^4,
+		\[ScriptCapitalP]rSample,\[ScriptCapitalP]rn,\[ScriptCapitalP]rList,\[CapitalDelta]\[Lambda]r,pg,iter=1,compare},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
+	p3=(1-e)r3/M;
+	p4=(1+e)r4/M;
+	pg=Min[{Precision[{a,p,e,x}],Precision[initPhases]}];
+	
+	If[pg==$MachinePrecision,
+		\[Psi]r[Nr_]:=N[Table[i Pi/(Nr-1),{i,0,Nr-1}]];
+		Pr[psi_]:=Pr[psi]=(1-e^2)((p-p4)+e(p-p4 Cos[psi]))^(-1/2)/(M (1-En^2)^(1/2)((p-p3)-e(p+p3 Cos[psi]))^(1/2));
+		PrSample[Nr_]:=Pr[\[Psi]r[Nr]];
+		\[ScriptCapitalP]rSample[Nr_]:=\[ScriptCapitalP]rSample[Nr]=FourierDCT[PrSample[Nr],1]Sqrt[2/(Nr-1)]/.var_?NumericQ/;var==0:>0;
+		While[Abs@RealExponent[\[ScriptCapitalP]rSample[NrInit][[-1]]/\[ScriptCapitalP]rSample[NrInit][[1]]]<15&&iter<8,NrInit=2*NrInit;iter++],
+		
+		\[Psi]r[Nr_]:=N[Table[i Pi/(Nr-1),{i,0,Nr-1}],1.5pg];
+		Pr[psi_]:=Pr[psi]=(1-e^2)((p-p4)+e(p-p4 Cos[psi]))^(-1/2)/(M (1-En^2)^(1/2)((p-p3)-e(p+p3 Cos[psi]))^(1/2));
+		PrSample[Nr_]:=Pr[\[Psi]r[Nr]];
+		\[ScriptCapitalP]rSample[Nr_]:=\[ScriptCapitalP]rSample[Nr]=FourierDCT[PrSample[Nr],1]Sqrt[2/(Nr-1)]/.var_?NumericQ/;var==0:>0;
+		compare=\[ScriptCapitalP]rSample[NrInit/2][[1]];
+		While[compare=!=(compare=\[ScriptCapitalP]rSample[NrInit][[1]])&&iter<8,NrInit=2*NrInit;iter++]
+	];
+	\[ScriptCapitalP]rList=\[ScriptCapitalP]rSample[NrInit];
+	\[ScriptCapitalP]rn[n_]:=\[ScriptCapitalP]rList[[n+1]];
+	\[CapitalDelta]\[Lambda]r[\[Psi]_]:=\[ScriptCapitalP]rn[NrInit-1]/(2*(NrInit-1)) Sin[(NrInit-1)*\[Psi]]+Sum[\[ScriptCapitalP]rn[n]/n Sin[n \[Psi]],{n,1,NrInit-2}];
+	Clear[Pr,\[ScriptCapitalP]rSample];
+	\[CapitalDelta]\[Lambda]r
+];
+
+
+MinoThetaFastSpec[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=
+Module[{M=1,En,L,Q,zp,zm,\[Chi]\[Theta],\[Beta],P\[Theta],P\[Theta]Sample,NthInit=2^4,\[ScriptCapitalP]\[Theta]List,\[ScriptCapitalP]\[Theta]Sample,\[ScriptCapitalP]\[Theta]k,\[CapitalDelta]\[Lambda]\[Theta],pg,iter=1,compare},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{zp,zm} = KerrGeoZPlusMinus[a, p, e, x];
+	\[Beta]=a^2(1-En^2);
+	pg=Min[{Precision[{a,p,e,x}],Precision[initPhases]}];
+	
+	If[pg==$MachinePrecision,
+		\[Chi]\[Theta][Nth_]:=N[Table[i Pi/(Nth-1),{i,0,Nth-1}]];
+		P\[Theta][chi_]:=P\[Theta][chi]=(\[Beta](zp^2-zm^2 Cos[chi]^2))^(-1/2);
+		P\[Theta]Sample[Nth_]:=P\[Theta][\[Chi]\[Theta][Nth]];
+		\[ScriptCapitalP]\[Theta]Sample[Nth_]:=\[ScriptCapitalP]\[Theta]Sample[Nth]=FourierDCT[P\[Theta]Sample[Nth],1]Sqrt[2/(Nth-1)]/.var_?NumericQ/;var==0:>0;
+		While[Abs@RealExponent[\[ScriptCapitalP]\[Theta]Sample[NthInit][[-1]]/\[ScriptCapitalP]\[Theta]Sample[NthInit][[1]]]<15&&iter<8,NthInit=2*NthInit;iter++],
+		\[Chi]\[Theta][Nth_]:=N[Table[i Pi/(Nth-1),{i,0,Nth-1}],1.5pg];
+		P\[Theta][chi_]:=P\[Theta][chi]=(\[Beta](zp^2-zm^2 Cos[chi]^2))^(-1/2);
+		P\[Theta]Sample[Nth_]:=P\[Theta][\[Chi]\[Theta][Nth]];
+		\[ScriptCapitalP]\[Theta]Sample[Nth_]:=\[ScriptCapitalP]\[Theta]Sample[Nth]=FourierDCT[P\[Theta]Sample[Nth],1]Sqrt[2/(Nth-1)]/.var_?NumericQ/;var==0:>0;
+		compare=\[ScriptCapitalP]\[Theta]Sample[NthInit/2][[1]];
+		While[compare=!=(compare=\[ScriptCapitalP]\[Theta]Sample[NthInit][[1]])&&iter<8,NthInit=2*NthInit;iter++]
+	];
+	
+	\[ScriptCapitalP]\[Theta]List=\[ScriptCapitalP]\[Theta]Sample[NthInit];
+	\[ScriptCapitalP]\[Theta]k[k_]:=\[ScriptCapitalP]\[Theta]List[[k+1]];
+	\[CapitalDelta]\[Lambda]\[Theta][\[Chi]_]:=\[ScriptCapitalP]\[Theta]k[NthInit-1]/(2*(NthInit-1)) Sin[(NthInit-1)*\[Chi]]+Sum[\[ScriptCapitalP]\[Theta]k[k]/k Sin[k \[Chi]],{k,1,NthInit-2}];
+	Clear[P\[Theta],\[ScriptCapitalP]\[Theta]Sample];
+	\[CapitalDelta]\[Lambda]\[Theta]
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Subroutine for calculating \[Psi](\[Lambda]) and \[Chi](\[Lambda])*)
+
+
+PhaseOfMinoFastSpec[\[CapitalUpsilon]_,sampledMino_]:=
+Module[{sampledFunc,NInit,phase},
+	NInit=Length[sampledMino];
+	sampledFunc[NN_]:=ConstantArray[1,NN];
+	phase=DarwinFastSpecMinoIntegrateAndConvergenceCheckPhases[sampledFunc,{\[CapitalUpsilon],sampledMino}];
+	phase
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Subroutines for calculating \[CapitalDelta]\[Phi]r(\[Lambda]), \[CapitalDelta]\[Phi]\[Theta](\[Lambda]), \[CapitalDelta]tr(\[Lambda]), \[CapitalDelta]t\[Theta](\[Lambda])*)
+
+
+PhiOfMinoFastSpecR[a_,p_,e_,x_,{\[CapitalUpsilon]r_,minoSampleR_}]:=
+Module[{M=1,En,L,Q,sampledFuncR,sampledMinoR,PVr,\[CapitalDelta]\[Phi]r},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	PVr[rp_]:=-((a^2*L)/(a^2 - 2*M*rp + rp^2)) + a*En*(-1 + (a^2 + rp^2)/(a^2 - 2*M*rp + rp^2));
+
+	sampledFuncR=RFuncWithWeight[a,p,e,x,PVr];
+	\[CapitalDelta]\[Phi]r=DarwinFastSpecMinoIntegrateAndConvergenceCheck[sampledFuncR,{\[CapitalUpsilon]r,minoSampleR}];
+	\[CapitalDelta]\[Phi]r
+];
+
+
+PhiOfMinoFastSpecTheta[a_,p_,e_,x_,{\[CapitalUpsilon]\[Theta]_,minoSampleTh_}]:=
+Module[{M=1,En,L,Q,sampledFuncTheta,sampledMinoTheta,PV\[Theta],\[CapitalDelta]\[Phi]\[Theta]},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	PV\[Theta][\[Theta]p_]:=L*Csc[\[Theta]p]^2;
+	
+	sampledFuncTheta=ThetaFuncWithWeight[a,p,e,x,PV\[Theta]];
+	\[CapitalDelta]\[Phi]\[Theta]=DarwinFastSpecMinoIntegrateAndConvergenceCheck[sampledFuncTheta,{\[CapitalUpsilon]\[Theta],minoSampleTh}];
+	\[CapitalDelta]\[Phi]\[Theta]
+];
+
+
+TimeOfMinoFastSpecR[a_,p_,e_,x_,{\[CapitalUpsilon]r_,minoSampleR_}]:=
+Module[{M=1,En,L,Q,sampledFuncR,sampledMinoR,TVr,\[CapitalDelta]tr},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	TVr[rp_]:=(En*(a^2 + rp^2)^2)/(a^2 - 2*M*rp + rp^2) + a*L*(1 - (a^2 + rp^2)/(a^2 - 2*M*rp + rp^2));
+
+	sampledFuncR=RFuncWithWeight[a,p,e,x,TVr];
+	\[CapitalDelta]tr=DarwinFastSpecMinoIntegrateAndConvergenceCheck[sampledFuncR,{\[CapitalUpsilon]r,minoSampleR}];
+	\[CapitalDelta]tr
+];
+
+
+TimeOfMinoFastSpecTheta[a_,p_,e_,x_,{\[CapitalUpsilon]\[Theta]_,minoSampleTh_}]:=
+Module[{M=1,En,L,Q,sampledFuncTheta,sampledMinoTheta,TV\[Theta],\[CapitalDelta]t\[Theta]},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	TV\[Theta][\[Theta]p_]:=-(a^2*En*Sin[\[Theta]p]^2);
+
+	sampledFuncTheta=ThetaFuncWithWeight[a,p,e,x,TV\[Theta]];
+	\[CapitalDelta]t\[Theta]=DarwinFastSpecMinoIntegrateAndConvergenceCheck[sampledFuncTheta,{\[CapitalUpsilon]\[Theta],minoSampleTh}];
+	\[CapitalDelta]t\[Theta]
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Generic subroutines that transform functions from *)
+(*\[Lambda] dependence to \[Psi] or \[Chi] dependence*)
+
+
+Clear[RFuncWithWeight];
+RFuncWithWeight[a_,p_,e_,x_,rFunc_]:=
+Module[{M=1,En,L,Q,r1,r2,r3,r4,p3,p4,\[Psi]r,r0,r0Sample,Pr,PrSample,rFuncSample,pg},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
+	p3=(1-e)r3/M;
+	p4=(1+e)r4/M;
+	pg=Precision[{a,p,e,x}];
+
+	If[pg==$MachinePrecision,
+		\[Psi]r[Nr_]:=N[Table[i 2 Pi/Nr,{i,0,Nr-1}]],
+		\[Psi]r[Nr_]:=N[Table[i 2 Pi/Nr,{i,0,Nr-1}],1.5pg]
+	];
+	r0[psi_]:=p M/(1+e Cos[psi]);
+	r0Sample[Nr_]:=r0[\[Psi]r[Nr]];
+	
+	Pr[psi_]:=(1-e^2)/Sqrt[(p-p4)+e(p-p4 Cos[psi])]/(M (1-En^2)^(1/2)Sqrt[(p-p3)-e(p+p3 Cos[psi])]);
+	PrSample[Nr_]:=Pr[\[Psi]r[Nr]];
+	
+	rFuncSample[Nr_]:=rFunc[r0Sample[Nr]]PrSample[Nr];
+	rFuncSample
+];
+
+
+Clear[ThetaFuncWithWeight];
+ThetaFuncWithWeight[a_,p_,e_,x_,thFunc_]:=
+Module[{M=1,En,L,Q,zp,zm,\[Beta],\[Chi]\[Theta],\[Theta]0,\[Theta]0Sample,P\[Theta],P\[Theta]Sample,thFuncSample,pg},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{zp,zm} = KerrGeoZPlusMinus[a, p, e, x];
+	\[Beta]=a^2(1-En^2);
+	pg=Precision[{a,p,e,x}];
+	
+	If[pg==$MachinePrecision,
+		\[Chi]\[Theta][Nth_]:=N[Table[i 2 Pi/Nth,{i,0,Nth-1}]],
+		\[Chi]\[Theta][Nth_]:=N[Table[i 2 Pi/Nth,{i,0,Nth-1}],1.5pg]
+	];
+	\[Theta]0[chi_]:=ArcCos[zm Cos[chi]];
+	\[Theta]0Sample[Nth_]:=\[Theta]0[\[Chi]\[Theta][Nth]];
+	
+	P\[Theta][chi_]:=(\[Beta](zp^2-zm^2 Cos[chi]^2))^(-1/2);
+	P\[Theta]Sample[Nth_]:=P\[Theta][\[Chi]\[Theta][Nth]];
+	
+	thFuncSample[Nth_]:=thFunc[\[Theta]0Sample[Nth]]P\[Theta]Sample[Nth];
+	thFuncSample
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Subroutines that checks for the number of samples necessary for spectral integration*)
+
+
+DarwinFastSpecMinoIntegrateAndConvergenceCheck[func_,{freq_,mino_}]:=
+Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps},
+	sampledFunc[NN_]:=sampledFunc[NN]=func[NN];
+	test[NN_]:=Total[sampledFunc[NN]]/NN;
+	pg=Precision[freq];
+
+	If[pg==$MachinePrecision,
+		eps=12;
+		NInit=2^4;
+		phaseList[NN_]:=phaseList[NN]=N[Table[2Pi i/NN,{i,0,NN-1}]];
+		compare=test[NInit/2];
+		res[NN_]:=Abs@RealExponent[(Total[sampledFunc[NN]Cos[NN/2(freq*mino[NN]+phaseList[NN])]]/.{y_/;y==0:>0})/Total[sampledFunc[NN]]];
+		While[((SetPrecision[compare,eps] =!= SetPrecision[(compare = test[NInit]),eps])||res[NInit/2]<eps)&&iter<8,NInit=2*NInit; iter++];
+		If[Abs@RealExponent[compare]>$MachinePrecision,
+			NInit=2^4;
+			test[NN_]:=Abs[Total[sampledFunc[NN]Cos[(freq*mino[NN]+phaseList[NN])]]/NN];
+			compare=test[NInit/2];
+			iter=1;
+			While[((SetPrecision[compare,eps] =!= SetPrecision[(compare = test[NInit]),eps])||res[NInit/2]<eps)&&iter<8,NInit=2*NInit; iter++]
+		],
+		NInit=2^6;
+		phaseList[NN_]:=phaseList[NN]=N[Table[2Pi i/NN,{i,0,NN-1}],1.3pg];
+		res[NN_]:=Abs@RealExponent[(Total[sampledFunc[NN]Cos[NN/2(freq*mino[NN]+phaseList[NN])]]/.{y_/;y==0:>0})/Total[sampledFunc[NN]]];
+		While[((compare =!= (compare = test[NInit]))||res[NInit/2]<pg+1)&&iter<10,NInit=2*NInit; iter++];
+		test[NN_]:=Abs[Total[sampledFunc[NN]Cos[(freq*mino[NN]+phaseList[NN])]]/NN];
+		compare=test[NInit/2];
+		iter=1;
+		While[((compare =!= (compare = test[NInit]))||res[NInit/2]<pg+1)&&iter<10,NInit=2*NInit; iter++]
+	];
+	If[res[NInit]==0&&res[NInit/2]!=0,NInit,NInit=NInit/2];
+	DarwinFastSpecMinoIntegrateEven[sampledFunc[NInit],{freq,mino[NInit]}]
+];
+
+
+DarwinFastSpecMinoIntegrateAndConvergenceCheckPhases[func_,{freq_,mino_}]:=
+Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps},
+	sampledFunc[NN_]:=sampledFunc[NN]=func[NN];
+	pg=Precision[freq];
+
+	If[pg==$MachinePrecision,
+		eps=12;
+		NInit=2^4;
+		phaseList[NN_]:=phaseList[NN]=N[Table[2Pi i/NN,{i,0,NN-1}]];
+		res[NN_]:=Abs@RealExponent[(Total[sampledFunc[NN]Cos[(NN/2+2)(freq*mino[NN]+phaseList[NN])]]/.{y_/;y==0:>0})/Total[sampledFunc[NN]]];
+		test[NN_]:=Abs[Total[sampledFunc[NN]Cos[(freq*mino[NN]+phaseList[NN])]]/NN];
+		compare=test[NInit/2];
+		While[((SetPrecision[compare,eps] =!= SetPrecision[(compare = test[NInit]),eps])||res[NInit/2]<eps)&&iter<8,NInit=2*NInit; iter++];
+		If[Abs@RealExponent[compare]>$MachinePrecision,
+			NInit=2^4;
+			test[NN_]:=Abs[Total[sampledFunc[NN]Cos[2(freq*mino[NN]+phaseList[NN])]]/NN];
+			compare=test[NInit/2];
+			iter=1;
+			While[((SetPrecision[compare,eps] =!= SetPrecision[(compare = test[NInit]),eps])||res[NInit/2]<eps)&&iter<8,NInit=2*NInit; iter++]
+		],
+		NInit=2^6;
+		phaseList[NN_]:=phaseList[NN]=N[Table[2Pi i/NN,{i,0,NN-1}],1.5pg];
+		res[NN_]:=Abs@RealExponent[(Total[sampledFunc[NN]Cos[(NN/2+2)(freq*mino[NN]+phaseList[NN])]]/.{y_/;y==0:>0})/Total[sampledFunc[NN]]];
+		test[NN_]:=Abs[Total[sampledFunc[NN]Cos[(freq*mino[NN]+phaseList[NN])]]/NN];
+		compare=test[NInit/2];
+		While[((compare =!= (compare = test[NInit]))||res[NInit/2]<pg+1)&&iter<9,NInit=2*NInit; iter++];
+		test[NN_]:=Abs[Total[sampledFunc[NN]Cos[2(freq*mino[NN]+phaseList[NN])]]/NN];
+		compare=test[NInit/2];
+		iter=1;
+		While[((compare =!= (compare = test[NInit]))||res[NInit/2]<pg+1)&&iter<9,NInit=2*NInit; iter++];
+	];
+	If[res[NInit]==0&&res[NInit/2]!=0,NInit,NInit=NInit/2];
+	DarwinFastSpecMinoIntegrateEven[sampledFunc[NInit],{freq,mino[NInit]}]
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Subroutine that performs spectral integration*)
+
+
+DarwinFastSpecMinoIntegrateEven[sampledFunctionTemp_,{freq_,minoTimeTemp_}]:=
+Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,samplePhase,nList,sampleMax},
+	sampledF=sampledFunctionTemp/.x_?NumericQ/;x==0:>0;
+	\[Lambda]=minoTimeTemp/.x_?NumericQ/;x==0:>0;
+	sampleN=Length[sampledF];
+	pg=Precision[freq];
+	
+	If[pg==$MachinePrecision,
+		phaseList=N[Table[2Pi i/sampleN,{i,0,sampleN-1}]],
+		phaseList=N[Table[2Pi i/sampleN,{i,0,sampleN-1}],1.3pg]
+	];
+	
+	samplePhase=(freq \[Lambda]+phaseList);
+	fn[n_]:=sampledF.Cos[nn*samplePhase]/.nn->n;
+	fList=Block[{halfSample,nIter},
+		nIter=sampleN/4+2;
+		While[fn[nIter]!=0&&fn[nIter-1]!=0&&nIter>sampleN/2,nIter+=2];
+		sampleMax=Min[nIter,sampleN/2];
+		freq/sampleN fn[Table[n,{n,0,sampleMax}]]/.x_?NumericQ/;x==0:>0
+	];
+
+	f[n_]:=fList[[n+1]];
+
+	integratedF[mino_?NumericQ]:=
+	Block[{nIter,return},
+		nIter=sampleN/4+2; 
+		return=Sum[f[n]/(n freq)Sin[n freq mino],{n,1,sampleN/4}];
+		While[(return =!= (return += f[nIter]/(nIter freq)Sin[nIter freq mino]+f[nIter-1]/((nIter-1) freq)Sin[(nIter-1) freq mino] ))&&nIter<sampleMax, nIter+=2];
+		2*return
+	];
+	integratedF[minoList_List]:=integratedF[#]&/@minoList;
+	integratedF
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Main file that calculates geodesics using spectral integration*)
+
+
+KerrGeoOrbitFastSpec[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=
+Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,assoc,var,
+		r0,\[Theta]0,qt0,qr0,q\[Theta]0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Psi],\[Chi],\[CapitalDelta]\[Lambda]r,\[Lambda]r,\[CapitalDelta]\[Lambda]\[Theta],\[Lambda]\[Theta],rC,\[Theta]C,\[CapitalDelta]r,\[CapitalDelta]\[Theta],
+		\[Psi]r,\[Chi]\[Theta],NrMax,NthMax,pg,\[Lambda]rSample,\[Lambda]\[Theta]Sample,\[CapitalDelta]tr,\[CapitalDelta]\[Phi]r,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]\[Theta],\[Phi]C,tC},
+	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = KerrGeoMinoFrequencies[a,p,e,x];
+	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
+	{zp,zm} = KerrGeoZPlusMinus[a, p, e, x];
+	
+	(*Parameterize r and \[Theta] in terms of Darwin-like parameters \[Psi] and \[Chi]*)
+	r0[psi_]:=p M/(1+e Cos[psi]);
+	\[Theta]0[chi_]:=ArcCos[zm Cos[chi]];
+	
+	(*Precision of sampling depends on precision of arguments*)
+	pg=Min[{Precision[{a,p,e,x}],Precision[initPhases]}];
+	If[pg==$MachinePrecision,
+		\[Psi]r[Nr_]:=N[Table[2Pi i/Nr,{i,0,Nr-1}]];
+		\[Chi]\[Theta][Nth_]:=N[Table[2Pi i/Nth,{i,0,Nth-1}]],
+		\[Psi]r[Nr_]:=N[Table[2Pi i/Nr,{i,0,Nr-1}],1.3pg];
+		\[Chi]\[Theta][Nth_]:=N[Table[2Pi i/Nth,{i,0,Nth-1}],1.3pg]
+	];
+	
+	(*Solve for Mino time as a function of \[Psi] and \[Chi]*)
+	\[CapitalDelta]\[Lambda]r=MinoRFastSpec[a,p,e,x,initPhases];
+	\[Lambda]r[psi_]:=\[Lambda]r[psi]=\[CapitalDelta]\[Lambda]r[psi];
+	\[Lambda]rSample[Nr_]:=\[Lambda]r[\[Psi]r[Nr]];
+	\[CapitalDelta]\[Lambda]\[Theta]=MinoThetaFastSpec[a,p,e,x,initPhases];
+	\[Lambda]\[Theta][chi_]:=\[Lambda]\[Theta][chi]=\[CapitalDelta]\[Lambda]\[Theta][chi];
+	\[Lambda]\[Theta]Sample[Nth_]:=\[Lambda]\[Theta][\[Chi]\[Theta][Nth]];
+	
+	(*Find the inverse transformation of \[Psi] and \[Chi] as functions of \[Lambda] 
+	using spectral integration*)
+	\[Psi]=PhaseOfMinoFastSpec[\[CapitalUpsilon]r,\[Lambda]rSample];
+	\[Chi]=PhaseOfMinoFastSpec[\[CapitalUpsilon]\[Theta],\[Lambda]\[Theta]Sample];
+
+	(*Spectral integration of t and \[Phi] as functions of \[Lambda]*)
+	\[CapitalDelta]tr=TimeOfMinoFastSpecR[a,p,e,x,{\[CapitalUpsilon]r,\[Lambda]rSample}];
+	\[CapitalDelta]\[Phi]r=PhiOfMinoFastSpecR[a,p,e,x,{\[CapitalUpsilon]r,\[Lambda]rSample}];
+	\[CapitalDelta]t\[Theta]=TimeOfMinoFastSpecTheta[a,p,e,x,{\[CapitalUpsilon]\[Theta],\[Lambda]\[Theta]Sample}];
+	\[CapitalDelta]\[Phi]\[Theta]=PhiOfMinoFastSpecTheta[a,p,e,x,{\[CapitalUpsilon]\[Theta],\[Lambda]\[Theta]Sample}];
+	
+	(*Collect initial Mino time phases*)
+	{qt0, qr0, q\[Theta]0, q\[Phi]0} = {initPhases[[1]], initPhases[[2]], initPhases[[3]], initPhases[[4]]};
+	\[Phi]C=\[CapitalDelta]\[Phi]r[qr0/\[CapitalUpsilon]r]+\[CapitalDelta]\[Phi]\[Theta][q\[Theta]0/\[CapitalUpsilon]\[Theta]];
+	tC=\[CapitalDelta]t\[Theta][q\[Theta]0/\[CapitalUpsilon]\[Theta]]+\[CapitalDelta]tr[qr0/\[CapitalUpsilon]r];
+
+	t[\[Lambda]_]:=\[CapitalDelta]tr[\[Lambda]+qr0/\[CapitalUpsilon]r]+\[CapitalDelta]t\[Theta][\[Lambda]+q\[Theta]0/\[CapitalUpsilon]\[Theta]]+\[CapitalUpsilon]t \[Lambda]+qt0-tC;
+	r[\[Lambda]_]:=r0[\[Psi][\[Lambda]+qr0/\[CapitalUpsilon]r]+\[CapitalUpsilon]r \[Lambda]+qr0];
+	\[Theta][\[Lambda]_]:=\[Theta]0[\[Chi][\[Lambda]+q\[Theta]0/\[CapitalUpsilon]\[Theta]]+\[CapitalUpsilon]\[Theta] \[Lambda]+q\[Theta]0];
+	\[Phi][\[Lambda]_]:=\[CapitalDelta]\[Phi]r[\[Lambda]+qr0/\[CapitalUpsilon]r]+\[CapitalDelta]\[Phi]\[Theta][\[Lambda]+q\[Theta]0/\[CapitalUpsilon]\[Theta]]+\[CapitalUpsilon]\[Phi] \[Lambda]+q\[Phi]0-\[Phi]C;
+	
+	assoc = Association[
+		"Parametrization"->"Mino",
+		"Energy" -> En, 
+		"AngularMomentum" -> L, 
+		"CarterConstant" -> Q, 
+		"ConstantsOfMotion" -> {En,L,Q},
+		"RadialFrequency" -> \[CapitalUpsilon]r,
+		"PolarFrequency" ->  \[CapitalUpsilon]\[Theta],
+		"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
+		"Frequencies" -> {\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi]},
+		"Trajectory" -> {t,r,\[Theta],\[Phi]},
+		"RadialRoots" -> {r1,r2,r3,r4}
+		];
+	
+	KerrGeoOrbitFunction[a,p,e,x,assoc]
+]
+
+
+(* ::Section:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
@@ -637,7 +1025,7 @@ KerrGeoSeparatrix[1,e_,1]:= 1+e
 (*Old code below*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Useful functions*)
 
 
@@ -792,7 +1180,7 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2 && e!=0,Print["Polar, non-spherical orbits no
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Orbital frequencies*)
 
 
@@ -948,7 +1336,7 @@ KerrGeoSeparatrix[1,e_,0]:=1+e
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Orbital trajectory*)
 
 
@@ -1191,7 +1579,7 @@ KerrGeoOrbitFunction2[a, p, e, \[Theta]inc, assoc]
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic with FastFourier*)
 
 
