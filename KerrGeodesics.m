@@ -24,6 +24,7 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 (**********************)
 KerrGeoOrbitFastSpec::usage = "KerrGeoOrbitFastSpec[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 KerrGeoOrbitFastSpecDarwin::usage = "KerrGeoOrbitFastSpecDarwin[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association using a Darwin parameterization of the orbit.";
+KerrGeoBoyerLindquistFrequencies;
 (**********************)
 
 KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the ISCO for pro- and retrograde orbits"
@@ -31,7 +32,7 @@ KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the ISCO for pro-
 Begin["`Private`"];
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Constants of Motion*)
 
 
@@ -184,7 +185,7 @@ f=p^4+a^2 (p (2+p)-(a^2+(-2+p) p) (-1+x^2));
 (*CarterConstant and ConstantsOfMotion calculations are covered by the generic case*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic orbits*)
 
 
@@ -247,7 +248,7 @@ KerrGeoConstantsOfMotion[a_,p_,e_,x_]:=Module[{En,L,Q},
 ]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Roots of the radial and polar equations*)
 
 
@@ -460,17 +461,18 @@ KerrGeoOrbitFunction[a, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Equatorial (Fast Spec - Darwin)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutines that checks for the number of samples necessary for spectral integration*)
 
 
+Clear[DarwinFastSpecIntegrateAndConvergenceCheck];
 DarwinFastSpecIntegrateAndConvergenceCheck[func_]:=
 Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps,coeffs,
 	coeffsList,coeffsN,\[CapitalDelta]integratedFunc,growthRate,fn,nIter,sampleMax},
@@ -485,6 +487,7 @@ Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps,coeffs,
 	(* Determine precision of sampled points. 
 	Use precision to check for convergence of spectral methods *)
 	pg=Precision[sampledFunc[16][[2]]];
+
 	(* Use Mathematica's built in DCT solver to determine DCT coefficients *)
 	coeffs[Nr_]:=coeffs[Nr]=FourierDCT[sampledFunc[Nr],1]Sqrt[2/(Nr-1)]/.var_?NumericQ/;var==0:>0;
 	(* Find the relative accuracy of the DCT coefficients by comparing the last two 
@@ -501,12 +504,11 @@ Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps,coeffs,
 		While[res[NInit]<eps&&iter<20,NInit=2*NInit;iter++]
 		,
 		(* Set initial value of sample points at slightly larger value for extended precision calculations *)
-		NInit=2^6;
+		NInit=2^5;
 		(* Also test for convergence by increasing the sample size until the n=0 coefficient is unchanged *)
 		compare=coeffs[NInit/2][[1]]; (*n=0 coefficient *)
 		While[((compare =!= (compare = coeffs[NInit][[1]]))||res[NInit]<pg+1)&&iter<20,NInit=2*NInit; iter++]
 	];
-	
 	(* After determining the number of sampled points necessary for convergence, store DCT coefficients *)
 	coeffsList=coeffs[NInit];
 	fn[n_]:=fn[n]=coeffsList[[n+1]];
@@ -518,11 +520,12 @@ Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps,coeffs,
 		Do[coeffsN[n]=coeffsList[[n+1]]/n,{n,1,nIter-2}];
 		eps=15-RealExponent[Sum[Abs[fn[n]],{n,0,nIter-2}]];
 		While[(-RealExponent[fn[nIter]]<=eps||-RealExponent[fn[nIter-1]]<=eps)&&nIter<NInit-2,coeffsN[nIter]=fn[nIter]/nIter;coeffsN[nIter-1]=fn[nIter-1]/(nIter-1);nIter+=2];
-		coeffsN[nIter]=fn[nIter]/nIter;coeffsN[nIter-1]=fn[nIter-1]/(nIter-1);
+		coeffsN[nIter]=fn[nIter]/nIter;
+		coeffsN[nIter-1]=fn[nIter-1]/(nIter-1);
 		sampleMax=Min[nIter,NInit-2],
-		Do[coeffsN[n]=coeffsList[[n+1]]/n,{n,1,NInit-1}]
+		Do[coeffsN[n]=coeffsList[[n+1]]/n,{n,1,NInit-1}];
+		sampleMax=NInit-2;
 	];
-
 	(* Construct integrated series solution *)
 	\[CapitalDelta]integratedFunc[\[Chi]_?NumericQ]:=coeffsN[NInit-1]/2 Sin[(NInit-1)*\[Chi]]+Sum[coeffsN[nIter] Sin[nIter \[Chi]],{nIter,1,sampleMax}];
 	(* Allow function to evaluate lists by threading over them *)
@@ -750,14 +753,14 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutines for calculating \[Lambda](\[Psi]) and \[Lambda](\[Chi])*)
 
 
@@ -807,7 +810,7 @@ Module[{M=1,En,L,Q,zp,zm,\[Chi]\[Theta],\[Beta],P\[Theta],P\[Theta]Sample,NthIni
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutine for calculating \[Psi](\[Lambda]) and \[Chi](\[Lambda])*)
 
 
@@ -976,7 +979,7 @@ Module[{M=1,En,L,Q,zp,zm,\[Beta],\[Chi]\[Theta],\[Theta]0,\[Theta]0Sample,P\[The
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutines that checks for the number of samples necessary for spectral integration of an even function*)
 
 
@@ -1166,7 +1169,7 @@ Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon
 	\[CapitalDelta]\[Lambda]r=MinoRFastSpec[a,p,e,x];
 	\[Lambda]r[psi_]:=\[Lambda]r[psi]=\[CapitalDelta]\[Lambda]r[psi];
 	\[Lambda]rSample[Nr_]:=\[Lambda]r[\[Psi]r[Nr]];
-	\[CapitalDelta]\[Lambda]\[Theta]=MinoThetaFastSpec[a,p,e,x];
+	\[Lambda]\[Theta]=MinoThetaFastSpec[a,p,e,x];
 	\[Lambda]\[Theta][chi_]:=\[Lambda]\[Theta][chi]=\[CapitalDelta]\[Lambda]\[Theta][chi];
 	\[Lambda]\[Theta]Sample[Nth_]:=\[Lambda]\[Theta][\[Chi]\[Theta][Nth]];
 	
@@ -1365,7 +1368,7 @@ KerrGeoSeparatrix[1,e_,1]:= 1+e
 (*Old code below*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Useful functions*)
 
 
@@ -1394,7 +1397,7 @@ KerrGeoPolarRoots2[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Constants of motion*)
 
 
@@ -1847,7 +1850,7 @@ KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, assoc_][x_?StringQ] := assoc[x]
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Kerr equatorial orbits (Darwin parametrization)*)
 
 
@@ -1855,7 +1858,7 @@ KerrGeoOrbitFunction2[a_,p_,e_,\[Theta]inc_, assoc_][x_?StringQ] := assoc[x]
 (*Compute the orbit using Mino time and then convert to Darwin time using \[Lambda][r[\[Chi]]] where \[Lambda][r] is found in Fujita and Hikida (2009).*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Kerr generic orbits (Mino parameterization)*)
 
 
@@ -1919,7 +1922,7 @@ KerrGeoOrbitFunction2[a, p, e, \[Theta]inc, assoc]
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic with FastFourier*)
 
 
