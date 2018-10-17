@@ -360,7 +360,7 @@ If[OptionValue["Time"]=="Proper",Print["Propertime frequencies not implemented y
 ]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Orbital Trajectory*)
 
 
@@ -1295,7 +1295,7 @@ KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == F
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Special orbits (separatrix, ISCO, ISSO etc...) *)
 
 
@@ -1333,6 +1333,17 @@ KerrGeoPhotonSphereRadius[a_,-1]:=2(1+Cos[2/3 ArcCos[a]])
 
 
 KerrGeoPhotonSphereRadius[a_,0]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3 a^2)^(3/2)]]
+
+
+(* ::Text:: *)
+(*In the extramal limit we can find the photon sphere radius exactly*)
+
+
+KerrGeoPhotonSphereRadius[1,x_]:=1+Sqrt[2] Sqrt[1-x]-x;
+
+
+(* ::Text:: *)
+(*For all other inclinations we have to numerically find the photon sphere radius*)
 
 
 KerrGeoPhotonSphereRadius[a1_?InexactNumberQ,x0_?InexactNumberQ/;Abs[x0]<=1]:=Module[{M=1,a=a1,req,rpolar,\[CapitalPhi],Q,r,u0Sq,prec},
