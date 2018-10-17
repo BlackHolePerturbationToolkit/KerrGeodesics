@@ -4,7 +4,7 @@
 (*Package for the calculation of bound time-like geodesics and their properties in Kerr spacetime*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Define usage for public functions*)
 
 
@@ -20,19 +20,14 @@ KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association."
 
-(*Temporary functions until they are integrated with KerrGeoOrbitFunction*)
-(**********************)
-KerrGeoOrbitFastSpec::usage = "KerrGeoOrbitFastSpec[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
-KerrGeoOrbitFastSpecDarwin::usage = "KerrGeoOrbitFastSpecDarwin[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association using a Darwin parameterization of the orbit.";
-KerrGeoBoyerLindquistFrequencies;
-(**********************)
+KerrGeoPhotonSphereRadius::usage = "KerrGeoPhotonSphereRadius[a,x] returns the radius of the photon sphere."
 
 KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the ISCO for pro- and retrograde orbits"
 
 Begin["`Private`"];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Constants of Motion*)
 
 
@@ -73,7 +68,7 @@ KerrGeoCarterConstant[0,p_,e_,x_]:=(p^2 (-1+x^2))/(3+e^2-p)
 KerrGeoConstantsOfMotion[0,p_,e_,x_]:= {KerrGeoEnergy[0,p,e,x],KerrGeoAngularMomentum[0,p,e,x],KerrGeoCarterConstant[0,p,e,x]}
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -277,7 +272,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 ]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Orbital Frequencies*)
 
 
@@ -406,7 +401,7 @@ KerrGeoOrbitFunction[0, p, e, 0, assoc]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -461,14 +456,14 @@ KerrGeoOrbitFunction[a, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Equatorial (Fast Spec - Darwin)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Subroutines that checks for the number of samples necessary for spectral integration*)
 
 
@@ -604,7 +599,7 @@ Module[{M=1,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Circular (Fast Spec - Darwin)*)
 
 
@@ -753,14 +748,14 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Subroutines for calculating \[Lambda](\[Psi]) and \[Lambda](\[Chi])*)
 
 
@@ -810,7 +805,7 @@ Module[{M=1,En,L,Q,zp,zm,\[Chi]\[Theta],\[Beta],P\[Theta],P\[Theta]Sample,NthIni
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Subroutine for calculating \[Psi](\[Lambda]) and \[Chi](\[Lambda])*)
 
 
@@ -979,7 +974,7 @@ Module[{M=1,En,L,Q,zp,zm,\[Beta],\[Chi]\[Theta],\[Theta]0,\[Theta]0Sample,P\[The
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Subroutines that checks for the number of samples necessary for spectral integration of an even function*)
 
 
@@ -1256,22 +1251,41 @@ Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
-Options[KerrGeoOrbit] = {Parametrization -> "Mino", Method -> Automatic}
+Options[KerrGeoOrbit] = {Parametrization -> "Mino", Method -> "FastSpec"}
 SyntaxInformation[KerrGeoOrbit] = {"ArgumentsPattern"->{_,_,OptionsPattern[]}};
 
 
-KerrGeoOrbit[a_,p_,e_,x_, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Module[{En,L,Q,assoc},
+KerrGeoOrbit[a_,p_,e_,x_, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Module[{param, method},
+(*FIXME: add stability check but make it possible to turn it off*)
 
-(*Below is an example of the switching that will be done once we have the SSI implementation*)
-(*If[!VectorQ[{a,p,e,x},NumericQ] || OptionValue["Method"] == "Analytic" , Print["Using analytic formula to evaluating orbit"]];
-If[VectorQ[{a,p,e,x},NumericQ] && OptionValue["Method"] == Automatic, Print["Numerically evaluating orbit"]];*)
+method = OptionValue["Method"];
+param = OptionValue["Parametrization"];
 
+If[param == "Darwin" && Abs[x]!=1, Print["Darwin parameterization only valid for equatorial motion"];Return[];];
 
-If[OptionValue["Parametrization"] == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
+If[Precision[{a,p,e,x}] > 30, method = "Analytic"];
 
-If[OptionValue["Parametrization"] == "Darwin" && a == 0, Return[KerrGeoOrbitSchwarzDarwin[p, e]]];
+If[method == "FastSpec",
 
-If[OptionValue["Parametrization"] == "Darwin" && x^2 == 1, Return[KerrGeoOrbitEquatorialDarwin[a, p, e, x]]];
+	If[param == "Mino", Return[KerrGeoOrbitFastSpec[a, p, e, x, initPhases]]];
+	If[param == "Darwin", 
+		If[a==0,Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitFastSpecDarwin[a,p,e,x,initPhases]]]
+	];
+	Print["Unrecognized parametrization: " <> OptionValue["Parametrization"]];
+	
+];
+
+If[method == "Analytic",
+
+	If[param == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
+	If[param == "Darwin", 
+		If[a==0,Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitDarwin[a,p,e,x,initPhases]]]
+	];
+	Print["Unrecognized parametrization: " <> OptionValue["Parametrization"]];
+
+];
+
+Print["Unrecognized method: " <> method];
 
 ]
 
@@ -1281,7 +1295,7 @@ KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == F
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Special orbits (separatrix, ISCO, ISSO etc...) *)
 
 
@@ -1319,6 +1333,23 @@ KerrGeoPhotonSphereRadius[a_,-1]:=2(1+Cos[2/3 ArcCos[a]])
 
 
 KerrGeoPhotonSphereRadius[a_,0]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3 a^2)^(3/2)]]
+
+
+KerrGeoPhotonSphereRadius[a1_?InexactNumberQ,x0_?InexactNumberQ/;Abs[x0]<=1]:=Module[{M=1,a=a1,req,rpolar,\[CapitalPhi],Q,r,u0Sq,prec},
+prec=Precision[{a1,x0}];
+req=KerrGeoPhotonSphereRadius[a,Sign[x0]];
+rpolar=KerrGeoPhotonSphereRadius[a,0];
+
+\[CapitalPhi]=-((r^3-3M r^2+a^2 r+a^2 M)/(a(r-M)));
+Q=-((r^3 (r^3-6M r^2+9M^2 r-4a^2 M))/(a^2 (r-M)^2));
+
+u0Sq=((a^2-Q-\[CapitalPhi]^2)+Sqrt[(a^2-Q-\[CapitalPhi]^2)^2+4a^2  Q])/(2a^2);
+
+r/.FindRoot[1-u0Sq-x0^2,Flatten[{r,(req+rpolar)/2,Sort[{req,rpolar}]}],WorkingPrecision->Max[MachinePrecision,prec-1]]//Quiet 
+(*The final Quiet[] is there to stop FindRoot complaining about the precision of the argument. 
+This seems to be fine near the equatorial plane but might not be ideal for inclincation near the polar orbit*)
+
+]
 
 
 (* ::Section:: *)
@@ -1368,7 +1399,7 @@ KerrGeoSeparatrix[1,e_,1]:= 1+e
 (*Old code below*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Useful functions*)
 
 
@@ -1397,7 +1428,7 @@ KerrGeoPolarRoots2[a_, p_, e_, \[Theta]inc_] := Module[{En,L,Q,\[Theta]min,zm,zp
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Constants of motion*)
 
 
@@ -1523,7 +1554,7 @@ If[Mod[\[Theta]inc,\[Pi]]==\[Pi]/2 && e!=0,Print["Polar, non-spherical orbits no
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Orbital frequencies*)
 
 
@@ -1598,7 +1629,7 @@ KerrGeoFreqs[a_/;a==1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{},
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Special orbits (separatrix, ISCO, ISSO, etc...)*)
 
 
@@ -1679,7 +1710,7 @@ KerrGeoSeparatrix[1,e_,0]:=1+e
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Orbital trajectory*)
 
 
@@ -1815,7 +1846,7 @@ r[\[Chi]_]:=rI[\[Chi]];
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Orbital trajectory (new generic implementation)*)
 
 
