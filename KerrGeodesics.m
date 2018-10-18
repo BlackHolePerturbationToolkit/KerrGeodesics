@@ -1339,7 +1339,7 @@ KerrGeoPhotonSphereRadius[a_,0]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3
 (*In the extramal limit we can find the photon sphere radius exactly*)
 
 
-KerrGeoPhotonSphereRadius[1,x_]:=1+Sqrt[2] Sqrt[1-x]-x;
+KerrGeoPhotonSphereRadius[1,x_]:=If[x < Sqrt[3]-1,1+Sqrt[2] Sqrt[1-x]-x,1];;
 
 
 (* ::Text:: *)
@@ -1640,7 +1640,7 @@ KerrGeoFreqs[a_/;a==1,p_,e_,\[Theta]inc1_?NumericQ]:=Module[{},
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Special orbits (separatrix, ISCO, ISSO, etc...)*)
 
 
@@ -1661,16 +1661,16 @@ KerrGeoStableOrbitQ[a_?NumericQ/;a!=0,p_?NumericQ,e_?NumericQ,\[Theta]inc_?Numer
 
 
 (*Photon sphere becomes light ring at r=3M in Schwarzschild*)
-KerrGeoPhotonSphereRadius[(0|0.0),\[Theta]inc_]:=3;
+KerrGeoPhotonSphereRadius2[(0|0.0),\[Theta]inc_]:=3;
 
 (*Radius of photon sphere  for equatorial orbits*)
 (*Bardeen, Press, Teukolsky ApJ, 178, p347 (1972)*)
 (*Eq. 2.18*)
-KerrGeoPhotonSphereRadius[a_,(0|0.)]:=2(1+Cos[2/3 ArcCos[-a]])
-KerrGeoPhotonSphereRadius[a_,\[Pi]]:=2(1+Cos[2/3 ArcCos[a]])
+KerrGeoPhotonSphereRadius2[a_,(0|0.)]:=2(1+Cos[2/3 ArcCos[-a]])
+KerrGeoPhotonSphereRadius2[a_,\[Pi]]:=2(1+Cos[2/3 ArcCos[a]])
 
 (*Photon sphere radius is where the energy for a timelike orbit diverges*)
-KerrGeoPhotonSphereRadius[a_,\[Theta]inc_]:= Module[{res},
+KerrGeoPhotonSphereRadius2[a_,\[Theta]inc_]:= Module[{res},
 	res=Sort[Re[p/.Solve[Simplify[Denominator[KerrGeoELQ[a,p,0,\[Theta]inc][[1]]^2]==0,Assumptions->{a>=0,p>0}],p]],Greater];
 	If[\[Theta]inc>=\[Pi]/2,Return[res[[1]]],Return[res[[2]]]]
 ]
