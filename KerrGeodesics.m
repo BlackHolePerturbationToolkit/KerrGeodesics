@@ -4,7 +4,7 @@
 (*Package for the calculation of bound time-like geodesics and their properties in Kerr spacetime*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Define usage for public functions*)
 
 
@@ -1362,6 +1362,8 @@ KerrGeoPhotonSphereRadius[a_,0]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3
 KerrGeoPhotonSphereRadius[1,x_]:=If[x < Sqrt[3]-1,1+Sqrt[2] Sqrt[1-x]-x,1];;
 
 
+
+
 (* ::Text:: *)
 (*For all other inclinations we have to numerically find the photon sphere radius*)
 
@@ -1459,12 +1461,14 @@ KerrGeoSeparatrix[1,0,0]:=1+Sqrt[3]+Sqrt[3+2 Sqrt[3]]
 
 
 (* ::Text:: *)
-(*For e=1 the \!\(TraditionalForm\`*)
-(*\*SubscriptBox[\(p\), \(s\)]\)is at 2\!\(TraditionalForm\`*)
-(*\*SubscriptBox[\(r\), \(ibso\)]\)*)
+(*For e=1 the Subscript[p, s] is at 2 Subscript[r, ibso]*)
 
 
 KerrGeoSeparatrix[a_,1,x_]:=2KerrGeoIBSO[a,x]
+
+
+(* ::Text:: *)
+(*This method is an extension of the method in arXiv:1108.1819. See N. Warburton's notes for details.*)
 
 
 KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,x1_?NumericQ]/;Precision[{a1,e1,x1}]!=\[Infinity]:=Block[{a=a1,ra2,\[Beta],E0,L0,Q0,e2,ru,x=x1,prec,r1,\[Beta]2,p,ru0},
