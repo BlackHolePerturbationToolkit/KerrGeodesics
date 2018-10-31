@@ -1359,11 +1359,7 @@ KerrGeoPhotonSphereRadius[a_,(0|0.)]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(
 (*In the extremal limit we can find the photon sphere radius exactly*)
 
 
-KerrGeoPhotonSphereRadius[1,x_]:=If[x < Sqrt[3]-1,1+Sqrt[2] Sqrt[1-x]-x,1];;
-
-
-
-
+KerrGeoPhotonSphereRadius[1,x_]:=If[x < Sqrt[3]-1, 1+Sqrt[2] Sqrt[1-x]-x, 1];
 
 
 (* ::Text:: *)
