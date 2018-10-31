@@ -1303,7 +1303,7 @@ KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == F
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Special orbits (separatrix, ISCO, ISSO etc...) *)
 
 
@@ -1329,7 +1329,7 @@ KerrGeoISCO[a_,x_/;x^2==1]:=Module[{M=1,Z1,Z2},
 ];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Photon Sphere*)
 
 
@@ -1337,7 +1337,7 @@ KerrGeoISCO[a_,x_/;x^2==1]:=Module[{M=1,Z1,Z2},
 (*The photon sphere is at 3M for all radii in Schwarzschild*)
 
 
-KerrGeoPhotonSphereRadius[0,x_]:=3
+KerrGeoPhotonSphereRadius[(0|0.),x_]:=3
 
 
 (* ::Text:: *)
@@ -1352,7 +1352,7 @@ KerrGeoPhotonSphereRadius[a_,-1]:=2(1+Cos[2/3 ArcCos[a]])
 (*For polar orbits the radius was given by E. Teo, General Relativity and Gravitation, v. 35, Issue 11, p. 1909-1926 (2003), Eq. (14)*)
 
 
-KerrGeoPhotonSphereRadius[a_,0]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3 a^2)^(3/2)]]
+KerrGeoPhotonSphereRadius[a_,(0|0.)]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3 a^2)^(3/2)]]
 
 
 (* ::Text:: *)
@@ -1360,6 +1360,8 @@ KerrGeoPhotonSphereRadius[a_,0]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3
 
 
 KerrGeoPhotonSphereRadius[1,x_]:=If[x < Sqrt[3]-1,1+Sqrt[2] Sqrt[1-x]-x,1];;
+
+
 
 
 
