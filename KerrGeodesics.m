@@ -280,7 +280,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 ]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Orbital Frequencies*)
 
 
@@ -368,7 +368,7 @@ If[OptionValue["Time"]=="Proper",Print["Propertime frequencies not implemented y
 ]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Orbital Trajectory*)
 
 
@@ -409,7 +409,7 @@ KerrGeoOrbitFunction[0, p, e, 0, assoc]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -686,7 +686,7 @@ Module[{M=1,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
 
 
@@ -734,7 +734,7 @@ C\[Phi]=\[Phi]r[qr0]+\[Phi]z[qz0];
 t[\[Lambda]_]:= qt0 + \[CapitalUpsilon]t \[Lambda] + tr[\[CapitalUpsilon]r \[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-Ct;
 r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 \[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
-\[Phi][\[Lambda]_]:= q\[Phi]0 + If[x<0,\[Pi],0] + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-C\[Phi];
+\[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-C\[Phi];
 
 	assoc = Association[
 	"Parametrization"->"Mino", 
@@ -755,7 +755,7 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
@@ -1124,7 +1124,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -1233,7 +1233,7 @@ Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon
 	t[\[Lambda]_]:=\[CapitalDelta]tr[\[Lambda]+\[Lambda]r0]+\[CapitalDelta]t\[Theta][\[Lambda]+\[Lambda]\[Theta]0]+\[CapitalUpsilon]t \[Lambda]+qt0-tC;
 	r[\[Lambda]_]:=r0[\[Psi][\[Lambda]+\[Lambda]r0]+\[CapitalUpsilon]r \[Lambda]+qr0];
 	\[Theta][\[Lambda]_]:=\[Theta]0[\[Chi][\[Lambda]+\[Lambda]\[Theta]0]+\[CapitalUpsilon]\[Theta] \[Lambda]+q\[Theta]0];
-	\[Phi][\[Lambda]_]:=\[CapitalDelta]\[Phi]r[\[Lambda]+\[Lambda]r0]+\[CapitalDelta]\[Phi]\[Theta][\[Lambda]+\[Lambda]\[Theta]0]+\[CapitalUpsilon]\[Phi] \[Lambda]+q\[Phi]0-\[Phi]C + If[x<0,\[Pi],0];
+	\[Phi][\[Lambda]_]:=\[CapitalDelta]\[Phi]r[\[Lambda]+\[Lambda]r0]+\[CapitalDelta]\[Phi]\[Theta][\[Lambda]+\[Lambda]\[Theta]0]+\[CapitalUpsilon]\[Phi] \[Lambda]+q\[Phi]0-\[Phi]C;
 
 	assoc = Association[
 		"Parametrization"->"Mino",
@@ -1254,7 +1254,7 @@ Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
