@@ -659,7 +659,7 @@ KerrGeoOrbitFunction2[a, p, e, \[Theta]inc, assoc]
 (*Generic with FastFourier*)
 
 
-<<FastFourierSeries`
+(*<<FastFourierSeries`*)
 
 Options[KerrGeoOrbit3] = {Evaluation -> "Analytic"}
 
