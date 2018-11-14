@@ -22,11 +22,12 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 
 KerrGeoPhotonSphereRadius::usage = "KerrGeoPhotonSphereRadius[a,x] returns the radius of the photon sphere."
 
-KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the innermost stable circular orbit (ISCO) for pro- and retrograde orbits"
-KerrGeoISSO::usage = "KerrGeoISCO[a,x] returns the location of the innermost stable spherical orbit (ISSO)"
-KerrGeoIBSO::usage = "KerrGeoISCO[a,x] returns the location of the innermost bound spherical orbit (IBSO)"
+KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the innermost stable circular orbit (ISCO) for pro- and retrograde orbits."
+KerrGeoISSO::usage = "KerrGeoISCO[a,x] returns the location of the innermost stable spherical orbit (ISSO)."
+KerrGeoIBSO::usage = "KerrGeoISCO[a,x] returns the location of the innermost bound spherical orbit (IBSO)."
 
 KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of \!\(\*SubscriptBox[\(p\), \(s\)]\) at the separatrix"
+KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a bound orbit."
 
 Begin["`Private`"];
 
@@ -1302,7 +1303,7 @@ KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == F
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Special orbits (separatrix, ISCO, ISSO etc...) *)
 
 
@@ -1410,7 +1411,7 @@ KerrGeoIBSO[a_,0]:=Module[{\[Delta]},
 KerrGeoIBSO[1,(0|0.)]:=1/3 (3+(54-6 Sqrt[33])^(1/3)+(6 (9+Sqrt[33]))^(1/3))
 
 
-KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ]/;Precision[{a1,x1}]!=\[Infinity]:=Block[{a=a1,x=x1,rph,prec,n=1,ru,E0},
+KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ/;Abs[x1]<=1]/;Precision[{a1,x1}]!=\[Infinity]:=Block[{a=a1,x=x1,rph,prec,n=1,ru,E0},
 prec=Precision[{a1,x}];
 rph=KerrGeoPhotonSphereRadius[a,x];
 
@@ -1468,7 +1469,7 @@ KerrGeoSeparatrix[a_,1,x_]:=2KerrGeoIBSO[a,x]
 (*This method is an extension of the method in arXiv:1108.1819. See N. Warburton's notes for details.*)
 
 
-KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,x1_?NumericQ]/;Precision[{a1,e1,x1}]!=\[Infinity]:=Block[{a=a1,ra2,\[Beta],E0,L0,Q0,e2,ru,x=x1,prec,r1,\[Beta]2,p,ru0},
+KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,x1_?NumericQ/;Abs[x1]<=1]/;Precision[{a1,e1,x1}]!=\[Infinity]:=Block[{a=a1,ra2,\[Beta],E0,L0,Q0,e2,ru,x=x1,prec,r1,\[Beta]2,p,ru0},
 
 {E0,L0,Q0}=KerrGeoConstantsOfMotion[a,ru,0,x];
 \[Beta]=(-1+E0^2);
@@ -1485,6 +1486,12 @@ r1=KerrGeoIBSO[a,x];
 ru0=ru/.FindRoot[e2==e1,{ru,(r1+10)/2,r1,10},WorkingPrecision->Max[MachinePrecision,prec-1]];
 
 p=(2ra2 ru)/(ra2+ru \[Beta]2)/.ru->ru0
+]
+
+
+KerrGeoBoundOrbitQ[a_?NumericQ,p_?NumericQ,e_?NumericQ,x_?NumericQ]:=Module[{ps},
+	ps = KerrGeoSeparatrix[a,e,x];
+	If[p >= ps, True, False]
 ]
 
 

@@ -21,7 +21,7 @@ Cell[BoxData[
 
 Cell[BoxData["\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation\"\>"], \
-"Output",ExpressionUUID->"3e44aa8d-7dfe-462c-982e-fd5772e3e18e"]
+"Output",ExpressionUUID->"3244e613-b83e-419c-82d7-5c7f2a7a8985"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -46,22 +46,19 @@ Cell[BoxData[
    RowBox[{"\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Guides/KerrGeodesics.nb\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Index/_0.cfs\"\>", 
+Documentation/English/ReferencePages/Symbols/KerrGeoAngularMomentum.nb\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Index/segments_3\"\>", 
+Documentation/English/ReferencePages/Symbols/KerrGeoBoundOrbitQ.nb\"\>", ",", 
+    
+    RowBox[{"\[LeftSkeleton]", "9", "\[RightSkeleton]"}], 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Index/segments.gen\"\>", ",", 
-    RowBox[{"\[LeftSkeleton]", "10", "\[RightSkeleton]"}], 
-    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/SpellIndex/_2.cfs\"\>", 
-    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/SpellIndex/segments_7\"\>", 
-    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/SpellIndex/segments.gen\"\>", 
+Documentation/English/ReferencePages/Symbols/KerrGeoPhotonSphereRadius.nb\"\>\
+", ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/ReferencePages/Symbols/KerrGeoSeparatrix.nb\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Tutorials/KerrGeodesics.nb\"\>"}], "}"}],
   Short[#, 
-   10]& ]], "Output",ExpressionUUID->"c3ebba1f-9708-420b-ba32-484788ebe9d7"]
+   10]& ]], "Output",ExpressionUUID->"481e511f-0157-4ea6-ac77-d849b436558f"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -78,13 +75,45 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell[BoxData["\<\"Building symbol reference pages\"\>"], \
-"Print",ExpressionUUID->"c589e3ae-a5bb-4515-92d9-eadc9651fe59"],
+"Print",ExpressionUUID->"4182b508-d127-4128-9ad4-707e80dbecd0"],
 
-Cell[BoxData["\<\"KerrGeoELQ\"\>"], \
-"Print",ExpressionUUID->"745cbbb6-5af1-4ab1-bcc2-8178eb66ea1c"],
+Cell[BoxData["\<\"KerrGeoAngularMomentum\"\>"], \
+"Print",ExpressionUUID->"4d7790e4-eb6f-4633-b63a-f23f6addb90a"],
 
-Cell[BoxData["\<\"KerrGeoFreqs\"\>"], \
-"Print",ExpressionUUID->"de941bc3-11ee-478f-8cc6-d1c7d5ef5d19"],
+Cell[BoxData["\<\"KerrGeoBoundOrbitQ\"\>"], \
+"Print",ExpressionUUID->"5b099517-706b-47ef-8611-850c8d176a9f"],
+
+Cell[BoxData["\<\"KerrGeoCarterConstant\"\>"], \
+"Print",ExpressionUUID->"cd64ad62-aa57-4550-8d95-2f639ef133eb"],
+
+Cell[BoxData["\<\"KerrGeoConstantsOfMotion\"\>"], \
+"Print",ExpressionUUID->"0ef6aa19-4d35-4637-beb2-36ae0b732102"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"e\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "e", "p"}],
+  Editable->
+   False]], "Print",ExpressionUUID->"fd445128-8f1f-4435-aade-cf1dc3fc7162"],
+
+Cell[BoxData["\<\"KerrGeoEnergy\"\>"], \
+"Print",ExpressionUUID->"f056134f-ed43-4d90-9bc9-86089086d798"],
+
+Cell[BoxData["\<\"KerrGeoFrequencies\"\>"], \
+"Print",ExpressionUUID->"04b14fbb-36eb-4c42-9e22-06e47dec1101"],
+
+Cell[BoxData[
+ StyleBox["\<\"Documented options {} do not match actual options \
+{KerrGeodesics`Private`Time} for KerrGeoFrequencies\"\>",
+  StripOnInput->False,
+  LineColor->RGBColor[1, 0, 0],
+  FrontFaceColor->RGBColor[1, 0, 0],
+  BackFaceColor->RGBColor[1, 0, 0],
+  GraphicsColor->RGBColor[1, 0, 0],
+  FontColor->RGBColor[
+   1, 0, 0]]], "Print",ExpressionUUID->"13088b82-519e-4460-aae5-ca1efea82765"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -92,42 +121,58 @@ Cell[BoxData[
    RowBox[{"{", "\<\"r0\"\>", "}"}]}],
   SequenceForm["Removing ", {"r0"}],
   Editable->
-   False]], "Print",ExpressionUUID->"7cd151a8-b601-4f74-a7c1-56e39fe7bbad"],
+   False]], "Print",ExpressionUUID->"55c2e40c-7eb3-4a6f-8003-01e89319f8c1"],
 
 Cell[BoxData["\<\"KerrGeoIBSO\"\>"], \
-"Print",ExpressionUUID->"d81aa18a-1846-44a0-829d-7c2378522554"],
+"Print",ExpressionUUID->"0662cc44-812d-40a1-8dca-29c3bc254665"],
 
 Cell[BoxData["\<\"KerrGeoISCO\"\>"], \
-"Print",ExpressionUUID->"d1f4f7f0-86fb-4873-9a3b-85041aa825ff"],
-
-Cell[BoxData["\<\"KerrGeoISSO\"\>"], \
-"Print",ExpressionUUID->"9fa2d5e8-9999-49c0-ac9b-130a08741a5e"],
-
-Cell[BoxData["\<\"KerrGeoOrbit\"\>"], \
-"Print",ExpressionUUID->"dd5260e3-a0f4-4054-ac23-f407ffad20d7"],
-
-Cell[BoxData["\<\"KerrGeoOrbitFunction\"\>"], \
-"Print",ExpressionUUID->"ebbaf2fe-694b-4b39-9a7f-23ddccf1e77f"],
-
-Cell[BoxData["\<\"KerrGeoPhotonSphereRadius\"\>"], \
-"Print",ExpressionUUID->"4a088a70-6e4b-4cb0-aff2-2bcfa0622507"],
+"Print",ExpressionUUID->"89772f1e-2a73-4a85-a951-1cd698e07fc8"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", "\<\"KerrGeoPhotonSphere\"\>", "}"}]}],
-  SequenceForm["Removing ", {"KerrGeoPhotonSphere"}],
+   RowBox[{"{", "\<\"a\"\>", "}"}]}],
+  SequenceForm["Removing ", {"a"}],
   Editable->
-   False]], "Print",ExpressionUUID->"3d10ead9-c29f-4542-a42c-f17073bb6bd4"],
+   False]], "Print",ExpressionUUID->"aa9be872-04e7-4ac9-a197-6a6081768d85"],
+
+Cell[BoxData["\<\"KerrGeoISSO\"\>"], \
+"Print",ExpressionUUID->"bef8e6c1-516b-4f66-b5a3-4c324e1503d2"],
+
+Cell[BoxData["\<\"KerrGeoOrbit\"\>"], \
+"Print",ExpressionUUID->"075eba6b-6aec-4ee3-bf9c-6835df3d1e80"],
+
+Cell[BoxData[
+ StyleBox["\<\"Documented options {MaxIterations} do not match actual options \
+{Method, KerrGeodesics`Private`Parametrization} for KerrGeoOrbit\"\>",
+  StripOnInput->False,
+  LineColor->RGBColor[1, 0, 0],
+  FrontFaceColor->RGBColor[1, 0, 0],
+  BackFaceColor->RGBColor[1, 0, 0],
+  GraphicsColor->RGBColor[1, 0, 0],
+  FontColor->RGBColor[
+   1, 0, 0]]], "Print",ExpressionUUID->"3ac42fed-b436-443f-8f2a-b33f69f89e5b"],
+
+Cell[BoxData["\<\"KerrGeoOrbitFunction\"\>"], \
+"Print",ExpressionUUID->"50891192-3871-4469-8f64-1583b71470a7"],
+
+Cell[BoxData["\<\"KerrGeoPhotonSphereRadius\"\>"], \
+"Print",ExpressionUUID->"9af773c4-92cc-4482-ba7a-355ed1a810fe"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", "\<\"a\"\>", "}"}]}],
+  SequenceForm["Removing ", {"a"}],
+  Editable->
+   False]], "Print",ExpressionUUID->"6350ce70-7c3d-4d41-97ce-4d706ee772d9"],
 
 Cell[BoxData["\<\"KerrGeoSeparatrix\"\>"], \
-"Print",ExpressionUUID->"366ac5a7-82cc-4c84-9708-6b871baa3675"],
-
-Cell[BoxData["\<\"KerrGeoStableOrbitQ\"\>"], \
-"Print",ExpressionUUID->"73fca1d0-8c6c-44b7-9400-3df1b6795f5f"],
+"Print",ExpressionUUID->"d56c2399-6ec4-4718-98de-d71699a23d56"],
 
 Cell[BoxData["\<\"Building guides\"\>"], \
-"Print",ExpressionUUID->"87799a78-1c9f-4d05-8814-21126f7db9b5"],
+"Print",ExpressionUUID->"6fde0b12-5664-4033-9949-ee2b12485267"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -140,38 +185,88 @@ Documentation/English/Guides\"\>"}],
    "/Users/niels/Library/Mathematica/Applications/KerrGeodesics/Documentation/\
 English/Guides"],
   Editable->
-   False]], "Print",ExpressionUUID->"a887bfeb-a55a-446e-a060-e4d73e48aad9"],
+   False]], "Print",ExpressionUUID->"353861ef-7501-4022-9925-6eb8516ab550"],
 
 Cell[BoxData["\<\"Building tutorials\"\>"], \
-"Print",ExpressionUUID->"1042253d-9937-4856-a542-b157d775ebdf"],
+"Print",ExpressionUUID->"8701d555-eeba-446b-82f3-9ce8f0d86c88"],
 
 Cell[BoxData["\<\"Source/Documentation/English/Tutorials/KerrGeodesics.md\"\>\
-"], "Print",ExpressionUUID->"0ff1bc01-b3c4-46d0-a7de-e4cf54e581d1"],
+"], "Print",ExpressionUUID->"508ec22a-b71c-4a13-a951-3d0fe0429292"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"KerrEqProgradePlot\"\>", ",", "\<\"M\"\>", ",", "\<\"n\"\>", 
-     ",", "\<\"orbit\"\>", ",", "\<\"PlotSpherical\"\>", ",", "\<\"r\"\>", 
-     ",", "\<\"result\"\>", ",", "\<\"rmax\"\>", ",", "\<\"rmb\"\>", 
-     ",", "\<\"rms\"\>", ",", "\<\"rph\"\>", ",", "\<\"stable\"\>", 
-     ",", "\<\"t\"\>", ",", "\<\"\[Theta]\"\>", ",", "\<\"\[Phi]\"\>", 
-     ",", "\<\"\[Chi]\"\>", ",", "\<\"\[Chi]max\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "KerrEqProgradePlot", "M", "n", "orbit", "PlotSpherical", "r", "result", 
-    "rmax", "rmb", "rms", "rph", "stable", "t", "\[Theta]", "\[Phi]", 
-    "\[Chi]", "\[Chi]max"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"e\"\>", ",", "\<\"p\"\>", 
+     ",", "\<\"result\"\>", ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "e", "p", "result", "Time"}],
   Editable->
-   False]], "Print",ExpressionUUID->"10446bed-a03f-4cc2-bf3d-593aacba1ae7"],
+   False]], "Print",ExpressionUUID->"6e0d4ba6-b474-40b2-bc3e-fc8e48462749"],
 
 Cell[BoxData["\<\"Indexing Documentation\"\>"], \
-"Print",ExpressionUUID->"30e8fa40-c437-41a7-a66d-f7545fe8d294"],
+"Print",ExpressionUUID->"2b1612a1-b945-4704-ac37-b9ebe63cae88"]
+}, Open  ]],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`Java","excptn",
+   "\"A Java exception occurred: \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"java.lang.VerifyError: class \
+com.wolfram.documentationsearch.SynonymAnalyzer overrides final method \
+tokenStream.(Ljava/lang/String;Ljava/io/Reader;)Lorg/apache/lucene/analysis/\
+TokenStream;\\\\\\\\n\\\\\\\\tat java.lang.ClassLoader.defineClass1(Native \
+Method)\\\\\\\\n\\\\\\\\tat \
+java.lang.ClassLoader.defineClass(ClassLoader.java:763)\\\\\\\\n\\\\\\\\tat \
+java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)\\\\\\\
+\\n\\\\\\\\tat java.net.URLClassLoader.defineClass(URLClassLoader.java:467)\\\
+\\\\\\n\\\\\\\\tat java.net.URLClassLoader.access$100(URLClassLoader.java:73)\
+\\\\\\\\n\\\\\\\\tat java.net.URLClassLoader$1.run(URLClassLoader.java:368)\\\
+\\\\\\n\\\\\\\\tat java.net.URLClassLoader$1.run(URLClassLoader.java:362)\\\\\
+\\\\n\\\\\\\\tat java.security.AccessController.doPrivileged(Native Method)\\\
+\\\\\\n\\\\\\\\tat java.net.URLClassLoader.findClass(URLClassLoader.java:361)\
+\\\\\\\\n\\\\\\\\tat \
+java.lang.ClassLoader.loadClass(ClassLoader.java:424)\\\\\\\\n\\\\\\\\tat \
+java.lang.ClassLoader.loadClass(ClassLoader.java:357)\\\\\\\\n\\\\\\\\tat \
+java.lang.Class.getDeclaredConstructors0(Native Method)\\\\\\\\n\\\\\\\\tat \
+java.lang.Class.privateGetDeclaredConstructors(Class.java:2671)\\\\\\\\n\\\\\\\
+\\tat java.lang.Class.getConstructors(Class.java:1651)\\\\\\\"\\\"}]\\).\"",2,
+   5,1,17151256659060948376,"Local","JLink`Java"},
+  "MessageTemplate2"]], "Message", \
+"MSG",ExpressionUUID->"0ecfd439-e99a-4e56-854b-2cdd65474ef9"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`LoadJavaClass","fail",
+   "\"Java failed to load class \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"com.wolfram.documentationsearch.\
+DocumentationIndexer\\\\\\\"\\\"}]\\).\"",2,5,2,17151256659060948376,"Local",
+   "JLink`LoadJavaClass"},
+  "MessageTemplate2"]], "Message", \
+"MSG",ExpressionUUID->"95e74528-f2e9-4f6f-922a-ab6e64fd6111"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`KeepJavaObject","obj",
+   "\"At least one argument to KeepJavaObject was not a valid Java object.\"",
+   2,5,3,17151256659060948376,"Local","JLink`KeepJavaObject"},
+  "MessageTemplate2"]], "Message", \
+"MSG",ExpressionUUID->"bddecede-deb9-40a8-a9d4-fd0046e3cfaf"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`Java","excptn",
+   "\"A Java exception occurred: \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"java.lang.NoSuchMethodError: \
+org.apache.lucene.index.IndexReader.open(Ljava/lang/String;)Lorg/apache/\
+lucene/index/IndexReader;\\\\\\\\n\\\\\\\\tat \
+com.wolfram.documentationsearch.spelling.DidYouMeanIndexer.createSpellIndex(\
+DidYouMeanIndexer.java:17)\\\\\\\"\\\"}]\\).\"",2,5,4,17151256659060948376,
+   "Local","JLink`Java"},
+  "MessageTemplate2"]], "Message", \
+"MSG",ExpressionUUID->"f1f84ab9-f44a-439f-8a01-54319359e60c"],
 
 Cell[BoxData["\<\"Done\"\>"], \
-"Print",ExpressionUUID->"a2b2bfeb-4a97-4363-a500-4ffc3b563fd3"]
-}, Open  ]]
+"Print",ExpressionUUID->"5629539b-42b9-417d-8b6a-4c8a6b1613af"]
 }, Open  ]]
 },
 WindowSize->{1016, 1103},
@@ -180,8 +275,8 @@ PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 18, \
-2017)",
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
 StyleDefinitions->"Default.nb"
 ]
 

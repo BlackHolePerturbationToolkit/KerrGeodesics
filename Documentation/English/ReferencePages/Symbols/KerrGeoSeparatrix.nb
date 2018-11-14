@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"b4e2f193-1743-4295-ad9f-bb764ecfad0b"],
+   0}},ExpressionUUID->"fdf8c6f7-bd0c-4eef-ab35-56a3c808b1c9"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -15,11 +15,11 @@ Cell[TextData[{
  ButtonBox["KerrGeoSeparatrix",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoSeparatrix"]
-}], "LinkTrail",ExpressionUUID->"00ec945b-040c-4849-957e-d402cd8f6e82"],
+}], "LinkTrail",ExpressionUUID->"169d2adb-416b-41e8-8f6a-b6c728a477c0"],
 
 Cell[BoxData[GridBox[{
    {Cell["KERRGEODESICS PACLET SYMBOL", "PacletNameCell",ExpressionUUID->
-     "29b0cb13-3147-4e2b-961f-786498e4e5ea"], Cell[TextData[{
+     "efa1c3e5-46a5-49c7-a476-7c53127ebbc9"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
@@ -28,7 +28,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "dab4da79-7c6f-41d0-9eab-e06d8f7ca770"],
+      "ccc967b9-7b68-477c-97cc-0d3d4bcea369"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -44,7 +44,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "860f0085-1695-45ee-9c90-1e49dbdeee79"],
+      "e0ab2f06-0b8b-457b-aca7-1859f293c7f3"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -55,23 +55,31 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "7fc7c52c-d99a-455e-a27d-51c408035eb6"],
+      "8f99fd85-963c-4b79-b588-7c8f089712ee"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"8505f64a-4201-4ddd-b459-c19f3e378c51"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"4983dec6-706a-4f9d-bcd9-6517af4342ff"],
+    }], "AnchorBar",ExpressionUUID->"42baf636-7251-449c-ae92-87b31d12a447"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"779a175c-70ce-4d90-ad55-c0a1cf691ec4"],
 
 Cell[CellGroupData[{
 
 Cell["KerrGeoSeparatrix", \
-"ObjectName",ExpressionUUID->"c5b1d996-82a8-4dfa-b689-60f77a5fafcc"],
+"ObjectName",ExpressionUUID->"f691c7e6-ab88-4714-a74c-b9d6b31b1b56"],
 
 Cell[BoxData[GridBox[{
-   {"", Cell["\<\
-KerrGeoSepatrix[a,e,\[Theta]inc] calculates the value of p at the sepatrix \
-between stable and plunging/scattered orbits*)\
-\>",ExpressionUUID->"cdde271f-0a89-40c5-84e0-3d47ee860c2f"]}
-  }]], "Usage",ExpressionUUID->"b842756f-b059-4e8c-9a76-84ba77ec5bc4"]
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["KerrGeoSeparatrix",
+        BaseStyle->"Link",
+        ButtonData->"paclet:KerrGeodesics/ref/KerrGeoSeparatrix"], "[", 
+       StyleBox[
+        RowBox[{"a", ",", "e", ",", "x"}], "TI"], "]"}]], "InlineFormula",
+      ExpressionUUID->"429871c8-97f5-46e5-aa7c-4eec11778eda"],
+     "\[LineSeparator]returns the value of \!\(\*SubscriptBox[\(p\), \(s\)]\) \
+at the separatrix"
+    }],ExpressionUUID->"1ed6bb64-4255-4969-9c80-f2cee2f446f5"]}
+  }]], "Usage",ExpressionUUID->"c12feec7-4bfe-42e0-aceb-b812841360d3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -106,12 +114,7 @@ Cell["", "NotesSection",
         TextData[{
           Cell[
            BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24], Selectable -> False]]], "Details and Options"}], 
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
         "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
        ButtonFunction :> (FrontEndExecute[{
           FrontEnd`SelectionMove[
@@ -122,12 +125,12 @@ Cell["", "NotesSection",
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->0,
  "WholeCelGroupOpener" -> 
- True,ExpressionUUID->"c81c1e6d-29fa-4045-81c7-35706b979a26"],
+ True,ExpressionUUID->"57610bb3-df25-4df5-b32c-0558e55e1921"],
 
 Cell["\<\
 Computes the value of the semi-latus rectum, p, at the separatrix between \
-stable and plunging/scattered orbits\
-\>", "Notes",ExpressionUUID->"44b14b9e-4424-494c-8266-be7fa53fdcfb"]
+stable and plunging orbits\
+\>", "Notes",ExpressionUUID->"cb8b2530-a744-4c74-b5e5-d67e1602f2f1"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -157,15 +160,9 @@ Cell["", "SeeAlsoSection",
         TextData[{
           Cell[
            BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24], Selectable -> False]]], "See Also"}], 
-        "SeeAlsoSection"], BaseStyle -> None, Appearance -> {Automatic, None},
-        Evaluator -> None, Method -> "Preemptive", 
-       ButtonFunction :> (FrontEndExecute[{
+            TemplateBox[{24}, "Spacer1"]]], "See Also"}], "SeeAlsoSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], All, ButtonCell], 
           FrontEndToken["OpenCloseGroup"], 
@@ -173,7 +170,7 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"38f09a07-b5e3-4a15-9f58-5306578198db"],
+  0,ExpressionUUID->"4fb15a6b-028e-4f91-91aa-3bc7fd5c6a78"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -182,7 +179,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoPhotonSphereRadius"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "ea7d5157-f718-4a2a-b3dd-2aee2e8d2297"],
+  "03b5e83a-e1da-40c3-ac8c-a7ffcc522e7e"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -193,7 +190,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISSO"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "bb3571f5-11a2-4622-a6dc-e7ca4f4da34b"],
+  "daabdffc-bffc-48fb-b2a8-e7e7967f55a2"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -204,7 +201,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoIBSO"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "ded4135a-98ce-4db5-b4b0-e3831a32d66c"],
+  "5490376e-8ac9-4cad-85b8-8328a2835ac7"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -215,8 +212,8 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISCO"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "441676f9-28e6-4d79-b6bb-68f29135b786"]
-}], "SeeAlso",ExpressionUUID->"be42e8a2-108e-4d97-8eed-8e078ededd8a"]
+  "a0bab277-1c82-411c-aea8-575860ce6e56"]
+}], "SeeAlso",ExpressionUUID->"7f1056a2-517f-48c9-8b4f-903c4450539c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -247,12 +244,7 @@ Cell["", "TutorialsSection",
         TextData[{
           Cell[
            BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24], Selectable -> False]]], "Tutorials"}], 
+            TemplateBox[{24}, "Spacer1"]]], "Tutorials"}], 
         "TutorialsSection"], BaseStyle -> None, 
        Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
        "Preemptive", ButtonFunction :> (FrontEndExecute[{
@@ -263,13 +255,13 @@ Cell["", "TutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"637c6965-7b5b-44d1-9277-c37af17fa09a"],
+  0,ExpressionUUID->"9cd40f30-75de-456b-ab5b-85ea90599f23"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/tutorial/KerrGeodesics"]], \
-"Tutorials",ExpressionUUID->"c2cf4333-6788-4702-9beb-e7619644fb38"]
+"Tutorials",ExpressionUUID->"2cce025d-44b4-4c35-9ff8-79d41edcd66c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -299,12 +291,7 @@ Cell["", "MoreAboutSection",
         TextData[{
           Cell[
            BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24], Selectable -> False]]], "More About"}], 
+            TemplateBox[{24}, "Spacer1"]]], "More About"}], 
         "MoreAboutSection"], BaseStyle -> None, 
        Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
        "Preemptive", ButtonFunction :> (FrontEndExecute[{
@@ -315,20 +302,20 @@ Cell["", "MoreAboutSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"2241ca95-e0cf-47f2-a1c4-1f99f420451a"],
+  0,ExpressionUUID->"af67960d-6f5c-4e35-94e6-b6f190ba43ab"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/guide/KerrGeodesics"]], \
-"MoreAbout",ExpressionUUID->"1ef5f673-0411-446e-9bb6-f0aa43540d02"]
+"MoreAbout",ExpressionUUID->"8b0aff4a-93c0-42d4-8add-67dd0f186301"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"91e24d8b-3925-440e-8e6a-0620aa469ede"],
+Cell[" ", "FooterCell",ExpressionUUID->"3ce4d1d4-5377-4023-a3cb-6ed59ddb368c"],
 
-Cell[BoxData[""],ExpressionUUID->"9339c302-e068-48ff-b649-d1312f90881b"]
+Cell[BoxData[""],ExpressionUUID->"209e7b3d-b1fc-4c17-8ab4-e0ef663dd386"]
 }, Open  ]]
 },
 Saveable->False,
@@ -346,16 +333,16 @@ TaggingRules->{
      "KerrGeoSeparatrix", "KERRGEOSEPARATRIX", "kerrgeoseparatrix"}, "index" -> 
     True, "label" -> "KerrGeodesics/KerrGeodesics Symbol", "language" -> "en",
      "paclet" -> "KerrGeodesics", "status" -> "None", "summary" -> 
-    "KerrGeoSepatrix[a,e,\[Theta]inc] calculates the value of p at the \
-sepatrix between stable and plunging/scattered orbits*)", 
+    "KerrGeoSeparatrix[a,e,x] returns the value of \!\(\*SubscriptBox[\(p\), \
+\(s\)]\) at the separatrix", 
     "synonyms" -> {
      "KerrGeoSeparatrix", "KERRGEOSEPARATRIX", "kerrgeoseparatrix"}, "title" -> 
     "KerrGeoSeparatrix", "windowTitle" -> "KerrGeoSeparatrix", "type" -> 
     "Symbol", "uri" -> "KerrGeodesics/ref/KerrGeoSeparatrix"}, 
-  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
-FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 18, \
-2017)",
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]

@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"4aa97a34-9755-49b3-9374-1309fe896655"],
+   0}},ExpressionUUID->"89ea356e-8cc1-42f4-b30e-cbad8fcfb677"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -15,12 +15,12 @@ Cell[TextData[{
  ButtonBox["KerrGeoOrbitFunction",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbitFunction"]
-}], "LinkTrail",ExpressionUUID->"5551ccd1-b9f7-4c17-abdc-24c67ec6ac6b"],
+}], "LinkTrail",ExpressionUUID->"7a97c811-b825-4737-9bb7-3ba5c616acf3"],
 
 Cell[CellGroupData[{
 
 Cell["KerrGeoOrbitFunction", \
-"ObjectName",ExpressionUUID->"0a56261b-e1a5-432f-b666-3295ae6a252b"],
+"ObjectName",ExpressionUUID->"caa70fcf-f072-4ef5-aad9-c99221e7df69"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -30,20 +30,20 @@ Cell[BoxData[GridBox[{
         BaseStyle->"Link",
         ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbitFunction"], "[", 
        StyleBox[
-        RowBox[{"a", ",", "p", ",", "e", ",", "\[Theta]inc", ",", "data"}], 
-        "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "2e9385f2-94a2-476d-952a-5f3f9fe9ad4d"],
-     "\[LineSeparator]function containing information relating to a specific \
-Kerr orbit"
-    }],ExpressionUUID->"6578382b-3354-4f9c-a758-fd7dfa4efb20"]}
-  }]], "Usage",ExpressionUUID->"5d4a25ee-bc58-43b5-886c-6805f64de981"]
+        RowBox[{"a", ",", "p", ",", "e", ",", "x", ",", "assoc"}], "TI"], 
+       "]"}]], "InlineFormula",ExpressionUUID->
+      "f4e14cf6-0e63-471c-95b4-444cfe03b557"],
+     "\[LineSeparator]an object for storing the trajectory and orbital \
+parameters in the assoc Association."
+    }],ExpressionUUID->"41613407-958c-42bf-ba4d-78a8aa8a85e8"]}
+  }]], "Usage",ExpressionUUID->"969e06bf-1290-4601-9f3d-f438c3cf4f9e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"9e74ee00-0c23-44ba-bd69-8f947cf081f9"],
+Cell[" ", "FooterCell",ExpressionUUID->"db354df3-8537-4761-81c8-284788796b18"],
 
-Cell[BoxData[""],ExpressionUUID->"0b630588-a5e0-4d4c-8269-8c63ec394c34"]
+Cell[BoxData[""],ExpressionUUID->"62ff8ba9-8580-483d-ac50-463558f74f94"]
 }, Open  ]]
 },
 Saveable->False,
@@ -62,8 +62,8 @@ TaggingRules->{
     "index" -> True, "label" -> "KerrGeodesics/KerrGeodesics Symbol", 
     "language" -> "en", "paclet" -> "KerrGeodesics", "status" -> "None", 
     "summary" -> 
-    "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] function containing \
-information relating to a specific Kerr orbit", 
+    "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory \
+and orbital parameters in the assoc Association.", 
     "synonyms" -> {
      "KerrGeoOrbitFunction", "KERRGEOORBITFUNCTION", "kerrgeoorbitfunction"}, 
     "title" -> "KerrGeoOrbitFunction", "windowTitle" -> 
@@ -71,8 +71,8 @@ information relating to a specific Kerr orbit",
     "KerrGeodesics/ref/KerrGeoOrbitFunction"}, "SearchTextTranslated" -> "", 
   "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 18, \
-2017)",
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]
