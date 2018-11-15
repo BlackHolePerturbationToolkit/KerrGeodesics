@@ -336,6 +336,40 @@ hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 
 \[CapitalGamma]=4M^2 En + (2a2zp En  \[CapitalUpsilon]\[Theta])/(Pi L Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]- EllipticE[k\[Theta]^2]) + (2\[CapitalUpsilon]r)/(Pi Sqrt[(1-En^2)(r1-r3)(r2-r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,kr^2])+(2M)/(rp-rm) (((4M^2 En-a L)rp-2M a^2 En)/(r3-rp) (EllipticK[kr^2]-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2])-((4M^2 En-a L)rm-2M a^2 En)/(r3-rm) (EllipticK[kr^2]-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2])));
 
+{\[CapitalUpsilon]r,Abs[\[CapitalUpsilon]\[Theta]],\[CapitalUpsilon]\[Phi],\[CapitalGamma]}
+
+]
+
+
+KerrGeoMinoFrequencies[(1|1.),p_,e_,x_]:=Module[{M=1,a=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hM,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
+
+{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+
+{r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,x,En,Q];
+\[Epsilon]0=a^2 (1-En^2)/L^2;
+zm=1-x^2;
+a2zp=(L^2+a^2 (-1+En^2) (-1+zm))/( (-1+En^2) (-1+zm));
+
+\[Epsilon]0zp=-((L^2+a^2 (-1+En^2) (-1+zm))/(L^2 (-1+zm)));
+
+(*zmOverZp=If[a==0,0,zm/((L^2+a^2 (-1+En^2) (-1+zm))/(a^2 (-1+En^2) (-1+zm)))];*)
+zmOverZp=zm/((L^2+a^2 (-1+En^2) (-1+zm))/(a^2 (-1+En^2) (-1+zm)));
+
+
+kr=Sqrt[(r1-r2)/(r1-r3) (r3-r4)/(r2-r4)];(*Eq.(13)*)
+k\[Theta]=Sqrt[zmOverZp];(*Eq.(13)*)
+\[CapitalUpsilon]r=(Pi Sqrt[(1-En^2)(r1-r3)(r2-r4)])/(2EllipticK[kr^2]);(*Eq.(15)*)
+\[CapitalUpsilon]\[Theta]=(Pi L Sqrt[\[Epsilon]0zp])/(2EllipticK[k\[Theta]^2]);(*Eq.(15)*)
+
+hM = ((r1-r2)(r3-M))/((r1-r3)(r2-M));
+
+hr=(r1-r2)/(r1-r3);
+
+(*\[CapitalUpsilon]\[Phi] and \[CapitalGamma] from Appendix B for a=M case*)
+
+\[CapitalUpsilon]\[Phi]= (2\[CapitalUpsilon]\[Theta])/(\[Pi] Sqrt[\[Epsilon]0zp]) EllipticPi[zm, k\[Theta]^2]+ (2 a \[CapitalUpsilon]r)/(\[Pi] Sqrt[(1-En^2)(r1-r3)(r2-r4)]) ((2M En)/(r3-M) (EllipticK[kr^2] - (r2-r3)/(r2-M) EllipticPi[hM,kr^2])+(2M^2 En-a L)/(2(r3-M)^2) ((2-((r1-r3)(r2-r3))/((r1-M)(r2-M)))EllipticK[kr^2] + ((r1-r3)(r2-r4)(r3-M))/((r1-M)(r2-M)(r4-M)) EllipticE[kr^2]+(r2-r3)/(r2-M) ((r1-r3)/(r1-M)+(r2-r3)/(r2-M)+(r4-r3)/(r4-M)-4)EllipticPi[hM, kr^2]));
+
+\[CapitalGamma]=4M^2 En+(2a^2 En a2zp \[CapitalUpsilon]\[Theta])/(\[Pi] L Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]-EllipticE[k\[Theta]^2]) + (2 \[CapitalUpsilon]r)/(\[Pi] Sqrt[(1-En^2)(r1-r3)(r2-r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,kr^2]) + (2M(4M^2 En - a L))/(r3-M) (EllipticK[kr^2]-(r2-r3)/(r2-M) EllipticPi[hM,kr^2])+(M^2 (2M^2 En-a L ))/(r3-M)^2 ((2-((r1-r3)(r2-r3))/((r1-M)(r2-M)))EllipticK[kr^2]+((r1-r3)(r2-r4)(r3-M))/((r1-M)(r2-M)(r4-M)) EllipticE[kr^2]+(r2-r3)/(r2-M) ((r1-r3)/(r1-M)+(r2-r3)/(r2-M)+(r4-r3)/(r4-M)-4)EllipticPi[hM,kr^2]));
 
 {\[CapitalUpsilon]r,Abs[\[CapitalUpsilon]\[Theta]],\[CapitalUpsilon]\[Phi],\[CapitalGamma]}
 
@@ -1303,7 +1337,7 @@ KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == F
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Special orbits (separatrix, ISCO, ISSO etc...) *)
 
 
