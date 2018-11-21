@@ -5,7 +5,7 @@
   "Basic Examples" -> {
     "KerrGeoISSO[0.9, Cos[Pi/3]]"
     },
-  "See Also" -> {"KerrGeoPhotonSphereRadius", "KerrGeoISBO", "KerrGeoSeparatrix"},
+  "See Also" -> {"KerrGeoPhotonSphereRadius", "KerrGeoIBSO", "KerrGeoSeparatrix"},
   "More About" -> {"KerrGeodesics"},
   "Tutorials" -> {"KerrGeodesics"}
 }

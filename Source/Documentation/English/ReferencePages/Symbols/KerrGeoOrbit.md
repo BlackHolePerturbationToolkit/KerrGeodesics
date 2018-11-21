@@ -3,12 +3,13 @@
     "Computes the orbit in Boyer-Lindquist coordinates"
   },
   "Option Descriptions" ->{
-	  "MaxIterations"->"The maximum number of refinement iterations used when attempting to get high accuracy results"
+	  "Parametrization"->"Choose between Mino or Darwin (only for equatorial orbits)",
+	  "Method"->"Choose between Analytic or FastSpec"
   },	
   "Numerical Evaluation" -> {
     "KerrGeoOrbit[0.9, 10, 0.5, 0]"
     },
-  "See Also" -> {"KerrGeoELQ", "KerrGeoSeparatrix"},
+  "See Also" -> {"KerrGeoConstantsOfMotion", "KerrGeoSeparatrix"},
   "More About" -> {"KerrGeodesics"},
   "Tutorials" -> {"KerrGeodesics"}
 }

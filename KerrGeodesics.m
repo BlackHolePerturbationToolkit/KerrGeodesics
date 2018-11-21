@@ -4,7 +4,7 @@
 (*Package for the calculation of bound time-like geodesics and their properties in Kerr spacetime*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Define usage for public functions*)
 
 
@@ -26,7 +26,7 @@ KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the innermost sta
 KerrGeoISSO::usage = "KerrGeoISCO[a,x] returns the location of the innermost stable spherical orbit (ISSO)."
 KerrGeoIBSO::usage = "KerrGeoISCO[a,x] returns the location of the innermost bound spherical orbit (IBSO)."
 
-KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of \!\(\*SubscriptBox[\(p\), \(s\)]\) at the separatrix"
+KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of p at the separatrix"
 KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a bound orbit."
 
 Begin["`Private`"];
@@ -389,7 +389,7 @@ KerrGeoBoyerLindquistFrequencies[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]r,\[Capi
 (*Generic function for choosing between frequencies w.r.t different time coordinates*)
 
 
-Options[KerrGeoFrequencies] = {Time -> "BoyerLindquist"}
+Options[KerrGeoFrequencies] = {"Time" -> "BoyerLindquist"}
 SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};
 KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]]:=Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
 
@@ -1293,7 +1293,7 @@ Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
-Options[KerrGeoOrbit] = {Parametrization -> "Mino", Method -> "FastSpec"}
+Options[KerrGeoOrbit] = {"Parametrization" -> "Mino", "Method" -> "FastSpec"}
 SyntaxInformation[KerrGeoOrbit] = {"ArgumentsPattern"->{_,_,OptionsPattern[]}};
 
 

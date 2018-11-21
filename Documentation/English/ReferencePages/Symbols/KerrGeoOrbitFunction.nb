@@ -1,7 +1,6 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
- CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"89ea356e-8cc1-42f4-b30e-cbad8fcfb677"],
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -15,12 +14,9 @@ Cell[TextData[{
  ButtonBox["KerrGeoOrbitFunction",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbitFunction"]
-}], "LinkTrail",ExpressionUUID->"7a97c811-b825-4737-9bb7-3ba5c616acf3"],
+}], "LinkTrail"],
 
-Cell[CellGroupData[{
-
-Cell["KerrGeoOrbitFunction", \
-"ObjectName",ExpressionUUID->"caa70fcf-f072-4ef5-aad9-c99221e7df69"],
+Cell["KerrGeoOrbitFunction", "ObjectName"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -31,19 +27,17 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbitFunction"], "[", 
        StyleBox[
         RowBox[{"a", ",", "p", ",", "e", ",", "x", ",", "assoc"}], "TI"], 
-       "]"}]], "InlineFormula",ExpressionUUID->
-      "f4e14cf6-0e63-471c-95b4-444cfe03b557"],
+       "]"}]], "InlineFormula"],
      "\[LineSeparator]an object for storing the trajectory and orbital \
 parameters in the assoc Association."
-    }],ExpressionUUID->"41613407-958c-42bf-ba4d-78a8aa8a85e8"]}
-  }]], "Usage",ExpressionUUID->"969e06bf-1290-4601-9f3d-f438c3cf4f9e"]
-}, Open  ]],
+    }]]}
+  }]], "Usage"],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"db354df3-8537-4761-81c8-284788796b18"],
+Cell[" ", "FooterCell"],
 
-Cell[BoxData[""],ExpressionUUID->"62ff8ba9-8580-483d-ac50-463558f74f94"]
+Cell[BoxData[""]]
 }, Open  ]]
 },
 Saveable->False,
@@ -71,8 +65,8 @@ and orbital parameters in the assoc Association.",
     "KerrGeodesics/ref/KerrGeoOrbitFunction"}, "SearchTextTranslated" -> "", 
   "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
-10, 2017)",
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]
