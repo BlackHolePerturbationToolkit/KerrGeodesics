@@ -4,7 +4,7 @@
 (*Package for the calculation of bound time-like geodesics and their properties in Kerr spacetime*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Define usage for public functions*)
 
 
@@ -1309,7 +1309,7 @@ If[Precision[{a,p,e,x}] > 30, method = "Analytic"];
 
 If[method == "FastSpec",
 
-	If[param == "Mino",  Return[KerrGeoOrbitFastSpec[a, p, e, x, initPhases]]];
+	If[param == "Mino",  If[a==0||a==0., Return[KerrGeoOrbitMino[a, p, e, x, initPhases]], Return[KerrGeoOrbitFastSpec[a, p, e, x, initPhases]]]];
 	If[param == "Darwin", 
 		If[a==0||a==0.,Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitFastSpecDarwin[a,p,e,x,initPhases]]]
 	];
