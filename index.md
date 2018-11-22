@@ -1,6 +1,11 @@
-<img src="generic_orbit_3d_corotating.png" width="300px">
+<img src="kerr_generic_orbit.png" width="300px">
 
-The KerrGeodesics package for Mathematica provides functions for computing bound timelike geodesics and their properties in Kerr spacetime.
+The KerrGeodesics package for Mathematica provides functions for computing bound timelike geodesics and their properties in Kerr spacetime. As example, the figure above is made using the simple commands:
+
+```
+orbit = KerrGeoOrbit[0.998, 3, 0.6, Cos[π/4]];
+{t, r, θ, φ} = orbit["Trajectory"];
+```
 
 ## Getting the package
 
