@@ -11,9 +11,9 @@ Cell[TextData[{
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["KerrGeoOrbit",
+ ButtonBox["KerrGeoBoundOrbitQ",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbit"]
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoBoundOrbitQ"]
 }], "LinkTrail"],
 
 Cell[BoxData[GridBox[{
@@ -31,11 +31,9 @@ Cell[BoxData[GridBox[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
-        StripOnInput->False], {"KerrGeoConstantsOfMotion":>
-       Documentation`HelpLookup[
-       "paclet:KerrGeodesics/ref/KerrGeoConstantsOfMotion"], 
-       "KerrGeoSeparatrix":>Documentation`HelpLookup[
-       "paclet:KerrGeodesics/ref/KerrGeoSeparatrix"]},
+        StripOnInput->False], {"KerrGeoELQ":>Documentation`HelpLookup[
+       "paclet:KerrGeodesics/ref/KerrGeoELQ"], "KerrGeoFreqs":>
+       Documentation`HelpLookup["paclet:KerrGeodesics/ref/KerrGeoFreqs"]},
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0}],
@@ -54,7 +52,7 @@ Cell[BoxData[GridBox[{
     }], "AnchorBar"]}
   }]], "AnchorBarGrid"],
 
-Cell["KerrGeoOrbit", "ObjectName"],
+Cell["KerrGeoBoundOrbitQ", "ObjectName"],
 
 Cell[CellGroupData[{
 
@@ -62,14 +60,14 @@ Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
-       ButtonBox["KerrGeoOrbit",
+       ButtonBox["KerrGeoBoundOrbitQ",
         BaseStyle->"Link",
-        ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbit"], "[", 
+        ButtonData->"paclet:KerrGeodesics/ref/KerrGeoBoundOrbitQ"], "[", 
        StyleBox[
         RowBox[{"a", ",", "p", ",", "e", ",", "x"}], "TI"], "]"}]], 
       "InlineFormula"],
-     "\[LineSeparator]returns a KerrGeoOrbitFunction[..] which stores the \
-orbital trajectory and parameters."
+     "\[LineSeparator]tests if the orbital parameters correspond to a bound \
+orbit."
     }]]}
   }]], "Usage"],
 
@@ -122,24 +120,10 @@ Cell["", "NotesSection",
  CellFrameLabelMargins->0,
  "WholeCelGroupOpener" -> True],
 
-Cell["Computes the orbit in Boyer-Lindquist coordinates", "Notes"],
-
-Cell["The following options can be given: ", "Notes"],
-
-Cell[BoxData[GridBox[{
-   {Cell["      ", "TableRowIcon"], "Method", "FastSpec", Cell[
-    "Choose between Analytic or FastSpec", "TableText"]},
-   {Cell["      ", "TableRowIcon"], "Parametrization", "Mino", Cell[
-    "Choose between Mino or Darwin (only for equatorial orbits)", "TableText"]}
-  },
-  GridBoxAlignment->{
-   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
-    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
- GridBoxOptions->{
- GridBoxBackground->{
-  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {None, {None}}, 
-   "RowsIndexed" -> {}},
- GridBoxDividers->{"Rows" -> {{True, True, True}}}}]
+Cell["\<\
+Checks if the given (numerical) orbital parameters corresponds to a stable \
+orbit\
+\>", "Notes"]
 }, Open  ]]
 }, Open  ]],
 
@@ -189,9 +173,9 @@ Cell["", "SeeAlsoSection",
 Cell[TextData[{
  Cell[BoxData[
   StyleBox[
-   ButtonBox["KerrGeoConstantsOfMotion",
+   ButtonBox["KerrGeoELQ",
     BaseStyle->"Link",
-    ButtonData->"paclet:KerrGeodesics/ref/KerrGeoConstantsOfMotion"],
+    ButtonData->"paclet:KerrGeodesics/ref/KerrGeoELQ"],
    FontFamily->"Verdana"]], "InlineFormula"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
@@ -199,9 +183,9 @@ Cell[TextData[{
  " ",
  Cell[BoxData[
   StyleBox[
-   ButtonBox["KerrGeoSeparatrix",
+   ButtonBox["KerrGeoFreqs",
     BaseStyle->"Link",
-    ButtonData->"paclet:KerrGeodesics/ref/KerrGeoSeparatrix"],
+    ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFreqs"],
    FontFamily->"Verdana"]], "InlineFormula"]
 }], "SeeAlso"]
 }, Open  ]],
@@ -314,22 +298,25 @@ Saveable->False,
 ScreenStyleEnvironment->"Working",
 WindowSize->{725, 750},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-WindowTitle->"KerrGeoOrbit",
+WindowTitle->"KerrGeoBoundOrbitQ",
 Visible->True,
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
    "context" -> "KerrGeodesics`", 
-    "keywords" -> {"KerrGeoOrbit", "KERRGEOORBIT", "kerrgeoorbit"}, "index" -> 
-    True, "label" -> "KerrGeodesics/KerrGeodesics Symbol", "language" -> "en",
-     "paclet" -> "KerrGeodesics", "status" -> "None", "summary" -> 
-    "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores \
-the orbital trajectory and parameters.", 
-    "synonyms" -> {"KerrGeoOrbit", "KERRGEOORBIT", "kerrgeoorbit"}, "title" -> 
-    "KerrGeoOrbit", "windowTitle" -> "KerrGeoOrbit", "type" -> "Symbol", 
-    "uri" -> "KerrGeodesics/ref/KerrGeoOrbit"}, "SearchTextTranslated" -> "", 
-  "LinkTrails" -> ""},
+    "keywords" -> {
+     "KerrGeoBoundOrbitQ", "KERRGEOBOUNDORBITQ", "kerrgeoboundorbitq"}, 
+    "index" -> True, "label" -> "KerrGeodesics/KerrGeodesics Symbol", 
+    "language" -> "en", "paclet" -> "KerrGeodesics", "status" -> "None", 
+    "summary" -> 
+    "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond \
+to a bound orbit.", 
+    "synonyms" -> {
+     "KerrGeoBoundOrbitQ", "KERRGEOBOUNDORBITQ", "kerrgeoboundorbitq"}, 
+    "title" -> "KerrGeoBoundOrbitQ", "windowTitle" -> "KerrGeoBoundOrbitQ", 
+    "type" -> "Symbol", "uri" -> "KerrGeodesics/ref/KerrGeoBoundOrbitQ"}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
 FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
 2016)",

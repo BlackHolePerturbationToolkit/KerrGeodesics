@@ -1,7 +1,6 @@
 Notebook[{
 Cell[" ", "GuideColorBar",
- CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"1b0c6da0-3e91-4095-821c-4ddf79383d9d"],
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -11,11 +10,10 @@ Cell[TextData[{
  ButtonBox["Geodesics in Kerr spacetime",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"]
-}], "LinkTrail",ExpressionUUID->"d7cff401-e433-4850-b4e6-57d957a481b5"],
+}], "LinkTrail"],
 
 Cell[BoxData[GridBox[{
-   {Cell["KERRGEODESICS GUIDE", "PacletNameCell",ExpressionUUID->
-     "75dcb79d-9aa6-4ea5-a9d0-0d073f9ad3c9"], Cell[TextData[{
+   {Cell["KERRGEODESICS GUIDE", "PacletNameCell"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
@@ -23,8 +21,7 @@ Cell[BoxData[GridBox[{
        "paclet:KerrGeodesics/tutorial/KerrGeodesics"]},
        Appearance->None,
        MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0},ExpressionUUID->
-      "bbd61fc6-826b-49e5-98ad-f3c0dffa6ff2"],
+      LineSpacing->{1.4, 0}],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -42,130 +39,124 @@ Cell[BoxData[GridBox[{
             None}]}]},
        Appearance->None,
        MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0},ExpressionUUID->
-      "4c586451-5280-4ede-8f0c-107c38a05f92"]
-    }], "AnchorBar",ExpressionUUID->"75132391-286f-486e-bbaf-e7547b3704e5"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"ac1fddd1-8e00-41cb-9305-e25964046b03"],
+      LineSpacing->{1.4, 0}]
+    }], "AnchorBar"]}
+  }]], "AnchorBarGrid"],
 
 Cell[CellGroupData[{
 
-Cell["Geodesics in Kerr spacetime", \
-"GuideTitle",ExpressionUUID->"dff5636c-a346-41c4-ba3d-d54ac3693df6"],
+Cell["Geodesics in Kerr spacetime", "GuideTitle"],
 
 Cell["\<\
 The KerrGeodesics package provides functions for computing bound timelike \
 geodesics and their properties in Kerr spacetime\
-\>", "GuideAbstract",ExpressionUUID->"7ba087ac-e24a-44a1-836a-3dce3f3d4d52"],
+\>", "GuideAbstract"],
 
 Cell[CellGroupData[{
 
-Cell["Kerr geodesics", \
-"GuideFunctionsSubsection",ExpressionUUID->"934a7108-e662-4c90-a08f-\
-6a783738d6f2"],
+Cell["Kerr geodesics", "GuideFunctionsSubsection"],
 
 Cell[TextData[{
- Cell[TextData[ButtonBox["KerrGeoELQ",
+ Cell[TextData[ButtonBox["KerrGeoConstantsOfMotion",
   BaseStyle->"Link",
-  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoELQ"]], "InlineFunctionSans",
-  ExpressionUUID->"f27e8b1a-8f13-4f55-ac94-89b53c7f82a9"],
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoConstantsOfMotion"]], 
+  "InlineFunctionSans"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the constants of motion (energy, angular momentum and Carter \
 constant)"
-}], "GuideText",ExpressionUUID->"e665fc5f-b736-4fca-b427-fc0d0ac648bf"],
+}], "GuideText"],
 
 Cell[TextData[{
- Cell[TextData[ButtonBox["KerrGeoFreqs",
+ Cell[TextData[ButtonBox["KerrGeoFrequencies",
   BaseStyle->"Link",
-  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFreqs"]], "InlineFunctionSans",
-  ExpressionUUID->"8d757d8d-d076-46b7-90d9-911078057f08"],
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFrequencies"]], 
+  "InlineFunctionSans"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
- "Compute the orbital frequencies w.r.t. Boyer-Lindquist time and conversion \
-factor to frequencies w.r.t. Mino time"
-}], "GuideText",ExpressionUUID->"0b4bb56f-2216-4087-8c13-e1bafcf5666a"],
+ "Compute the orbital frequencies"
+}], "GuideText"],
 
 Cell[TextData[{
- Cell[TextData[ButtonBox["KerrGeoStableOrbitQ",
+ Cell[TextData[ButtonBox["KerrGeoBoundOrbitQ",
   BaseStyle->"Link",
-  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoStableOrbitQ"]], 
-  "InlineFunctionSans",ExpressionUUID->"3a719a47-8700-40b9-b43d-279b935009ff"],
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoBoundOrbitQ"]], 
+  "InlineFunctionSans"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
- "Checks if the given (numerical) orbital parameters corresponds to a stable \
+ "Checks if the given (numerical) orbital parameters corresponds to a bound \
 orbit"
-}], "GuideText",ExpressionUUID->"e0e7deb1-d65c-40f8-a8c8-2b0aaac46a77"],
+}], "GuideText"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoISCO",
   BaseStyle->"Link",
-  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISCO"]], "InlineFunctionSans",
-  ExpressionUUID->"0ddacdd8-12be-4876-a538-067f6f55fd93"],
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISCO"]], 
+  "InlineFunctionSans"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the location of the inner-most stable circular orbit (ISCO)"
-}], "GuideText",ExpressionUUID->"73ff8883-bd00-4f9c-8f16-a65f0609c47d"],
+}], "GuideText"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoPhotonSphereRadius",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoPhotonSphereRadius"]], 
-  "InlineFunctionSans",ExpressionUUID->"444c66c9-ba70-40cb-9052-601c89e4c6d9"],
+  "InlineFunctionSans"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the radius of the photon sphere for given black hole spin and \
 inclination"
-}], "GuideText",ExpressionUUID->"85d2029f-efb4-4f99-a60a-bccb66e2f3da"],
+}], "GuideText"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoIBSO",
   BaseStyle->"Link",
-  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoIBSO"]], "InlineFunctionSans",
-  ExpressionUUID->"07e117b5-9088-49ac-8a7b-a365c2a9a854"],
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoIBSO"]], 
+  "InlineFunctionSans"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the location of the inner-most bound spherical orbit (IBSO)"
-}], "GuideText",ExpressionUUID->"f98977d9-6a54-4405-b111-276502030266"],
+}], "GuideText"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoISSO",
   BaseStyle->"Link",
-  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISSO"]], "InlineFunctionSans",
-  ExpressionUUID->"2d1162c6-5ed8-45b0-bcc1-e1839ea2a711"],
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISSO"]], 
+  "InlineFunctionSans"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the location of the inner-most stable spherical orbit (ISSO)"
-}], "GuideText",ExpressionUUID->"51fe0ef7-1203-4ccf-94f7-0465b8cce181"],
+}], "GuideText"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoSeparatrix",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoSeparatrix"]], 
-  "InlineFunctionSans",ExpressionUUID->"114f67da-825e-46ee-a0d7-da4ed62aba52"],
+  "InlineFunctionSans"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the value p at the separatrix between stable and \
 plunging/scattered orbits"
-}], "GuideText",ExpressionUUID->"635ecc8b-2757-415a-a055-27bdea7f2d9f"],
+}], "GuideText"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoOrbit",
   BaseStyle->"Link",
-  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbit"]], "InlineFunctionSans",
-  ExpressionUUID->"37679144-e80f-4f9c-b7b6-67314a1c0011"],
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbit"]], "InlineFunctionSans"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the orbit trajectory in Boyer-Lindquist coordinates"
-}], "GuideText",ExpressionUUID->"a020e160-7cfa-4833-b3b3-18c8093719d9"]
+}], "GuideText"]
 }, Open  ]]
 }, Open  ]],
 
@@ -180,21 +171,19 @@ Cell["", "GuideTutorialsSection",
       FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
      Cell["TUTORIALS", "GuideTutorialsSection"], 
      Cell["Tutorials", "GuideTutorialsSection"]], None}, {None, None}},
- CellFrameLabelMargins->
-  0,ExpressionUUID->"8b5d6c14-d93e-42ef-9095-0c345311bea7"],
+ CellFrameLabelMargins->0],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
  ButtonData->
-  "paclet:KerrGeodesics/tutorial/KerrGeodesics"]], \
-"GuideTutorial",ExpressionUUID->"8ee113bd-ebd2-47ca-8600-aa31670675d5"]
+  "paclet:KerrGeodesics/tutorial/KerrGeodesics"]], "GuideTutorial"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"8b377217-bf6b-4548-9248-fa51d5658eef"],
+Cell[" ", "FooterCell"],
 
-Cell[BoxData[""],ExpressionUUID->"98d0ac9a-7e6f-45d1-967d-828e64422f9e"]
+Cell[BoxData[""]]
 }, Open  ]]
 },
 Saveable->False,
@@ -217,8 +206,8 @@ TaggingRules->{
     "KerrGeodesics/guide/KerrGeodesics"}, "SearchTextTranslated" -> "", 
   "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 18, \
-2017)",
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]

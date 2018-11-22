@@ -1,7 +1,6 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
- CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"4aa97a34-9755-49b3-9374-1309fe896655"],
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -15,12 +14,9 @@ Cell[TextData[{
  ButtonBox["KerrGeoOrbitFunction",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbitFunction"]
-}], "LinkTrail",ExpressionUUID->"5551ccd1-b9f7-4c17-abdc-24c67ec6ac6b"],
+}], "LinkTrail"],
 
-Cell[CellGroupData[{
-
-Cell["KerrGeoOrbitFunction", \
-"ObjectName",ExpressionUUID->"0a56261b-e1a5-432f-b666-3295ae6a252b"],
+Cell["KerrGeoOrbitFunction", "ObjectName"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -30,20 +26,18 @@ Cell[BoxData[GridBox[{
         BaseStyle->"Link",
         ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbitFunction"], "[", 
        StyleBox[
-        RowBox[{"a", ",", "p", ",", "e", ",", "\[Theta]inc", ",", "data"}], 
-        "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "2e9385f2-94a2-476d-952a-5f3f9fe9ad4d"],
-     "\[LineSeparator]function containing information relating to a specific \
-Kerr orbit"
-    }],ExpressionUUID->"6578382b-3354-4f9c-a758-fd7dfa4efb20"]}
-  }]], "Usage",ExpressionUUID->"5d4a25ee-bc58-43b5-886c-6805f64de981"]
-}, Open  ]],
+        RowBox[{"a", ",", "p", ",", "e", ",", "x", ",", "assoc"}], "TI"], 
+       "]"}]], "InlineFormula"],
+     "\[LineSeparator]an object for storing the trajectory and orbital \
+parameters in the assoc Association."
+    }]]}
+  }]], "Usage"],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"9e74ee00-0c23-44ba-bd69-8f947cf081f9"],
+Cell[" ", "FooterCell"],
 
-Cell[BoxData[""],ExpressionUUID->"0b630588-a5e0-4d4c-8269-8c63ec394c34"]
+Cell[BoxData[""]]
 }, Open  ]]
 },
 Saveable->False,
@@ -62,8 +56,8 @@ TaggingRules->{
     "index" -> True, "label" -> "KerrGeodesics/KerrGeodesics Symbol", 
     "language" -> "en", "paclet" -> "KerrGeodesics", "status" -> "None", 
     "summary" -> 
-    "KerrGeoOrbitFunction[a,p,e,\[Theta]inc,data] function containing \
-information relating to a specific Kerr orbit", 
+    "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory \
+and orbital parameters in the assoc Association.", 
     "synonyms" -> {
      "KerrGeoOrbitFunction", "KERRGEOORBITFUNCTION", "kerrgeoorbitfunction"}, 
     "title" -> "KerrGeoOrbitFunction", "windowTitle" -> 
@@ -71,8 +65,8 @@ information relating to a specific Kerr orbit",
     "KerrGeodesics/ref/KerrGeoOrbitFunction"}, "SearchTextTranslated" -> "", 
   "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 18, \
-2017)",
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]
