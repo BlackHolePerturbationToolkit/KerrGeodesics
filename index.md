@@ -1,6 +1,6 @@
-<p align="centre"><img src="kerr_generic_orbit.png" width="500px"></p>
+<p align="center"><img src="kerr_generic_orbit.png" width="500px"></p>
 
-The KerrGeodesics package for Mathematica provides functions for computing bound timelike geodesics and their properties in Kerr spacetime. As example, the figure above is made using the simple commands:
+The KerrGeodesics package for Mathematica provides functions for computing bound timelike geodesics and their properties in Kerr spacetime. For example, the figure above is made using the simple commands:
 
 ```
 orbit = KerrGeoOrbit[0.998, 3, 0.6, Cos[π/4]];
@@ -51,6 +51,7 @@ KerrGeodesics page in Documentation Center. The package includes functions to ca
 
 ## Changelog
 
+22 November 2019: Merged the development branch into the master branch. Thanks to Zach, Tommy and Chuck for contributing code. This update is a major change with a lot of improvements. A key difference is the defintion of the inclination angle which is now x_inc = Cos[\theta_inc]. Bumped version number up to 0.5.
 7 August 2018: Added generic orbit calculation (thanks for M. van de Meent for contributing code). Currently the code is separated in KerrGeoOrbit2[..] but will soon replace the earlier code.<br>
 7 September 2017: Initial version publicly released.<br>
 10 June 2017: Initial version created.
@@ -69,3 +70,6 @@ Open Source License. Details can be found in the LICENSE file.
 
 Niels Warburton
 Maarten van de Meent
+Zach Nasipak
+Thomas Osburn
+Charles Evans
