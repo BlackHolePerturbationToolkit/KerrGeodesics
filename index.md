@@ -68,8 +68,4 @@ Open Source License. Details can be found in the LICENSE file.
 
 ## Authors
 
-Niels Warburton
-Maarten van de Meent
-Zach Nasipak
-Thomas Osburn
-Charles Evans
+Niels Warburton, Maarten van de Meent, Zach Nasipak, Thomas Osburn, Charles Evans
