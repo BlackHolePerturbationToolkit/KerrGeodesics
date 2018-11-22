@@ -1,0 +1,471 @@
+Notebook[{
+Cell[" ", "SymbolColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+
+Cell[TextData[{
+ ButtonBox["KerrGeodesics",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["KerrGeodesics",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["KerrGeoFrequencies",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFrequencies"]
+}], "LinkTrail"],
+
+Cell[BoxData[GridBox[{
+   {Cell["KERRGEODESICS PACLET SYMBOL", "PacletNameCell"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
+        StripOnInput->False], {"KerrGeodesics":>Documentation`HelpLookup[
+       "paclet:KerrGeodesics/tutorial/KerrGeodesics"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"See Also \[RightGuillemet]\"\>",
+        StripOnInput->False], {"KerrGeoAngularMomentum":>
+       Documentation`HelpLookup[
+       "paclet:KerrGeodesics/ref/KerrGeoAngularMomentum"], "KerrGeoEnergy":>
+       Documentation`HelpLookup["paclet:KerrGeodesics/ref/KerrGeoEnergy"], 
+       "KerrGeoCarterConstant":>Documentation`HelpLookup[
+       "paclet:KerrGeodesics/ref/KerrGeoCarterConstant"], 
+       "KerrGeoConstantsOfMotion":>Documentation`HelpLookup[
+       "paclet:KerrGeodesics/ref/KerrGeoConstantsOfMotion"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"More About \[RightGuillemet]\"\>",
+        StripOnInput->False], {"KerrGeodesics":>Documentation`HelpLookup[
+       "paclet:KerrGeodesics/guide/KerrGeodesics"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]"
+    }], "AnchorBar"]}
+  }]], "AnchorBarGrid"],
+
+Cell["KerrGeoFrequencies", "ObjectName"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["KerrGeoFrequencies",
+        BaseStyle->"Link",
+        ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFrequencies"], "[", 
+       StyleBox[
+        RowBox[{"a", ",", " ", "p", ",", " ", "e", ",", " ", "x"}], "TI"], 
+       "]"}]], "InlineFormula"],
+     "\[LineSeparator]returns the orbital frequencies"
+    }]]}
+  }]], "Usage"],
+
+Cell[CellGroupData[{
+
+Cell["", "NotesSection",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            InterpretationBox[
+             StyleBox[
+              
+              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
+               Baseline], "CacheGraphics" -> False], 
+             Spacer[24]]]], "Details and Options"}], "NotesSection"], 
+       Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->0,
+ "WholeCelGroupOpener" -> True],
+
+Cell["Computes the orbital frequencies", "Notes"],
+
+Cell["The following options can be given: ", "Notes"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon"], "Time", "BoyerLindquist", Cell["\<\
+Choose between calculating the frequencies w.r.t BoyerLindquist or Mino time\
+\>", "TableText"]}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+   "RowsIndexed" -> {}},
+ GridBoxDividers->{"Rows" -> {{True, True}}}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "PrimaryExamplesSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "EXAMPLES", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            InterpretationBox[
+             StyleBox[
+              
+              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
+               Baseline], "CacheGraphics" -> False], 
+             Spacer[24]]]], "Examples"}], "PrimaryExamplesSection", CellTags -> 
+        "PrimaryExamplesSection"], BaseStyle -> None, 
+       Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+       "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0,
+ CellTags->"PrimaryExamplesSection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(3)", "ExampleCount"]
+}], "ExampleSection"],
+
+Cell[CellGroupData[{
+
+Cell["KerrGeoFrequencies[0.9`20, 5, 0.7`20, Cos[\[Pi]/4]]", "Input",
+ CellLabel->"In[1]:="],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.02147956794769575998110000118975149656`12.693182462498621", ",", 
+   "0.04011210966452156244909932457716634169`12.694679026914365", ",", 
+   "0.04729735868384957938674379792423233937`11.794052042839764"}], 
+  "}"}]], "Output",
+ CellLabel->"Out[1]:= "]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+KerrGeoFrequencies[0.9`20, 5, 0.7`20, Cos[\[Pi]/4], Time->\"Mino\"]\
+\>", "Input",
+ CellLabel->"In[1]:="],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "1.56234759143678127542701361080562007225`15.07527382717196", ",", 
+   "2.91761259232107503233635318188027630222`15.842762208439911", ",", 
+   "3.44024212223323910871580068388071704564`11.852352589005866"}], 
+  "}"}]], "Output",
+ CellLabel->"Out[1]:= "]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["KerrGeoFrequencies[0, r0, 0, 1]", "Input",
+ CellLabel->"In[1]:="],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   FractionBox[
+    SqrtBox[
+     RowBox[{
+      RowBox[{"-", "6"}], "+", "r0"}]], 
+    SuperscriptBox["r0", "2"]], ",", 
+   FractionBox["1", 
+    SuperscriptBox["r0", 
+     RowBox[{"3", "/", "2"}]]], ",", 
+   FractionBox["r0", 
+    SqrtBox[
+     SuperscriptBox["r0", "5"]]]}], "}"}]], "Output",
+ CellLabel->"Out[1]:= "]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SeeAlsoSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "SEE ALSO", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "SeeAlsoSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            InterpretationBox[
+             StyleBox[
+              
+              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
+               Baseline], "CacheGraphics" -> False], 
+             Spacer[24]]]], "See Also"}], "SeeAlsoSection"], BaseStyle -> 
+       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+       "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["KerrGeoAngularMomentum",
+    BaseStyle->"Link",
+    ButtonData->"paclet:KerrGeodesics/ref/KerrGeoAngularMomentum"],
+   FontFamily->"Verdana"]], "InlineFormula"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["KerrGeoEnergy",
+    BaseStyle->"Link",
+    ButtonData->"paclet:KerrGeodesics/ref/KerrGeoEnergy"],
+   FontFamily->"Verdana"]], "InlineFormula"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["KerrGeoCarterConstant",
+    BaseStyle->"Link",
+    ButtonData->"paclet:KerrGeodesics/ref/KerrGeoCarterConstant"],
+   FontFamily->"Verdana"]], "InlineFormula"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["KerrGeoConstantsOfMotion",
+    BaseStyle->"Link",
+    ButtonData->"paclet:KerrGeodesics/ref/KerrGeoConstantsOfMotion"],
+   FontFamily->"Verdana"]], "InlineFormula"]
+}], "SeeAlso"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "TutorialsSection",
+ WholeCellGroupOpener->True,
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "TUTORIALS", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "TutorialsSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            InterpretationBox[
+             StyleBox[
+              
+              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
+               Baseline], "CacheGraphics" -> False], 
+             Spacer[24]]]], "Tutorials"}], "TutorialsSection"], BaseStyle -> 
+       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+       "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0],
+
+Cell[TextData[ButtonBox["KerrGeodesics",
+ BaseStyle->"Link",
+ ButtonData->"paclet:KerrGeodesics/tutorial/KerrGeodesics"]], "Tutorials"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "MoreAboutSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "MORE ABOUT", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "MoreAboutSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            InterpretationBox[
+             StyleBox[
+              
+              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
+               Baseline], "CacheGraphics" -> False], 
+             Spacer[24]]]], "More About"}], "MoreAboutSection"], BaseStyle -> 
+       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+       "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0],
+
+Cell[TextData[ButtonBox["KerrGeodesics",
+ BaseStyle->"Link",
+ ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"]], "MoreAbout"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell"],
+
+Cell[BoxData[""]]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"KerrGeoFrequencies",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "KerrGeodesics`", 
+    "keywords" -> {
+     "KerrGeoFrequencies", "KERRGEOFREQUENCIES", "kerrgeofrequencies"}, 
+    "index" -> True, "label" -> "KerrGeodesics/KerrGeodesics Symbol", 
+    "language" -> "en", "paclet" -> "KerrGeodesics", "status" -> "None", 
+    "summary" -> 
+    "KerrGeoFrequencies[a, p, e, x] returns the orbital frequencies", 
+    "synonyms" -> {
+     "KerrGeoFrequencies", "KERRGEOFREQUENCIES", "kerrgeofrequencies"}, 
+    "title" -> "KerrGeoFrequencies", "windowTitle" -> "KerrGeoFrequencies", 
+    "type" -> "Symbol", "uri" -> "KerrGeodesics/ref/KerrGeoFrequencies"}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+TrackCellChangeTimes->False,
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+
