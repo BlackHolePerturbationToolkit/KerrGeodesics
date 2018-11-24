@@ -207,9 +207,17 @@ Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"e\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"result\"\>", ",", "\<\"Time\"\>"}], "}"}]}],
-  SequenceForm["Removing ", {"a", "e", "p", "result", "Time"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"e\"\>", ",", "\<\"orbit\"\>", 
+     ",", "\<\"orbitA\"\>", ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", 
+     ",", "\<\"p\"\>", ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", 
+     ",", "\<\"result\"\>", ",", "\<\"t\"\>", ",", "\<\"Time\"\>", 
+     ",", "\<\"x\"\>", ",", "\<\"\[Theta]\"\>", ",", "\<\"\[Lambda]\"\>", 
+     ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
+  SequenceForm[
+  "Removing ", {
+   "a", "e", "orbit", "orbitA", "orbitD", "orbitFS", "p", "Parametrization", 
+    "r", "result", "t", "Time", "x", "\[Theta]", "\[Lambda]", "\[CurlyPhi]"}],
+  
   Editable->False]], "Print",
  ExpressionUUID -> "4182b508-d127-4128-9ad4-707e80dbecd0"],
 

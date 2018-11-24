@@ -57,6 +57,39 @@ Cell[CellGroupData[{
 Cell["Kerr geodesics", "GuideFunctionsSubsection"],
 
 Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoEnergy",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoEnergy"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the orbital energy"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoAngularMomentum",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoAngularMomentum"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the orbit angular momentum about the symmetry axes of the spacetime"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoCarterConstant",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoCarterConstant"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the Carter Constant"
+}], "GuideText"],
+
+Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoConstantsOfMotion",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoConstantsOfMotion"]], 
@@ -92,17 +125,6 @@ orbit"
 }], "GuideText"],
 
 Cell[TextData[{
- Cell[TextData[ButtonBox["KerrGeoISCO",
-  BaseStyle->"Link",
-  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISCO"]], 
-  "InlineFunctionSans"],
- " ",
- StyleBox["\[LongDash]", "GuideEmDash"],
- " ",
- "Computes the location of the inner-most stable circular orbit (ISCO)"
-}], "GuideText"],
-
-Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoPhotonSphereRadius",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoPhotonSphereRadius"]], 
@@ -112,6 +134,17 @@ Cell[TextData[{
  " ",
  "Computes the radius of the photon sphere for given black hole spin and \
 inclination"
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KerrGeoISCO",
+  BaseStyle->"Link",
+  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISCO"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the location of the inner-most stable circular orbit (ISCO)"
 }], "GuideText"],
 
 Cell[TextData[{
