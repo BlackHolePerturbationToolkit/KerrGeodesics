@@ -1,15 +1,5 @@
 TODO list
 ---------
 
-- Add documentation
-- Decide how best to parameterize inclination: Scott recommended theta_inc (currently using theta_min)									[DONE:Niels]
-- Implement equations for ELQ and Freqs for polar orbits (theta_min = pi)																[ELQ done for e=0 case:Niels]
-- Implement functions to compute the orbit and related quantities (four velocity, etc) as a function of time
-- Improve calculation time for non-generic orbits by using simpler formula for i.e., Schwarzschild and equatorial/spherical orbits
-- Implement equations for case a=M
-- Check sign of theta and phi frequencies for retrograde orbits (currently they are negative)											[DONE: phi changes sign by theta should not, agrees with Scott's code:Niels]
-- Implement function to check if a set of parameters corresponds to a stable bound orbit
-- Make functions for ELQ and freqs work for analytic values of a,p,e,theta_inc
-- Decide option for when returning analytic result to keep M  																			[trying something for ELQ e=0 cases M_:1 as an optional argument]
-- If we are allowing M as a paramater make sure the units are a=[M], p=[M], e=[1], theta=[1]
-- Implement generic orbit calculation for KerrGeoOrbit function
+- Add calculation of the four velocity
+- Add functions to access dr/dλ etc
