@@ -60,10 +60,17 @@ Cell["KerrGeoISSO", "ObjectName"],
 Cell[CellGroupData[{
 
 Cell[BoxData[GridBox[{
-   {"", Cell["\<\
-KerrGeoISCO[a,x] returns the location of the innermost stable spherical orbit \
-(ISSO).\
-\>"]}
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["KerrGeoISSO",
+        BaseStyle->"Link",
+        ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISSO"], "[", 
+       StyleBox[
+        RowBox[{"a", ",", "x"}], "TI"], "]"}]], "InlineFormula"],
+     "\[LineSeparator]returns the location of the innermost stable spherical \
+orbit (ISSO)."
+    }]]}
   }]], "Usage"],
 
 Cell[CellGroupData[{
@@ -376,7 +383,7 @@ TaggingRules->{
     "keywords" -> {"KerrGeoISSO", "KERRGEOISSO", "kerrgeoisso"}, "index" -> 
     True, "label" -> "KerrGeodesics/KerrGeodesics Symbol", "language" -> "en",
      "paclet" -> "KerrGeodesics", "status" -> "None", "summary" -> 
-    "KerrGeoISCO[a,x] returns the location of the innermost stable spherical \
+    "KerrGeoISSO[a,x] returns the location of the innermost stable spherical \
 orbit (ISSO).", "synonyms" -> {"KerrGeoISSO", "KERRGEOISSO", "kerrgeoisso"}, 
     "title" -> "KerrGeoISSO", "windowTitle" -> "KerrGeoISSO", "type" -> 
     "Symbol", "uri" -> "KerrGeodesics/ref/KerrGeoISSO"}, 

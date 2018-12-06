@@ -1791,7 +1791,7 @@ Cell[BoxData[{
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
-  "0.799895`", ",", "\<\"KerrGeoOrbitFunction[0.99,5,0.5,0.5,<<>>]\"\>"}], 
+  "0.690636`", ",", "\<\"KerrGeoOrbitFunction[0.99,5,0.5,0.5,<<>>]\"\>"}], 
   "}"}]], "Output",
  CellLabel->"Out[29]=",
  $CellContext`ExpressionUUID -> "bf2c09df-90e0-4d07-9c0c-c2cf27ce7cad"],
@@ -1799,7 +1799,7 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
-  "0.017549`", ",", "\<\"KerrGeoOrbitFunction[0.99,5,0.5,0.5,<<>>]\"\>"}], 
+  "0.044795`", ",", "\<\"KerrGeoOrbitFunction[0.99,5,0.5,0.5,<<>>]\"\>"}], 
   "}"}]], "Output",
  CellLabel->"Out[30]=",
  $CellContext`ExpressionUUID -> "bf2c09df-90e0-4d07-9c0c-c2cf27ce7cad"]
@@ -1820,7 +1820,7 @@ Cell[BoxData[{
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.002024`", ",", 
+  RowBox[{"0.003362`", ",", 
    RowBox[{"{", 
     RowBox[{
     "4812.412299835556`", ",", "3.859471333765709`", ",", 
@@ -1831,7 +1831,7 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.017913`", ",", 
+  RowBox[{"0.021487`", ",", 
    RowBox[{"{", 
     RowBox[{
     "4812.412299835555`", ",", "3.8594713337657303`", ",", 
@@ -1842,7 +1842,7 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"8.850296442687746`", ",", 
+  RowBox[{"6.391136228435455`", ",", 
    RowBox[{"{", 
     RowBox[{
     "0.9999999999999998`", ",", "1.0000000000000056`", ",", 

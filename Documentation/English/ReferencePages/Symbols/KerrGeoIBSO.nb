@@ -61,7 +61,7 @@ Cell[CellGroupData[{
 
 Cell[BoxData[GridBox[{
    {"", Cell["\<\
-KerrGeoISCO[a,x] returns the location of the innermost bound spherical orbit \
+KerrGeoISBO[a,x] returns the location of the innermost bound spherical orbit \
 (IBSO).\
 \>"]}
   }]], "Usage"],
@@ -377,7 +377,7 @@ TaggingRules->{
     "keywords" -> {"KerrGeoIBSO", "KERRGEOIBSO", "kerrgeoibso"}, "index" -> 
     True, "label" -> "KerrGeodesics/KerrGeodesics Symbol", "language" -> "en",
      "paclet" -> "KerrGeodesics", "status" -> "None", "summary" -> 
-    "KerrGeoISCO[a,x] returns the location of the innermost bound spherical \
+    "KerrGeoISBO[a,x] returns the location of the innermost bound spherical \
 orbit (IBSO).", "synonyms" -> {"KerrGeoIBSO", "KERRGEOIBSO", "kerrgeoibso"}, 
     "title" -> "KerrGeoIBSO", "windowTitle" -> "KerrGeoIBSO", "type" -> 
     "Symbol", "uri" -> "KerrGeodesics/ref/KerrGeoIBSO"}, 
