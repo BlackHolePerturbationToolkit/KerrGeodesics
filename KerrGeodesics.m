@@ -23,8 +23,8 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 KerrGeoPhotonSphereRadius::usage = "KerrGeoPhotonSphereRadius[a,x] returns the radius of the photon sphere."
 
 KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the innermost stable circular orbit (ISCO) for pro- and retrograde orbits."
-KerrGeoISSO::usage = "KerrGeoISCO[a,x] returns the location of the innermost stable spherical orbit (ISSO)."
-KerrGeoIBSO::usage = "KerrGeoISCO[a,x] returns the location of the innermost bound spherical orbit (IBSO)."
+KerrGeoISSO::usage = "KerrGeoISSO[a,x] returns the location of the innermost stable spherical orbit (ISSO)."
+KerrGeoIBSO::usage = "KerrGeoISBO[a,x] returns the location of the innermost bound spherical orbit (IBSO)."
 
 KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of p at the separatrix"
 KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a bound orbit."
@@ -844,6 +844,8 @@ Module[{M=1,En,L,Q,zp,zm,\[Chi]\[Theta],\[Beta],P\[Theta],P\[Theta]Sample,NthIni
 	{rate,\[CapitalDelta]\[Lambda]\[Theta]}=DarwinFastSpecIntegrateAndConvergenceCheck[P\[Theta]Sample];
 	\[CapitalDelta]\[Lambda]\[Theta]
 ];
+
+
 
 (* ::Subsubsection::Closed:: *)
 (*Subroutine for calculating \[Psi](\[Lambda]) and \[Chi](\[Lambda])*)
