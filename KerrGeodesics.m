@@ -1337,7 +1337,7 @@ KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == F
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Special orbits (separatrix, ISCO, ISSO etc...) *)
 
 
@@ -1456,7 +1456,7 @@ ru/.FindRoot[E0==1,{ru,rph+10^-n,10},WorkingPrecision->Max[MachinePrecision,prec
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Separatrix*)
 
 
@@ -1501,6 +1501,7 @@ KerrGeoSeparatrix[a_,1,x_]:=2KerrGeoIBSO[a,x]
 
 (* ::Text:: *)
 (*This method is an extension of the method in arXiv:1108.1819. See N. Warburton's notes for details.*)
+(*The results of the KerrGeoSeparatrix function have also been tested against the recent analytic results in arXiv:1901.02730 (which also extends the method in arXiv:1108.1819) -- see Eqs. (26a-d) in that paper.*)
 
 
 KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,x1_?NumericQ/;Abs[x1]<=1]/;Precision[{a1,e1,x1}]!=\[Infinity]:=Block[{a=a1,ra2,\[Beta],E0,L0,Q0,e2,ru,x=x1,prec,r1,\[Beta]2,p,ru0},
