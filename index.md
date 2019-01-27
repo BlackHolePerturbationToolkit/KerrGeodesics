@@ -24,7 +24,7 @@ Show[
 
 The orbits are parameterized by the following
 
-$a$ - black hole spin
+$a$ - the black hole spin
 $p$ - the semi-latus rectum
 $e$ - the eccentricity
 $x_\text{inc} = \cos\theta_\text{inc}$ - the orbital inclination.
