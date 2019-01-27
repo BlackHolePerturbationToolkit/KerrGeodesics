@@ -24,12 +24,12 @@ Show[
 
 The orbits are parameterized by the following
 
-$a$ - the black hole spin
-$p$ - the semi-latus rectum
-$e$ - the eccentricity
-$x_\text{inc} = \cos\theta_\text{inc}$ - the orbital inclination.
+$a$ - the black hole spin  
+$p$ - the semi-latus rectum  
+$e$ - the eccentricity  
+$x_\text{inc} = \cos\theta_\text{inc}$ - the orbital inclination.  
 
-The parametrization $\{a,p,e,\theta_\text{inc}\}$ is described in, e.g., Sec. II of [arXiv:gr-qc/0509101](https://arxiv.org/abs/gr-qc/0509101)
+The parametrization $\\{a,p,e,\theta_\text{inc}\\}$ is described in, e.g., Sec. II of [arXiv:gr-qc/0509101](https://arxiv.org/abs/gr-qc/0509101)
 
 ## Getting the package
 
