@@ -17,6 +17,35 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
+Cell["Orbital parametrization", \
+"Subsection",ExpressionUUID->"167af769-32ec-42ed-ad15-657285fb5f5c"],
+
+Cell[TextData[{
+ "All the orbits are paremterized by:\n  a - the black \
+hole\[CloseCurlyQuote]s spin\n  p - the semi-latus rectum\n  e - the \
+eccentricity\n  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["x", "inc"], "=", 
+    RowBox[{"Cos", "[", 
+     SubscriptBox["\[Theta]", "inc"], "]"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "fc5af712-306d-474a-ab6e-13237485e35b"],
+ "\n  \n  The parameters ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", "p", ",", "e", ",", 
+     SubscriptBox["\[Theta]", "inc"]}], "}"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "1bb0dff1-43da-46e2-a7a1-c597e32cd4a0"],
+ " are described in, e.g., Sec. II of arXiv:gr-qc/0509101"
+}], "Text",ExpressionUUID->"9c32f40d-d9d1-4d14-9d53-7f22a9d4ae6f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
 Cell["Constants of motion and orbital frequencies", "Subsection",
  CellChangeTimes->{{3.7090219843089333`*^9, 
   3.709021998381135*^9}},ExpressionUUID->"18a102d1-7238-4900-8062-\
@@ -1735,7 +1764,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 Saveable->True,
-WindowSize->{1393, 1201},
+WindowSize->{1393, 856},
 WindowMargins->{{Automatic, 18}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},

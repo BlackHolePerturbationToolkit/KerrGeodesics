@@ -61,6 +61,34 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
+Cell["Orbital parametrization", "Subsection",
+ $CellContext`ExpressionUUID -> "167af769-32ec-42ed-ad15-657285fb5f5c"],
+
+Cell[TextData[{
+ "All the orbits are paremterized by:\n  a - the black \
+hole\[CloseCurlyQuote]s spin\n  p - the semi-latus rectum\n  e - the \
+eccentricity\n  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["x", "inc"], "=", 
+    RowBox[{"Cos", "[", 
+     SubscriptBox["\[Theta]", "inc"], "]"}]}], TraditionalForm]],
+  $CellContext`ExpressionUUID -> "fc5af712-306d-474a-ab6e-13237485e35b"],
+ "\n  \n  The parameters ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", "p", ",", "e", ",", 
+     SubscriptBox["\[Theta]", "inc"]}], "}"}], TraditionalForm]],
+  $CellContext`ExpressionUUID -> "1bb0dff1-43da-46e2-a7a1-c597e32cd4a0"],
+ " are described in, e.g., Sec. II of arXiv:gr-qc/0509101"
+}], "Text",
+ $CellContext`ExpressionUUID -> "9c32f40d-d9d1-4d14-9d53-7f22a9d4ae6f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
 Cell["Constants of motion and orbital frequencies", "Subsection",
  CellChangeTimes->{{3.7090219843089333`*^9, 3.709021998381135*^9}},
  $CellContext`ExpressionUUID -> "18a102d1-7238-4900-8062-23ae533772b7"],
@@ -1791,7 +1819,7 @@ Cell[BoxData[{
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
-  "0.690636`", ",", "\<\"KerrGeoOrbitFunction[0.99,5,0.5,0.5,<<>>]\"\>"}], 
+  "0.64063`", ",", "\<\"KerrGeoOrbitFunction[0.99,5,0.5,0.5,<<>>]\"\>"}], 
   "}"}]], "Output",
  CellLabel->"Out[29]=",
  $CellContext`ExpressionUUID -> "bf2c09df-90e0-4d07-9c0c-c2cf27ce7cad"],
@@ -1799,7 +1827,7 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
-  "0.044795`", ",", "\<\"KerrGeoOrbitFunction[0.99,5,0.5,0.5,<<>>]\"\>"}], 
+  "0.03765`", ",", "\<\"KerrGeoOrbitFunction[0.99,5,0.5,0.5,<<>>]\"\>"}], 
   "}"}]], "Output",
  CellLabel->"Out[30]=",
  $CellContext`ExpressionUUID -> "bf2c09df-90e0-4d07-9c0c-c2cf27ce7cad"]
@@ -1820,7 +1848,7 @@ Cell[BoxData[{
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.003362`", ",", 
+  RowBox[{"0.00249`", ",", 
    RowBox[{"{", 
     RowBox[{
     "4812.412299835556`", ",", "3.859471333765709`", ",", 
@@ -1831,7 +1859,7 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.021487`", ",", 
+  RowBox[{"0.019117`", ",", 
    RowBox[{"{", 
     RowBox[{
     "4812.412299835555`", ",", "3.8594713337657303`", ",", 
@@ -1842,7 +1870,7 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"6.391136228435455`", ",", 
+  RowBox[{"7.677510040160642`", ",", 
    RowBox[{"{", 
     RowBox[{
     "0.9999999999999998`", ",", "1.0000000000000056`", ",", 
