@@ -1,3 +1,5 @@
+{% include head.html %}
+
 <p align="center"><img src="kerr_generic_orbit.png" width="500px"></p>
 
 The KerrGeodesics package for Mathematica provides functions for computing bound timelike geodesics and their properties in Kerr spacetime.
@@ -17,6 +19,10 @@ Show[
  Graphics3D[{Black, Sphere[{0, 0, 0}, 1 + Sqrt[1 - 0.998^2]]}]
  ]
 ```
+
+## Orbital parametrization
+
+$a$ - black hole spin
 
 ## Getting the package
 
