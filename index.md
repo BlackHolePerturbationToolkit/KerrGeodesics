@@ -49,10 +49,8 @@ tested with only the latest available version.
 ## Installation
 
 Clone the repository and place it somewhere on Mathematica's $Path.
-Typical locations are inside <span>$</span>{HOME}/.Mathematica/Applications/ for Linux or
-inside <span>$</span>{HOME}/Library/Mathematica/Applications/ for Mac OSX.
-
-\$
+Typical locations are inside \${HOME}/.Mathematica/Applications/ for Linux or
+inside \${HOME}/Library/Mathematica/Applications/ for Mac OSX.
 
 ## Usage
 
