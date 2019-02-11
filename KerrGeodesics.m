@@ -252,7 +252,7 @@ KerrGeoConstantsOfMotion[a_,p_,e_,x_]:=Module[{En,L,Q},
 ]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Roots of the radial and polar equations*)
 
 
@@ -271,6 +271,10 @@ r4=AB/r3;
 {r1,r2,r3,r4}
 
 ]
+
+
+(* ::Text:: *)
+(*This code uses the polar equation (z^2-zm^2)(a^2(1-E0^2)z^2-zp^2)==0 as the Polar equation. Hence zp is a*Sqrt[1-E0^2]*zp in other sources.*)
 
 
 KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
@@ -444,7 +448,7 @@ KerrGeoOrbitFunction[0, p, e, 0, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -721,7 +725,7 @@ Module[{M=1,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -797,7 +801,7 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutines for calculating \[Lambda](\[Psi]) and \[Lambda](\[Chi])*)
 
 

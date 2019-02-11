@@ -47,15 +47,18 @@ Cell[BoxData[
    RowBox[{"\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Guides/KerrGeodesics.nb\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/ReferencePages/Symbols/KerrGeoAngularMomentum.nb\"\>", 
+Documentation/English/Index/_0.cfs\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/ReferencePages/Symbols/KerrGeoBoundOrbitQ.nb\"\>", ",", 
-    
-    RowBox[{"\[LeftSkeleton]", "9", "\[RightSkeleton]"}], 
+Documentation/English/Index/segments_3\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/ReferencePages/Symbols/KerrGeoPhotonSphereRadius.nb\"\>\
-", ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/ReferencePages/Symbols/KerrGeoSeparatrix.nb\"\>", 
+Documentation/English/Index/segments.gen\"\>", ",", 
+    RowBox[{"\[LeftSkeleton]", "13", "\[RightSkeleton]"}], 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/SpellIndex/_3.cfs\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/SpellIndex/segments_9\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/SpellIndex/segments.gen\"\>", 
     ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Tutorials/KerrGeodesics.nb\"\>"}], "}"}],
   Short[#, 10]& ]], "Output",
