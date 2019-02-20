@@ -252,7 +252,7 @@ KerrGeoConstantsOfMotion[a_,p_,e_,x_]:=Module[{En,L,Q},
 ]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Roots of the radial and polar equations*)
 
 
@@ -434,21 +434,30 @@ rSchwarzDarwin[p_,e_,\[Chi]_]:=p/(1 + e Cos[\[Chi]])
 (*FIXME: make the below work for inclined orbits and accept initial phases*)
 
 
-KerrGeoOrbitSchwarzDarwin[p_, e_]:=Module[{t, r, \[Theta], \[Phi], assoc},
+KerrGeoOrbitSchwarzDarwin[p_, e_]:=Module[{t, r, \[Theta], \[Phi], assoc,En,L,Q},
 
 t[\[Chi]_] := tSchwarzDarwin[p,e,\[Chi]];
 r[\[Chi]_] := rSchwarzDarwin[p,e,\[Chi]];
 \[Theta][\[Chi]_] := \[Theta]SchwarzDarwin[p,e,\[Chi]];
 \[Phi][\[Chi]_] := \[Phi]SchwarzDarwin[p,e,\[Chi]];
 
-assoc = Association["Trajectory" -> {t,r,\[Theta],\[Phi]}, "Parametrization"->"Darwin"];
+{En,L,Q} = KerrGeoConstantsOfMotion[0,p,e,1];
+
+assoc = Association[
+			"Trajectory" -> {t,r,\[Theta],\[Phi]},
+			"Parametrization" -> "Darwin", 
+			"ConstantsOfMotion"->{En,L,Q}, 
+			"Energy" -> En,
+			"AngularMomentum" -> L,
+			"CarterConstant" -> Q
+			];
 
 KerrGeoOrbitFunction[0, p, e, 0, assoc]
 
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -725,7 +734,7 @@ Module[{M=1,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
 
 
