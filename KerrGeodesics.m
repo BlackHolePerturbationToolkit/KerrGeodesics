@@ -360,13 +360,24 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 (*Schwarzschild*)
 
 
-KerrGeoMinoFrequencies[0,p_,0,x_]:={Sqrt[((-6+p) p)/(-3+p)],p Sqrt[1/((-3+p) x^2)] x,(p x)/Sqrt[(-3+p) x^2],Sqrt[p^5/(-3+p)]}
+KerrGeoMinoFrequencies[0,p_,0,x_] :=
+ <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> Sqrt[((-6+p) p)/(-3+p)],
+    "|\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)|" -> p Sqrt[1/((-3+p) x^2)] x,
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> (p x)/Sqrt[(-3+p) x^2],
+    "\[CapitalGamma]" -> Sqrt[p^5/(-3+p)] |>;
 
 
-KerrGeoMinoFrequencies[0,p_,e_,x_]:={(Sqrt[-((p (-6+2 e+p))/(3+e^2-p))] \[Pi])/(2 EllipticK[(4 e)/(-6+2 e+p)]),p Sqrt[1/((-3-e^2+p) x^2)] x,(p x)/Sqrt[(-3-e^2+p) x^2],1/2 Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))] (8+1/((-4+p)^2 EllipticK[(4 e)/(-6+2 e+p)]) (-(((-4+p) p^2 (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)])/(-1+e^2))+(p^2 (28+4 e^2-12 p+p^2) EllipticK[(4 e)/(-6+2 e+p)])/(-1+e^2)-(2 (6+2 e-p) (3+e^2-p) p^2 EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)])/((-1+e) (1+e)^2)+(4 (-4+p) p (2 (1+e) EllipticK[(4 e)/(-6+2 e+p)]+(-6-2 e+p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)]))/(1+e)+2 (-4+p)^2 ((-4+p) EllipticK[(4 e)/(-6+2 e+p)]-((6+2 e-p) p EllipticPi[(16 e)/(12+8 e-4 e^2-8 p+p^2),(4 e)/(-6+2 e+p)])/(2+2 e-p))))}
+KerrGeoMinoFrequencies[0,p_,e_,x_] :=
+ <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> (Sqrt[-((p (-6+2 e+p))/(3+e^2-p))] \[Pi])/(2 EllipticK[(4 e)/(-6+2 e+p)]),
+    "|\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)|" -> p Sqrt[1/((-3-e^2+p) x^2)] x,(p x)/Sqrt[(-3-e^2+p) x^2],1/2 Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))] (8+1/((-4+p)^2 EllipticK[(4 e)/(-6+2 e+p)]) (-(((-4+p) p^2 (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)])/(-1+e^2))+(p^2 (28+4 e^2-12 p+p^2) EllipticK[(4 e)/(-6+2 e+p)])/(-1+e^2)-(2 (6+2 e-p) (3+e^2-p) p^2 EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> (4 e)/(-6+2 e+p)])/((-1+e) (1+e)^2)+(4 (-4+p) p (2 (1+e) EllipticK[(4 e)/(-6+2 e+p)]+(-6-2 e+p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)]))/(1+e)+2 (-4+p)^2 ((-4+p) EllipticK[(4 e)/(-6+2 e+p)]-((6+2 e-p) p EllipticPi[(16 e)/(12+8 e-4 e^2-8 p+p^2),
+    "\[CapitalGamma]" -> (4 e)/(-6+2 e+p)])/(2+2 e-p)))) |>;
 
 
-KerrGeoBoyerLindquistFrequencies[0,p_,0,x_]:={Sqrt[-6+p]/p^2,(Sqrt[1/x^2] x)/p^(3/2),(p x)/Sqrt[p^5 x^2]}
+KerrGeoBoyerLindquistFrequencies[0,p_,0,x_] :=
+ <| "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)" -> Sqrt[-6+p]/p^2,
+    "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\)" -> (Sqrt[1/x^2] x)/p^(3/2),
+    "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Phi]\)]\)" -> (p x)/Sqrt[p^5 x^2] |>;
 
 
 (* ::Section::Closed:: *)
@@ -403,7 +414,10 @@ hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 
 \[CapitalGamma]=4M^2 En + (2a2zp En  \[CapitalUpsilon]\[Theta])/(Pi L Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]- EllipticE[k\[Theta]^2]) + (2\[CapitalUpsilon]r)/(Pi Sqrt[(1-En^2)(r1-r3)(r2-r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,kr^2])+(2M)/(rp-rm) (((4M^2 En-a L)rp-2M a^2 En)/(r3-rp) (EllipticK[kr^2]-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2])-((4M^2 En-a L)rm-2M a^2 En)/(r3-rm) (EllipticK[kr^2]-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2])));
 
-{\[CapitalUpsilon]r,Abs[\[CapitalUpsilon]\[Theta]],\[CapitalUpsilon]\[Phi],\[CapitalGamma]}
+ <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> \[CapitalUpsilon]r,
+    "|\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)|" -> Abs[\[CapitalUpsilon]\[Theta]],
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> \[CapitalUpsilon]\[Phi],
+    "\[CapitalGamma]" -> \[CapitalGamma] |>
 
 ]
 
@@ -438,17 +452,21 @@ hr=(r1-r2)/(r1-r3);
 
 \[CapitalGamma]=4M^2 En+(2a^2 En a2zp \[CapitalUpsilon]\[Theta])/(\[Pi] L Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]-EllipticE[k\[Theta]^2]) + (2 \[CapitalUpsilon]r)/(\[Pi] Sqrt[(1-En^2)(r1-r3)(r2-r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,kr^2]) + (2M(4M^2 En - a L))/(r3-M) (EllipticK[kr^2]-(r2-r3)/(r2-M) EllipticPi[hM,kr^2])+(M^2 (2M^2 En-a L ))/(r3-M)^2 ((2-((r1-r3)(r2-r3))/((r1-M)(r2-M)))EllipticK[kr^2]+((r1-r3)(r2-r4)(r3-M))/((r1-M)(r2-M)(r4-M)) EllipticE[kr^2]+(r2-r3)/(r2-M) ((r1-r3)/(r1-M)+(r2-r3)/(r2-M)+(r4-r3)/(r4-M)-4)EllipticPi[hM,kr^2]));
 
-{\[CapitalUpsilon]r,Abs[\[CapitalUpsilon]\[Theta]],\[CapitalUpsilon]\[Phi],\[CapitalGamma]}
-
+<| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> \[CapitalUpsilon]r,
+   "|\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)|" -> Abs[\[CapitalUpsilon]\[Theta]],
+   "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> \[CapitalUpsilon]\[Phi],
+   "\[CapitalGamma]" -> \[CapitalGamma] |>
 ]
 
 
 KerrGeoBoyerLindquistFrequencies[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
 
-{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma]} = KerrGeoMinoFrequencies[a,p,e,x];
+{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma]} = Values[KerrGeoMinoFrequencies[a,p,e,x]];
 
-{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi]}/\[CapitalGamma]
-
+  <| "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)" -> \[CapitalUpsilon]r,
+     "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\)" -> \[CapitalUpsilon]\[Theta],
+     "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Phi]\)]\)" -> \[CapitalUpsilon]\[Phi] 
+   |> / \[CapitalGamma]
 ]
 
 
@@ -458,7 +476,7 @@ KerrGeoBoyerLindquistFrequencies[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]r,\[Capi
 
 Options[KerrGeoFrequencies] = {"Time" -> "BoyerLindquist"}
 SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};
-KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]]:=Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
+KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]] := Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
 
 
 If[OptionValue["Time"]=="Mino",Return[KerrGeoMinoFrequencies[a,p,e,x][[1;;3]]]];
@@ -808,7 +826,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi]},
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
 	{En,L,Q} = Values[consts];
-	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = KerrGeoMinoFrequencies[a,p,e,x];
+	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeoMinoFrequencies[a,p,e,x]];
 	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
 	{zp,zm} = KerrGeoPolarRoots[a, p, e, x];
 	
@@ -1266,7 +1284,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 	(* Mino frequencies of orbit. I call Re, because some frequencies 
 	are given as imaginary for restricted orbits. 
 	Maybe something to fix with KerrGeoMinoFrequencies*)
-	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = KerrGeoMinoFrequencies[a,p,e,x];
+	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeoMinoFrequencies[a,p,e,x]];
 	If[e>0&&(Im[\[CapitalUpsilon]r]!=0||Re[\[CapitalUpsilon]r]==0),Print["Unstable orbit. Aborting."]; Abort[]];
 	If[r2<1+Sqrt[1-a^2],Print["Unstable orbit. Aborting."]; Abort[]];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Re[{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t}];
