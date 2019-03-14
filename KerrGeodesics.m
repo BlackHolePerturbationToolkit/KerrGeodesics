@@ -15,7 +15,7 @@ KerrGeoAngularMomentum::usage = "KerrGeoAngularMomentum[a, p, e, x] returns the 
 KerrGeoCarterConstant::usage = "KerrGeoCarterConstant[a, p, e, x] returns the Carter constant of the orbit."
 KerrGeoConstantsOfMotion::usage = "KerrGeoConstantsOfMotion[a, p, e, x] returns the three constants of motion."
 
-KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital frequencies"
+KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital frequencies."
 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association."
@@ -26,7 +26,7 @@ KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the innermost sta
 KerrGeoISSO::usage = "KerrGeoISSO[a,x] returns the location of the innermost stable spherical orbit (ISSO)."
 KerrGeoIBSO::usage = "KerrGeoISBO[a,x] returns the location of the innermost bound spherical orbit (IBSO)."
 
-KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of p at the separatrix"
+KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of p at the separatrix."
 KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a bound orbit."
 
 $KerrGeodesicsInformation::usage = "$KerrGeodesicsInformation is a list of rules that gives information about the version of the KerrGeodesics package you are running.";
