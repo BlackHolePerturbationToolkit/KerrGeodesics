@@ -4,7 +4,7 @@
 (*Package for the calculation of bound time-like geodesics and their properties in Kerr spacetime*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Define usage for public functions*)
 
 
@@ -308,7 +308,7 @@ KerrGeoConstantsOfMotion[a_,p_,e_,x_]:=Module[{En,L,Q},
 ]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Roots of the radial and polar equations*)
 
 
@@ -341,7 +341,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 ]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Orbital Frequencies*)
 
 
@@ -349,7 +349,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 (*Orbital frequency calculations from Fujita and Hikida, Class. Quantum Grav .26 (2009) 135002, arXiv:0906.1420*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Schwarzschild*)
 
 
@@ -362,7 +362,7 @@ KerrGeoMinoFrequencies[0,p_,e_,x_]:={(Sqrt[-((p (-6+2 e+p))/(3+e^2-p))] \[Pi])/(
 KerrGeoBoyerLindquistFrequencies[0,p_,0,x_]:={Sqrt[-6+p]/p^2,(Sqrt[1/x^2] x)/p^(3/2),(p x)/Sqrt[p^5 x^2]}
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -445,7 +445,29 @@ KerrGeoBoyerLindquistFrequencies[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]r,\[Capi
 ]
 
 
-(* ::Section::Closed:: *)
+KerrGeoProperFrequencyFactor[a_,p_,e_,x_]:=
+Module[
+{\[Rho]1,\[Rho]2,\[Rho]3,\[Rho]4,zm,zp,T},
+{\[Rho]1,\[Rho]2,\[Rho]3,\[Rho]4}=KerrGeoRadialRoots[a,p,e,x];
+{zp,zm}=KerrGeoPolarRoots[a,p,e,x];
+T=KerrGeoEnergy[a,p,e,x];
+With[{
+kr= (\[Rho]1-\[Rho]2)/(\[Rho]1-\[Rho]3) (\[Rho]3-\[Rho]4)/(\[Rho]2-\[Rho]4),
+k\[Theta]=a^2 (1-T^2)(zm/zp)^2,
+hr=(\[Rho]1-\[Rho]2)/(\[Rho]1-\[Rho]3)
+},
+
+1/2 (-((2 zp^2)/(-1+T^2))+\[Rho]1 (-\[Rho]2+\[Rho]3)+\[Rho]3 (\[Rho]2+\[Rho]3))
++((\[Rho]1-\[Rho]3) (\[Rho]2-\[Rho]4) EllipticE[kr])/(2 EllipticK[kr])
++(zp^2 EllipticE[k\[Theta]])/((-1+T^2) EllipticK[k\[Theta]])+((\[Rho]2-\[Rho]3) (\[Rho]1+\[Rho]2+\[Rho]3+\[Rho]4) EllipticPi[hr,kr])/(2 EllipticK[kr])
+]]
+
+
+
+KerrGeoProperFrequencies[a_,p_,e_,x_]:=KerrGeoMinoFrequencies[a,p,e,x]/KerrGeoProperFrequencyFactor[a,p,e,x]
+
+
+(* ::Section:: *)
 (*Generic function for choosing between frequencies w.r.t different time coordinates*)
 
 
@@ -458,7 +480,7 @@ If[OptionValue["Time"]=="Mino",Return[KerrGeoMinoFrequencies[a,p,e,x][[1;;3]]]];
 
 If[OptionValue["Time"]=="BoyerLindquist", Return[KerrGeoBoyerLindquistFrequencies[a,p,e,x]]];
 
-If[OptionValue["Time"]=="Proper",Print["Propertime frequencies not implemented yet"]];
+If[OptionValue["Time"]=="Proper",Return[KerrGeoProperFrequencies[a,p,e,x][[1;;3]]]];
 
 ]
 
@@ -790,7 +812,7 @@ Module[{M=1,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
 
 
