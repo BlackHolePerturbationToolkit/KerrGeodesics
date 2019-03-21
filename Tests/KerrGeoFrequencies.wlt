@@ -1,5 +1,5 @@
 (****************************************************************)
-(* SpinWeightedSpheroidalEigenvalue                             *)
+(* KerrGeoFrequencies generic                                   *)
 (****************************************************************)
 VerificationTest[
     KerrGeoFrequencies[0.9, 6.0, 0.3, 1]
