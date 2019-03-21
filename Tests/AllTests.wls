@@ -6,6 +6,10 @@ PrependTo[$Path, FileNameDrop[ExpandFileName[First[$ScriptCommandLine]],-3]];
 
 << KerrGeodesics`
 
+withinRoundoff[a_, b_] := 
+  Block[{Internal`$SameQTolerance = 4}, 
+   SameQ[a, b]];(*Ignore the last N machine digits*)
+
 testFiles = FileNames["*.wlt", 
   FileNameJoin[{$KerrGeodesicsInstallationDirectory, "Tests"}]];
 
