@@ -6,7 +6,7 @@ VerificationTest[
     ,
     0.95426997475311240549349843416842480591
     ,
-    TestID->"KerrGeoEnergy documentation example 1"
+    TestID->"KerrGeoEnergy generic numerical test"
 ]
 
 (****************************************************************)
@@ -17,16 +17,8 @@ VerificationTest[
     ,
     Sqrt[(-4 e^2 + (-2 + p)^2)/(p (-3 - e^2 + p))]
     ,
-    TestID->"KerrGeoEnergy documentation example 2"
+    TestID->"KerrGeoEnergy for Schwarzschild equatorial circular orbit formula"
 ]
 
-(****************************************************************)
-(* KerrGeoEnergy documentation example 3                        *)
-(****************************************************************)
-VerificationTest[
-    KerrGeoEnergy[a, p, 0, 0]
-    ,
-    Sqrt[(p (a^2 - 2 p + p^2)^2)/((a^2 + p^2) (a^2 + a^2 p - 3 p^2 + p^3))]
-    ,
-    TestID->"KerrGeoEnergy documentation example 3"
-]
+
+
