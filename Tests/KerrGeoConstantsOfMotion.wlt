@@ -1,5 +1,5 @@
 (****************************************************************)
-(* KerrGeoConstantsOfMotion documentation example 1             *)
+(* KerrGeoConstantsOfMotion with random numerical input         *)
 (****************************************************************)
 VerificationTest[
     KerrGeoConstantsOfMotion[0.9`20, 10, 0.1`20, Cos[Pi/3]]
@@ -10,7 +10,7 @@ VerificationTest[
         9.73622324161324995959740006125691526459
     }
     ,
-    TestID->"KerrGeoConstantsOfMotion documentation example 1"
+    TestID->"KerrGeoConstantsOfMotion with random numerical input"
 ]
 
 (****************************************************************)
@@ -28,17 +28,5 @@ VerificationTest[
     TestID->"KerrGeoConstantsOfMotion documentation example 2"
 ]
 
-(****************************************************************)
-(* KerrGeoConstantsOfMotion documentation example 3             *)
-(****************************************************************)
-VerificationTest[
-    KerrGeoConstantsOfMotion[a, p, 0, 0]
-    ,
-    {
-        Sqrt[((p (a^2 - 2 p + p^2)^2)/((a^2 + p^2) (a^2 + a^2 p - 3 p^2 + p^3)))],
-        0, 
-        (p^2 (a^4 + 2 a^2 (-2 + p) p + p^4))/((a^2 + p^2) ((-3 + p) p^2 + a^2 (1 + p)))
-    }
-    ,
-    TestID->"KerrGeoConstantsOfMotion documentation example 3"
-]
+
+
