@@ -43,10 +43,11 @@ KerrGeodesics page in Documentation Center.
 
 ### Changelog
 
-22 November 2018: Merged the development branch into the master branch. Thanks to Zach, Tommy and Chuck for contributing code. This update is a major change with a lot of improvements. A key difference is the defintion of the inclination angle which is now x_inc = Cos[\theta_inc]. Bumped version number up to 0.5.
-7 August 2018: Added generic orbit calculation (thanks for M. van de Meent for contributing code). Currently the code is separated in KerrGeoOrbit2[..] but will soon replace the earlier code
-7 September 2017: Initial version publicly released
-10 June 2017: Initial version created.
+- 25 March 2019: Add propertime frequencies (thanks Maarten). Break code into separate files to make it more manageable. 
+- 22 November 2018: Merged the development branch into the master branch. Thanks to Zach, Tommy and Chuck for contributing code. This update is a major change with a lot of improvements. A key difference is the defintion of the inclination angle which is now x_inc = Cos[\theta_inc]. Bumped version number up to 0.5.
+- 7 August 2018: Added generic orbit calculation (thanks for M. van de Meent for contributing code). Currently the code is separated in KerrGeoOrbit2[..] but will soon replace the earlier code
+- 7 September 2017: Initial version publicly released
+- 10 June 2017: Initial version created.
 
 
 ### Known problems
