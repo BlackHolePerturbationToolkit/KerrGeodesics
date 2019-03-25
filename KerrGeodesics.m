@@ -13,9 +13,9 @@ BeginPackage["KerrGeodesics`"];
 KerrGeoEnergy::usage = "KerrGeoEnergy[a, p, e, x] returns the orbital energy."
 KerrGeoAngularMomentum::usage = "KerrGeoAngularMomentum[a, p, e, x] returns the orbital angular momentum about the symmetry axis."
 KerrGeoCarterConstant::usage = "KerrGeoCarterConstant[a, p, e, x] returns the Carter constant of the orbit."
-KerrGeoConstantsOfMotion::usage = "KerrGeoConstantsOfMotion[a, p, e, x] returns the three constants of motion {E,L,Q}."
+KerrGeoConstantsOfMotion::usage = "KerrGeoConstantsOfMotion[a, p, e, x] returns the three constants of motion."
 
-KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital frequencies"
+KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital frequencies."
 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association."
@@ -26,7 +26,7 @@ KerrGeoISCO::usage = "KerrGeoISCO[a,x] returns the location of the innermost sta
 KerrGeoISSO::usage = "KerrGeoISSO[a,x] returns the location of the innermost stable spherical orbit (ISSO)."
 KerrGeoIBSO::usage = "KerrGeoISBO[a,x] returns the location of the innermost bound spherical orbit (IBSO)."
 
-KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of p at the separatrix"
+KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of p at the separatrix."
 KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a bound orbit."
 
 $KerrGeodesicsInformation::usage = "$KerrGeodesicsInformation is a list of rules that gives information about the version of the KerrGeodesics package you are running.";
@@ -126,7 +126,10 @@ KerrGeoCarterConstant[0,p_,e_,x_]:=(p^2 (-1+x^2))/(3+e^2-p)
 (*Convenience function to compute all three constants of motion*)
 
 
-KerrGeoConstantsOfMotion[0,p_,e_,x_]:= {KerrGeoEnergy[0,p,e,x],KerrGeoAngularMomentum[0,p,e,x],KerrGeoCarterConstant[0,p,e,x]}
+KerrGeoConstantsOfMotion[0,p_,e_,x_]:= 
+ <|"\[ScriptCapitalE]" -> KerrGeoEnergy[0,p,e,x],
+   "\[ScriptCapitalL]" -> KerrGeoAngularMomentum[0,p,e,x],
+   "\[ScriptCapitalQ]" -> KerrGeoCarterConstant[0,p,e,x] |>
 
 
 (* ::Section::Closed:: *)
@@ -172,7 +175,10 @@ KerrGeoAngularMomentum[a_,p_,e_,x_/;x^2==1]:= p x Sqrt[(a^2 (1+3 e^2+p)+p (-3-e^
 (*Convenience function to compute all three constants of motion*)
 
 
-KerrGeoConstantsOfMotion[a_,p_,e_,x_/;x^2==1]:= {KerrGeoEnergy[a,p,e,x],KerrGeoAngularMomentum[a,p,e,x],KerrGeoCarterConstant[a,p,e,x]}
+KerrGeoConstantsOfMotion[a_,p_,e_,x:(1|-1)]:=
+ <|"\[ScriptCapitalE]" -> KerrGeoEnergy[a,p,e,x],
+   "\[ScriptCapitalL]" -> KerrGeoAngularMomentum[a,p,e,x],
+   "\[ScriptCapitalQ]" -> KerrGeoCarterConstant[a,p,e,x] |>
 
 
 (* ::Subsection::Closed:: *)
@@ -218,7 +224,10 @@ KerrGeoCarterConstant[a_,p_,e_,(0|0.)]:= -((p^2 (a^4 (-1+e^2)^2+p^4+2 a^2 p (-2+
 (*Convenience function to compute all three constants of motion*)
 
 
-KerrGeoConstantsOfMotion[a_,p_,e_,(0|0.)]:={KerrGeoEnergy[a,p,e,0],KerrGeoAngularMomentum[a,p,e,0],KerrGeoCarterConstant[a,p,e,0]}
+KerrGeoConstantsOfMotion[a_,p_,e_,(0|0.)] :=
+ <|"\[ScriptCapitalE]" -> KerrGeoEnergy[a,p,e,0],
+   "\[ScriptCapitalL]" -> KerrGeoAngularMomentum[a,p,e,0],
+   "\[ScriptCapitalQ]" -> KerrGeoCarterConstant[a,p,e,0] |>
 
 
 (* ::Subsection::Closed:: *)
@@ -300,12 +309,12 @@ KerrGeoCarterConstant[a_,p_,e_,x_,En1_:Null,L1_:Null]:= Module[{En=En1,L=L1,zm},
 ]
 
 
-KerrGeoConstantsOfMotion[a_,p_,e_,x_]:=Module[{En,L,Q},
-	En=KerrGeoEnergy[a,p,e,x];
-	L=KerrGeoAngularMomentum[a,p,e,x,En];
-	Q=KerrGeoCarterConstant[a,p,e,x,En,L];
-	{En,L,Q}
-]
+KerrGeoConstantsOfMotion[a_,p_,e_,x_] :=Module[{En,L},
+  En = KerrGeoEnergy[a,p,e,x];
+  L = KerrGeoAngularMomentum[a,p,e,x];
+
+ <|"\[ScriptCapitalE]" -> En, "\[ScriptCapitalL]" -> L, "\[ScriptCapitalQ]" -> KerrGeoCarterConstant[a,p,e,x,En,L] |>
+ ]
 
 
 (* ::Chapter::Closed:: *)
@@ -334,7 +343,7 @@ r4=AB/r3;
 
 
 KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
-  {En,L,Q} = KerrGeoConstantsOfMotion[a, p, e, x];
+  {En,L,Q} = Values[KerrGeoConstantsOfMotion[a, p, e, x]];
   zm = Sqrt[1-x^2];
   zp = (a^2 (1-En^2)+L^2/(1-zm^2))^(1/2);
   {zp,zm}
@@ -353,13 +362,24 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 (*Schwarzschild*)
 
 
-KerrGeoMinoFrequencies[0,p_,0,x_]:={Sqrt[((-6+p) p)/(-3+p)],p Sqrt[1/((-3+p) x^2)] x,(p x)/Sqrt[(-3+p) x^2],Sqrt[p^5/(-3+p)]}
+KerrGeoMinoFrequencies[0,p_,0,x_] :=
+ <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> Sqrt[((-6+p) p)/(-3+p)],
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> p Sqrt[1/((-3+p) x^2)] x,
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> (p x)/Sqrt[(-3+p) x^2],
+    "\[CapitalGamma]" -> Sqrt[p^5/(-3+p)] |>;
 
 
-KerrGeoMinoFrequencies[0,p_,e_,x_]:={(Sqrt[-((p (-6+2 e+p))/(3+e^2-p))] \[Pi])/(2 EllipticK[(4 e)/(-6+2 e+p)]),p Sqrt[1/((-3-e^2+p) x^2)] x,(p x)/Sqrt[(-3-e^2+p) x^2],1/2 Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))] (8+1/((-4+p)^2 EllipticK[(4 e)/(-6+2 e+p)]) (-(((-4+p) p^2 (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)])/(-1+e^2))+(p^2 (28+4 e^2-12 p+p^2) EllipticK[(4 e)/(-6+2 e+p)])/(-1+e^2)-(2 (6+2 e-p) (3+e^2-p) p^2 EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)])/((-1+e) (1+e)^2)+(4 (-4+p) p (2 (1+e) EllipticK[(4 e)/(-6+2 e+p)]+(-6-2 e+p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)]))/(1+e)+2 (-4+p)^2 ((-4+p) EllipticK[(4 e)/(-6+2 e+p)]-((6+2 e-p) p EllipticPi[(16 e)/(12+8 e-4 e^2-8 p+p^2),(4 e)/(-6+2 e+p)])/(2+2 e-p))))}
+KerrGeoMinoFrequencies[0,p_,e_,x_] :=
+ <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> (Sqrt[-((p (-6+2 e+p))/(3+e^2-p))] \[Pi])/(2 EllipticK[(4 e)/(-6+2 e+p)]),
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> p/Sqrt[-3-e^2+p],
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> (p x)/(Sqrt[-3-e^2+p] Abs[x]),
+    "\[CapitalGamma]" -> 1/2 Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))] (8+1/((-4+p)^2 EllipticK[(4 e)/(-6+2 e+p)]) (-(((-4+p) p^2 (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)])/(-1+e^2))+(p^2 (28+4 e^2-12 p+p^2) EllipticK[(4 e)/(-6+2 e+p)])/(-1+e^2)-(2 (6+2 e-p) (3+e^2-p) p^2 EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)])/((-1+e) (1+e)^2)+(4 (-4+p) p (2 (1+e) EllipticK[(4 e)/(-6+2 e+p)]+(-6-2 e+p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)]))/(1+e)+2 (-4+p)^2 ((-4+p) EllipticK[(4 e)/(-6+2 e+p)]-((6+2 e-p) p EllipticPi[(16 e)/(12+8 e-4 e^2-8 p+p^2),(4 e)/(-6+2 e+p)])/(2+2 e-p)))) |>;
 
 
-KerrGeoBoyerLindquistFrequencies[0,p_,0,x_]:={Sqrt[-6+p]/p^2,(Sqrt[1/x^2] x)/p^(3/2),(p x)/Sqrt[p^5 x^2]}
+KerrGeoBoyerLindquistFrequencies[0,p_,0,x_] :=
+ <| "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)" -> Sqrt[-6+p]/p^2,
+    "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\)" -> (Sqrt[1/x^2] x)/p^(3/2),
+    "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Phi]\)]\)" -> (p x)/Sqrt[p^5 x^2] |>;
 
 
 KerrGeoProperFrequencyFactor[0,p_,0,x_]:=p^2
@@ -373,7 +393,7 @@ KerrGeoProperFrequencyFactor[0,p_,e_,x_]:=(p^2 ((1+e) (28+4 e^2+(-12+p) p)-((1+e
 
 
 KerrGeoMinoFrequencies[a_,p_,e_,x_]:=Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
-{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
 
 {r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,x,En,Q];
 \[Epsilon]0=a^2 (1-En^2)/L^2;
@@ -402,14 +422,17 @@ hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 
 \[CapitalGamma]=4M^2 En + (2a2zp En  \[CapitalUpsilon]\[Theta])/(Pi L Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]- EllipticE[k\[Theta]^2]) + (2\[CapitalUpsilon]r)/(Pi Sqrt[(1-En^2)(r1-r3)(r2-r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,kr^2])+(2M)/(rp-rm) (((4M^2 En-a L)rp-2M a^2 En)/(r3-rp) (EllipticK[kr^2]-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2])-((4M^2 En-a L)rm-2M a^2 En)/(r3-rm) (EllipticK[kr^2]-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2])));
 
-{\[CapitalUpsilon]r,Abs[\[CapitalUpsilon]\[Theta]],\[CapitalUpsilon]\[Phi],\[CapitalGamma]}
+ <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> \[CapitalUpsilon]r,
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> Abs[\[CapitalUpsilon]\[Theta]],
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> \[CapitalUpsilon]\[Phi],
+    "\[CapitalGamma]" -> \[CapitalGamma] |>
 
 ]
 
 
 KerrGeoMinoFrequencies[(1|1.),p_,e_,x_]:=Module[{M=1,a=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hM,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
 
-{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
 
 {r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,x,En,Q];
 \[Epsilon]0=a^2 (1-En^2)/L^2;
@@ -437,40 +460,44 @@ hr=(r1-r2)/(r1-r3);
 
 \[CapitalGamma]=4M^2 En+(2a^2 En a2zp \[CapitalUpsilon]\[Theta])/(\[Pi] L Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]-EllipticE[k\[Theta]^2]) + (2 \[CapitalUpsilon]r)/(\[Pi] Sqrt[(1-En^2)(r1-r3)(r2-r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,kr^2]) + (2M(4M^2 En - a L))/(r3-M) (EllipticK[kr^2]-(r2-r3)/(r2-M) EllipticPi[hM,kr^2])+(M^2 (2M^2 En-a L ))/(r3-M)^2 ((2-((r1-r3)(r2-r3))/((r1-M)(r2-M)))EllipticK[kr^2]+((r1-r3)(r2-r4)(r3-M))/((r1-M)(r2-M)(r4-M)) EllipticE[kr^2]+(r2-r3)/(r2-M) ((r1-r3)/(r1-M)+(r2-r3)/(r2-M)+(r4-r3)/(r4-M)-4)EllipticPi[hM,kr^2]));
 
-{\[CapitalUpsilon]r,Abs[\[CapitalUpsilon]\[Theta]],\[CapitalUpsilon]\[Phi],\[CapitalGamma]}
-
+<| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> \[CapitalUpsilon]r,
+   "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> Abs[\[CapitalUpsilon]\[Theta]],
+   "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> \[CapitalUpsilon]\[Phi],
+   "\[CapitalGamma]" -> \[CapitalGamma] |>
 ]
 
 
 KerrGeoBoyerLindquistFrequencies[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
 
-{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma]} = KerrGeoMinoFrequencies[a,p,e,x];
+{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalGamma]} = Values[KerrGeoMinoFrequencies[a,p,e,x]];
 
-{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi]}/\[CapitalGamma]
-
+  <| "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)" -> \[CapitalUpsilon]r,
+     "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\)" -> \[CapitalUpsilon]\[Theta],
+     "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Phi]\)]\)" -> \[CapitalUpsilon]\[Phi] 
+   |> / \[CapitalGamma]
 ]
 
 
 KerrGeoProperFrequencyFactor[a_,p_,e_,x_]:=
-Module[
-{\[Rho]1,\[Rho]2,\[Rho]3,\[Rho]4,zm,zp,T},
-{\[Rho]1,\[Rho]2,\[Rho]3,\[Rho]4}=KerrGeoRadialRoots[a,p,e,x];
-{zp,zm}=KerrGeoPolarRoots[a,p,e,x];
-T=KerrGeoEnergy[a,p,e,x];
-With[{
-kr= (\[Rho]1-\[Rho]2)/(\[Rho]1-\[Rho]3) (\[Rho]3-\[Rho]4)/(\[Rho]2-\[Rho]4),
-k\[Theta]=a^2 (1-T^2)(zm/zp)^2,
-hr=(\[Rho]1-\[Rho]2)/(\[Rho]1-\[Rho]3)
-},
+Module[{\[Rho]1,\[Rho]2,\[Rho]3,\[Rho]4,zm,zp,T},
+	{\[Rho]1,\[Rho]2,\[Rho]3,\[Rho]4}=KerrGeoRadialRoots[a,p,e,x];
+	{zp,zm}=KerrGeoPolarRoots[a,p,e,x];
+	T=KerrGeoEnergy[a,p,e,x];
+	With[{kr= (\[Rho]1-\[Rho]2)/(\[Rho]1-\[Rho]3) (\[Rho]3-\[Rho]4)/(\[Rho]2-\[Rho]4), k\[Theta]=a^2 (1-T^2)(zm/zp)^2, hr=(\[Rho]1-\[Rho]2)/(\[Rho]1-\[Rho]3)},
 
-1/2 (-((2 zp^2)/(-1+T^2))+\[Rho]1 (-\[Rho]2+\[Rho]3)+\[Rho]3 (\[Rho]2+\[Rho]3))
-+((\[Rho]1-\[Rho]3) (\[Rho]2-\[Rho]4) EllipticE[kr])/(2 EllipticK[kr])
-+(zp^2 EllipticE[k\[Theta]])/((-1+T^2) EllipticK[k\[Theta]])+((\[Rho]2-\[Rho]3) (\[Rho]1+\[Rho]2+\[Rho]3+\[Rho]4) EllipticPi[hr,kr])/(2 EllipticK[kr])
-]]
+		1/2 (-((2 zp^2)/(-1+T^2))+\[Rho]1 (-\[Rho]2+\[Rho]3)+\[Rho]3 (\[Rho]2+\[Rho]3))
+		+((\[Rho]1-\[Rho]3) (\[Rho]2-\[Rho]4) EllipticE[kr])/(2 EllipticK[kr])
+		+(zp^2 EllipticE[k\[Theta]])/((-1+T^2) EllipticK[k\[Theta]])+((\[Rho]2-\[Rho]3) (\[Rho]1+\[Rho]2+\[Rho]3+\[Rho]4) EllipticPi[hr,kr])/(2 EllipticK[kr])
+	]
+]
 
 
 
-KerrGeoProperFrequencies[a_,p_,e_,x_]:=KerrGeoMinoFrequencies[a,p,e,x]/KerrGeoProperFrequencyFactor[a,p,e,x]
+KerrGeoProperFrequencies[a_,p_,e_,x_]:=Module[{MinoFreqs,P},
+	MinoFreqs = KerrGeoMinoFrequencies[a,p,e,x];
+	P=KerrGeoProperFrequencyFactor[a,p,e,x];
+	<|"\!\(\*SubscriptBox[\(\[Omega]\), \(r\)]\)"-> MinoFreqs["\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)"]/P, "\!\(\*SubscriptBox[\(\[Omega]\), \(\[Theta]\)]\)"-> MinoFreqs["\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)"]/P, "\!\(\*SubscriptBox[\(\[Omega]\), \(\[Phi]\)]\)"-> MinoFreqs["\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)"]/P |>
+]
 
 
 (* ::Section:: *)
@@ -479,7 +506,7 @@ KerrGeoProperFrequencies[a_,p_,e_,x_]:=KerrGeoMinoFrequencies[a,p,e,x]/KerrGeoPr
 
 Options[KerrGeoFrequencies] = {"Time" -> "BoyerLindquist"}
 SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};
-KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]]:=Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
+KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]] := Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
 
 
 If[OptionValue["Time"]=="Mino",Return[KerrGeoMinoFrequencies[a,p,e,x][[1;;3]]]];
@@ -491,7 +518,7 @@ If[OptionValue["Time"]=="Proper",Return[KerrGeoProperFrequencies[a,p,e,x][[1;;3]
 ]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Orbital Trajectory*)
 
 
@@ -518,19 +545,20 @@ rSchwarzDarwin[p_,e_,\[Chi]_]:=p/(1 + e Cos[\[Chi]])
 (*FIXME: make the below work for inclined orbits and accept initial phases*)
 
 
-KerrGeoOrbitSchwarzDarwin[p_, e_]:=Module[{t, r, \[Theta], \[Phi], assoc,En,L,Q},
+KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En,L,Q},
 
 t[\[Chi]_] := tSchwarzDarwin[p,e,\[Chi]];
 r[\[Chi]_] := rSchwarzDarwin[p,e,\[Chi]];
 \[Theta][\[Chi]_] := \[Theta]SchwarzDarwin[p,e,\[Chi]];
 \[Phi][\[Chi]_] := \[Phi]SchwarzDarwin[p,e,\[Chi]];
 
-{En,L,Q} = KerrGeoConstantsOfMotion[0,p,e,1];
+consts = KerrGeoConstantsOfMotion[0,p,e,1];
+{En,L,Q} = Values[consts];
 
 assoc = Association[
 			"Trajectory" -> {t,r,\[Theta],\[Phi]},
 			"Parametrization" -> "Darwin", 
-			"ConstantsOfMotion"->{En,L,Q}, 
+			"ConstantsOfMotion"-> consts, 
 			"Energy" -> En,
 			"AngularMomentum" -> L,
 			"CarterConstant" -> Q
@@ -541,7 +569,7 @@ KerrGeoOrbitFunction[0, p, e, 0, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -553,13 +581,14 @@ KerrGeoOrbitFunction[0, p, e, 0, assoc]
 (*Compute the orbit using Mino time and then convert to Darwin time using \[Lambda][r[\[Chi]]] where \[Lambda][r] is found in Fujita and Hikida (2009).*)
 
 
-KerrGeoOrbitEquatorialDarwin[a_,p_,e_,x_/;x^2==1]:=Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc},
+KerrGeoOrbitEquatorialDarwin[a_,p_,e_,x_/;x^2==1] := Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],consts,En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc},
 
 orbitMino = KerrGeoOrbit[a,p,e,x];
 
 {r1,r2,r3,r4} = orbitMino["RadialRoots"];
 freqs = orbitMino["Frequencies"];
-{En,L,Q} = orbitMino["ConstantsOfMotion"];
+consts = orbitMino["ConstantsOfMotion"];
+{En,L,Q} = Values[consts];
 \[CapitalLambda]r = (2\[Pi])/freqs[[1]];
 
 yr[r_]:=Sqrt[(r1-r3)/(r1-r2) (r-r2)/(r-r3)];
@@ -584,7 +613,7 @@ rDarwin[\[Chi]_]:= rMino[\[Lambda][\[Chi]]];
 assoc = Association[
 			"Trajectory" -> {tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin}, 
 			"Parametrization" -> "Darwin", 
-			"ConstantsOfMotion"->{En,L,Q}, 
+			"ConstantsOfMotion"-> consts, 
 			"RadialRoots"->{r1,r2,r3,r4},
 			"Energy" -> En,
 			"AngularMomentum" -> L,
@@ -676,9 +705,10 @@ Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps,coeffs,
 
 Clear[KerrGeoOrbitFastSpecDarwin];
 KerrGeoOrbitFastSpecDarwin[a_,p_,e_,x_/;x^2==1,initPhases:{_,_,_,_}:{0,0,0,0}]:=
-Module[{M=1,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta],\[Phi],\[Chi],growthRateT,growthRatePh,
+Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta],\[Phi],\[Chi],growthRateT,growthRatePh,
 		\[Chi]r,NrMax,pg,\[CapitalDelta]tr,\[CapitalDelta]\[Phi]r,\[Phi]C,tC,Pr,r0Sample,PrSample,dtd\[Chi],d\[Phi]d\[Chi],TVr,PVr},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	consts = KerrGeoConstantsOfMotion[a,p,e,x]
+	{En,L,Q} = Values[consts];
 	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
 	p3=(1-e)r3/M;
 	p4=(1+e)r4/M;
@@ -730,7 +760,7 @@ Module[{M=1,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0
 		"Energy" -> En, 
 		"AngularMomentum" -> L, 
 		"CarterConstant" -> Q, 
-		"ConstantsOfMotion" -> {En,L,Q},
+		"ConstantsOfMotion" -> consts,
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
 		"RadialRoots" -> {r1,r2,r3,r4}
 		];
@@ -751,9 +781,10 @@ Module[{M=1,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0
 
 
 KerrGeoOrbitFastSpecDarwin[a_,p_,e_/;e==0,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=
-Module[{M=1,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta],\[Phi],\[Chi],freqT,freqPh,
+Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta],\[Phi],\[Chi],freqT,freqPh,
 		\[Chi]\[Theta],pg,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]\[Theta],\[Phi]C,tC,P\[Theta],\[Theta]0Sample,P\[Theta]Sample,dtd\[Chi],d\[Phi]d\[Chi],TV\[Theta],PV\[Theta],\[Beta],\[Alpha],zRoots},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	consts = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[consts];
 	
 	(* Useful constants for \[Theta]-dependent calculations *)
 	\[Beta]=a^2(1-En^2);
@@ -809,7 +840,7 @@ Module[{M=1,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta
 		"Energy" -> En, 
 		"AngularMomentum" -> L, 
 		"CarterConstant" -> Q, 
-		"ConstantsOfMotion" -> {En,L,Q},
+		"ConstantsOfMotion" -> consts,
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
 		"PolarRoots" -> zRoots
 		];
@@ -818,13 +849,14 @@ Module[{M=1,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
-KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi]},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
-	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = KerrGeoMinoFrequencies[a,p,e,x];
+KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi]},
+	consts = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[consts];
+	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeoMinoFrequencies[a,p,e,x]];
 	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
 	{zp,zm} = KerrGeoPolarRoots[a, p, e, x];
 	
@@ -873,7 +905,7 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 	"Energy" -> En, 
 	"AngularMomentum" -> L, 
 	"CarterConstant" -> Q, 
-	"ConstantsOfMotion" -> {En,L,Q},
+	"ConstantsOfMotion" -> consts,
 	"RadialFrequency" -> \[CapitalUpsilon]r,
 	"PolarFrequency" ->  \[CapitalUpsilon]\[Theta],
 	"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
@@ -894,7 +926,7 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Subroutines for calculating \[Lambda](\[Psi]) and \[Lambda](\[Chi])*)
 
 
@@ -902,7 +934,7 @@ Clear[MinoRFastSpec];
 MinoRFastSpec[a_,p_,e_,x_]:=
 Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,\[Psi]r,r0,p3,p4,Pr,PrSample,NrInit=2^4,
 		\[ScriptCapitalP]rSample,\[ScriptCapitalP]rn,\[ScriptCapitalP]rList,\[CapitalDelta]\[Lambda]r,pg,iter=1,compare,res,rate},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
 	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
 	p3=(1-e)r3/M;
 	p4=(1+e)r4/M;
@@ -924,7 +956,7 @@ Clear[MinoThetaFastSpec];
 MinoThetaFastSpec[a_,p_,e_,x_]:=
 Module[{M=1,En,L,Q,zp,zm,\[Chi]\[Theta],\[Beta],P\[Theta],P\[Theta]Sample,NthInit=2^4,\[ScriptCapitalP]\[Theta]List,\[ScriptCapitalP]\[Theta]Sample,
 	\[ScriptCapitalP]\[Theta]k,\[CapitalDelta]\[Lambda]\[Theta],pg,iter=1,compare,res,\[Alpha],rate},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
 	\[Beta]=a^2(1-En^2);
 	\[Alpha]=L^2+Q+\[Beta];
 	zp=Sqrt[(\[Alpha]+Sqrt[\[Alpha]^2-4 Q \[Beta]])/(2\[Beta])];
@@ -963,7 +995,7 @@ Module[{sampledFunc,NInit,phase},
 
 PhiOfMinoFastSpecR[a_,p_,e_,x_,{\[CapitalUpsilon]r_,minoSampleR_}]:=
 Module[{M=1,En,L,Q,sampledFuncR,sampledMinoR,PVr,\[CapitalDelta]\[Phi]r},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
 	PVr[rp_]:=-((a^2*L)/(a^2 - 2*M*rp + rp^2)) + a*En*(-1 + (a^2 + rp^2)/(a^2 - 2*M*rp + rp^2));
 
 	sampledFuncR=LambdaToPsiRTransform[a,p,e,x,PVr];
@@ -988,7 +1020,7 @@ PhiOfMinoFastSpecR[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]r,\[CapitalDelta]\[Lam
 
 PhiOfMinoFastSpecTheta[a_,p_,e_,x_,{\[CapitalUpsilon]\[Theta]_,minoSampleTh_}]:=
 Module[{M=1,En,L,Q,sampledFuncTheta,sampledMinoTheta,PV\[Theta],\[CapitalDelta]\[Phi]\[Theta]},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
 	PV\[Theta][\[Theta]p_]:=L*Csc[\[Theta]p]^2;
 	
 	sampledFuncTheta=LambdaToChiThetaTransform[a,p,e,x,PV\[Theta]];
@@ -1013,7 +1045,7 @@ PhiOfMinoFastSpecTheta[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]\[Theta],\[Capital
 
 TimeOfMinoFastSpecR[a_,p_,e_,x_,{\[CapitalUpsilon]r_,minoSampleR_}]:=
 Module[{M=1,En,L,Q,sampledFuncR,sampledMinoR,TVr,\[CapitalDelta]tr},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
 	TVr[rp_]:=(En*(a^2 + rp^2)^2)/(a^2 - 2*M*rp + rp^2) + a*L*(1 - (a^2 + rp^2)/(a^2 - 2*M*rp + rp^2));
 
 	sampledFuncR=LambdaToPsiRTransform[a,p,e,x,TVr];
@@ -1038,7 +1070,7 @@ TimeOfMinoFastSpecR[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]r,\[CapitalDelta]\[La
 
 TimeOfMinoFastSpecTheta[a_,p_,e_,x_,{\[CapitalUpsilon]\[Theta]_,minoSampleTh_}]:=
 Module[{M=1,En,L,Q,sampledFuncTheta,sampledMinoTheta,TV\[Theta],\[CapitalDelta]t\[Theta]},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
 	TV\[Theta][\[Theta]p_]:=-(a^2*En*Sin[\[Theta]p]^2);
 
 	sampledFuncTheta=LambdaToChiThetaTransform[a,p,e,x,TV\[Theta]];
@@ -1068,7 +1100,7 @@ TimeOfMinoFastSpecTheta[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]\[Theta],\[Capita
 
 LambdaToPsiRTransform[a_,p_,e_,x_,rFunc_]:=
 Module[{M=1,En,L,Q,r1,r2,r3,r4,p3,p4,\[Psi]r,r0,r0Sample,Pr,PrSample,rFuncSample,pg},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
 	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
 	p3=(1-e)r3/M;
 	p4=(1+e)r4/M;
@@ -1091,7 +1123,7 @@ Module[{M=1,En,L,Q,r1,r2,r3,r4,p3,p4,\[Psi]r,r0,r0Sample,Pr,PrSample,rFuncSample
 
 LambdaToChiThetaTransform[a_,p_,e_,x_,thFunc_]:=
 Module[{M=1,En,L,Q,zp,zm,\[Beta],\[Chi]\[Theta],\[Theta]0,\[Theta]0Sample,P\[Theta],P\[Theta]Sample,thFuncSample,pg,\[Alpha]},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
 	\[Beta]=a^2(1-En^2);
 	\[Alpha]=L^2+Q+\[Beta];
 	zp=Sqrt[(\[Alpha]+Sqrt[\[Alpha]^2-4 Q \[Beta]])/(2\[Beta])];
@@ -1263,10 +1295,11 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 Clear[KerrGeoOrbitFastSpec];
 Options[KerrGeoOrbitFastSpec]={InitialPosition->{0,0,0,0}};
 KerrGeoOrbitFastSpec[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0},opts:OptionsPattern[]]:=
-Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,p3,p4,\[Alpha],\[Beta],zp,zm,assoc,var,\[Chi]0,\[Psi]0,
+Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,p3,p4,\[Alpha],\[Beta],zp,zm,assoc,var,\[Chi]0,\[Psi]0,
 		r0,\[Theta]0,qt0,qr0,q\[Theta]0,q\[Phi]0,\[Lambda]t0,\[Lambda]r0,\[Lambda]\[Theta]0,\[Lambda]\[Phi]0,t,r,\[Theta],\[Phi],\[Psi],\[Chi],\[CapitalDelta]\[Lambda]r,\[Lambda]r,\[CapitalDelta]\[Lambda]\[Theta],\[Lambda]\[Theta],rC,\[Theta]C,\[CapitalDelta]r,\[CapitalDelta]\[Theta],
 		\[Psi]r,\[Chi]\[Theta],NrMax,NthMax,pg,\[Lambda]rSample,\[Lambda]\[Theta]Sample,\[CapitalDelta]tr,\[CapitalDelta]\[Phi]r,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]\[Theta],\[Phi]C,tC,zRoots,tInit,rInit,\[Theta]Init,\[Phi]Init},
-	{En,L,Q} = KerrGeoConstantsOfMotion[a,p,e,x];
+	consts = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[consts];
 	
 	(* Useful constants for \[Theta]-dependent calculations *)
 	\[Beta]=a^2(1-En^2);
@@ -1281,7 +1314,7 @@ Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon
 	(* Mino frequencies of orbit. I call Re, because some frequencies 
 	are given as imaginary for restricted orbits. 
 	Maybe something to fix with KerrGeoMinoFrequencies*)
-	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = KerrGeoMinoFrequencies[a,p,e,x];
+	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeoMinoFrequencies[a,p,e,x]];
 	If[e>0&&(Im[\[CapitalUpsilon]r]!=0||Re[\[CapitalUpsilon]r]==0),Print["Unstable orbit. Aborting."]; Abort[]];
 	If[r2<1+Sqrt[1-a^2],Print["Unstable orbit. Aborting."]; Abort[]];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Re[{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t}];
@@ -1372,7 +1405,7 @@ Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon
 		"Energy" -> En, 
 		"AngularMomentum" -> L, 
 		"CarterConstant" -> Q, 
-		"ConstantsOfMotion" -> {En,L,Q},
+		"ConstantsOfMotion" -> consts,
 		"RadialFrequency" -> \[CapitalUpsilon]r,
 		"PolarFrequency" ->  \[CapitalUpsilon]\[Theta],
 		"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
@@ -1603,7 +1636,7 @@ KerrGeoSeparatrix[a_,1,x_]:=2KerrGeoIBSO[a,x]
 
 KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,x1_?NumericQ/;Abs[x1]<=1]/;Precision[{a1,e1,x1}]!=\[Infinity]:=Block[{a=a1,ra2,\[Beta],E0,L0,Q0,e2,ru,x=x1,prec,r1,\[Beta]2,p,ru0},
 
-{E0,L0,Q0}=KerrGeoConstantsOfMotion[a,ru,0,x];
+{E0,L0,Q0}=Values[KerrGeoConstantsOfMotion[a,ru,0,x]];
 \[Beta]=(-1+E0^2);
 
 ra2=2 (-a E0+L0)^2+2 Q0+ru^2 (-1-ru \[Beta]+Sqrt[1+\[Beta] (L0^2+Q0-a^2 \[Beta]-2 ru (1+ru \[Beta]))]);

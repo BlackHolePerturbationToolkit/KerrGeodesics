@@ -2,6 +2,11 @@
 
 Print["Mathematica Version: ", $Version];
 
+withinRoundoff[a_, b_] :=
+  (* Ignore the last N machine digits *)
+  Block[{Internal`$SameQTolerance = 4},
+    SameQ[a,b]];
+
 PrependTo[$Path, FileNameDrop[ExpandFileName[First[$ScriptCommandLine]],-3]];
 
 << KerrGeodesics`
