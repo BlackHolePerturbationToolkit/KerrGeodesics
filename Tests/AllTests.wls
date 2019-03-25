@@ -57,7 +57,7 @@ testsuiteXML[report_] :=
        "failures" -> "1",
        "time" -> ToString[QuantityMagnitude[report["TimeElapsed"], "Seconds"]]},
       {XMLElement["testcase", {"name" -> "Loading test file"},
-                  {XMLElement["failure", {}, {XMLObject["CDATASection"]["Error"]}]}]}
+                  {XMLElement["failure", {}, {XMLObject["CDATASection"]["Error reading file"]}]}]}
       ];,
     xml = XMLElement["testsuite",
       {"name" -> report["Title"],
