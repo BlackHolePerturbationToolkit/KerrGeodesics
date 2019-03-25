@@ -49,12 +49,22 @@ testResultXML[result_] :=
 ];
 
 testsuiteXML[report_] :=
-  XMLElement["testsuite",
-    {"name" -> report["Title"],
-     "tests" -> ToString[report["TestsSucceededCount"] + report["TestsFailedCount"]],
-     "failures" -> ToString[report["TestsFailedCount"]],
-     "time" -> ToString[QuantityMagnitude[report["TimeElapsed"], "Seconds"]]},
-    Map[testResultXML, Values[report["TestResults"]]]];
+ Module[{xml},
+  If[MatchQ[report["TestResults"], <| {"Event", "Fatal"} -> __ |>],
+    xml = XMLElement["testsuite",
+      {"name" -> report["Title"],
+       "tests" -> "1",
+       "failures" -> "1",
+       "time" -> ToString[QuantityMagnitude[report["TimeElapsed"], "Seconds"]]}, {}];,
+    xml = XMLElement["testsuite",
+      {"name" -> report["Title"],
+       "tests" -> ToString[report["TestsSucceededCount"] + report["TestsFailedCount"]],
+       "failures" -> ToString[report["TestsFailedCount"]],
+       "time" -> ToString[QuantityMagnitude[report["TimeElapsed"], "Seconds"]]},
+        Map[testResultXML, Values[report["TestResults"]]]];
+  ];
+  xml
+];
 
 xml = XMLObject["Document"][{XMLObject["Declaration"]["Version" -> "1.0",  "Encoding" -> "UTF-8"]}, 
   XMLElement[
