@@ -17,7 +17,7 @@ VerificationTest[
 VerificationTest[
     KerrGeoSeparatrix[0.097495348879545, 0.49967208040572664]
     ,
-    3.3631650574114933`
+    3.3631650574114933``
     ,
     TestID -> "KerrGeoSeparatrix Numerics 2"
     ,
