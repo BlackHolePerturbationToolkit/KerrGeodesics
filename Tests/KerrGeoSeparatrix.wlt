@@ -8,3 +8,16 @@ VerificationTest[
     ,
     TestID->"KerrGeoSeparatrix documentation example 1"
 ]
+
+(****************************************************************)
+(* KerrGeoSeparatrix Numerics 1                                 *)
+(****************************************************************)
+VerificationTest[
+    KerrGeoSeparatrix[0.9, 0.5, Cos[Pi/3]]
+    ,
+    4.342259681112724`
+    ,
+    TestID -> "KerrGeoSeparatrix  Numerics 1"
+    ,
+    SameTest -> withinRoundoff 
+]
