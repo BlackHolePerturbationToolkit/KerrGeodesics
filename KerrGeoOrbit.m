@@ -55,12 +55,16 @@ assoc = Association[
 			"Trajectory" -> {t,r,\[Theta],\[Phi]},
 			"Parametrization" -> "Darwin", 
 			"ConstantsOfMotion"-> consts, 
+			"a" -> 0,
+			"p" -> p,
+			"e" -> e,
+			"Inclination" -> 1,
 			"Energy" -> En,
 			"AngularMomentum" -> L,
 			"CarterConstant" -> Q
 			];
 
-KerrGeoOrbitFunction[0, p, e, 0, assoc]
+KerrGeoOrbitFunction[0, p, e, 1, assoc]
 
 ]
 
@@ -111,6 +115,10 @@ assoc = Association[
 			"Parametrization" -> "Darwin", 
 			"ConstantsOfMotion"-> consts, 
 			"RadialRoots"->{r1,r2,r3,r4},
+			"a" -> a,
+			"p" -> p,
+			"e" -> e,
+			"Inclination" -> x,
 			"Energy" -> En,
 			"AngularMomentum" -> L,
 			"CarterConstant" -> Q
@@ -258,7 +266,11 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 		"CarterConstant" -> Q, 
 		"ConstantsOfMotion" -> consts,
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
-		"RadialRoots" -> {r1,r2,r3,r4}
+		"RadialRoots" -> {r1,r2,r3,r4},
+		"a" -> a,
+		"p" -> p,
+		"e" -> e,
+		"Inclination" -> x
 		];
 	
 	KerrGeoOrbitFunction[a,p,e,x,assoc]
@@ -272,7 +284,7 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -338,7 +350,11 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 		"CarterConstant" -> Q, 
 		"ConstantsOfMotion" -> consts,
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
-		"PolarRoots" -> zRoots
+		"PolarRoots" -> zRoots,
+		"a" -> a,
+		"p" -> p,
+		"e" -> e,
+		"Inclination" -> x
 		];
 	
 	KerrGeoOrbitFunction[a,p,e,x,assoc]
@@ -407,7 +423,11 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 	"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
 	"Frequencies" -> {\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi]},
 	"Trajectory" -> {t,r,\[Theta],\[Phi]},
-	"RadialRoots" -> {r1,r2,r3,r4}
+	"RadialRoots" -> {r1,r2,r3,r4},
+	"a" -> a,
+	"p" -> p,
+	"e" -> e,
+	"Inclination" -> x
 	];
 
 	KerrGeoOrbitFunction[a,p,e,x,assoc]
@@ -422,7 +442,7 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Subroutines for calculating \[Lambda](\[Psi]) and \[Lambda](\[Chi])*)
 
 
@@ -485,7 +505,7 @@ Module[{sampledFunc,NInit,phase},
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Subroutines for calculating \[CapitalDelta]\[Phi]r(\[Lambda]), \[CapitalDelta]\[Phi]\[Theta](\[Lambda]), \[CapitalDelta]tr(\[Lambda]), \[CapitalDelta]t\[Theta](\[Lambda])*)
 
 
@@ -589,7 +609,7 @@ TimeOfMinoFastSpecTheta[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]\[Theta],\[Capita
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Generic subroutines that transform functions from *)
 (*\[Lambda] dependence to \[Psi] or \[Chi] dependence*)
 
@@ -784,7 +804,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -908,7 +928,11 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 		"Frequencies" -> {\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi]},
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
 		"RadialRoots" -> {r1,r2,r3,r4},
-		"PolarRoots" -> zRoots
+		"PolarRoots" -> zRoots,
+		"a" -> a,
+		"p" -> p,
+		"e" -> e,
+		"Inclination" -> x
 		];
 	
 	KerrGeoOrbitFunction[a,p,e,x,assoc]
