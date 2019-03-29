@@ -9,7 +9,8 @@
 
 
 BeginPackage["KerrGeodesics`KerrGeoOrbit`",
-	{"KerrGeodesics`ConstantsOfMotion`",
+	{"KerrGeodesics`", (*FIXME, this is needed to get the RadialRoots function, maybe move that elsewhere*)
+	 "KerrGeodesics`ConstantsOfMotion`",
 	 "KerrGeodesics`OrbitalFrequencies`"}];
 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
