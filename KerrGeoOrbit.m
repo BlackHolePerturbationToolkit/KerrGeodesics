@@ -70,7 +70,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -212,9 +212,9 @@ Clear[KerrGeoOrbitFastSpecDarwin];
 KerrGeoOrbitFastSpecDarwin[a_,p_,e_,x_/;x^2==1,initPhases:{_,_,_,_}:{0,0,0,0}]:=
 Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta],\[Phi],\[Chi],growthRateT,growthRatePh,
 		\[Chi]r,NrMax,pg,\[CapitalDelta]tr,\[CapitalDelta]\[Phi]r,\[Phi]C,tC,Pr,r0Sample,PrSample,dtd\[Chi],d\[Phi]d\[Chi],TVr,PVr},
-	consts = KerrGeoConstantsOfMotion[a,p,e,x]
+	consts = KerrGeoConstantsOfMotion[a,p,e,x];
 	{En,L,Q} = Values[consts];
-	{r1,r2,r3,r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
+	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
 	p3=(1-e)r3/M;
 	p4=(1+e)r4/M;
 	
