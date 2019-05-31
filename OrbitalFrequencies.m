@@ -61,30 +61,30 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 (*Schwarzschild*)
 
 
-KerrGeoMinoFrequencies[0,p_,0,x_] :=
+KerrGeoMinoFrequencies[0|0., p_,0,x_] :=
  <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> Sqrt[((-6+p) p)/(-3+p)],
     "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> p Sqrt[1/((-3+p) x^2)] x,
     "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> (p x)/Sqrt[(-3+p) x^2],
     "\[CapitalGamma]" -> Sqrt[p^5/(-3+p)] |>;
 
 
-KerrGeoMinoFrequencies[0,p_,e_,x_] :=
+KerrGeoMinoFrequencies[0|0., p_,e_,x_] :=
  <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> (Sqrt[-((p (-6+2 e+p))/(3+e^2-p))] \[Pi])/(2 EllipticK[(4 e)/(-6+2 e+p)]),
     "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> p/Sqrt[-3-e^2+p],
     "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> (p x)/(Sqrt[-3-e^2+p] Abs[x]),
     "\[CapitalGamma]" -> 1/2 Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))] (8+1/((-4+p)^2 EllipticK[(4 e)/(-6+2 e+p)]) (-(((-4+p) p^2 (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)])/(-1+e^2))+(p^2 (28+4 e^2-12 p+p^2) EllipticK[(4 e)/(-6+2 e+p)])/(-1+e^2)-(2 (6+2 e-p) (3+e^2-p) p^2 EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)])/((-1+e) (1+e)^2)+(4 (-4+p) p (2 (1+e) EllipticK[(4 e)/(-6+2 e+p)]+(-6-2 e+p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)]))/(1+e)+2 (-4+p)^2 ((-4+p) EllipticK[(4 e)/(-6+2 e+p)]-((6+2 e-p) p EllipticPi[(16 e)/(12+8 e-4 e^2-8 p+p^2),(4 e)/(-6+2 e+p)])/(2+2 e-p)))) |>;
 
 
-KerrGeoBoyerLindquistFrequencies[0,p_,0,x_] :=
+KerrGeoBoyerLindquistFrequencies[0|0., p_,0,x_] :=
  <| "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)" -> Sqrt[-6+p]/p^2,
     "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\)" -> (Sqrt[1/x^2] x)/p^(3/2),
     "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Phi]\)]\)" -> (p x)/Sqrt[p^5 x^2] |>;
 
 
-KerrGeoProperFrequencyFactor[0,p_,0,x_]:=p^2
+KerrGeoProperFrequencyFactor[0|0., p_,0,x_]:=p^2
 
 
-KerrGeoProperFrequencyFactor[0,p_,e_,x_]:=(p^2 ((1+e) (28+4 e^2+(-12+p) p)-((1+e) (-4+p) (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)]+2 (6+2 e-p) (3+e^2-p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)])/EllipticK[(4 e)/(-6+2 e+p)]))/(2 (-1+e) (1+e)^2 (-4+p)^2)
+KerrGeoProperFrequencyFactor[0|0. ,p_,e_,x_]:=(p^2 ((1+e) (28+4 e^2+(-12+p) p)-((1+e) (-4+p) (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)]+2 (6+2 e-p) (3+e^2-p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)])/EllipticK[(4 e)/(-6+2 e+p)]))/(2 (-1+e) (1+e)^2 (-4+p)^2)
 
 
 (* ::Subsection::Closed:: *)

@@ -70,7 +70,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -960,9 +960,9 @@ If[Precision[{a,p,e,x}] > 30, method = "Analytic"];
 
 If[method == "FastSpec",
 
-	If[param == "Mino",  If[a==0||a==0., Return[KerrGeoOrbitMino[a, p, e, x, initPhases]], Return[KerrGeoOrbitFastSpec[a, p, e, x, initPhases]]]];
+	If[param == "Mino",  If[PossibleZeroQ[a], Return[KerrGeoOrbitMino[a, p, e, x, initPhases]], Return[KerrGeoOrbitFastSpec[a, p, e, x, initPhases]]]];
 	If[param == "Darwin", 
-		If[a==0||a==0.,Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitFastSpecDarwin[a,p,e,x,initPhases]]]
+		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitFastSpecDarwin[a,p,e,x,initPhases]]]
 	];
 	Print["Unrecognized parametrization: " <> OptionValue["Parametrization"]];
 	
@@ -972,7 +972,7 @@ If[method == "Analytic",
 
 	If[param == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
 	If[param == "Darwin", 
-		If[a==0 || a==0.,Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitDarwin[a,p,e,x,initPhases]]]
+		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitDarwin[a,p,e,x,initPhases]]]
 	];
 	Print["Unrecognized parametrization: " <> OptionValue["Parametrization"]];
 
