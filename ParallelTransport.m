@@ -26,7 +26,7 @@ Begin["`Private`"];
 (*Generic (Mino)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Frequencies*)
 
 
@@ -85,7 +85,7 @@ zp=(a^2 (1-\[ScriptCapitalE]^2)+\[ScriptCapitalL]^2/x^2)^(1/2)
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*PrecessionPhase*)
 
 
@@ -253,7 +253,7 @@ Print["Unrecognized method: " <> method];
 ]
 
 
-Format[KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_]] := "KerrGeoOrbitFunction["<>ToString[a]<>","<>ToString[p]<>","<>ToString[e]<>","<>ToString[N[x]]<>",<<>>]";
+Format[KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_]] := "KerrGeoParallelTransportFrameFunction["<>ToString[a]<>","<>ToString[p]<>","<>ToString[e]<>","<>ToString[N[x]]<>",<<>>]";
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == False] := assoc["ParallelTransportedFrame"][\[Lambda]]
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
