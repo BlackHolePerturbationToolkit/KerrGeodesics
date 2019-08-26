@@ -4,6 +4,10 @@
 (*ParallelTransport subpackage of KerrGeodesics*)
 
 
+(* ::Text:: *)
+(*This subpackage implements the  analytic equations for parallel transport along a geodesic in Kerr spacetime given by M. van de Meent in https://arxiv.org/abs/1906.05090*)
+
+
 (* ::Chapter:: *)
 (*Define usage for public functions*)
 
@@ -13,7 +17,7 @@ BeginPackage["KerrGeodesics`ParallelTransport`",
 	 "KerrGeodesics`KerrGeoOrbit`"}];
 
 KerrParallelTransportFrame::usage = "KerrParallelTransportFrame[a,p,e,x] returns a KerrParallelTransportFrameFunction[..] which stores the parallely transported frame, orbital trajectory, and parameters.";
-KerrParallelTransportFrameFunction::usage = "KerrParallelTransportFrameFunction[a,p,e,x,assoc] an object for storing the parallely transported frame, ,trajectory and orbital parameters in the assoc Association.";
+KerrParallelTransportFrameFunction::usage = "KerrParallelTransportFrameFunction[a,p,e,x,assoc] an object for storing the parallely transported frame, trajectory and orbital parameters in the assoc Association.";
 
 Begin["`Private`"];
 
@@ -85,7 +89,7 @@ zp=(a^2 (1-\[ScriptCapitalE]^2)+\[ScriptCapitalL]^2/x^2)^(1/2)
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*PrecessionPhase*)
 
 
@@ -166,7 +170,7 @@ Function[{\[Lambda]},
 
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Tetrads*)
 
 
@@ -253,7 +257,7 @@ Print["Unrecognized method: " <> method];
 ]
 
 
-Format[KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_]] := "KerrGeoParallelTransportFrameFunction["<>ToString[a]<>","<>ToString[p]<>","<>ToString[e]<>","<>ToString[N[x]]<>",<<>>]";
+Format[KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_]] := "KerrParallelTransportFrameFunction["<>ToString[a]<>","<>ToString[p]<>","<>ToString[e]<>","<>ToString[N[x]]<>",<<>>]";
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == False] := assoc["ParallelTransportedFrame"][\[Lambda]]
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
