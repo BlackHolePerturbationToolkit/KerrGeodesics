@@ -170,7 +170,7 @@ Function[{\[Lambda]},
 
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Tetrads*)
 
 
@@ -189,7 +189,7 @@ MarckCarterFrame[orbit_KerrGeoOrbitFunction]:=
 						r=rf[\[Lambda]],\[Theta]=\[Theta]f[\[Lambda]],rd=rf'[\[Lambda]],\[Theta]d=\[Theta]f'[\[Lambda]]
 					},
 					{(*(Subscript[e, i])^(a)Subscript[\[Eta], (a)(b)]Subscript[(\[Omega]^(b)), \[Mu]]*)
-						{-((\[ScriptCapitalE] (a^2+2 r^2+a^2 Cos[2 \[Theta]]))/(2 \[CapitalSigma][r,\[Theta]])),rd/\[CapitalDelta][r],\[Theta]d,(\[ScriptCapitalL] (a^2+2 r^2+a^2 Cos[2 \[Theta]]))/(2 \[CapitalSigma][r,\[Theta]])},
+						{-\[ScriptCapitalE], rd/\[CapitalDelta][r],\[Theta]d, \[ScriptCapitalL]},
 						{(-r rd \[Alpha]-a^2 \[Beta] \[Theta]d Cos[\[Theta]] Sin[\[Theta]])/(Sqrt[\[ScriptCapitalK]] \[CapitalSigma][r,\[Theta]]),(r ((a^2+r^2) \[ScriptCapitalE]-a \[ScriptCapitalL]) \[Alpha])/(Sqrt[\[ScriptCapitalK]] \[CapitalDelta][r]),(a \[Beta] Cos[\[Theta]] (-\[ScriptCapitalL] Csc[\[Theta]]+a \[ScriptCapitalE] Sin[\[Theta]]))/Sqrt[\[ScriptCapitalK]],(a Sin[\[Theta]] ((a^2+r^2) \[Beta] \[Theta]d Cos[\[Theta]]+r rd \[Alpha] Sin[\[Theta]]))/(Sqrt[\[ScriptCapitalK]] \[CapitalSigma][r,\[Theta]])},
 						{(a^2 \[ScriptCapitalE] \[Alpha]+r^2 \[ScriptCapitalE] \[Alpha]+a \[ScriptCapitalL] (-\[Alpha]+\[Beta])-a^2 \[ScriptCapitalE] \[Beta] Sin[\[Theta]]^2)/\[CapitalSigma][r,\[Theta]],-((rd \[Alpha])/\[CapitalDelta][r]),-\[Beta] \[Theta]d,(-(a^2+r^2) \[ScriptCapitalL] \[Beta]+a (a \[ScriptCapitalL] \[Alpha]+a^2 \[ScriptCapitalE] (-\[Alpha]+\[Beta])+r^2 \[ScriptCapitalE] (-\[Alpha]+\[Beta])) Sin[\[Theta]]^2)/\[CapitalSigma][r,\[Theta]]},
 						{(a (-rd Cos[\[Theta]]+r \[Theta]d Sin[\[Theta]]))/(Sqrt[\[ScriptCapitalK]] \[CapitalSigma][r,\[Theta]]),(a ((a^2+r^2) \[ScriptCapitalE]-a \[ScriptCapitalL]) Cos[\[Theta]])/(Sqrt[\[ScriptCapitalK]] \[CapitalDelta][r]),(r \[ScriptCapitalL] Csc[\[Theta]]-a r \[ScriptCapitalE] Sin[\[Theta]])/Sqrt[\[ScriptCapitalK]],(Sin[\[Theta]] (-2 r (a^2+r^2) \[Theta]d+a^2 rd Sin[2 \[Theta]]))/(2 Sqrt[\[ScriptCapitalK]] \[CapitalSigma][r,\[Theta]])}
