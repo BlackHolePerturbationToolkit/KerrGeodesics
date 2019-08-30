@@ -1,8 +1,10 @@
 {% include head.html %}
 
-<p align="center"><img src="kerr_generic_orbit.png" width="500px"></p>
+# KerrGeodesics
 
 The KerrGeodesics package for Mathematica provides functions for computing bound timelike geodesics and their properties in Kerr spacetime.
+
+<p align="center"><img src="kerr_generic_orbit.png" width="500px"></p>
 
 ## Example usage
 
