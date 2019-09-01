@@ -21,3 +21,18 @@
     padding: 1rem 1rem;
   }
 }
+
+
+.code_btn{
+	color: rgba(255,255,255,1);
+	background-color: rgba(255, 0, 0, 0.6);
+	padding: 10px;
+	border-style: solid;
+	border-color:red;
+	border-width:1px;
+	border-radius: 0.4rem;	
+	
+	text-decoration: none;
+	
+	transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}

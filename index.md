@@ -1,6 +1,8 @@
 {% include head.html %}
 
-# KerrGeodesics
+<p>
+ <h1 style="display:inline">KerrGeodesics</h1> <span style="float:right;"><a href="{{ site.github.repository_url }}" class = "code_btn">Get the code!</a></span>
+</p>
 
 The KerrGeodesics package for Mathematica provides functions for computing bound timelike geodesics and their properties in Kerr spacetime.
 
@@ -33,64 +35,30 @@ $x_\text{inc} = \cos\theta_\text{inc}$ - the orbital inclination.
 
 The parametrization $\\{a,p,e,\theta_\text{inc}\\}$ is described in, e.g., Sec. II of [arXiv:gr-qc/0509101](https://arxiv.org/abs/gr-qc/0509101)
 
-## Getting the package
+## Orbital constants and frequencies
 
-The latest development version will always be available from the project git
-repository:
+The constants of the motion can be computed using
+```
+KerrGeoEnergy[a,p,e,x]
+KerrGeoAngularMomentum[a,p,e,x]
+KerrGeoCarterConstant[a,p,e,x]
+```
+The above three can be computed together using `KerrGeoConstantsOfMotion[a,p,e,x]`. 
 
-```bash
-git clone https://github.com/BlackHolePerturbationToolkit/KerrGeodesics.git
+The orbital frequencies (w.r.t Boyer-Lindquist time $t$) are computed using `KerrGeoFrequencies[a,p,e,x]`. For this function you can pass the option `Time->"Mino"` to compute the frequencies w.r.t. Mino time.
+
+## Special orbits
+
+The package allows you compute a variety of special orbits including the innermost stable circular/spherical orbit (ISCO/ISSO), innermost bound spherical orbit (IBSO), the photon orbit and the location of the separatrix between stable and plunging orbits. The relevant functions are:
+
+```
+KerrGeoISCO[a,x]
+KerrGeoISSO[a,x]
+KerrGeoPhotonSphereRadius[a,x]
+KerrGeoIBSO[a,x]
+KerrGeoSeparatrix[a,e,x]
 ```
 
-## Requirements
+### Further examples
 
-
-The KerrGeodesics package requires a recent version of Mathematica. It is typically
-tested with only the latest available version.
-
-## Installation
-
-Clone the repository and place it somewhere on Mathematica's <span>$</span>Path.
-Typical locations are inside <span>$</span>{HOME}/.Mathematica/Applications/ for Linux or
-inside <span>$</span>{HOME}/Library/Mathematica/Applications/ for Mac OSX.
-
-## Usage
-
-The package may be loaded into Mathematica using the command:
-
-```Mathematica
-<< KerrGeodesics`
-```
-
-
-## Documentation and examples
-
-Examples are included in the documentation. See the
-KerrGeodesics page in Documentation Center. The package includes functions to calculate, e.g.,
-
-* Constants of motion and orbital frequencies
-* The orbital trajectory and 4-velocity
-* The location of the photon sphere
-* The location of inner-most bound and inner-most stable circular/spherical orbits
-* The location of the separatrix between bound and plunging orbits
-
-## Changelog
-
-22 November 2018: Merged the development branch into the master branch. Thanks to Zach, Tommy and Chuck for contributing code. This update is a major change with a lot of improvements. A key difference is the defintion of the inclination angle which is now x_inc = Cos[\theta_inc]. Bumped version number up to 0.5.<br/>
-7 August 2018: Added generic orbit calculation (thanks for M. van de Meent for contributing code). Currently the code is separated in KerrGeoOrbit2[..] but will soon replace the earlier code.<br>
-7 September 2017: Initial version publicly released.<br>
-10 June 2017: Initial version created.
-
-## Known problems
-
-Known bugs are recorded in the project [bug tracker](https://github.com/BlackHolePerturbationToolkit/KerrGeodesics/issues).
-
-## License
-
-This code is distributed under the University of Illinois/NCSA
-Open Source License. Details can be found in the LICENSE file.
-
-
-## Authors
-
-Niels Warburton, Maarten van de Meent, Zach Nasipak, Thomas Osburn, Charles Evans
+See the Documentation Centre for a tutorial and documentation on individual commands. Example notebooks can also be found in the [Mathematica Toolkit Examples](https://github.com/BlackHolePerturbationToolkit/MathematicaToolkitExamples) repository.
