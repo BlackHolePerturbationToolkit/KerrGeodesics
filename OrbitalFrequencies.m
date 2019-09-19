@@ -4,7 +4,7 @@
 (*OrbitalFrequencies subpackage of KerrGeodesics*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Define usage for public functions*)
 
 
@@ -89,6 +89,21 @@ KerrGeoProperFrequencyFactor[0|0. ,p_,e_,x_]:=(p^2 ((1+e) (28+4 e^2+(-12+p) p)-(
 
 (* ::Subsection::Closed:: *)
 (*Kerr*)
+
+
+KerrGeoMinoFrequencies[a_,p_,(0|0.),1] := Module[{\[CapitalUpsilon]r, \[CapitalUpsilon]\[Phi], \[CapitalUpsilon]\[Theta], \[CapitalGamma]},
+
+\[CapitalUpsilon]r = Sqrt[(p (-2 a^2+6 a Sqrt[p]+(-5+p) p+((a-Sqrt[p])^2 (a^2-4 a Sqrt[p]-(-4+p) p))/Abs[a^2-4 a Sqrt[p]-(-4+p) p]))/(2 a Sqrt[p]+(-3+p) p)];
+\[CapitalUpsilon]\[Theta] = Abs[(p^(1/4) Sqrt[3 a^2-4 a Sqrt[p]+p^2])/Sqrt[2 a+(-3+p) Sqrt[p]]];
+\[CapitalUpsilon]\[Phi] = p^(5/4)/Sqrt[2 a+(-3+p) Sqrt[p]];
+\[CapitalGamma] = (p^(5/4) (a+p^(3/2)))/Sqrt[2 a+(-3+p) Sqrt[p]];
+
+ <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> \[CapitalUpsilon]r,
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> Abs[\[CapitalUpsilon]\[Theta]],
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> \[CapitalUpsilon]\[Phi],
+    "\[CapitalGamma]" -> \[CapitalGamma] |>
+
+]
 
 
 KerrGeoMinoFrequencies[a_,p_,e_,x_]:=Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
