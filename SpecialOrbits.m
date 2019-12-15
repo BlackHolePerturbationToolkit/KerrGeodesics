@@ -161,21 +161,11 @@ KerrGeoSeparatrix[1,e_,1]:= 1+e
 
 
 (* ::Text:: *)
-(*Separatrix for equatorial Kerr from Levin and Periz-Giz arXiv:1108.1819*)
-
-
-KerrGeoSeparatrix[a1_,e_,x_/;Abs[x]==1]:= Module[{ru,a=a1},
-	If[x==-1, a = -a];
-	ru=ru/.Solve[e==(-ru^2+6 ru-8a ru^(1/2)+3a^2)/(ru^2-2ru+a^2),ru][[-1]];
-	(4 ru (ru^(1/2)-a)^2)/(ru^2-2ru+a^2)
-]
-
-
-(* ::Text:: *)
-(*Polar ISSO in extremal case found from playing around with the equations*)
+(*Polar ISSO in extremal case found from playing around with the equations (see L. Stein and N. Warburton arXiv:????.?????)*)
 
 
 KerrGeoSeparatrix[1,0,0]:=1+Sqrt[3]+Sqrt[3+2 Sqrt[3]]
+KerrGeoSeparatrix[1,1,0]:=2/3 (3+(54-6Sqrt[33])^(1/3)+(6(9+Sqrt[33]))^(1/3))
 
 
 (* ::Text:: *)
@@ -186,28 +176,29 @@ KerrGeoSeparatrix[a_,1,x_]:=2KerrGeoIBSO[a,x]
 
 
 (* ::Text:: *)
-(*This method is an extension of the method in arXiv:1108.1819. See N. Warburton's notes for details.*)
-(*The results of the KerrGeoSeparatrix function have also been tested against the recent analytic results in arXiv:1901.02730 (which also extends the method in arXiv:1108.1819) -- see Eqs. (26a-d) in that paper.*)
+(*The below methods come from L. Stein and N. Warburton arXiv:????.?????*)
 
 
-KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,x1_?NumericQ/;Abs[x1]<=1]/;Precision[{a1,e1,x1}]!=\[Infinity]:=Block[{a=a1,ra2,\[Beta],E0,L0,Q0,e2,ru,x=x1,prec,r1,\[Beta]2,p,ru0},
-
-{E0,L0,Q0}=Values[KerrGeoConstantsOfMotion[a,ru,0,x]];
-\[Beta]=(-1+E0^2);
-
-ra2=2 (-a E0+L0)^2+2 Q0+ru^2 (-1-ru \[Beta]+Sqrt[1+\[Beta] (L0^2+Q0-a^2 \[Beta]-2 ru (1+ru \[Beta]))]);
-
-\[Beta]2=ru (2+ru \[Beta]-2 Sqrt[1+L0^2 \[Beta]+Q0 \[Beta]-2 ru \[Beta]-a^2 \[Beta]^2-2 ru^2 \[Beta]^2]);
-
-e2=(ra2-ru \[Beta]2)/(ra2+ru \[Beta]2);
+SepPoly=-4 (3+e) p^11+p^12+a^12 (-1+e)^4 (1+e)^8 (-1+x)^4 (1+x)^4-4 a^10 (-3+e) (-1+e)^3 (1+e)^7 p (-1+x^2)^4-4 a^8 (-1+e) (1+e)^5 p^3 (-1+x)^3 (1+x)^3 (7-7 x^2-e^2 (-13+x^2)+e^3 (-5+x^2)+7 e (-1+x^2))+8 a^6 (-1+e) (1+e)^3 p^5 (-1+x^2)^2 (3+e+12 x^2+4 e x^2+e^3 (-5+2 x^2)+e^2 (1+2 x^2))-8 a^4 (1+e)^2 p^7 (-1+x) (1+x) (-3+e+15 x^2-5 e x^2+e^3 (-5+3 x^2)+e^2 (-1+3 x^2))+4 a^2 p^9 (-7-7 e+e^3 (-5+4 x^2)+e^2 (-13+12 x^2))+2 a^8 (-1+e)^2 (1+e)^6 p^2 (-1+x^2)^3 (2 (-3+e)^2 (-1+x^2)+a^2 (e^2 (-3+x^2)-3 (1+x^2)+2 e (1+x^2)))-2 p^10 (-2 (3+e)^2+a^2 (-3+6 x^2+e^2 (-3+2 x^2)+e (-2+4 x^2)))+a^6 (1+e)^4 p^4 (-1+x^2)^2 (-16 (-1+e)^2 (-3-2 e+e^2) (-1+x^2)+a^2 (15+6 x^2+9 x^4+e^2 (26+20 x^2-2 x^4)+e^4 (15-10 x^2+x^4)+4 e^3 (-5-2 x^2+x^4)-4 e (5+2 x^2+3 x^4)))-4 a^4 (1+e)^2 p^6 (-1+x) (1+x) (-2 (11-14 e^2+3 e^4) (-1+x^2)+a^2 (5-5 x^2-9 x^4+4 e^3 x^2 (-2+x^2)+e^4 (5-5 x^2+x^4)+e^2 (6-6 x^2+4 x^4)))+a^2 p^8 (-16 (1+e)^2 (-3+2 e+e^2) (-1+x^2)+a^2 (15-36 x^2+30 x^4+e^4 (15-20 x^2+6 x^4)+4 e^3 (5-12 x^2+6 x^4)+4 e (5-12 x^2+10 x^4)+e^2 (26-72 x^2+44 x^4)));
+SepEquat=a^4 (-3-2 e+e^2)^2+p^2 (-6-2 e+p)^2-2 a^2 (1+e) p (14+2 e^2+3 p-e p);
+SepPolar=a^6 (-1+e)^2 (1+e)^4+p^5 (-6-2 e+p)+a^2 p^3 (-4 (-1+e) (1+e)^2+(3+e (2+3 e)) p)-a^4 (1+e)^2 p (6+2 e^3+2 e (-1+p)-3 p-3 e^2 (2+p));
 
 
-prec=Precision[{a,e1,x}];
-r1=KerrGeoIBSO[a,x];
-ru0=ru/.FindRoot[e2==e1,{ru,(r1+10)/2,r1,10},WorkingPrecision->Max[MachinePrecision,prec-1]];
+pEquatPro[a1_?NumericQ,e1_?NumericQ]/;(Precision[{a1,e1}]!=\[Infinity]):=With[{prec=Precision[{a1,e1}]},
+p/.FindRoot[SepEquat/.{a->a1,e->e1},{p,1+e1,6+2e1},WorkingPrecision->Max[MachinePrecision,prec-1]]]
+pEquatRet[a1_?NumericQ,e1_?NumericQ]/;(Precision[{a1,e1}]!=\[Infinity]):=With[{prec=Precision[{a1,e1}]},
+p/.FindRoot[SepEquat/.{a->a1,e->e1},{p,6+2e1,5+e1+4Sqrt[1+e1]},WorkingPrecision->Max[MachinePrecision,prec-1]]]
+pPolar[a1_?NumericQ,e1_?NumericQ]/;(Precision[{a1,e1}]!=\[Infinity]):=With[{prec=Precision[{a1,e1}]},
+p/.FindRoot[SepPolar/.{a->a1,e->e1},{p,1+Sqrt[3]+Sqrt[3+2Sqrt[3]],8},WorkingPrecision->Max[MachinePrecision,prec-1]]]
 
-p=(2ra2 ru)/(ra2+ru \[Beta]2)/.ru->ru0
-]
+
+KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,1]/;(Precision[{a1,e1}]!=\[Infinity]):=pEquatPro[a1,e1]
+KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,0]/;(Precision[{a1,e1}]!=\[Infinity]):=pPolar[a1,e1]
+KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,-1]/;(Precision[{a1,e1}]!=\[Infinity]):=pEquatRet[a1,e1]
+KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,x1_?NumericQ]/;((Precision[{a1,e1,x1}]!=\[Infinity])&&(1>x1>0)):=With[{prec=Precision[{a1,e1,x1}]},
+p/.FindRoot[SepPoly/.{a->a1,x->x1,e->e1},{p,pEquatPro[a1,e1],pPolar[a1,e1]},WorkingPrecision->Max[MachinePrecision,prec-1]]]
+KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,x1_?NumericQ]/;((Precision[{a1,e1,x1}]!=\[Infinity])&&(-1<x1<0)):=With[{prec=Precision[{a1,e1,x1}]},
+p/.FindRoot[SepPoly/.{a->a1,x->x1,e->e1},{p,pPolar[a1,e1],12},WorkingPrecision->Max[MachinePrecision,prec-1]]]
 
 
 KerrGeoBoundOrbitQ[a_?NumericQ,p_?NumericQ,e_?NumericQ,x_?NumericQ]:=Module[{ps},
