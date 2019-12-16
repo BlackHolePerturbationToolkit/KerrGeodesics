@@ -131,15 +131,18 @@ KerrGeoIBSO[a_,0]:=Module[{\[Delta]},
 KerrGeoIBSO[1,(0|0.)]:=1/3 (3+(54-6 Sqrt[33])^(1/3)+(6 (9+Sqrt[33]))^(1/3))
 
 
-KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ/;Abs[x1]<=1]/;Precision[{a1,x1}]!=\[Infinity]:=Block[{a=a1,x=x1,rph,prec,n=1,ru,E0},
-prec=Precision[{a1,x}];
-rph=KerrGeoPhotonSphereRadius[a,x];
+(* ::Text:: *)
+(*The below methods come from L. Stein and N. Warburton arXiv:????.?????*)
 
-E0=KerrGeoEnergy[a,ru,0,x];
 
-While[(E0/.ru->rph+10^-n)<1,n++];
-ru/.FindRoot[E0==1,{ru,rph+10^-n,10},WorkingPrecision->Max[MachinePrecision,prec-1]]
-]
+IBSOPoly=(-4+p)^2 p^6+a^8 (-1+x^2)^2+2 a^2 p^5 (-8+2 p+4 x^2-3 p x^2)+2 a^6 p^2 (2-5 x^2+3 x^4)+a^4 p^3 (-8 (1-3 x^2+2 x^4)+p (6-14 x^2+9 x^4));
+
+
+KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ]/;((Precision[{a1,x1}]!=\[Infinity])&&(1>=x1>=0)):=With[{prec=Precision[{a1,x1}]},
+p/.FindRoot[IBSOPoly/.{a->a1,x->x1},{p,KerrGeoIBSO[a1,1],KerrGeoIBSO[a1,0]},WorkingPrecision->Max[MachinePrecision,prec-1]]];
+
+KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ]/;(Precision[{a1,x1}]!=\[Infinity])&&(-1<=x1<0):=With[{prec=Precision[{a1,x1}]},
+p/.FindRoot[IBSOPoly/.{a->a1,x->x1},{p,KerrGeoIBSO[a1,0],KerrGeoIBSO[a1,-1]},WorkingPrecision->Max[MachinePrecision,prec-1]]];
 
 
 (* ::Section::Closed:: *)
