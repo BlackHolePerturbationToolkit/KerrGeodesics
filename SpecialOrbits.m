@@ -103,7 +103,7 @@ This seems to be fine near the equatorial plane but might not be ideal for incli
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Innermost bound spherical orbits (IBSO)*)
 
 
@@ -132,7 +132,7 @@ KerrGeoIBSO[1,(0|0.)]:=1/3 (3+(54-6 Sqrt[33])^(1/3)+(6 (9+Sqrt[33]))^(1/3))
 
 
 (* ::Text:: *)
-(*The below methods come from L. Stein and N. Warburton arXiv:????.?????*)
+(*The below methods come from L. Stein and N. Warburton arXiv:1912.07609*)
 
 
 IBSOPoly=(-4+p)^2 p^6+a^8 (-1+x^2)^2+2 a^2 p^5 (-8+2 p+4 x^2-3 p x^2)+2 a^6 p^2 (2-5 x^2+3 x^4)+a^4 p^3 (-8 (1-3 x^2+2 x^4)+p (6-14 x^2+9 x^4));
