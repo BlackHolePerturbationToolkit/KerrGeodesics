@@ -1036,7 +1036,31 @@ Print["Unrecognized method: " <> method];
 ]
 
 
-Format[KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_]] := "KerrGeoOrbitFunction["<>ToString[a]<>","<>ToString[p]<>","<>ToString[e]<>","<>ToString[N[x]]<>",<<>>]";
+KerrGeoOrbitFunction /:
+ MakeBoxes[kgof:KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_], form:(StandardForm|TraditionalForm)] :=
+ Module[{summary, extended},
+  summary = {Row[{BoxForm`SummaryItem[{"a: ", a}], "  ",
+                  BoxForm`SummaryItem[{"p: ", p}], "  ",
+                  BoxForm`SummaryItem[{"e: ", e}], "  ",
+                  BoxForm`SummaryItem[{"x: ", x}]}],
+             BoxForm`SummaryItem[{"Parametrization: ", assoc["Parametrization"]}]};
+  extended = {BoxForm`SummaryItem[{"Energy: ", assoc["Energy"]}],
+              BoxForm`SummaryItem[{"Angular Momentum: ", assoc["AngularMomentum"]}],
+              BoxForm`SummaryItem[{"Carter Constant: ", assoc["CarterConstant"]}]};
+  BoxForm`ArrangeSummaryBox[
+    KerrGeoOrbitFunction,
+    kgof,
+    Module[{t, r, \[Theta], \[CurlyPhi]},
+      {t, r, \[Theta], \[CurlyPhi]} = kgof["Trajectory"];
+      Show[ParametricPlot3D[{r[\[Lambda]] Sin[\[Theta][\[Lambda]]] Cos[\[CurlyPhi][\[Lambda]]],r[\[Lambda]] Sin[\[Theta][\[Lambda]]] Sin[\[CurlyPhi][\[Lambda]]],r[\[Lambda]] Cos[\[Theta][\[Lambda]]]}, {\[Lambda],0,2\[Pi]}, Boxed->False, Axes->False, PlotRange->All, ImageSize -> Dynamic[{Automatic, 3.5 CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[Magnification]}]],
+           Graphics3D[{Black,Sphere[{0,0,0},1+Sqrt[1-a^2]]}]]
+      ],
+    summary,
+    extended,
+    form]
+];
+
+
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == False] := Through[assoc["Trajectory"][\[Lambda]]]
 KerrGeoOrbitFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 

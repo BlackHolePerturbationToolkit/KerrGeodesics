@@ -22,11 +22,11 @@ KerrParallelTransportFrameFunction::usage = "KerrParallelTransportFrameFunction[
 Begin["`Private`"];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
 
 
@@ -89,7 +89,7 @@ zp=(a^2 (1-\[ScriptCapitalE]^2)+\[ScriptCapitalL]^2/x^2)^(1/2)
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*PrecessionPhase*)
 
 
@@ -170,7 +170,7 @@ Function[{\[Lambda]},
 
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Tetrads*)
 
 
@@ -231,7 +231,7 @@ KerrParallelTransportFrameMino[a_,p_,e_,x_,initPhases:{_,_,_,_,_}:{0,0,0,0,0}]:=
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrParallelTransportFrame and KerrParallelTransportFrameFuction*)
 
 
@@ -257,7 +257,25 @@ Print["Unrecognized method: " <> method];
 ]
 
 
-Format[KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_]] := "KerrParallelTransportFrameFunction["<>ToString[a]<>","<>ToString[p]<>","<>ToString[e]<>","<>ToString[N[x]]<>",<<>>]";
+KerrParallelTransportFrameFunction /:
+ MakeBoxes[kptff:KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_], form:(StandardForm|TraditionalForm)] :=
+ Module[{summary, extended},
+  summary = {Row[{BoxForm`SummaryItem[{"a: ", a}], "  ",
+                  BoxForm`SummaryItem[{"p: ", p}], "  ",
+                  BoxForm`SummaryItem[{"e: ", e}], "  ",
+                  BoxForm`SummaryItem[{"x: ", x}]}]
+             };
+  extended = {BoxForm`SummaryItem[{"Precession Frequency: ", assoc["PrecessionFrequency"]}]};
+  BoxForm`ArrangeSummaryBox[
+    KerrParallelTransportFrameFunction,
+    kptff,
+    None,
+    summary,
+    extended,
+    form]
+];
+
+
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == False] := assoc["ParallelTransportedFrame"][\[Lambda]]
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
