@@ -13,14 +13,12 @@ Cell[BoxData[
   RowBox[{"FileNameJoin", "[", 
    RowBox[{"{", 
     RowBox[{
-     RowBox[{"FileNameDrop", "[", 
-      RowBox[{
-       RowBox[{"FindFile", "[", "\"\<KerrGeodesics`\>\"", "]"}], ",", 
-       RowBox[{"-", "2"}]}], "]"}], ",", "\"\<Documentation\>\""}], "}"}], 
-   "]"}]}]], "Input",
+     RowBox[{"ParentDirectory", "[", 
+      RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ",", 
+     "\"\<Documentation\>\""}], "}"}], "]"}]}]], "Input",
  ExpressionUUID -> "e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
 
-Cell[BoxData["\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+Cell[BoxData["\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation\"\>"], "Output",
  ExpressionUUID -> "b3903a30-aa2b-4e46-b7ce-8f1ceb83c162"]
 }, Open  ]],
@@ -44,22 +42,16 @@ Cell[BoxData[
 Cell[BoxData[
  TagBox[
   RowBox[{"{", 
-   RowBox[{"\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+   RowBox[{"\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Guides/KerrGeodesics.nb\"\>", 
-    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+    ",", "\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Index/_0.cfs\"\>", 
-    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Index/segments_3\"\>", 
-    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Index/segments.gen\"\>", ",", 
-    RowBox[{"\[LeftSkeleton]", "13", "\[RightSkeleton]"}], 
-    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/SpellIndex/_3.cfs\"\>", 
-    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/SpellIndex/segments_9\"\>", 
-    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+    ",", "\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
+Documentation/English/Index/segments_3\"\>", ",", 
+    RowBox[{"\[LeftSkeleton]", "3", "\[RightSkeleton]"}], 
+    ",", "\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/SpellIndex/segments.gen\"\>", 
-    ",", "\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+    ",", "\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Tutorials/KerrGeodesics.nb\"\>"}], "}"}],
   Short[#, 10]& ]], "Output",
  ExpressionUUID -> "0ce1393f-f99b-4d4e-ab08-17d44d234fa4"]
@@ -80,106 +72,6 @@ Cell[CellGroupData[{
 Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print",
  ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
 
-Cell[BoxData["\<\"KerrGeoAngularMomentum\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"e\"\>", ",", "\<\"p\"\>"}], "}"}]}],
-  SequenceForm["Removing ", {"a", "e", "p"}],
-  Editable->False]], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoBoundOrbitQ\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoCarterConstant\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"e\"\>", ",", "\<\"p\"\>"}], "}"}]}],
-  SequenceForm["Removing ", {"a", "e", "p"}],
-  Editable->False]], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoConstantsOfMotion\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"e\"\>", ",", "\<\"p\"\>"}], "}"}]}],
-  SequenceForm["Removing ", {"a", "e", "p"}],
-  Editable->False]], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoEnergy\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"e\"\>", ",", "\<\"p\"\>"}], "}"}]}],
-  SequenceForm["Removing ", {"a", "e", "p"}],
-  Editable->False]], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoFrequencies\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"\<\"r0\"\>", ",", "\<\"Time\"\>"}], "}"}]}],
-  SequenceForm["Removing ", {"r0", "Time"}],
-  Editable->False]], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoIBSO\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoISCO\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", "\<\"a\"\>", "}"}]}],
-  SequenceForm["Removing ", {"a"}],
-  Editable->False]], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoISSO\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoOrbit\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoOrbitFunction\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoPhotonSphereRadius\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", "\<\"a\"\>", "}"}]}],
-  SequenceForm["Removing ", {"a"}],
-  Editable->False]], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"KerrGeoSeparatrix\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
 Cell[BoxData["\<\"Building guides\"\>"], "Print",
  ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
 
@@ -187,11 +79,11 @@ Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Creating \"\>", 
    "\[InvisibleSpace]", \
-"\<\"/Users/niels/Library/Mathematica/Applications/KerrGeodesics/\
+"\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
 Documentation/English/Guides\"\>"}],
   SequenceForm[
   "Creating ", 
-   "/Users/niels/Library/Mathematica/Applications/KerrGeodesics/Documentation/\
+   "/Users/barry/Library/Mathematica/Applications/KerrGeodesics/Documentation/\
 English/Guides"],
   Editable->False]], "Print",
  ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
@@ -207,17 +99,20 @@ Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"e\"\>", ",", "\<\"orbit\"\>", 
-     ",", "\<\"orbitA\"\>", ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", 
-     ",", "\<\"p\"\>", ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", 
-     ",", "\<\"result\"\>", ",", "\<\"t\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"x\"\>", ",", "\<\"\[Theta]\"\>", ",", "\<\"\[Lambda]\"\>", 
-     ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
+    RowBox[{"\<\"Temp`a\"\>", ",", "\<\"Temp`e\"\>", 
+     ",", "\<\"Temp`orbit\"\>", ",", "\<\"Temp`orbitA\"\>", 
+     ",", "\<\"Temp`orbitD\"\>", ",", "\<\"Temp`orbitFS\"\>", 
+     ",", "\<\"Temp`p\"\>", ",", "\<\"Temp`Parametrization\"\>", 
+     ",", "\<\"Temp`r\"\>", ",", "\<\"Temp`result\"\>", ",", "\<\"Temp`t\"\>",
+      ",", "\<\"Temp`Time\"\>", ",", "\<\"Temp`x\"\>", 
+     ",", "\<\"Temp`\[Theta]\"\>", ",", "\<\"Temp`\[Lambda]\"\>", 
+     ",", "\<\"Temp`\[CurlyPhi]\"\>"}], "}"}]}],
   SequenceForm[
   "Removing ", {
-   "a", "e", "orbit", "orbitA", "orbitD", "orbitFS", "p", "Parametrization", 
-    "r", "result", "t", "Time", "x", "\[Theta]", "\[Lambda]", "\[CurlyPhi]"}],
-  
+   "Temp`a", "Temp`e", "Temp`orbit", "Temp`orbitA", "Temp`orbitD", 
+    "Temp`orbitFS", "Temp`p", "Temp`Parametrization", "Temp`r", "Temp`result",
+     "Temp`t", "Temp`Time", "Temp`x", "Temp`\[Theta]", "Temp`\[Lambda]", 
+    "Temp`\[CurlyPhi]"}],
   Editable->False]], "Print",
  ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
 
@@ -229,8 +124,8 @@ Cell[BoxData["\<\"Done\"\>"], "Print",
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1016, 856},
-WindowMargins->{{Automatic, 187}, {Automatic, 0}},
+WindowSize->{748, 632},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 ShowSelection->True,
