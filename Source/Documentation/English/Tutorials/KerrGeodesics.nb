@@ -1770,8 +1770,7 @@ PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
-10, 2017)",
+FrontEndVersion->"10.2 for Mac OS X x86 (64-bit) (July 14, 2015)",
 StyleDefinitions->"Default.nb"
 ]
 
