@@ -11,9 +11,9 @@ packages =
   "SpecialOrbits"
 };
 
-packageSymbols = Map[# -> DocumentedSymbols[#] &, packages];
+packageSymbols = Map[# -> DocumentedSymbols["KerrGeodesics", #] &, packages];
 
-undocumentedSymbols = Map[# -> UndocumentedSymbols[#] &, packages] /. (_ -> {}) -> Sequence[];
+undocumentedSymbols = Map[# -> UndocumentedSymbols["KerrGeodesics", #] &, packages] /. (_ -> {}) -> Sequence[];
 Map[Print["Undocumented symbols for package "<>#[[1]]<>" skipped:\n", #[[2]]]&, undocumentedSymbols];
 
 Print["Building symbol reference pages"];
