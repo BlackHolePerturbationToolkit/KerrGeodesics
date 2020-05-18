@@ -5,7 +5,10 @@
 
 packages =
 { 
-  "KerrGeodesics"
+  "ConstantsOfMotion",
+  "KerrGeoOrbit",
+  "OrbitalFrequencies",
+  "SpecialOrbits"
 };
 
 packageSymbols = Map[# -> DocumentedSymbols[#] &, packages];
