@@ -9,8 +9,7 @@
 
 
 BeginPackage["KerrGeodesics`KerrGeoOrbit`",
-	{"KerrGeodesics`", (*FIXME, this is needed to get the RadialRoots function, maybe move that elsewhere*)
-	 "KerrGeodesics`ConstantsOfMotion`",
+	{"KerrGeodesics`ConstantsOfMotion`",
 	 "KerrGeodesics`OrbitalFrequencies`"}];
 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
@@ -83,7 +82,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -298,7 +297,7 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -375,7 +374,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Circular (Mino)*)
 
 
@@ -424,8 +423,8 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,consts
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
 	{En,L,Q} = Values[consts];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
-	{r1,r2,r3,r4} = KerrGeodesics`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
-	{zp,zm} = KerrGeodesics`Private`KerrGeoPolarRoots[a, p, e, x];
+	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
+	{zp,zm} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoPolarRoots[a, p, e, x];
 	
 	kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
 	k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
@@ -506,7 +505,7 @@ MinoRFastSpec[a_,p_,e_,x_]:=
 Module[{M=1,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,\[Psi]r,r0,p3,p4,Pr,PrSample,NrInit=2^4,
 		\[ScriptCapitalP]rSample,\[ScriptCapitalP]rn,\[ScriptCapitalP]rList,\[CapitalDelta]\[Lambda]r,pg,iter=1,compare,res,rate},
 	{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
-	{r1,r2,r3,r4} = KerrGeodesics`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
+	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
 	p3=(1-e)r3/M;
 	p4=(1+e)r4/M;
 	pg=Precision[{a,p,e,x}];
@@ -672,7 +671,7 @@ TimeOfMinoFastSpecTheta[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]\[Theta],\[Capita
 LambdaToPsiRTransform[a_,p_,e_,x_,rFunc_]:=
 Module[{M=1,En,L,Q,r1,r2,r3,r4,p3,p4,\[Psi]r,r0,r0Sample,Pr,PrSample,rFuncSample,pg},
 	{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
-	{r1,r2,r3,r4} = KerrGeodesics`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
+	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
 	p3=(1-e)r3/M;
 	p4=(1+e)r4/M;
 	pg=Precision[{a,p,e,x}];
@@ -880,7 +879,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 	zRoots={ArcCos[zm],Pi-ArcCos[zm]};
 	
 	(* Useful constants for r-dependent calculations *)
-	{r1,r2,r3,r4} = KerrGeodesics`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
+	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
 	
 	(* Mino frequencies of orbit. I call Re, because some frequencies 
 	are given as imaginary for restricted orbits. 
