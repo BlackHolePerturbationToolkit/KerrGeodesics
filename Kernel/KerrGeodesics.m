@@ -1,6 +1,8 @@
 (* ::Package:: *)
+BeginPackage["KerrGeodesics`",
+  {"KerrGeodesics`ConstantsOfMotion`",
+   "KerrGeodesics`OrbitalFrequencies`",
+   "KerrGeodesics`SpecialOrbits`",
+   "KerrGeodesics`KerrGeoOrbit`"}]
 
-Get["KerrGeodesics`ConstantsOfMotion`"];
-Get["KerrGeodesics`OrbitalFrequencies`"];
-Get["KerrGeodesics`SpecialOrbits`"];
-Get["KerrGeodesics`KerrGeoOrbit`"];
+EndPackage[]
