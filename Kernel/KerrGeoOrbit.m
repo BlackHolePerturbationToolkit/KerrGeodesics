@@ -1000,13 +1000,99 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 (*Resonances*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*r\[Theta]-resonances*)
 
 
 (* ::Text:: *)
 (*Reference: Brink, Geyer, and Hinderer, Phys. Rev. D 91 (2015), arXiv:1501.07728*)
 (*	- Root finding methods are based on those described in Sec.  VE*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*Testing functions*)
+
+
+ValidAQ[a_]:=Module[{aFlag=True},
+	If[a^2>1, Print["Invalid black hole spin parameter. Choose 0 \[LessEqual] a \[LessEqual] 1."]; aFlag=False];
+	aFlag
+];
+
+
+ValidEQ[e_]:=Module[{eFlag=True},
+	If[e<0||e>1, Print["Invalid orbital eccentricity. Choose 0 \[LessEqual] e \[LessEqual] 1."]; eFlag=False];
+	eFlag
+];
+
+
+ValidXQ[x_]:=Module[{xFlag=True},
+	If[x^2>1, Print["Invalid black hole spin parameter. Choose 0 \[LessEqual] |x| \[LessEqual] 1."]; xFlag=False];
+	xFlag
+];
+
+
+ValidResIntQ[\[Beta]r_,\[Beta]th_]:=Module[{resFlag},
+	If[\[Beta]r>\[Beta]th, Print["Invalid resonant integers. Choose \[Beta]r > \[Beta]\[Theta]."]; resFlag=False];
+	resFlag
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Useful functions for root-finding*)
+
+
+(* ::Text:: *)
+(*See Eq 25 for definitions of these quantities*)
+
+
+del1y1[a_/;a!=0,p_,e_,x_/;x^2<1]:=-e p Sqrt[\[Pi]p[a,p,e,x]^2-4 \[Pi]x[a,p,e,x]]/((1-e^2)\[Pi]x[a,p,e,x]+p^2-p \[Pi]p[a,p,e,x]);
+del2y2[a_/;a!=0,p_,e_,x_/;x^2<1]:=(1-e^2)a^4 (1-x^2)^2/((1-e^2)a^4 (1-x^2)^2-2p^2 \[Pi]x[a,p,e,x]);
+y1y2[a_/;a!=0,p_,e_,x_/;x^2<1]:=2a^2 (1-x^2)((1-e^2)\[Pi]x[a,p,e,x]+p^2-p \[Pi]p[a,p,e,x])/(a^4(e^2-1)(1-x^2)^2+2 p^2 \[Pi]x[a,p,e,x]);
+
+del1y1[a_,p_,e_,x_/;x^2==1]:=-e \[Pi]p[a,p,e,x]/(p-\[Pi]p[a,p,e,x]);
+del2y2[a_,p_,e_,x_/;x^2==1]:=0;
+y1y2[a_,p_,e_,x_/;x^2==1]:=(p-\[Pi]p[a,p,e,x])/(p+2\[Pi]p[a,p,e,x]);
+
+del1y1[0,p_,e_,x_/;x^2<1]:=del1y1[0,p,e,1];
+del2y2[0,p_,e_,x_/;x^2<1]:=del2y2[0,p,e,1];
+y1y2[0,p_,e_,x_/;x^2<1]:=y1y2[0,p,e,1];
+
+
+(* ::Text:: *)
+(*\[Pi]p = r3 + r4, \[Pi]x = r3*r4, where (dr/d\[Lambda])^2 = -(\[Mu]^2+ \[ScriptCapitalE]^2)(r-r1)(r-r2)(r-r3)(r-r4) with r1 >= r2 >= r3 > r4. *)
+
+
+\[Pi]p[a_/;a!=0,p_,e_,x_/;x^2<1]:=((-p^2 + a^2*(-1 + e^2)*(-1 + x^2))*(a^2*(-1 + x^2) + \[Pi]x[a,p,e,x]))/(2*a^2*p*(-1 + x^2));
+
+\[Pi]p[0,p_,e_,x_/;x^2<1]:=2p/(p-4);
+
+\[Pi]p[a_,p_,e_/;e<1,1]:=(2*(a^4*(-1+e^2)*p+(-4+p)*p^3+a^2*p^2*(3+e^2+p)-2*Sqrt[a^2*p^3*(a^4*(-1+e^2)^2+(-4*e^2+(-2+p)^2)*p^2+2*a^2*p*(-2+p+e^2*(2+p)))]))/(a^4*(-1+e^2)^2+(-4+p)^2*p^2+2*a^2*(-1+e^2)*p*(4+p));
+\[Pi]p[a_,p_,1,1]:=(-4*Sqrt[p^3*(a^3+a*(-2+p)*p)^2]+2*p*(-a^4+(-4+p)*p^2+a^2*p*(3+p)))/(((a-p)^2-4*p)*(-4*p+(a+p)^2));
+
+\[Pi]p[a_,p_,e_/;e<1,-1]:=(2*(a^4*(-1+e^2)*p+(-4+p)*p^3+a^2*p^2*(3+e^2+p)+2*Sqrt[a^2*p^3*(a^4*(-1+e^2)^2+(-4*e^2+(-2+p)^2)*p^2+2*a^2*p*(-2+p+e^2*(2+p)))]))/(a^4*(-1+e^2)^2+(-4+p)^2*p^2+2*a^2*(-1+e^2)*p*(4+p));
+\[Pi]p[a_,p_,1,-1]:=(2*(-(a^4*p)+(-4+p)*p^3+a^2*p^2*(3+p)+2*Sqrt[p^3*(a^3+a*(-2+p)*p)^2]))/(a^4+(-4+p)^2*p^2-2*a^2*p*(4+p));
+
+
+\[Pi]x[a_,p_,e_,x_/;x>=0]:=(a^2*(1 - x^2)*((-4 + p)*p^7 + a^8*(-1 + e^2)^4*(-1 + x^2)^2 + 2*a^6*(-1 + e^2)^2*p*(1 - x^2)*((1 + e^2)*p + (-2 + p + e^2*(2 + p))*(1 - x^2)) + 
+   a^4*p^3*((-3 + 2*e^2 + e^4)*p + 4*(-4 + 3*p + e^4*(4 + p))*(1 - x^2) + (-1 + e^2)*(-4 + e^2*(-12 + p) + 3*p)*(-1 + x^2)^2) + 
+   2*a^2*p^2*((-1 - e^2)*p^4*(-2 + x^2) + 8*(-1 + e^2)*p^2*(-1 + x^2) + 2*p^3*(-3 - e^2 + 4*(1 + e^2)*x^2) + 
+     4*(-1 + x^2)*Sqrt[-(((a^4*(-1 + e^2)^2 + (-4*e^2 + (-2 + p)^2)*p^2 + 2*a^2*p*(-2 + p + e^2*(2 + p)))*x^2*(-p^2 + a^2*(-1 + e)^2*(-1 + x^2))*(-p^2 + a^2*(1 + e)^2*(-1 + x^2))*
+          (-p^2 + a^2*(-1 + e^2)*(-1 + x^2)))/(a^2*p*(-1 + x^2)^2))])))/((-4 + p)^2*p^6 + a^8*(-1 + e^2)^4*(-1 + x^2)^2 + 2*a^2*p^5*((-1 + e^2)*(4 + p) + (-4 + e^2*(-12 + p) + 3*p)*(1 - x^2)) + 
+  2*a^6*(-1 + e^2)^2*p^2*(-1 + x^2)*(-2 + 3*x^2 + e^2*(-2 + x^2)) + a^4*p^3*(-8*(-1 + e^2)^2*(1 - 3*x^2 + 2*x^4) + p*((-1 + e^2)^2 - 4*(-1 + e^4)*(-1 + x^2) + (3 + e^2)^2*(-1 + x^2)^2)));
+
+\[Pi]x[a_,p_,e_,x_/;x<0]:=(a^2*(1 - x^2)*((-4 + p)*p^7 + a^8*(-1 + e^2)^4*(-1 + x^2)^2 + 2*a^6*(-1 + e^2)^2*p*(1 - x^2)*((1 + e^2)*p + (-2 + p + e^2*(2 + p))*(1 - x^2)) + 
+   a^4*p^3*((-3 + 2*e^2 + e^4)*p + 4*(-4 + 3*p + e^4*(4 + p))*(1 - x^2) + (-1 + e^2)*(-4 + e^2*(-12 + p) + 3*p)*(-1 + x^2)^2) + 
+   2*a^2*p^2*(-((1 + e^2)*p^4*(-2 + x^2)) + 8*(-1 + e^2)*p^2*(-1 + x^2) + 2*p^3*(-3 - e^2 + 4*(1 + e^2)*x^2) - 
+     4*(-1 + x^2)*Sqrt[-(((a^4*(-1 + e^2)^2 + (-4*e^2 + (-2 + p)^2)*p^2 + 2*a^2*p*(-2 + p + e^2*(2 + p)))*x^2*(-p^2 + a^2*(-1 + e)^2*(-1 + x^2))*(-p^2 + a^2*(1 + e)^2*(-1 + x^2))*
+          (-p^2 + a^2*(-1 + e^2)*(-1 + x^2)))/(a^2*p*(-1 + x^2)^2))])))/((-4 + p)^2*p^6 + a^8*(-1 + e^2)^4*(-1 + x^2)^2 + 2*a^2*p^5*((-1 + e^2)*(4 + p) + (-4 + e^2*(-12 + p) + 3*p)*(1 - x^2)) + 
+  2*a^6*(-1 + e^2)^2*p^2*(-1 + x^2)*(-2 + 3*x^2 + e^2*(-2 + x^2)) + a^4*p^3*(-8*(-1 + e^2)^2*(1 - 3*x^2 + 2*x^4) + p*((-1 + e^2)^2 - 4*(-1 + e^4)*(-1 + x^2) + (3 + e^2)^2*(-1 + x^2)^2)));
+
+
+(* ::Text:: *)
+(*Carlson's integral of the first kind, which is defined in Eq. (B12) of reference listed above*)
+
+
+Rf[0,alpha_,beta_]:=beta^(-1/2)EllipticK[1-alpha/beta];
 
 
 (* ::Subsubsection::Closed:: *)
@@ -1021,35 +1107,23 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 Options[KerrGeoOrbitRThetaResonantP]={PrecisionGoal->Automatic};
 
 
-KerrGeoOrbitRThetaResonantP[a_/;a!=0, e_/;e>=0&&e<=1, x_/;x^2<1, {\[Beta]r_Integer, \[Beta]\[Theta]_Integer}, opts:OptionsPattern[]]:=
-Module[{pg,ratio,argpg,zmin,\[Pi]p,\[Pi]x,del1y1,del2y2,y1y2,resonantEqn,pStar,pp,pgTest},
+KerrGeoOrbitRThetaResonantP[a_?NumericQ, e_?NumericQ, x_?NumericQ, {\[Beta]r_Integer, \[Beta]\[Theta]_Integer}, opts:OptionsPattern[]]:=
+Module[{pg,ratio,argpg,resonantEqn,pStar,pp,pgTest},
 	(*See if the user specified some precision goal *)
+	If[Not@ValidAQ[a]||Not@ValidEQ[e]||Not@ValidXQ[x]||Not@ValidResIntQ[\[Beta]r,\[Beta]\[Theta]],Abort[]];
+	
 	pg=OptionValue[PrecisionGoal];
 	ratio=\[Beta]r/\[Beta]\[Theta];
-	(* \[Pi]p = r3 + r4, \[Pi]x = r3*r4, where R(r) = -(\[Mu]^2+ \[ScriptCapitalE]^2)^2(r-r1)(r-r2)(r-r3)(r-r4)
-	with r1 \[GreaterEqual] r2 \[GreaterEqual] r3 > r4. *)
-	zmin=Sqrt[1-x^2];
-	\[Pi]p[p_]:=1/(2a^2p zmin^2)(a^2(1-e^2)zmin^2-p^2)(a^2 zmin^2-\[Pi]x[p]);
-	(* First \[Pi]x solution is for prograde orbits, later is form retrograde *)
-	If[x>0,
-		\[Pi]x[p_]:=(a^2*zmin^2*((-4+p)*p^7+a^8*(-1+e^2)^4*zmin^4+2*a^6*(-1+e^2)^2*p*zmin^2*((1+e^2)*p+(-2+p+e^2*(2+p))*zmin^2)+a^4*p^3*((-3+2*e^2+e^4)*p+4*(-4+3*p+e^4*(4+p))*zmin^2+(-1+e^2)*(-4+e^2*(-12+p)+3*p)*zmin^4)+2*a^2*p^2*(-8*(-1+e^2)*p^2*zmin^2+(1+e^2)*p^4*(1+zmin^2)+p^3*(2+6*e^2-8*(1+e^2)*zmin^2)-4*zmin^2*Sqrt[-(((a^4*(-1+e^2)^2+(-4*e^2+(-2+p)^2)*p^2+2*a^2*p*(-2+p+e^2*(2+p)))*(-1+zmin^2)*(p^6+a^2*(1+3*e^2)*p^4*zmin^2+a^4*(-1-2*e^2+3*e^4)*p^2*zmin^4+a^6*(-1+e^2)^3*zmin^6))/(a^2*p*zmin^4))])))/((-4+p)^2*p^6+a^8*(-1+e^2)^4*zmin^4+2*a^6*(-1+e^2)^2*p^2*zmin^2*(-1+e^2+(3+e^2)*zmin^2)+2*a^2*p^5*((-1+e^2)*(4+p)+(-4+e^2*(-12+p)+3*p)*zmin^2)+a^4*p^3*(-8*(-1+e^2)^2*zmin^2*(-1+2*zmin^2)+p*((-1+e^2)^2+4*(-1+e^4)*zmin^2+(3+e^2)^2*zmin^4))),
-		\[Pi]x[p_]:=(a^2*zmin^2*((-4+p)*p^7+a^8*(-1+e^2)^4*zmin^4+2*a^6*(-1+e^2)^2*p*zmin^2*((1+e^2)*p+(-2+p+e^2*(2+p))*zmin^2)+a^4*p^3*((-3+2*e^2+e^4)*p+4*(-4+3*p+e^4*(4+p))*zmin^2+(-1+e^2)*(-4+e^2*(-12+p)+3*p)*zmin^4)+2*a^2*p^2*(-8*(-1+e^2)*p^2*zmin^2+(1+e^2)*p^4*(1+zmin^2)+p^3*(2+6*e^2-8*(1+e^2)*zmin^2)+4*zmin^2*Sqrt[-(((a^4*(-1+e^2)^2+(-4*e^2+(-2+p)^2)*p^2+2*a^2*p*(-2+p+e^2*(2+p)))*(-1+zmin^2)*(p^6+a^2*(1+3*e^2)*p^4*zmin^2+a^4*(-1-2*e^2+3*e^4)*p^2*zmin^4+a^6*(-1+e^2)^3*zmin^6))/(a^2*p*zmin^4))])))/((-4+p)^2*p^6+a^8*(-1+e^2)^4*zmin^4+2*a^6*(-1+e^2)^2*p^2*zmin^2*(-1+e^2+(3+e^2)*zmin^2)+2*a^2*p^5*((-1+e^2)*(4+p)+(-4+e^2*(-12+p)+3*p)*zmin^2)+a^4*p^3*(-8*(-1+e^2)^2*zmin^2*(-1+2*zmin^2)+p*((-1+e^2)^2+4*(-1+e^4)*zmin^2+(3+e^2)^2*zmin^4)))
-	];
-
-	(* See Eq 25 for definitions of these quantities *)
-	del1y1[p_]:=-e p Sqrt[\[Pi]p[p]^2-4 \[Pi]x[p]]/((1-e^2)\[Pi]x[p]+p^2-p \[Pi]p[p]);
-	del2y2[p_]:=(1-e^2)a^4 zmin^4/((1-e^2)a^4 zmin^4-2p^2 \[Pi]x[p]);
-	y1y2[p_]:=2a^2 zmin^2((1-e^2)\[Pi]x[p]+p^2-p \[Pi]p[p])/(a^4(e^2-1)zmin^4+2 p^2\[Pi]x[p]);
-	
-	(* Resonant condition defined by the equation below *)
-	resonantEqn[p_]:=Sqrt[y1y2[p]]Rf[0,1+del2y2[p],1-del2y2[p]]/Rf[0,1+del1y1[p],1-del1y1[p]]-ratio;
 	(* pStar provides an initial guess for p. Note that p = pStar for e = 0 and a = 0*)
 	pStar=6/(1-ratio^2); (* See Eq 30 *)
+
+	(* Resonant condition defined by the equation below *)
+	resonantEqn[p_]:=Sqrt[y1y2[a,p,e,x]]Rf[0,1+del2y2[a,p,e,x],1-del2y2[a,p,e,x]]/Rf[0,1+del1y1[a,p,e,x],1-del1y1[a,p,e,x]]-ratio;
 	
 	(* Working precision of the root-finding method is based on the precision specified
 	 by the PrecisionGoal option, or the precision of the arguments. MachinePrecision
 	 is the default precision if not other precision specifications are made. *)
-	argpg=Precision[{resonantEqn[pStar],e,x,ratio}];
+	argpg=Precision[{resonantEqn[pStar],a,e,x,ratio}];
 	If[argpg==$MachinePrecision,pg=argpg];
 	If[(Not@NumericQ[pg]||pg>argpg),pg=argpg];
 	If[pg==Infinity,pg=$MachinePrecision];
@@ -1062,41 +1136,6 @@ Module[{pg,ratio,argpg,zmin,\[Pi]p,\[Pi]x,del1y1,del2y2,y1y2,resonantEqn,pStar,p
 ];
 
 
-(* ::Text:: *)
-(*Handle the case of a = 0 separately*)
-
-
-KerrGeoOrbitRThetaResonantP[0, e_/;e>=0&&e<=1, x_/;x^2<=1, {\[Beta]r_Integer, \[Beta]\[Theta]_Integer}, opts:OptionsPattern[]]:=
-Module[{pg,ratio,argpg,zmin,\[Pi]p,\[Pi]x,del1y1,del2y2,y1y2,resonantEqn,pStar,pp,pgTest},
-	(*See if the user specified some precision goal *)
-	pg=OptionValue[PrecisionGoal];
-	ratio=\[Beta]r/\[Beta]\[Theta];
-	(* \[Pi]p = r3 + r4, \[Pi]x = r3*r4, where R(r) = -(\[Mu]^2+ \[ScriptCapitalE]^2)^2(r-r1)(r-r2)(r-r3)(r-r4)
-	with r1 \[GreaterEqual] r2 \[GreaterEqual] r3 > r4. *)
-	pStar=6/(1-ratio^2); (* See Eq 30 *)
-	
-	(* See Eq 31 *)
-	pStar/2(1+Sqrt[1+e^2(pStar-6)/pStar^2])
-];
-
-
-(* ::Text:: *)
-(*Handle case of a != 0 and x = 1 separately*)
-
-
-(*KerrGeoOrbitRThetaResonantP[a_/;a\[NotEqual]0, e_/;e\[GreaterEqual]0&&e\[LessEqual]1, 1, {\[Beta]r_Integer, \[Beta]\[Theta]_Integer}, opts:OptionsPattern[]]:=
-Module[{pg,ratio,argpg,zmin,\[Pi]p,\[Pi]x,del1y1,del2y2,y1y2,resonantEqn,pStar,pp,pgTest},
-	(*TBD*)
-];*)
-
-
-(* ::Text:: *)
-(*Carlson's integral of the first kind, which is defined in Eq. (B12) of reference listed above*)
-
-
-Rf[0,alpha_,beta_]:=beta^(-1/2)EllipticK[1-alpha/beta];
-
-
 (* ::Subsubsection::Closed:: *)
 (*Given (a,p,x) and Subscript[\[CapitalOmega], r]/Subscript[\[CapitalOmega], \[Theta]]= Subscript[\[Beta], r]/Subscript[\[Beta], \[Theta]] find e*)
 
@@ -1104,9 +1143,11 @@ Rf[0,alpha_,beta_]:=beta^(-1/2)EllipticK[1-alpha/beta];
 Options[KerrGeoOrbitRThetaResonantE]={PrecisionGoal->Automatic};
 
 
-KerrGeoOrbitRThetaResonantE[a_/;a!=0, p_?NumericQ, x_/;x^2<1, {\[Beta]r_Integer, \[Beta]\[Theta]_Integer}, opts:OptionsPattern[]]:=
-Module[{pg,argpg,zmin,\[Pi]p,\[Pi]x,del1y1,del2y2,y1y2,resonantEqn,pStar,e0Test,e1Test,eGuess=1/10,ee,ratio},
+KerrGeoOrbitRThetaResonantE[a_?NumericQ, p_?NumericQ, x_?NumericQ, {\[Beta]r_Integer, \[Beta]\[Theta]_Integer}, opts:OptionsPattern[]]:=
+Module[{pg,argpg,resonantEqn,e0Test,e1Test,eGuess,ee,ratio},
 	(*See if the user specified some precision goal *)
+	If[Not@ValidAQ[a]||Not@ValidXQ[x]||Not@ValidResIntQ[\[Beta]r,\[Beta]\[Theta]],Abort[]];
+	
 	pg=OptionValue[PrecisionGoal];
 	ratio=\[Beta]r/\[Beta]\[Theta];
 	
@@ -1117,24 +1158,10 @@ Module[{pg,argpg,zmin,\[Pi]p,\[Pi]x,del1y1,del2y2,y1y2,resonantEqn,pStar,e0Test,
 	If[p<e0Test||p>e1Test,Print["Resonant orbits only occur for semi-latus rectum in range "<>ToString[N[e0Test]]<>" \[LessEqual] p \[LessEqual] "<>ToString[N[e1Test]]]; Abort[]];
 	If[p==e0Test,Return[0]];
 	If[p==e1Test,Return[1]];
-	
-	(* \[Pi]p = r3 + r4, \[Pi]x = r3*r4, where R(r) = -(\[Mu]^2+ \[ScriptCapitalE]^2)^2(r-r1)(r-r2)(r-r3)(r-r4)
-	with r1 \[GreaterEqual] r2 \[GreaterEqual] r3 > r4. *)
-	zmin=Sqrt[1-x^2];
-	\[Pi]p[e_]:=1/(2a^2p zmin^2)(a^2(1-e^2)zmin^2-p^2)(a^2 zmin^2-\[Pi]x[e]);
-	(* First \[Pi]x solution is for prograde orbits, later is form retrograde *)
-	If[x>0,
-		\[Pi]x[e_]:=(a^2*zmin^2*((-4+p)*p^7+a^8*(-1+e^2)^4*zmin^4+2*a^6*(-1+e^2)^2*p*zmin^2*((1+e^2)*p+(-2+p+e^2*(2+p))*zmin^2)+a^4*p^3*((-3+2*e^2+e^4)*p+4*(-4+3*p+e^4*(4+p))*zmin^2+(-1+e^2)*(-4+e^2*(-12+p)+3*p)*zmin^4)+2*a^2*p^2*(-8*(-1+e^2)*p^2*zmin^2+(1+e^2)*p^4*(1+zmin^2)+p^3*(2+6*e^2-8*(1+e^2)*zmin^2)-4*zmin^2*Sqrt[-(((a^4*(-1+e^2)^2+(-4*e^2+(-2+p)^2)*p^2+2*a^2*p*(-2+p+e^2*(2+p)))*(-1+zmin^2)*(p^6+a^2*(1+3*e^2)*p^4*zmin^2+a^4*(-1-2*e^2+3*e^4)*p^2*zmin^4+a^6*(-1+e^2)^3*zmin^6))/(a^2*p*zmin^4))])))/((-4+p)^2*p^6+a^8*(-1+e^2)^4*zmin^4+2*a^6*(-1+e^2)^2*p^2*zmin^2*(-1+e^2+(3+e^2)*zmin^2)+2*a^2*p^5*((-1+e^2)*(4+p)+(-4+e^2*(-12+p)+3*p)*zmin^2)+a^4*p^3*(-8*(-1+e^2)^2*zmin^2*(-1+2*zmin^2)+p*((-1+e^2)^2+4*(-1+e^4)*zmin^2+(3+e^2)^2*zmin^4))),
-		\[Pi]x[e_]:=(a^2*zmin^2*((-4+p)*p^7+a^8*(-1+e^2)^4*zmin^4+2*a^6*(-1+e^2)^2*p*zmin^2*((1+e^2)*p+(-2+p+e^2*(2+p))*zmin^2)+a^4*p^3*((-3+2*e^2+e^4)*p+4*(-4+3*p+e^4*(4+p))*zmin^2+(-1+e^2)*(-4+e^2*(-12+p)+3*p)*zmin^4)+2*a^2*p^2*(-8*(-1+e^2)*p^2*zmin^2+(1+e^2)*p^4*(1+zmin^2)+p^3*(2+6*e^2-8*(1+e^2)*zmin^2)+4*zmin^2*Sqrt[-(((a^4*(-1+e^2)^2+(-4*e^2+(-2+p)^2)*p^2+2*a^2*p*(-2+p+e^2*(2+p)))*(-1+zmin^2)*(p^6+a^2*(1+3*e^2)*p^4*zmin^2+a^4*(-1-2*e^2+3*e^4)*p^2*zmin^4+a^6*(-1+e^2)^3*zmin^6))/(a^2*p*zmin^4))])))/((-4+p)^2*p^6+a^8*(-1+e^2)^4*zmin^4+2*a^6*(-1+e^2)^2*p^2*zmin^2*(-1+e^2+(3+e^2)*zmin^2)+2*a^2*p^5*((-1+e^2)*(4+p)+(-4+e^2*(-12+p)+3*p)*zmin^2)+a^4*p^3*(-8*(-1+e^2)^2*zmin^2*(-1+2*zmin^2)+p*((-1+e^2)^2+4*(-1+e^4)*zmin^2+(3+e^2)^2*zmin^4)))
-	];
+	eGuess=(p-e0Test)/(e1Test-e0Test);
 
-	(* See Eq 25 for definitions of these quantities *)
-	del1y1[e_]:=-e p Sqrt[\[Pi]p[e]^2-4 \[Pi]x[e]]/((1-e^2)\[Pi]x[e]+p^2-p \[Pi]p[e]);
-	del2y2[e_]:=(1-e^2)a^4 zmin^4/((1-e^2)a^4 zmin^4-2p^2 \[Pi]x[e]);
-	y1y2[e_]:=2a^2 zmin^2((1-e^2)\[Pi]x[e]+p^2-p \[Pi]p[e])/(a^4(e^2-1)zmin^4+2 p^2\[Pi]x[e]);
-	
 	(* Resonant condition defined by the equation below *)
-	resonantEqn[e_]:=Sqrt[y1y2[e]]Rf[0,1+del2y2[e],1-del2y2[e]]/Rf[0,1+del1y1[e],1-del1y1[e]]-ratio;
+	resonantEqn[e_?NumericQ]:=Sqrt[y1y2[a,p,e,x]]Rf[0,1+del2y2[a,p,e,x],1-del2y2[a,p,e,x]]/Rf[0,1+del1y1[a,p,e,x],1-del1y1[a,p,e,x]]-ratio;
 	
 	(* Working precision of the root-finding method is based on the precision specified
 	 by the PrecisionGoal option, or the precision of the arguments. MachinePrecision
@@ -1149,31 +1176,6 @@ Module[{pg,argpg,zmin,\[Pi]p,\[Pi]x,del1y1,del2y2,y1y2,resonantEqn,pStar,e0Test,
 		Re[ee/.FindRoot[resonantEqn[ee],{ee,eGuess},PrecisionGoal->pg,WorkingPrecision->pg]],
 		Re[ee/.FindRoot[resonantEqn[ee],{ee,eGuess},PrecisionGoal->pg,WorkingPrecision->pg]]
 	]
-];
-
-
-(* ::Text:: *)
-(*Handle case of a=0 separately*)
-
-
-KerrGeoOrbitRThetaResonantE[0, p_?NumericQ, x_/;x^2<=1, {\[Beta]r_Integer, \[Beta]\[Theta]_Integer}, opts:OptionsPattern[]]:=
-Module[{pg,argpg,zmin,\[Pi]p,\[Pi]x,del1y1,del2y2,y1y2,resonantEqn,pStar,e0Test,e1Test,eGuess=1/10,ee,ratio},
-	(*See if the user specified some precision goal *)
-	pg=OptionValue[PrecisionGoal];
-	ratio=\[Beta]r/\[Beta]\[Theta];
-	
-	(* Test to see if there is an eccentricity that will lead to a bound orbital resonance 
-	 based on the provided values of a, p, x *)
-	e0Test=KerrGeoOrbitRThetaResonantP[0,0,x,{\[Beta]r,\[Beta]\[Theta]},opts];
-	e1Test=KerrGeoOrbitRThetaResonantP[0,1,x,{\[Beta]r,\[Beta]\[Theta]},opts];
-	If[p<e0Test||p>e1Test,Print["Resonant orbits only occur for semi-latus rectum in range "<>ToString[N[e0Test]]<>" \[LessEqual] p \[LessEqual] "<>ToString[N[e1Test]]]; Abort[]];
-	If[p==e0Test,Return[0]];
-	If[p==e1Test,Return[1]];
-	
-	pStar=6/(1-ratio^2); (* See Eq 30 *)
-	
-	(* See Eq 31 *)
-	(2*Sqrt[p^2 - p*pStar])/Sqrt[-6 + pStar]
 ];
 
 
