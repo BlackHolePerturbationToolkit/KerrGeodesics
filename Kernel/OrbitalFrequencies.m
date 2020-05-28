@@ -16,7 +16,7 @@ KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital 
 Begin["`Private`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Roots of the radial and polar equations*)
 
 
@@ -37,6 +37,21 @@ r4=AB/r3;
 ]
 
 
+KerrGeoRadialRoots[a_, p_, e_/;e==1, x_, En1_:Null,Q1_:Null] := Module[{M=1,En=En1,Q=Q1,r1,r2,r3,r4,zm,\[Rho]2},
+r1=\[Infinity];
+r2=\[Rho]2=p/(1+e);
+
+zm = Sqrt[1-x^2];
+r3=1/4 (1-2 \[Rho]2+1/(a^2 zm^2+(-2+\[Rho]2) \[Rho]2)^2 (-a^4 (zm^4-2 zm^2 \[Rho]2)-4 Sqrt[2] a \[Rho]2 Sqrt[(1-zm^2) \[Rho]2 (a^2+(-2+\[Rho]2) \[Rho]2) (a^2 zm^2+\[Rho]2^2)]+(-2+\[Rho]2) \[Rho]2^2 (2+\[Rho]2 (-1+2 \[Rho]2))+2 a^2 \[Rho]2 (\[Rho]2 (2+\[Rho]2)+zm^2 (2+(-5+\[Rho]2) \[Rho]2)))+
+\[Sqrt]((-8 a^2 zm^2  (-2 a \[Rho]2 Sqrt[1-zm^2]+Sqrt[2] Sqrt[\[Rho]2 (a^2+(-2+\[Rho]2) \[Rho]2) (a^2 zm^2+\[Rho]2^2)])^2)/(\[Rho]2 (a^2 zm^2+(-2+\[Rho]2) \[Rho]2)^2)+(4 \[Rho]2^2 (a^4 zm^2 (-1+zm^2)-2 (-2+\[Rho]2) \[Rho]2^2+a^2 \[Rho]2 (-2+(-1+zm^2) \[Rho]2)+2 Sqrt[2] a Sqrt[(1-zm^2) \[Rho]2 (a^2+(-2+\[Rho]2) \[Rho]2) (a^2 zm^2+\[Rho]2^2)])^2)/(a^2 zm^2+(-2+\[Rho]2) \[Rho]2)^4));
+r4=1/4 (1-2 \[Rho]2+1/(a^2 zm^2+(-2+\[Rho]2) \[Rho]2)^2 (-a^4 (zm^4-2 zm^2 \[Rho]2)-4 Sqrt[2] a \[Rho]2 Sqrt[-(-1+zm^2) \[Rho]2 (a^2+(-2+\[Rho]2) \[Rho]2) (a^2 zm^2+\[Rho]2^2)]+(-2+\[Rho]2) \[Rho]2^2 (2+\[Rho]2 (-1+2 \[Rho]2))+2 a^2 \[Rho]2 (\[Rho]2 (2+\[Rho]2)+zm^2 (2+(-5+\[Rho]2) \[Rho]2)))-
+\[Sqrt](1/\[Rho]2((-8 a^2 zm^2  (-2 a \[Rho]2 Sqrt[1-zm^2]+Sqrt[2] Sqrt[\[Rho]2 (a^2+(-2+\[Rho]2) \[Rho]2) (a^2 zm^2+\[Rho]2^2)])^2)/(a^2 zm^2+(-2+\[Rho]2) \[Rho]2)^2+(4 \[Rho]2^3 (a^4 (zm^2-zm^4)+2 (-2+\[Rho]2) \[Rho]2^2+a^2 \[Rho]2 (2+\[Rho]2-zm^2 \[Rho]2)-2 Sqrt[2] a Sqrt[-(-1+zm^2) \[Rho]2 (a^2+(-2+\[Rho]2) \[Rho]2) (a^2 zm^2+\[Rho]2^2)])^2)/(a^2 zm^2+(-2+\[Rho]2) \[Rho]2)^4)));
+
+{r1,r2,r3,r4}
+
+]
+
+
 (* ::Text:: *)
 (*This code uses the polar equation (z^2-zm^2)(a^2(1-E0^2)z^2-zp^2)==0 as the Polar equation. Hence zp is a*Sqrt[1-E0^2]*zp in other sources.*)
 
@@ -49,7 +64,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Orbital Frequencies*)
 
 
@@ -57,7 +72,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
 (*Orbital frequency calculations from Fujita and Hikida, Class. Quantum Grav .26 (2009) 135002, arXiv:0906.1420*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Schwarzschild*)
 
 
@@ -75,6 +90,13 @@ KerrGeoMinoFrequencies[0|0., p_,e_,x_] :=
     "\[CapitalGamma]" -> 1/2 Sqrt[(-4 e^2+(-2+p)^2)/(p (-3-e^2+p))] (8+1/((-4+p)^2 EllipticK[(4 e)/(-6+2 e+p)]) (-(((-4+p) p^2 (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)])/(-1+e^2))+(p^2 (28+4 e^2-12 p+p^2) EllipticK[(4 e)/(-6+2 e+p)])/(-1+e^2)-(2 (6+2 e-p) (3+e^2-p) p^2 EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)])/((-1+e) (1+e)^2)+(4 (-4+p) p (2 (1+e) EllipticK[(4 e)/(-6+2 e+p)]+(-6-2 e+p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)]))/(1+e)+2 (-4+p)^2 ((-4+p) EllipticK[(4 e)/(-6+2 e+p)]-((6+2 e-p) p EllipticPi[(16 e)/(12+8 e-4 e^2-8 p+p^2),(4 e)/(-6+2 e+p)])/(2+2 e-p)))) |>;
 
 
+KerrGeoMinoFrequencies[0|0., p_,e_/;e==1,x_] :=
+ <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> (Sqrt[-((p (-6+2 e+p))/(3+e^2-p))] \[Pi])/(2 EllipticK[(4 e)/(-6+2 e+p)]),
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> p/Sqrt[-3-e^2+p],
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> (p x)/(Sqrt[-3-e^2+p] Abs[x]),
+    "\[CapitalGamma]" -> \[Infinity] |>;
+
+
 KerrGeoBoyerLindquistFrequencies[0|0., p_,0,x_] :=
  <| "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)" -> Sqrt[-6+p]/p^2,
     "\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\)" -> (Sqrt[1/x^2] x)/p^(3/2),
@@ -87,7 +109,7 @@ KerrGeoProperFrequencyFactor[0|0., p_,0,x_]:=p^2
 KerrGeoProperFrequencyFactor[0|0. ,p_,e_,x_]:=(p^2 ((1+e) (28+4 e^2+(-12+p) p)-((1+e) (-4+p) (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)]+2 (6+2 e-p) (3+e^2-p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)])/EllipticK[(4 e)/(-6+2 e+p)]))/(2 (-1+e) (1+e)^2 (-4+p)^2)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Kerr*)
 
 
@@ -134,7 +156,47 @@ hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 (*Eq. (21)*)
 \[CapitalUpsilon]\[Phi]=(2\[CapitalUpsilon]\[Theta])/(Pi Sqrt[\[Epsilon]0zp]) EllipticPi[zm,k\[Theta]^2]+(2a \[CapitalUpsilon]r)/(Pi(rp-rm)Sqrt[(1-En^2)(r1-r3)(r2-r4)])((2M En rp - a L)/(r3-rp) (EllipticK[kr^2]-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2])-(2M En rm - a L)/(r3-rm) (EllipticK[kr^2]-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2]));
 
+
 \[CapitalGamma]=4M^2 En + (2a2zp En  \[CapitalUpsilon]\[Theta])/(Pi L Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]- EllipticE[k\[Theta]^2]) + (2\[CapitalUpsilon]r)/(Pi Sqrt[(1-En^2)(r1-r3)(r2-r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,kr^2])+(2M)/(rp-rm) (((4M^2 En-a L)rp-2M a^2 En)/(r3-rp) (EllipticK[kr^2]-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2])-((4M^2 En-a L)rm-2M a^2 En)/(r3-rm) (EllipticK[kr^2]-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2])));
+
+ <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> \[CapitalUpsilon]r,
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> Abs[\[CapitalUpsilon]\[Theta]],
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> \[CapitalUpsilon]\[Phi],
+    "\[CapitalGamma]" -> \[CapitalGamma] |>
+
+]
+
+
+KerrGeoMinoFrequencies[a_,p_,e_/;e==1,x_]:=Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
+{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
+
+{r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,x,En,Q];
+\[Epsilon]0=a^2 (1-En^2)/L^2;
+zm=1-x^2;
+(*a2zp=(L^2+a^2 (-1+En^2) (-1+zm))/( (-1+En^2) (-1+zm));*)
+
+\[Epsilon]0zp=-(1/((-1+zm)));
+
+(*zmOverZp=If[a==0,0,zm/((L^2+a^2 (-1+En^2) (-1+zm))/(a^2 (-1+En^2) (-1+zm)))];*)
+zmOverZp=(-1+En^2)zm/((L^2+a^2 (-1+En^2) (-1+zm))/(a^2  (-1+zm)));
+
+
+kr=Sqrt[(r3-r4)/(r2-r4)];
+k\[Theta]=Sqrt[zmOverZp];(*Eq.(13)*)
+\[CapitalUpsilon]r=(Pi Sqrt[2(r2-r4)])/(2EllipticK[kr^2]);
+\[CapitalUpsilon]\[Theta]=( L Sqrt[\[Epsilon]0zp]);
+
+rp=M+Sqrt[M^2-a^2];
+rm=M-Sqrt[M^2-a^2];
+hr=1;
+hp=((r3-rp))/((r2-rp));
+hm=((r3-rm))/((r2-rm));
+
+(*Eq. (21)*)
+\[CapitalUpsilon]\[Phi]=  (2\[CapitalUpsilon]\[Theta])/(Pi Sqrt[\[Epsilon]0zp]) EllipticPi[zm,k\[Theta]^2]+a/(2Sqrt[1-a^2]) ((2  rp-a L)/(r3-rp) (1-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2]/EllipticK[kr^2])-(2  rm-a L)/(r3-rm) (1-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2]/EllipticK[kr^2]));
+
+\[CapitalGamma] = \[Infinity];
+
 
  <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> \[CapitalUpsilon]r,
     "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> Abs[\[CapitalUpsilon]\[Theta]],
@@ -214,7 +276,7 @@ KerrGeoProperFrequencies[a_,p_,e_,x_]:=Module[{MinoFreqs,P},
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic function for choosing between frequencies w.r.t different time coordinates*)
 
 
@@ -223,7 +285,7 @@ SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPat
 KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]] := Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
 
 
-If[OptionValue["Time"]=="Mino",Return[KerrGeoMinoFrequencies[a,p,e,x][[1;;3]]]];
+If[OptionValue["Time"]=="Mino",Return[KerrGeoMinoFrequencies[a,p,e,x][[1;;4]]]];
 
 If[OptionValue["Time"]=="BoyerLindquist", Return[KerrGeoBoyerLindquistFrequencies[a,p,e,x]]];
 
