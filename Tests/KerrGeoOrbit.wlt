@@ -158,7 +158,7 @@ VerificationTest[
 (* KerrGeoOrbit Kerr/Generic/Prograde/Mino Analytic vs. FastSpec *)
 (****************************************************************)
 VerificationTest[
-    Block[{Internal`$EqualTolerance = 4, a=0.9, p=10., e=0.5, x=0.5},
+    Block[{Internal`$EqualTolerance = 7, a=0.9, p=10., e=0.5, x=0.5},
 		KerrGeoOrbit[a, p, e, x, Method -> "Analytic", "Parametrization" -> "Mino"][42.]
 		==
 		KerrGeoOrbit[a, p, e, x, Method -> "FastSpec", "Parametrization" -> "Mino"][42.]
