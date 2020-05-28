@@ -18,7 +18,7 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 Begin["`Private`"];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Schwarzschild*)
 
 
@@ -97,7 +97,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 (*Kerr*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Equatorial (Darwin)*)
 
 
@@ -163,7 +163,7 @@ KerrGeoOrbitFunction[a, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Equatorial (Fast Spec - Darwin)*)
 
 
@@ -309,14 +309,14 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Circular (Fast Spec - Darwin)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -393,7 +393,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Circular (Mino)*)
 
 
@@ -510,7 +510,6 @@ r=Function[{Global`\[Lambda]}, Evaluate[ rq[\[CapitalUpsilon]r Global`\[Lambda]+
 ]
 
 
-<<<<<<< .merge_file_a11200
 (* ::Subsubsection:: *)
 (*Scattering orbit (e > 1)*)
 
@@ -567,10 +566,10 @@ C\[Phi]=\[Phi]r[qr0]+\[Phi]z[qz0]/.i_/;i==0:>0;
 \[Theta]in=ArcCos[zq[-\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]];
 \[Theta]out=ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]];
 
-t[\[Lambda]_]:= qt0 + \[CapitalUpsilon]t \[Lambda] + tr[\[CapitalUpsilon]r \[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-Ct;
-r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
-\[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
-\[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-C\[Phi];
+t=Function[{Global`\[Lambda]}, Evaluate[ qt0 + \[CapitalUpsilon]t Global`\[Lambda] + tr[\[CapitalUpsilon]r Global`\[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-Ct ], Listable];
+r=Function[{Global`\[Lambda]}, Evaluate[ rq[\[CapitalUpsilon]r Global`\[Lambda]+ qr0] ], Listable];
+\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[zq[\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]] ], Listable];
+\[Phi]=Function[{Global`\[Lambda]}, Evaluate[ q\[Phi]0 + \[CapitalUpsilon]\[Phi] Global`\[Lambda] + \[Phi]r[\[CapitalUpsilon]r Global`\[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-C\[Phi] ], Listable];
 
 assoc = Association[
 	"Parametrization"->"Mino", 
@@ -598,11 +597,8 @@ KerrGeoOrbitFunction[a,p,e,x,assoc]
 ]
 
 
-(* ::Subsection::Closed:: *)
-=======
 (* ::Subsection:: *)
->>>>>>> .merge_file_a31748
-(*Generic (Fast Spec - Mino)*)
+(*(*Generic (Fast Spec - Mino)*)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
@@ -904,7 +900,7 @@ Module[{test,compare,res,NInit,iter=1,fn,sampledFunc,phaseList,pg,eps,nTest},
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Subroutine that performs spectral integration on even functions*)
 
 
@@ -970,7 +966,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
