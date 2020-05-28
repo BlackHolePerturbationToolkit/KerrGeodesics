@@ -82,7 +82,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -415,7 +415,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -465,6 +465,7 @@ t[\[Lambda]_]:= qt0 + \[CapitalUpsilon]t \[Lambda] + tr[\[CapitalUpsilon]r \[Lam
 r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 \[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
 \[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-C\[Phi];
+
 
 	assoc = Association[
 	"Parametrization"->"Mino", 
