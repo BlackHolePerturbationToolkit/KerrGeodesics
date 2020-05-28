@@ -18,7 +18,7 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 Begin["`Private`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Schwarzschild*)
 
 
@@ -86,7 +86,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 (*Kerr*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Equatorial (Darwin)*)
 
 
@@ -152,14 +152,14 @@ KerrGeoOrbitFunction[a, p, e, 0, assoc]
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Equatorial (Fast Spec - Darwin)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutines that checks for the number of samples necessary for spectral integration*)
 
 
@@ -218,16 +218,14 @@ Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps,coeffs,
 		sampleMax=NInit-2;
 	];
 	(* Construct integrated series solution *)
-	\[CapitalDelta]integratedFunc[\[Chi]_(*?NumericQ*)]:=coeffsN[NInit-1]/2 Sin[(NInit-1)*\[Chi]]+Sum[coeffsN[nIter] Sin[nIter \[Chi]],{nIter,1,sampleMax}];
+	\[CapitalDelta]integratedFunc[\[Chi]_]:=coeffsN[NInit-1]/2 Sin[(NInit-1)*\[Chi]]+Sum[coeffsN[nIter] Sin[nIter \[Chi]],{nIter,1,sampleMax}];
 	(* Allow function to evaluate lists by threading over them *)
-	(*\[CapitalDelta]integratedFunc[\[Chi]List_List]:=\[CapitalDelta]integratedFunc[#]&/@\[Chi]List;*)
-	SetAttributes[\[CapitalDelta]integratedFunc,Listable];
 	(* Return the linear rate of growth and the oscillatory function \[CapitalDelta]integratedFunc *)
 	{growthRate,\[CapitalDelta]integratedFunc}
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -247,8 +245,6 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 	(*Parameterize r in terms of Darwin parameter \[Chi]*)
 	r0[chi_]:=p M/(1+e Cos[chi]);
 	\[Theta]0[chi_]:=N[Pi/2,pg];
-	(*\[Theta]0[chi_List]:=\[Theta]0[#]&/@chi;*)
-	SetAttributes[\[Theta]0,Listable];
 	
 	(* Expressions for dt/d\[Lambda] = TVr and d\[Phi]/d\[Lambda] = PVr *)
 	TVr[rp_]:=(En*(a^2 + rp^2)^2)/(a^2 - 2*M*rp + rp^2) + a*L*(1 - (a^2 + rp^2)/(a^2 - 2*M*rp + rp^2))-a^2*En;
@@ -302,7 +298,7 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Circular (Fast Spec - Darwin)*)
 
 
@@ -330,9 +326,8 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 	pg=Min[{Precision[{a,p,e,x}],Precision[initPhases]}];
 	
 	(*Parameterize \[Theta] in terms of Darwin-like parameter \[Chi]*)
-	r0[chi_(*?NumericQ*)]:=N[p M,pg];
-	SetAttributes[r0, Listable];
-	(*r0[chi_List]:=r0[#]&/@chi;*)
+	r0[chi_]:=N[p M,pg];
+
 	\[Theta]0[chi_]:=ArcCos[zm Cos[chi]];
 
 	(* Expressions for dt/d\[Lambda] = TV\[Theta] and d\[Phi]/d\[Lambda] = PV\[Theta] *)
@@ -387,7 +382,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Circular (Mino)*)
 
 
@@ -430,7 +425,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -504,7 +499,7 @@ r=Function[{Global`\[Lambda]}, Evaluate[ rq[\[CapitalUpsilon]r Global`\[Lambda]+
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
@@ -807,7 +802,7 @@ Module[{test,compare,res,NInit,iter=1,fn,sampledFunc,phaseList,pg,eps,nTest},
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutine that performs spectral integration on even functions*)
 
 
@@ -866,15 +861,14 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 	f[n_]:=fList[[n+1]];
 	
 	(* Construct integrated series solution *)
-	integratedF[mino_(*?NumericQ*)]:=2*Sum[f[n]/n Sin[n freq mino],{n,1,sampleMax}];
+	integratedF[mino_]:=2*Sum[f[n]/n Sin[n freq mino],{n,1,sampleMax}];
 	(* Allow function to evaluate lists by threading over them *)
-	(*integratedF[minoList_List]:=integratedF[#]&/@minoList;*)
-	SetAttributes[integratedF,Listable];
+
 	integratedF
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -941,24 +935,16 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 	If[e>0,
 		\[CapitalDelta]tr=TimeOfMinoFastSpecR[a,p,e,x,{\[CapitalUpsilon]r,\[Lambda]rSample}];
 		\[CapitalDelta]\[Phi]r=PhiOfMinoFastSpecR[a,p,e,x,{\[CapitalUpsilon]r,\[Lambda]rSample}],
-		\[CapitalDelta]tr[\[Lambda]_(*?NumericQ*)]:=0;
-		(*\[CapitalDelta]tr[\[Lambda]_List]:=\[CapitalDelta]tr[#]&/@\[Lambda];*)
-		SetAttributes[\[CapitalDelta]tr,Listable];
-		\[CapitalDelta]\[Phi]r[\[Lambda]_(*?NumericQ*)]:=0;
-		(*\[CapitalDelta]\[Phi]r[\[Lambda]_List]:=\[CapitalDelta]\[Phi]r[#]&/@\[Lambda];*)
-		SetAttributes[\[CapitalDelta]\[Phi]r,Listable]
+		\[CapitalDelta]tr[\[Lambda]_]:=0;
+		\[CapitalDelta]\[Phi]r[\[Lambda]_]:=0;
 	];
 	If[x^2<1,
 		(* Calculate theta dependence for non-equatorial orbits *)
 		\[CapitalDelta]t\[Theta]=TimeOfMinoFastSpecTheta[a,p,e,x,{\[CapitalUpsilon]\[Theta],\[Lambda]\[Theta]Sample}];
 		\[CapitalDelta]\[Phi]\[Theta]=PhiOfMinoFastSpecTheta[a,p,e,x,{\[CapitalUpsilon]\[Theta],\[Lambda]\[Theta]Sample}],
 		(* No theta dependence for equatorial orbits *)
-		\[CapitalDelta]t\[Theta][\[Lambda]_(*?NumericQ*)]:=0;
-		SetAttributes[\[CapitalDelta]t\[Theta],Listable];
-		(*\[CapitalDelta]t\[Theta][\[Lambda]_List]:=\[CapitalDelta]t\[Theta][#]&/@\[Lambda];*)
-		\[CapitalDelta]\[Phi]\[Theta][\[Lambda]_(*?NumericQ*)]:=0;
-		SetAttributes[\[CapitalDelta]\[Phi]\[Theta],Listable]
-		(*\[CapitalDelta]\[Phi]\[Theta][\[Lambda]_List]:=\[CapitalDelta]\[Phi]\[Theta] [#]&/@\[Lambda];*)
+		\[CapitalDelta]t\[Theta][\[Lambda]_]:=0;
+		\[CapitalDelta]\[Phi]\[Theta][\[Lambda]_]:=0;
 	];
 
 	(*Collect initial Mino time phases*)
