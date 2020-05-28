@@ -93,7 +93,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -426,7 +426,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -496,6 +496,93 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 	];
 
 	KerrGeoOrbitFunction[a,p,e,x,assoc]
+
+]
+
+
+(* ::Subsubsection:: *)
+(*Scattering orbit (e > 1)*)
+
+
+KerrGeoOrbitMino[a_,p_,e_/;e>1,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[
+{M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi],qrS,\[Lambda]S,\[Phi]S,\[Theta]in,\[Theta]out},
+	consts = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = Values[consts];
+	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
+	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
+	{zp,zm} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoPolarRoots[a, p, e, x];
+	
+	kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
+	k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
+
+rp=M+Sqrt[M^2-a^2];
+rm=M-Sqrt[M^2-a^2];
+hr=(r2-r1)/(r3-r1);
+hp=((r2-r1)(r3-rp))/((r3-r1)(r2-rp));
+hm=((r2-r1)(r3-rm))/((r3-r1)(r2-rm));
+
+rq = Function[{qr},(r3(r1 - r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-r2(r1-r3))/((r1-r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-(r1-r3))];
+
+zq = Function[{qz}, zm JacobiSN[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]]];
+
+\[Psi]r[qr_]:=\[Psi]r[qr]= JacobiAmplitude[EllipticK[kr]/\[Pi] qr,kr];
+
+tr[qr_]:= -En/Sqrt[(En^2-1) (r3-r1) (r2-r4)] (
+4(r2-r3) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr])
+-4 (r2-r3)/(rp-rm) (
+-(1/((-rm+r2) (-rm+r3)))(-2 a^2+rm (4-(a L)/En)) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr] )
++1/((-rp+r2) (-rp+r3)) (-2 a^2+rp (4-(a L)/En)) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr])
+)
++(r2-r3) (r1+r2+r3+r4) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr] )
++(r1-r3) (r2-r4) (EllipticE[kr] qr/\[Pi]-EllipticE[\[Psi]r[qr],kr]+hr((Sin[\[Psi]r[qr]]Cos[\[Psi]r[qr]] Sqrt[1-kr Sin[\[Psi]r[qr]]^2])/(1-hr Sin[\[Psi]r[qr]]^2))) );
+
+\[Phi]r[qr_]:= (2 a En (-1/((-rm+r2) (-rm+r3))(2 rm-(a L)/En) (r2-r3) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr])+1/((-rp+r2) (-rp+r3))(2 rp-(a L)/En) (r2-r3) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr] )))/((-rm+rp) Sqrt[(1-En^2) (r1-r3) (r2-r4)]);
+
+\[Psi]z[qz_]:= \[Psi]z[qz] = JacobiAmplitude[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]];
+tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE[\[Psi]z[qz],k\[Theta]]);
+\[Phi]z[qz_]:= -1/zp L ( EllipticPi[zm^2,k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticPi[zm^2,\[Psi]z[qz],k\[Theta]]);
+
+qrS = (\[Pi] InverseJacobiSN[Sqrt[(r3-r1)/(r2-r1)],kr])/EllipticK[kr];
+\[Lambda]S= qrS/\[CapitalUpsilon]r;
+
+{qt0, qr0, qz0, q\[Phi]0} = {initPhases[[1]], initPhases[[2]], initPhases[[3]], initPhases[[4]]};
+If[qr0 != 0, Print["Scattering orbits are assumed to have \!\(\*SubscriptBox[\(q\), \(r, 0\)]\)=0"];qr0=0];
+
+(*Calculate normalization constants so that t=0 and \[Phi]=0 at \[Lambda]=0 when qt0=0 and q\[Phi]0=0 *)
+Ct=tr[qr0]+tz[qz0]/.i_/;i==0:>0;
+C\[Phi]=\[Phi]r[qr0]+\[Phi]z[qz0]/.i_/;i==0:>0;
+
+\[Phi]S = 2 \[CapitalUpsilon]\[Phi] \[Lambda]S+ \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]- \[Phi]z[-\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0];
+\[Theta]in=ArcCos[zq[-\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]];
+\[Theta]out=ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]];
+
+t[\[Lambda]_]:= qt0 + \[CapitalUpsilon]t \[Lambda] + tr[\[CapitalUpsilon]r \[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-Ct;
+r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
+\[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
+\[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-C\[Phi];
+
+assoc = Association[
+	"Parametrization"->"Mino", 
+	"Energy" -> En, 
+	"AngularMomentum" -> L, 
+	"CarterConstant" -> Q, 
+	"ConstantsOfMotion" -> consts,
+	"RadialFrequency" -> \[CapitalUpsilon]r,
+	"PolarFrequency" ->  \[CapitalUpsilon]\[Theta],
+	"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
+	"Frequencies" -> <|"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)"-> \[CapitalUpsilon]r,"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)"->\[CapitalUpsilon]\[Theta],"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)"->\[CapitalUpsilon]\[Phi]|>,
+	"Trajectory" -> {t,r,\[Theta],\[Phi]},
+	"RadialRoots" -> {r1,r2,r3,r4},
+	"ScatteringMinoTime"-> \[Lambda]S,
+	"ScatteringAngle"-> \[Phi]S,
+	"ScatteringInclinations"-> <|"\!\(\*SubscriptBox[\(\[Theta]\), \(in\)]\)"-> \[Theta]in,"\!\(\*SubscriptBox[\(\[Theta]\), \(out\)]\)"-> \[Theta]out|>,
+	"a" -> a,
+	"p" -> p,
+	"e" -> e,
+	"Inclination" -> x
+	];
+
+KerrGeoOrbitFunction[a,p,e,x,assoc]
 
 ]
 
