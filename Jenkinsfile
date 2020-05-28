@@ -1,6 +1,11 @@
 pipeline {
   agent { docker { image 'wolfram-docker-11.3.0' } }
-  options { skipDefaultCheckout true }
+
+  options {
+    timeout(time: 10, unit: 'MINUTES')
+    skipDefaultCheckout(true)
+  }
+
   stages {
     stage('Run tests') {
       steps {
