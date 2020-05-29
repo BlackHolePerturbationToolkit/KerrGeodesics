@@ -22,6 +22,7 @@ KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital pa
 
 KerrGeoPeriastron::usage = "KerrGeoPeriastron[a,p,e,x] returns the value of the periastron of a scatter orbit."
 KerrGeoScatteringAngle::usage = "KerrGeoScatteringAngle[a,p,e,x] returns the value of the scattering angle (\[Phi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(+\)]\))-\[Phi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(-\)]\))) of a hyperbolic orbit."
+KerrGeoDarwinLimit::usage = "KerrGeoDarwinLimit[e] returns the value of \[Chi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(+\)]\)) from the Darwin paramaterisation for a scatter orbit."
 
 Begin["`Private`"];
 
@@ -224,27 +225,30 @@ KerrGeoISSO[a_,x_]:=KerrGeoSeparatrix[a,0,x]
 
 
 (* ::Section:: *)
-(*Periastron of scatter orbit*)
+(*Scatter Orbits*)
 
 
 (* ::Text:: *)
-(*Schwarzschild*)
+(*Schwarzschild Periastron*)
 
 
 KerrGeoPeriastron[0,p_,e_/;e>=1,x_]:= p/(1+e);
 
 
-(* ::Section:: *)
-(*Scattering angle*)
-
-
 (* ::Text:: *)
-(*Schwarzschild hyperbolic*)
+(*Schwarzschild hyperbolic scatter angle*)
 (*Defined as \[Phi](SuperPlus[\[ScriptCapitalI]])-\[Phi](SuperMinus[\[ScriptCapitalI]])*)
 (*Derived by O. Long*)
 
 
 KerrGeoScatteringAngle[0,p_,e_/;e>=1,x_]:= (4 Sqrt[p]EllipticF[ArcCos[-e^(-1)]/2,(4e)/(6+2e-p)])/Sqrt[-6-2e+p]
+
+
+(* ::Text:: *)
+(*Value of \[Chi](SuperPlus[\[ScriptCapitalI]]) from the Darwin paramaterisation*)
+
+
+KerrGeoDarwinLimit[e_]:= ArcCos[-1/e]
 
 
 (* ::Section::Closed:: *)
