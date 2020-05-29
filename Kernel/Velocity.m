@@ -77,7 +77,7 @@ uzContra = (\[CapitalUpsilon]z zprime)/\[CapitalSigma];
 u\[Theta]Contra[\[Lambda]_] := -(uzContra/Sqrt[1-z^2])/. \[Lambda]local-> \[Lambda];
 u\[Phi]Contra[\[Lambda]_]:= 1/\[CapitalSigma] (a/\[CapitalDelta] ( \[Omega]^2 En  - a L) - a En + L/(1-z^2))/. \[Lambda]local-> \[Lambda];
 
-<|"ut"->utContra, "ur"->urContra, "u\[Theta]"-> u\[Theta]Contra, "u\[Phi]"->   u\[Phi]Contra|>,
+<|"\!\(\*SuperscriptBox[\(u\), \(t\)]\)"->utContra, "\!\(\*SuperscriptBox[\(u\), \(r\)]\)"->urContra, "\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"-> u\[Theta]Contra, "\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)"->   u\[Phi]Contra|>,
 
 (*Else if Index \[Equal] Covariant*)
 
@@ -86,7 +86,7 @@ urCo[\[Lambda]_]:= ( rprime \[CapitalUpsilon]r)/\[CapitalDelta]/. \[Lambda]local
 u\[Theta]Co[\[Lambda]_]:=  -((\[CapitalUpsilon]z zprime)/Sqrt[1-z^2])/. \[Lambda]local-> \[Lambda];
 u\[Phi]Co[\[Lambda]_]:= L;
 
-<|"ut"->utCo, "ur"->urCo, "u\[Theta]"-> u\[Theta]Co, "u\[Phi]"->   u\[Phi]Co|>
+<|"\!\(\*SubscriptBox[\(u\), \(t\)]\)"->utCo, "\!\(\*SubscriptBox[\(u\), \(r\)]\)"->urCo, "\!\(\*SubscriptBox[\(u\), \(\[Theta]\)]\)"-> u\[Theta]Co, "\!\(\*SubscriptBox[\(u\), \(\[Phi]\)]\)"->   u\[Phi]Co|>
 ]
 ]
 
