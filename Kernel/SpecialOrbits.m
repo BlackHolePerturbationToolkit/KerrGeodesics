@@ -22,7 +22,8 @@ KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital pa
 
 KerrGeoPeriastron::usage = "KerrGeoPeriastron[a,p,e,x] returns the value of the periastron of a scatter orbit."
 KerrGeoScatteringAngle::usage = "KerrGeoScatteringAngle[a,p,e,x] returns the value of the scattering angle (\[Phi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(+\)]\))-\[Phi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(-\)]\))) of a hyperbolic orbit."
-KerrGeoDarwinLimit::usage = "KerrGeoDarwinLimit[e] returns the value of \[Chi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(+\)]\)) from the Darwin paramaterisation for a scatter orbit."
+KerrGeoDarwinBoundsChi::usage = "KerrGeoDarwinBoundsChi[e] returns the values {\[Chi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(-\)]\)),\[Chi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(+\)]\)} from the Darwin paramaterisation for a Schwarzschild scatter orbit."
+KerrGeoScatterOrbitQ::usage = "KerrGeoScatterOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a scatter orbit."
 
 Begin["`Private`"];
 
@@ -149,7 +150,7 @@ KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ]/;(Precision[{a1,x1}]!=\[Infinity])&&(-1<=
 p/.FindRoot[IBSOPoly/.{a->a1,x->x1},{p,KerrGeoIBSO[a1,0],KerrGeoIBSO[a1,-1]},WorkingPrecision->Max[MachinePrecision,prec-1]]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Separatrix*)
 
 
@@ -241,14 +242,28 @@ KerrGeoPeriastron[0,p_,e_/;e>=1,x_]:= p/(1+e);
 (*Derived by O. Long*)
 
 
-KerrGeoScatteringAngle[0,p_,e_/;e>=1,x_]:= (4 Sqrt[p]EllipticF[ArcCos[-e^(-1)]/2,(4e)/(6+2e-p)])/Sqrt[-6-2e+p]
+KerrGeoScatteringAngle[0,p_,e_/;e>=1,1]:= (4 Sqrt[p]EllipticF[ArcCos[-e^(-1)]/2,(4e)/(6+2e-p)])/Sqrt[-6-2e+p]
 
 
 (* ::Text:: *)
-(*Value of \[Chi](SuperPlus[\[ScriptCapitalI]]) from the Darwin paramaterisation*)
+(*Values of the bounds of \[Chi] from the Darwin parameterization*)
 
 
-KerrGeoDarwinLimit[e_]:= ArcCos[-1/e]
+KerrGeoDarwinBoundsChi[e_/;e>=1]:= { -ArcCos[-1/e], ArcCos[-1/e] }
+
+
+(* ::Text:: *)
+(*Test whether an orbit is a scatter orbit*)
+(*Currently only for equatorial Schwarzschild orbits*)
+(*Lcrit derived by O. Long*)
+
+
+KerrGeoScatterOrbitQ[0,p_?NumericQ,e_?NumericQ,1]:=Module[{\[CapitalEpsilon], L, Lcrit},
+	\[CapitalEpsilon] = KerrGeoEnergy[0,p,e,1];
+	L = KerrGeoAngularMomentum[0,p,e,1];
+	Lcrit = (Sqrt[8-36\[CapitalEpsilon]^2+27\[CapitalEpsilon]^4-8\[CapitalEpsilon] Sqrt[-8+9\[CapitalEpsilon]^2]+9\[CapitalEpsilon]^3 Sqrt[-8+9\[CapitalEpsilon]^2]])/(Sqrt[2] Sqrt[-1+\[CapitalEpsilon]^2]);
+	If[Re[L] >= Lcrit && e >= 1, True, False]
+]
 
 
 (* ::Section::Closed:: *)
