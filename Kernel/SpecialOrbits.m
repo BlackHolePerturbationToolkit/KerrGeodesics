@@ -253,7 +253,7 @@ KerrGeoScatteringAngle[0,p_,e_/;e>=1,1]:= (4 Sqrt[p]EllipticF[ArcCos[-e^(-1)]/2,
 (*Values of the bounds of \[Chi] from the Darwin parameterization*)
 
 
-KerrGeoDarwinBoundsChi[e_/;e>=1]:= { -ArcCos[-1/e], ArcCos[-1/e] }
+KerrGeoDarwinBoundsChi[e_]:= { -ArcCos[-1/e], ArcCos[-1/e] }
 
 
 (* ::Text:: *)
@@ -263,10 +263,11 @@ KerrGeoDarwinBoundsChi[e_/;e>=1]:= { -ArcCos[-1/e], ArcCos[-1/e] }
 
 
 KerrGeoScatterOrbitQ[0,p_?NumericQ,e_?NumericQ,1]:=Module[{\[CapitalEpsilon], L, Lcrit},
-	\[CapitalEpsilon] = KerrGeoEnergy[0,p,e,1];
-	L = KerrGeoAngularMomentum[0,p,e,1];
-	Lcrit = (Sqrt[8-36\[CapitalEpsilon]^2+27\[CapitalEpsilon]^4-8\[CapitalEpsilon] Sqrt[-8+9\[CapitalEpsilon]^2]+9\[CapitalEpsilon]^3 Sqrt[-8+9\[CapitalEpsilon]^2]])/(Sqrt[2] Sqrt[-1+\[CapitalEpsilon]^2]);
-	If[Re[L] >= Lcrit && e >= 1, True, False]
+	If[ e == 1 || e == 1,True,
+		\[CapitalEpsilon] = KerrGeoEnergy[0,p,e,1];
+		L = KerrGeoAngularMomentum[0,p,e,1];
+		Lcrit = (Sqrt[8-36\[CapitalEpsilon]^2+27\[CapitalEpsilon]^4-8\[CapitalEpsilon] Sqrt[-8+9\[CapitalEpsilon]^2]+9\[CapitalEpsilon]^3 Sqrt[-8+9\[CapitalEpsilon]^2]])/(Sqrt[2] Sqrt[-1+\[CapitalEpsilon]^2]);
+		If[Re[L] >= Lcrit && e > 1, True, False]]
 ]
 
 

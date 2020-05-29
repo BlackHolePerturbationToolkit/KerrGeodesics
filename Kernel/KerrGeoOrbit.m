@@ -10,7 +10,8 @@
 
 BeginPackage["KerrGeodesics`KerrGeoOrbit`",
 	{"KerrGeodesics`ConstantsOfMotion`",
-	 "KerrGeodesics`OrbitalFrequencies`"}];
+	 "KerrGeodesics`OrbitalFrequencies`",
+	 "KerrGeodesics`SpecialOrbits`"}];
 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
@@ -65,7 +66,7 @@ tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] := Sqrt[-4e^2+(-2+p)^2](((-I)p Sqrt[-6+2e+p
 (*FIXME: make the below work for inclined orbits and accept initial phases*)
 
 
-KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En,L,Q},
+KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En,L,Q, \[Delta]\[Phi], rP, \[Chi]Bounds, type},
 
 t =Function[{Global`\[Chi]}, Evaluate[ tSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
 r =Function[{Global`\[Chi]}, Evaluate[ rSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
@@ -74,6 +75,10 @@ r =Function[{Global`\[Chi]}, Evaluate[ rSchwarzDarwin[p,e,Global`\[Chi]] ], List
 
 consts = KerrGeoConstantsOfMotion[0,p,e,1];
 {En,L,Q} = Values[consts];
+\[Delta]\[Phi] = Evaluate[KerrGeoScatteringAngle[0,p,e,1]];
+rP = Evaluate[KerrGeoPeriastron[0,p,e,1]];
+\[Chi]Bounds = Evaluate[KerrGeoDarwinBoundsChi[e]];
+type = Evaluate[KerrGeoOrbitType[0,p,e,1]];
 
 assoc = Association[
 			"Trajectory" -> {t,r,\[Theta],\[Phi]},
@@ -85,7 +90,11 @@ assoc = Association[
 			"Inclination" -> 1,
 			"Energy" -> En,
 			"AngularMomentum" -> L,
-			"CarterConstant" -> Q
+			"CarterConstant" -> Q,
+			"ScatteringAngle" -> \[Delta]\[Phi],
+			"Periastron" -> rP,
+			"DarwinBounds" -> \[Chi]Bounds,
+			"OrbitType" -> type
 			];
 
 KerrGeoOrbitFunction[0, p, e, 1, assoc]
@@ -93,7 +102,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -1097,7 +1106,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
