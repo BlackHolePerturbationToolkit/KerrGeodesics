@@ -93,11 +93,12 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 
 (* ::Text:: *)
 (*Compute the orbit using Mino time and then convert to Darwin time using \[Lambda][r[\[Chi]]] where \[Lambda][r] is found in Fujita and Hikida (2009).*)
+(*ToFix: Currently doesn't take in initial phases in any way*)
 
 
-KerrGeoOrbitEquatorialDarwin[a_,p_,e_,x_/;x^2==1] := Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],consts,En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc,velocity},
+KerrGeoOrbitEquatorialDarwin[a_,p_,e_,x_/;x^2==1, initPhases_] := Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],consts,En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc,velocity},
 
-orbitMino = KerrGeoOrbit[a,p,e,x];
+orbitMino = KerrGeoOrbit[a,p,e,x,initPhases];
 
 {r1,r2,r3,r4} = orbitMino["RadialRoots"];
 freqs = orbitMino["Frequencies"];
@@ -1041,7 +1042,7 @@ If[method == "Analytic",
 
 	If[param == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
 	If[param == "Darwin", 
-		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitDarwin[a,p,e,x,initPhases]]]
+		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitEquatorialDarwin[a,p,e,x,initPhases]]]
 	];
 	Print["Unrecognized parametrization: " <> OptionValue["Parametrization"]];
 
