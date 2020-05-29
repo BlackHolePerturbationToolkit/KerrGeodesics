@@ -93,7 +93,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 
 (* ::Text:: *)
 (*Compute the orbit using Mino time and then convert to Darwin time using \[Lambda][r[\[Chi]]] where \[Lambda][r] is found in Fujita and Hikida (2009).*)
-(*ToFix: Currently doesn't take in initial phases in any way*)
+(*ToFix: Adding initial phases doesn't match up with FastSpec method*)
 
 
 KerrGeoOrbitEquatorialDarwin[a_,p_,e_,x_/;x^2==1, initPhases_] := Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],consts,En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc,velocity},
@@ -125,7 +125,7 @@ rDarwin[\[Chi]_]:= rMino[\[Lambda][\[Chi]]];
 \[Theta]Darwin[\[Chi]_]:= \[Theta]Mino[\[Lambda][\[Chi]]];
 \[Phi]Darwin[\[Chi]_]:= \[Phi]Mino[\[Lambda][\[Chi]]];
 
-velocity = Values[KerrGeoVelocity[a,p,e,x,"Parametrization"->"Darwin"]];
+velocity = Values[KerrGeoVelocity[a,p,e,x,initPhases,"Parametrization"->"Darwin"]];
 
 assoc = Association[
 			"Trajectory" -> {tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin}, 
@@ -871,7 +871,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -1039,7 +1039,7 @@ If[method == "FastSpec",
 ];
 
 If[method == "Analytic",
-
+(*Changed "KerrGeoOrbitDarwin" to "KerrGeoOrbitEquatorialDarwin"*)
 	If[param == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
 	If[param == "Darwin", 
 		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitEquatorialDarwin[a,p,e,x,initPhases]]]
