@@ -96,7 +96,7 @@ u\[Phi]Co[\[Lambda]_]:= L;
 
 
 KerrGeoVelocityDarwin[a_,p_,e_,x_/;x^2==1,initPhases_,index_ ]:= Module[{En,L,Q,r,z,r1,r2,r3,r4,kr, \[CapitalUpsilon]r, \[CapitalLambda]r,yr,\[Lambda]0r,r01,\[CapitalLambda]r1,\[Lambda],
-\[Chi]0,\[Nu], \[Chi]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigma], \[Omega], ut,ur,u\[Theta],u\[Phi], MinoVelocities},
+\[Chi]0,\[Nu], \[Chi]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigma], \[Omega], ut,ur,u\[Theta],u\[Phi], MinoVelocities,ut1,ur1,u\[Theta]1,u\[Phi]1},
 
 (*Constants of Motion*)
 {En,L,Q}= Values[KerrGeoConstantsOfMotion[a,p,e,x]];
@@ -129,14 +129,19 @@ r01=r2;
 \[Lambda][\[Nu]_]:=\[CapitalLambda]r Floor[\[Nu]/(2\[Pi])]+If[Mod[\[Nu],2\[Pi]]<=\[Pi], \[Lambda]0r[r[\[Nu]]]-\[CapitalLambda]r1,\[CapitalLambda]r-\[Lambda]0r[r[\[Nu]]]];
 
 
-    MinoVelocities = KerrGeoVelocityMino[a,p,e,x,{0,0}, index];
+MinoVelocities = KerrGeoVelocityMino[a,p,e,x,{0,0}, index];
 
-ut[\[Chi]_] := MinoVelocities ["ut"][\[Lambda][\[Chi]-\[Chi]0]];
-u\[Theta][\[Chi]_]:= 0;
-ur[\[Chi]_] := MinoVelocities ["ur"][\[Lambda][\[Chi]-\[Chi]0]];
-u\[Phi][\[Chi]_] := MinoVelocities ["u\[Phi]"][\[Lambda][\[Chi]-\[Chi]0]];
+If[index == "Contravariant", 
+	ut1="\!\(\*SuperscriptBox[\(u\), \(t\)]\)"; ur1="\!\(\*SuperscriptBox[\(u\), \(r\)]\)"; u\[Theta]1="\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]1="\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)";,
+	ut1="\!\(\*SubscriptBox[\(u\), \(t\)]\)"; ur1="\!\(\*SubscriptBox[\(u\), \(r\)]\)"; u\[Theta]1="\!\(\*SubscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]1="\!\(\*SubscriptBox[\(u\), \(\[Phi]\)]\)";
+];
 
-<|"ut"-> ut, "ur"-> ur, "u\[Theta]"-> u\[Theta], "u\[Phi]"-> u\[Phi] |>
+ut[\[Chi]_] := MinoVelocities [ut1][\[Lambda][\[Chi]-\[Chi]0]];
+ur[\[Chi]_] := MinoVelocities [ur1][\[Lambda][\[Chi]-\[Chi]0]];
+u\[Theta][\[Chi]_] := 0;
+u\[Phi][\[Chi]_] := MinoVelocities [u\[Phi]1][\[Lambda][\[Chi]-\[Chi]0]];
+
+<|ut1-> ut, ur1-> ur, u\[Theta]1-> u\[Theta], u\[Phi]1-> u\[Phi] |>
 
 
 ]
