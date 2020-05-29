@@ -25,6 +25,10 @@ KerrGeoScatteringAngle::usage = "KerrGeoScatteringAngle[a,p,e,x] returns the val
 KerrGeoDarwinBoundsChi::usage = "KerrGeoDarwinBoundsChi[e] returns the values {\[Chi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(-\)]\)),\[Chi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(+\)]\)} from the Darwin paramaterisation for a Schwarzschild scatter orbit."
 KerrGeoScatterOrbitQ::usage = "KerrGeoScatterOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a scatter orbit."
 
+KerrGeoPlungeOrbitQ::usage = "KerrGeoPlungeOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a plunge orbit."
+
+KerrGeoOrbitType::usage = "KerrGeoOrbitType[a,p,e,x] outputs whether the parameters correspond to a bound, scatter or plunge orbit."
+
 Begin["`Private`"];
 
 
@@ -150,7 +154,7 @@ KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ]/;(Precision[{a1,x1}]!=\[Infinity])&&(-1<=
 p/.FindRoot[IBSOPoly/.{a->a1,x->x1},{p,KerrGeoIBSO[a1,0],KerrGeoIBSO[a1,-1]},WorkingPrecision->Max[MachinePrecision,prec-1]]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Separatrix*)
 
 
@@ -211,7 +215,7 @@ p/.FindRoot[SepPoly/.{a->a1,x->x1,e->e1},{p,pPolar[a1,e1],12},WorkingPrecision->
 
 KerrGeoBoundOrbitQ[a_?NumericQ,p_?NumericQ,e_?NumericQ,x_?NumericQ]:=Module[{ps},
 	ps = KerrGeoSeparatrix[a,e,x];
-	If[p >= ps, True, False]
+	If[p >= ps && 0 <= e < 1, True, False]
 ]
 
 
@@ -225,7 +229,7 @@ KerrGeoISSO[a_,x_/;Abs[x]==1]:=KerrGeoISCO[a,x]
 KerrGeoISSO[a_,x_]:=KerrGeoSeparatrix[a,0,x]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Scatter Orbits*)
 
 
@@ -264,6 +268,31 @@ KerrGeoScatterOrbitQ[0,p_?NumericQ,e_?NumericQ,1]:=Module[{\[CapitalEpsilon], L,
 	Lcrit = (Sqrt[8-36\[CapitalEpsilon]^2+27\[CapitalEpsilon]^4-8\[CapitalEpsilon] Sqrt[-8+9\[CapitalEpsilon]^2]+9\[CapitalEpsilon]^3 Sqrt[-8+9\[CapitalEpsilon]^2]])/(Sqrt[2] Sqrt[-1+\[CapitalEpsilon]^2]);
 	If[Re[L] >= Lcrit && e >= 1, True, False]
 ]
+
+
+(* ::Section::Closed:: *)
+(*Plunge Orbits*)
+
+
+(* ::Text:: *)
+(*Test whether an orbit is a plunge orbit*)
+
+
+KerrGeoPlungeOrbitQ[0,p_?NumericQ,e_?NumericQ,1]:=
+	If[KerrGeoBoundOrbitQ[0,p,e,1] == KerrGeoScatterOrbitQ[0,p,e,1] == False, True, False]
+
+
+(* ::Section::Closed:: *)
+(*Orbit type*)
+
+
+(* ::Text:: *)
+(*Output the type of orbit based on the orbital parameters*)
+
+
+KerrGeoOrbitType[0,p_?NumericQ,e_?NumericQ,1]:=
+	If[KerrGeoBoundOrbitQ[0,p,e,1] == True, "Bound",
+		If[KerrGeoScatterOrbitQ[0,p,e,1] == True, "Scatter", "Plunge"]]
 
 
 (* ::Section::Closed:: *)
