@@ -10,7 +10,8 @@
 
 BeginPackage["KerrGeodesics`KerrGeoOrbit`",
 	{"KerrGeodesics`ConstantsOfMotion`",
-	 "KerrGeodesics`OrbitalFrequencies`"}];
+	 "KerrGeodesics`OrbitalFrequencies`",
+	 "KerrGeodesics`Velocity`"}];
 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
@@ -86,7 +87,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 (*Kerr*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Equatorial (Darwin)*)
 
 
@@ -94,7 +95,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 (*Compute the orbit using Mino time and then convert to Darwin time using \[Lambda][r[\[Chi]]] where \[Lambda][r] is found in Fujita and Hikida (2009).*)
 
 
-KerrGeoOrbitEquatorialDarwin[a_,p_,e_,x_/;x^2==1] := Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],consts,En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc},
+KerrGeoOrbitEquatorialDarwin[a_,p_,e_,x_/;x^2==1] := Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],consts,En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc,velocity},
 
 orbitMino = KerrGeoOrbit[a,p,e,x];
 
@@ -123,8 +124,11 @@ rDarwin[\[Chi]_]:= rMino[\[Lambda][\[Chi]]];
 \[Theta]Darwin[\[Chi]_]:= \[Theta]Mino[\[Lambda][\[Chi]]];
 \[Phi]Darwin[\[Chi]_]:= \[Phi]Mino[\[Lambda][\[Chi]]];
 
+velocity = Values[KerrGeoVelocity[a,p,e,x,"Parametrization"->"Darwin"]];
+
 assoc = Association[
 			"Trajectory" -> {tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin}, 
+			"Velocity"-> velocity,
 			"Parametrization" -> "Darwin", 
 			"ConstantsOfMotion"-> consts, 
 			"RadialRoots"->{r1,r2,r3,r4},
@@ -290,14 +294,14 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Circular (Fast Spec - Darwin)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -356,6 +360,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 	\[Theta][\[Chi]_]:=\[Theta]0[\[Chi]+\[Chi]0];
 	\[Phi][\[Chi]_]:=\[CapitalDelta]\[Phi]\[Theta][\[Chi]+\[Chi]0]+freqPh \[Chi]+\[Phi]0-\[Phi]C;
 	
+	
 	assoc = Association[
 		"Parametrization"->"Darwin",
 		"Energy" -> En, 
@@ -382,7 +387,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 (*FIXME: make the initial phases work in this case*)
 
 
-KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Module[{consts, assoc, t, r, \[Theta], \[Phi], En, L, Q, \[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t, e=0, x=1},
+KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Module[{consts, assoc, t, r, \[Theta], \[Phi], En, L, Q, \[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t, e=0, x=1, velocity},
 
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
@@ -392,7 +397,9 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 	r[\[Lambda]_] := p;
 	\[Theta][\[Lambda]_] := \[Pi]/2;
 	\[Phi][\[Lambda]_] := (p^(5/4) \[Lambda])/Sqrt[2 a+(-3+p) Sqrt[p]];
-
+	
+	velocity = Values[KerrGeoVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]}]];
+	
 	assoc = Association[
 		"Parametrization"->"Mino", 
 		"Energy" -> En, 
@@ -404,6 +411,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 		"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
 		"Frequencies" -> {\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi]},
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
+		"Velocity" -> velocity,
 		"a" -> a,
 		"p" -> p,
 		"e" -> e,
@@ -415,11 +423,11 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
 
 
-KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi]},
+KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi],velocity},
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
 	{En,L,Q} = Values[consts];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
@@ -466,6 +474,8 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 \[Theta][\[Lambda]_]:= ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]];
 \[Phi][\[Lambda]_]:= q\[Phi]0 + \[CapitalUpsilon]\[Phi] \[Lambda] + \[Phi]r[\[CapitalUpsilon]r \[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda] + qz0]-C\[Phi];
 
+velocity = Values[KerrGeoVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]}]];
+
 
 	assoc = Association[
 	"Parametrization"->"Mino", 
@@ -478,6 +488,7 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 	"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
 	"Frequencies" -> {\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi]},
 	"Trajectory" -> {t,r,\[Theta],\[Phi]},
+	"Velocity"-> velocity,
 	"RadialRoots" -> {r1,r2,r3,r4},
 	"a" -> a,
 	"p" -> p,
@@ -490,7 +501,7 @@ r[\[Lambda]_]:= rq[\[CapitalUpsilon]r \[Lambda]+ qr0];
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
@@ -859,7 +870,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -868,7 +879,7 @@ Options[KerrGeoOrbitFastSpec]={InitialPosition->{0,0,0,0}};
 KerrGeoOrbitFastSpec[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0},opts:OptionsPattern[]]:=
 Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,p3,p4,\[Alpha],\[Beta],zp,zm,assoc,var,\[Chi]0,\[Psi]0,
 		r0,\[Theta]0,qt0,qr0,q\[Theta]0,q\[Phi]0,\[Lambda]t0,\[Lambda]r0,\[Lambda]\[Theta]0,\[Lambda]\[Phi]0,t,r,\[Theta],\[Phi],\[Psi],\[Chi],\[CapitalDelta]\[Lambda]r,\[Lambda]r,\[CapitalDelta]\[Lambda]\[Theta],\[Lambda]\[Theta],rC,\[Theta]C,\[CapitalDelta]r,\[CapitalDelta]\[Theta],
-		\[Psi]r,\[Chi]\[Theta],NrMax,NthMax,pg,\[Lambda]rSample,\[Lambda]\[Theta]Sample,\[CapitalDelta]tr,\[CapitalDelta]\[Phi]r,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]\[Theta],\[Phi]C,tC,zRoots,tInit,rInit,\[Theta]Init,\[Phi]Init},
+		\[Psi]r,\[Chi]\[Theta],NrMax,NthMax,pg,\[Lambda]rSample,\[Lambda]\[Theta]Sample,\[CapitalDelta]tr,\[CapitalDelta]\[Phi]r,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]\[Theta],\[Phi]C,tC,zRoots,tInit,rInit,\[Theta]Init,\[Phi]Init, velocity},
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
 	{En,L,Q} = Values[consts];
 	
@@ -970,7 +981,10 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 	r[\[Lambda]_]:=r0[\[Psi][\[Lambda]+\[Lambda]r0]+\[CapitalUpsilon]r \[Lambda]+qr0];
 	\[Theta][\[Lambda]_]:=\[Theta]0[\[Chi][\[Lambda]+\[Lambda]\[Theta]0]+\[CapitalUpsilon]\[Theta] \[Lambda]+q\[Theta]0];
 	\[Phi][\[Lambda]_]:=\[CapitalDelta]\[Phi]r[\[Lambda]+\[Lambda]r0]+\[CapitalDelta]\[Phi]\[Theta][\[Lambda]+\[Lambda]\[Theta]0]+\[CapitalUpsilon]\[Phi] \[Lambda]+q\[Phi]0-\[Phi]C;
-
+	
+	velocity = Values[KerrGeoVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]}]];
+	
+	
 	assoc = Association[
 		"Parametrization"->"Mino",
 		"Energy" -> En, 
@@ -982,6 +996,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 		"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
 		"Frequencies" -> {\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi]},
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
+		"Velocity"-> velocity,
 		"RadialRoots" -> {r1,r2,r3,r4},
 		"PolarRoots" -> zRoots,
 		"a" -> a,
@@ -994,7 +1009,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
