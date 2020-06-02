@@ -142,7 +142,7 @@ assoc = Association[
 			"CarterConstant" -> Q
 		];
 
-KerrGeoOrbitFunction[a, p, e, 0, assoc]
+KerrGeoOrbitFunction[a, p, e, x, assoc]
 
 ]
 
@@ -221,7 +221,7 @@ Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps,coeffs,
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
