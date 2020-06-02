@@ -19,7 +19,7 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 Begin["`Private`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Schwarzschild*)
 
 
@@ -47,7 +47,7 @@ rSchwarzDarwin[p_,e_,\[Chi]_]:=p/(1 + e Cos[\[Chi]])
 
 
 tSchwarzDarwin[p_/;p>6, 0, \[Xi]_] := ((p^2) \[Xi] )/Sqrt[-6+p] 
-rSchwarzDarwin[p_/;p>6, 0, \[Xi]_] := 0;
+rSchwarzDarwin[p_/;p>6, 0, \[Xi]_] := p;
 \[Phi]SchwarzDarwin[p_/;p>6, 0, \[Xi]_] := Sqrt[p/(-6+p)] \[Xi]
 
 
@@ -83,11 +83,11 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Equatorial (Darwin)*)
 
 
