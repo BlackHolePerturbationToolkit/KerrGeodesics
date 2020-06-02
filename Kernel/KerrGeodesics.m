@@ -5,6 +5,6 @@ BeginPackage["KerrGeodesics`",
    "KerrGeodesics`OrbitalFrequencies`",
    "KerrGeodesics`SpecialOrbits`",
    "KerrGeodesics`KerrGeoOrbit`",
-   "KerrGeodesics`Velocity`"}]
+   "KerrGeodesics`FourVelocity`"}]
 
 EndPackage[]
