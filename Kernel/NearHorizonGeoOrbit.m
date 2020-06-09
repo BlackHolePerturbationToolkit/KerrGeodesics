@@ -308,7 +308,7 @@ DiagFlipRadial[assos_]:=Module[{},
 ];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Get the symbolic form of the orbits: GetOrbit method*)
 
 
@@ -991,6 +991,10 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 	(* Determine the spacetime *)
 	If[\[Kappa]<0, Print["Uncorrect input parameters: \[Kappa] must be positive !"]; Abort[];];
 	
+	If[Q<0, Print["Uncorrect input parameters: Q must be positive !"]; Abort[];];
+	
+	If[st=="Near-NHEK" && EE<=-\[Kappa] l, Print["Uncorrect input parameters: \[Epsilon]>-\[Kappa] \[ScriptCapitalL] must be satisfied !"]; Abort[];];
+	
 	(* Determine the type *)
 	Which[
 		mu>0, type = "Timelike";,
@@ -1105,7 +1109,10 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 	
 	If[OptionValue["Numerical"], assoc["Trajectory"] =  N[assoc["Trajectory"]];];
 	
-	Return[NearHorizonGeoOrbitFunction[assoc/.paramRule]];
+	If[assoc["Spacetime"]==$Failed["Spacetime"], Return["An error occured in the process !"]; Return[$Failed];,
+		Return[NearHorizonGeoOrbitFunction[assoc/.paramRule]];
+	];
+	
 ];
 
 
