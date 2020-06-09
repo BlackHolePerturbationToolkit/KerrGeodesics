@@ -308,7 +308,7 @@ DiagFlipRadial[assos_]:=Module[{},
 ];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Get the symbolic form of the orbits: GetOrbit method*)
 
 
@@ -332,7 +332,7 @@ Clear[T, R, \[CapitalPhi], \[Lambda], EE, l, Q, CC, lStar, lNot, CNot, \[Lambda]
 Switch[type,
 	"Null", mu = 0,
 	"Timelike", mu = \[Mu], 
-	_, Print["Unknown geodesic type: " <> type]; Abort[];
+	_, Print["Unknown geodesic type: " <> type]; Return[$Failed];
 ];
 
 parameters = {energy, momentum, carter, mu};
@@ -974,8 +974,10 @@ NearHorizonGeoOrbitClass[spacetime_String, radial_String, polar_String, OptionsP
 	"ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplaceLNot" -> OptionValue["ReplaceLNought"], "ReplaceCNot" -> OptionValue["ReplaceCNought"], 
 	"ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], 
 	"ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]//Quiet;
-	 
-	Return[NearHorizonGeoOrbitFunction[assoc]];
+	
+	If[assoc["Spacetime"]==$Failed["Spacetime"], Return["An error occured in the process !"]; Return[$Failed];,
+		Return[NearHorizonGeoOrbitFunction[assoc]];
+	];
 ];
 
 
@@ -989,17 +991,17 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 	parametrization = OptionValue["Parametrization"];
 	
 	(* Determine the spacetime *)
-	If[\[Kappa]<0, Print["Uncorrect input parameters: \[Kappa] must be positive !"]; Abort[];];
+	If[\[Kappa]<0, Print["Uncorrect input parameters: \[Kappa] must be positive !"]; Return[$Failed];];
 	
-	If[Q<0, Print["Uncorrect input parameters: Q must be positive !"]; Abort[];];
+	If[Q<0, Print["Uncorrect input parameters: Q must be positive !"]; Return[$Failed];];
 	
-	If[st=="Near-NHEK" && EE<=-\[Kappa] l, Print["Uncorrect input parameters: \[Epsilon]>-\[Kappa] \[ScriptCapitalL] must be satisfied !"]; Abort[];];
+	If[st=="Near-NHEK" && EE<=-\[Kappa] l, Print["Uncorrect input parameters: \[Epsilon]>-\[Kappa] \[ScriptCapitalL] must be satisfied !"]; Return[$Failed];];
 	
 	(* Determine the type *)
 	Which[
 		mu>0, type = "Timelike";,
 		mu==0, type = "Null";,
-		_, Print["Uncorrect input parameters: \[Mu] must be positive or null !"]; Abort[];
+		_, Print["Uncorrect input parameters: \[Mu] must be positive or null !"]; Return[$Failed];
 	];
 	
 	(* Determine the radial class *)
@@ -1015,9 +1017,9 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 				EE>0, Switch[OptionValue["RadialMotion"],
 								"Ingoing", radial = "Plunging";,
 								"Outgoing", radial = "Outward";
-								,_, Print["Unable to choose between Plunging and Outward classes. Please provide 'Radial Motion' option !"]; Abort[];
+								,_, Print["Unable to choose between Plunging and Outward classes. Please provide 'Radial Motion' option !"]; Return[$Failed];
 							];
-				,_, Print["Uncorrect input parameters: unable to determine the radial class !"]; Abort[];
+				,_, Print["Uncorrect input parameters: unable to determine the radial class !"]; Return[$Failed];
 			];
 			
 			,l==lStar, Which[
@@ -1025,9 +1027,9 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 				EE>0, Switch[OptionValue["RadialMotion"],
 								"Ingoing", radial = "PlungingStar";,
 								"Outgoing", radial = "OutwardStar";
-								,_, Print["Unable to choose between Plunging and Outward classes. Please provide 'Radial Motion' option !"]; Abort[];
+								,_, Print["Unable to choose between Plunging and Outward classes. Please provide 'Radial Motion' option !"]; Return[$Failed];
 							];
-				,_, Print["Uncorrect input parameters: unable to determine the radial class !"]; Abort[];
+				,_, Print["Uncorrect input parameters: unable to determine the radial class !"]; Return[$Failed];
 			];
 			
 			,l^2<lStar^2 && EE>0, radial = "BoundedSubcritical";
@@ -1036,7 +1038,7 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 			
 			,l<-lStar && EE>0, radial = "BoundedSupercritical";
 			
-			,_, Print["Uncorrect input parameters: unable to determine the radial class !"]; Abort[];
+			,_, Print["Uncorrect input parameters: unable to determine the radial class !"]; Return[$Failed];
 		];
 		,"Near-NHEK",
 		Which[
@@ -1050,9 +1052,9 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 					Switch[OptionValue["RadialMotion"],
 								"Ingoing", radial = "Plunging";,
 								"Outgoing", radial = "Outward";
-								,_, Print["Unable to choose between Plunging and Outward classes. Please provide 'Radial Motion' option !"]; Abort[];
+								,_, Print["Unable to choose between Plunging and Outward classes. Please provide 'Radial Motion' option !"]; Return[$Failed];
 							];
-				,_, Print["Uncorrect input parameters: unable to determine the radial class !"]; Abort[];
+				,_, Print["Uncorrect input parameters: unable to determine the radial class !"]; Return[$Failed];
 			];
 		
 		,l==lStar && EE>-\[Kappa] l,
@@ -1062,13 +1064,13 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 				,EE==0, Switch[OptionValue["RadialMotion"],
 								"Ingoing", radial = "PlungingStarNull";,
 								"Outgoing", radial = "OutwardStarNull";
-								,_, Print["Unable to choose between Plunging and Outward classes. Please provide 'Radial Motion' option !"]; Abort[];
+								,_, Print["Unable to choose between Plunging and Outward classes. Please provide 'Radial Motion' option !"]; Return[$Failed];
 							];
 				
 				,EE>0, Switch[OptionValue["RadialMotion"],
 								"Ingoing", radial = "PlungingStar";,
  								"Outgoing", radial = "OutwardStar";
-								,_, Print["Unable to choose between Plunging and Outward classes. Please provide 'Radial Motion' option !"]; Abort[];
+								,_, Print["Unable to choose between Plunging and Outward classes. Please provide 'Radial Motion' option !"]; Return[$Failed];
 							];
 			];
 		
@@ -1078,7 +1080,7 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 		
 		,l<-lStar && EE>-\[Kappa] l, radial = "BoundedSupercritical";
 		
-		,_, Print["Uncorrect input parameters: unable to determine the radial class !"]; Abort[];		
+		,_, Print["Uncorrect input parameters: unable to determine the radial class !"]; Return[$Failed];		
 		];
 	];
 	
@@ -1093,7 +1095,7 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 		l^2!=lNot^2 && l<0 && Q>0, polar = "Pendular"; isRetro = True;,
 		l^2<=lNot^2 && l>0 && Q==0, polar = "Equatorial"; isRetro = False;,
 		l^2<=lNot^2 && l<0 && Q==0, polar = "Equatorial"; isRetro = True;,
-		_, Print["Uncorrect input parameters: unable to determine the polar class !"]; Abort[]; Abort[];	
+		_, Print["Uncorrect input parameters: unable to determine the polar class !"]; Return[$Failed];	
 	];
 	
 	(* Produce the output *)
