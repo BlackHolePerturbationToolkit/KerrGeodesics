@@ -939,7 +939,7 @@ assos = Association[
 	"Angular Momentum" -> momentum,
 	"Carter Constant" -> carter,
 	"LNought" -> LNot,
-	(* "Kappa" -> kappa, *)
+	"Kappa" -> kappa,
 	"Critical Radius" -> criticalRadius,
 	"Polar Potential" -> ToFunction[polarPotential, z, style, rule, assumptions],
 	"Polar Roots" -> Simplification[rule, assumptions, polarRoots],
@@ -957,7 +957,7 @@ Return[assos/.style];
 ToFunction[expr_, var_, style_, rule_, assumptions_]:=Function[var, Simplification[rule, assumptions, expr]/.style]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Output: NearHorizonGeoOrbit & NearHorizonGeoOrbitFunction*)
 
 
