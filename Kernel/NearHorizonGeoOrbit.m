@@ -975,10 +975,9 @@ NearHorizonGeoOrbitClass[spacetime_String, radial_String, polar_String, OptionsP
 	"ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], 
 	"ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]//Quiet;
 	
-	If[assoc["Spacetime"]==$Failed["Spacetime"], Return["An error occured in the process !"]; Return[$Failed];,
-		Return[NearHorizonGeoOrbitFunction[assoc]];
-	];
+	If[assoc["Spacetime"]==$Failed["Spacetime"], Return["An error occured in the process !"]; Return[$Failed];];
 	
+	Return[NearHorizonGeoOrbitFunction[assoc]];
 ];
 
 
@@ -1112,10 +1111,9 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 	
 	If[OptionValue["Numerical"], assoc["Trajectory"] =  N[assoc["Trajectory"]];];
 	
-	If[assoc["Spacetime"]==$Failed["Spacetime"], Return["An error occured in the process !"]; Return[$Failed];,
-		Return[NearHorizonGeoOrbitFunction[assoc/.paramRule]];
-	];
+	If[assoc["Spacetime"]==$Failed["Spacetime"], Return["An error occured in the process !"]; Return[$Failed];];
 	
+	Return[NearHorizonGeoOrbitFunction[assoc/.paramRule]];
 	
 ];
 
