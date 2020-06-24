@@ -4,8 +4,7 @@ Cell[BoxData[
   RowBox[{"SetDirectory", "[", 
    RowBox[{"ParentDirectory", "[", 
     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], ";"}]], "Input",
- CellLabel->
-  "In[118]:=",ExpressionUUID->"7dc1f01a-58a2-4516-9d6b-de21e85431ea"],
+ CellLabel->"In[3]:=",ExpressionUUID->"7dc1f01a-58a2-4516-9d6b-de21e85431ea"],
 
 Cell[CellGroupData[{
 
@@ -15,15 +14,13 @@ Cell[BoxData[{
  RowBox[{"PacletInstall", "[", "\"\<KerrGeodesics\>\"", 
   "]"}], "\[IndentingNewLine]", 
  RowBox[{"<<", "KerrGeodesics`"}]}], "Input",
- CellLabel->
-  "In[119]:=",ExpressionUUID->"ce9ee2f2-da6d-4b8f-a30e-7ec03258a0d1"],
+ CellLabel->"In[4]:=",ExpressionUUID->"ce9ee2f2-da6d-4b8f-a30e-7ec03258a0d1"],
 
 Cell[BoxData[
  RowBox[{"{", \
 "\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\"\>", 
   "}"}]], "Output",
- CellLabel->
-  "Out[119]=",ExpressionUUID->"4074aad7-1144-4ff9-99ab-f71be7e696ff"],
+ CellLabel->"Out[4]=",ExpressionUUID->"6fca2583-1df3-422d-a85e-1af0d08f5137"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -41,7 +38,7 @@ spacetime.", "URL" -> "https://bhptoolkit.org/KerrGeodesics/", "License" ->
       "Guides/KerrGeodesics", "Resources" -> {"Guides/KerrGeodesics"}}}, 
    "Location" -> 
    "C:\\Users\\Admin\\Documents\\GitHub\\KerrGeodesics"]]], "Output",
- CellLabel->"Out[120]=",ExpressionUUID->"7a9b5870-4a50-4d72-bdd4-1e9d9b55d470"]
+ CellLabel->"Out[5]=",ExpressionUUID->"1b89d803-7179-4a9e-89e7-c0ded5e87a25"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -54,12 +51,11 @@ Cell[BoxData[
      RowBox[{"ParentDirectory", "[", 
       RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ",", 
      "\"\<Documentation\>\""}], "}"}], "]"}]}]], "Input",
- CellLabel->
-  "In[122]:=",ExpressionUUID->"e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
+ CellLabel->"In[7]:=",ExpressionUUID->"e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
 
 Cell[BoxData["\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\\
 KerrGeodesics\\\\Documentation\"\>"], "Output",
- CellLabel->"Out[122]=",ExpressionUUID->"900eb1bb-25c8-44fe-a8f1-e2939eaa775d"]
+ CellLabel->"Out[7]=",ExpressionUUID->"8d7d3f43-49be-4446-bc34-d2cd53895fbb"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -76,8 +72,7 @@ Cell[BoxData[
        RowBox[{"!", 
         RowBox[{"DirectoryQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], ",", 
    "10"}], "]"}]], "Input",
- CellLabel->
-  "In[123]:=",ExpressionUUID->"b346dc9a-48f4-468f-ad6a-8546c58f02fc"],
+ CellLabel->"In[8]:=",ExpressionUUID->"b346dc9a-48f4-468f-ad6a-8546c58f02fc"],
 
 Cell[BoxData[
  TagBox[
@@ -100,20 +95,18 @@ Documentation\\\\English\\\\Tutorials\\\\KerrGeodesics.nb\"\>",
 Documentation\\\\English\\\\Tutorials\\\\NearHorizonGeodesics.nb\"\>"}], "}"}],
   Short[#, 10]& ]], "Output",
  CellLabel->
-  "Out[123]//Short=",ExpressionUUID->"b5514031-e8db-43da-9964-96a88fe703b9"]
+  "Out[8]//Short=",ExpressionUUID->"68ef2824-eba3-4663-9ed0-527e3ac3a87c"]
 }, Open  ]],
 
 Cell[BoxData[
  RowBox[{"DeleteFile", "[", "docFiles", "]"}]], "Input",
- CellLabel->
-  "In[124]:=",ExpressionUUID->"3cd9bbce-a1fb-4da5-afc8-aa5b5b92ebb3"],
+ CellLabel->"In[9]:=",ExpressionUUID->"3cd9bbce-a1fb-4da5-afc8-aa5b5b92ebb3"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input",
- CellLabel->
-  "In[125]:=",ExpressionUUID->"bf1d7897-7569-4360-9a3f-4a944c03b2ad"],
+ CellLabel->"In[10]:=",ExpressionUUID->"bf1d7897-7569-4360-9a3f-4a944c03b2ad"],
 
 Cell[CellGroupData[{
 
@@ -124,15 +117,14 @@ skipped:\\n\"\>", "\[InvisibleSpace]",
    RowBox[{"{", 
     RowBox[{"\<\"BHPTStyle\"\>", ",", "\<\"CC\"\>", ",", "\<\"CC$\"\>", 
      ",", "\<\"CNot\"\>", ",", "\<\"e\"\>", ",", "\<\"EE\"\>", 
-     ",", "\<\"EE$\"\>", ",", "\<\"f\"\>", ",", "\<\"f$\"\>", 
-     ",", "\<\"i\"\>", ",", "\<\"l\"\>", ",", "\<\"lNot\"\>", 
-     ",", "\<\"lNot$\"\>", ",", "\<\"lStar\"\>", ",", "\<\"lStar$\"\>", 
-     ",", "\<\"l$\"\>", ",", "\<\"m\"\>", ",", "\<\"M\"\>", ",", "\<\"Q\"\>", 
-     ",", "\<\"Q$\"\>", ",", "\<\"R\"\>", ",", "\<\"R0\"\>", 
-     ",", "\<\"Rf\"\>", ",", "\<\"Ri\"\>", ",", "\<\"Rm\"\>", 
-     ",", "\<\"RPlus\"\>", ",", "\<\"si\[Theta]\"\>", ",", "\<\"t\"\>", 
-     ",", "\<\"T\"\>", ",", "\<\"t0\"\>", ",", "\<\"T0\"\>", 
-     ",", "\<\"ti\"\>", ",", "\<\"Ti\"\>", ",", "\<\"z\"\>", 
+     ",", "\<\"EE$\"\>", ",", "\<\"f\"\>", ",", "\<\"i\"\>", ",", "\<\"l\"\>",
+      ",", "\<\"lNought\"\>", ",", "\<\"lNought$\"\>", ",", "\<\"lStar\"\>", 
+     ",", "\<\"lStar$\"\>", ",", "\<\"l$\"\>", ",", "\<\"m\"\>", 
+     ",", "\<\"M\"\>", ",", "\<\"Q\"\>", ",", "\<\"Q$\"\>", ",", "\<\"R\"\>", 
+     ",", "\<\"R0\"\>", ",", "\<\"Rf\"\>", ",", "\<\"Ri\"\>", 
+     ",", "\<\"Rm\"\>", ",", "\<\"RPlus\"\>", ",", "\<\"si\[Theta]\"\>", 
+     ",", "\<\"t\"\>", ",", "\<\"T\"\>", ",", "\<\"t0\"\>", ",", "\<\"T0\"\>",
+      ",", "\<\"ti\"\>", ",", "\<\"Ti\"\>", ",", "\<\"z\"\>", 
      ",", "\<\"zM\"\>", ",", "\<\"zP\"\>", ",", "\<\"\[ScriptCapitalC]\"\>", 
      ",", "\<\"\[ScriptE]\"\>", ",", "\<\"\[ScriptCapitalE]\"\>", 
      ",", "\<\"\[ScriptCapitalL]\"\>", ",", "\<\"\[ScriptCapitalQ]\"\>", 
@@ -146,492 +138,294 @@ skipped:\\n\"\>", "\[InvisibleSpace]",
      ",", "\<\"\[CapitalPhi]0\"\>", ",", "\<\"\[Phi]i\"\>"}], "}"}]}],
   SequenceForm[
   "Undocumented symbols for package NearHorizonGeoOrbit skipped:\n", {
-   "BHPTStyle", "CC", "CC$", "CNot", "e", "EE", "EE$", "f", "f$", "i", "l", 
-    "lNot", "lNot$", "lStar", "lStar$", "l$", "m", "M", "Q", "Q$", "R", "R0", 
-    "Rf", "Ri", "Rm", "RPlus", "si\[Theta]", "t", "T", "t0", "T0", "ti", "Ti",
-     "z", "zM", "zP", "\[ScriptCapitalC]", "\[ScriptE]", "\[ScriptCapitalE]", 
-    "\[ScriptCapitalL]", "\[ScriptCapitalQ]", "\[Theta]", "\[Theta]i", 
-    "\[Kappa]", "\[Lambda]", "\[Lambda]0", "\[Lambda]f", "\[Lambda]i", 
-    "\[Lambda]m", "\[Lambda]Minus", "\[Lambda]Plus", "\[Mu]", "\[Phi]", 
-    "\[CapitalPhi]", "\[Phi]0", "\[CapitalPhi]0", "\[Phi]i"}],
+   "BHPTStyle", "CC", "CC$", "CNot", "e", "EE", "EE$", "f", "i", "l", 
+    "lNought", "lNought$", "lStar", "lStar$", "l$", "m", "M", "Q", "Q$", "R", 
+    "R0", "Rf", "Ri", "Rm", "RPlus", "si\[Theta]", "t", "T", "t0", "T0", "ti",
+     "Ti", "z", "zM", "zP", "\[ScriptCapitalC]", "\[ScriptE]", 
+    "\[ScriptCapitalE]", "\[ScriptCapitalL]", "\[ScriptCapitalQ]", "\[Theta]",
+     "\[Theta]i", "\[Kappa]", "\[Lambda]", "\[Lambda]0", "\[Lambda]f", 
+    "\[Lambda]i", "\[Lambda]m", "\[Lambda]Minus", "\[Lambda]Plus", "\[Mu]", 
+    "\[Phi]", "\[CapitalPhi]", "\[Phi]0", "\[CapitalPhi]0", "\[Phi]i"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"f4cdae90-5e66-4062-847b-c78ac6b9d966"],
+In[10]:=",ExpressionUUID->"e31fdff0-ff72-4ca4-a8c9-b44986894526"],
 
 Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"a415ccb1-3587-424d-b2c1-589d336b45ca"],
+In[10]:=",ExpressionUUID->"fcc8f4d3-b132-4dad-94a1-1f3c55567c6c"],
 
 Cell[BoxData["\<\"KerrGeoAngularMomentum\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"c6974c40-2abe-41d9-8bab-4e152e1ebc21"],
+In[10]:=",ExpressionUUID->"8fd0012a-f7ab-47b3-9f89-12897c8db099"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"2b006ba0-3f48-4702-8bf7-6e0a90b7b517"],
+In[10]:=",ExpressionUUID->"d4b98496-5594-41b0-8c0e-6e19a25b654e"],
 
 Cell[BoxData["\<\"KerrGeoCarterConstant\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"138fe69f-2bc1-4b0a-9e79-aa200fd11ba0"],
+In[10]:=",ExpressionUUID->"d27b3698-cd15-4130-b2d3-f09814c8e9fc"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"05884114-b2cf-4d97-a7f5-83db1f85b6ae"],
+In[10]:=",ExpressionUUID->"4c2a4028-5984-4bfd-9921-64928c3affb6"],
 
 Cell[BoxData["\<\"KerrGeoConstantsOfMotion\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"9ea40a85-ca9f-4428-881b-3d5ba6bb72d3"],
+In[10]:=",ExpressionUUID->"be9777f9-955d-491e-9b5b-c2f0dc4aabff"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"6a6ce449-39ae-4cb7-8986-6ced7a8eafef"],
+In[10]:=",ExpressionUUID->"87640354-1963-439c-b63a-7da341ac8e63"],
 
 Cell[BoxData["\<\"KerrGeoEnergy\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"a227eca0-a54b-4253-bd48-91623a132a79"],
+In[10]:=",ExpressionUUID->"51b7b806-3bf8-409c-b810-c6d819d2ab05"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"01cc7eb9-f165-4910-8556-5baeb1a629e3"],
+In[10]:=",ExpressionUUID->"a7272069-b4e1-4ba1-8664-85d9e3581663"],
 
 Cell[BoxData["\<\"KerrGeoOrbit\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"832ee199-db45-48e2-8998-53d1b96c17b0"],
+In[10]:=",ExpressionUUID->"9033b47b-b2b0-4916-a071-8ee0938f134d"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"fd31fbbd-e16d-4182-9368-560457274a9b"],
+In[10]:=",ExpressionUUID->"ebca8ef7-b60c-456a-b21f-2e003f4d304f"],
 
 Cell[BoxData["\<\"KerrGeoOrbitFunction\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"e6cfe7bc-cdcd-4e37-b501-9f1f85691b94"],
+In[10]:=",ExpressionUUID->"554def22-16ff-4e8d-85a7-dfda53670fb2"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"9b39b964-24c0-43c8-ab60-37ee29d7943c"],
+In[10]:=",ExpressionUUID->"39347e57-35ee-4100-b377-4a6e1155afe7"],
 
 Cell[BoxData["\<\"KerrGeoFrequencies\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"cd6f265c-6285-4162-99f0-d32a9cb8c95f"],
+In[10]:=",ExpressionUUID->"6f9683c3-53f9-44d3-869b-28639dd46dfa"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"586bdbe5-4513-4d8d-b31e-109c732e5513"],
+In[10]:=",ExpressionUUID->"dcf69f7c-5544-49bd-8946-d9d59b84bf09"],
 
 Cell[BoxData["\<\"KerrGeoBoundOrbitQ\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"5227fa61-7881-47a1-9460-6fc4036baff5"],
+In[10]:=",ExpressionUUID->"615e30b9-cf53-4147-ab42-4af6e39cb9f4"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"2f35e1ce-69aa-491d-a2de-88f16930188b"],
+In[10]:=",ExpressionUUID->"5b17821d-5e62-4d3b-a9f0-d12452886c9f"],
 
 Cell[BoxData["\<\"KerrGeoIBSO\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"8fe6caba-0ed5-4bdb-81c0-bf6ce6f17f50"],
+In[10]:=",ExpressionUUID->"0dc25a18-0c6d-437e-b03b-d28a1ea56db4"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"82fcc139-7e2d-496a-bf7c-edbfa1f19121"],
+In[10]:=",ExpressionUUID->"27e3618c-186d-43e8-85a7-d2762fc22161"],
 
 Cell[BoxData["\<\"KerrGeoISCO\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"8233f812-fb3c-4cba-affa-1b9630e37520"],
+In[10]:=",ExpressionUUID->"da8f59d5-25c9-4ace-ae12-5494348dd359"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"019c8ba3-be82-408d-8445-2ca84fd1b4cb"],
+In[10]:=",ExpressionUUID->"4fc6eec1-854d-4b33-850c-c5b61a7bd10f"],
 
 Cell[BoxData["\<\"KerrGeoISSO\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"e1bed72a-2a8e-40a9-b9f5-16deba96be5c"],
+In[10]:=",ExpressionUUID->"b4b2b5e7-a5f8-4051-9862-d6ca93a3b027"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"8782fa23-1bc8-4182-9b81-b8a5dc6151f7"],
+In[10]:=",ExpressionUUID->"64c4c678-ba53-4bd1-b4fc-9379dd85bbaa"],
 
 Cell[BoxData["\<\"KerrGeoPhotonSphereRadius\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"4bef114b-c008-4d8b-9107-47574f30d8e2"],
+In[10]:=",ExpressionUUID->"d04b8d44-2f15-4233-b76d-9388c67828ab"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"e7d8c630-7b1a-407c-900b-cc9d224e93d9"],
+In[10]:=",ExpressionUUID->"843907ab-e5d3-4229-bcf5-8267146419c6"],
 
 Cell[BoxData["\<\"KerrGeoSeparatrix\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"7fd031c8-d4d4-4e7f-8064-491282b6770f"],
+In[10]:=",ExpressionUUID->"cff3897a-bc4e-43fa-976e-d5a43b8daee1"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"f4905732-ef77-4f28-b641-1b820cd28dce"],
+In[10]:=",ExpressionUUID->"d7203e08-d335-4a54-931d-8e630bb27285"],
 
 Cell[BoxData["\<\"NearHorizonGeoOrbit\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"30e53f1d-e19e-4809-84cc-a45dbfbf1ea2"],
+In[10]:=",ExpressionUUID->"7cef4aaa-cbe9-45d8-84e5-70c01c666029"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"e6c57e19-e5c8-4ba8-92b7-56f9e0eb6c79"],
+In[10]:=",ExpressionUUID->"0889078e-9d96-4791-b298-bbc595a869ff"],
 
 Cell[BoxData["\<\"NearHorizonGeoOrbitClass\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"b2a1b978-bf2b-4c6d-9c40-73a762557832"],
+In[10]:=",ExpressionUUID->"44295e01-1360-44ba-9faf-1d97e47e279d"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"28314e64-32e1-4898-a251-b8a60e387c58"],
+In[10]:=",ExpressionUUID->"cce45f78-4332-4758-93ac-bb65043b3016"],
 
 Cell[BoxData["\<\"NearHorizonGeoOrbitFunction\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"b34ffeec-6f02-4441-bff1-ccc442ed8944"],
+In[10]:=",ExpressionUUID->"776eba13-c09f-463f-82b7-6aee51989198"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
-     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
-  SequenceForm[
-  "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"1b7bab13-e597-436b-bcd7-0e2e73ae2294"],
+In[10]:=",ExpressionUUID->"b0d2a704-b83f-4641-89e4-fe3eeff8c107"],
 
 Cell[BoxData["\<\"Building guides\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"152f4bd9-c1f0-4dbd-9fdf-18a77906c3ed"],
+In[10]:=",ExpressionUUID->"5f238d31-aa37-4321-b811-840dd9c05bd3"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -646,48 +440,42 @@ English\\Guides"],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"9471695b-2390-4f79-9c6e-16639912f000"],
+In[10]:=",ExpressionUUID->"d0bddae2-743b-4eb5-906f-bb76c5b6e861"],
 
 Cell[BoxData["\<\"Building tutorials\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"0d2abf8e-77ab-494f-b0ba-29a1d5452551"],
+In[10]:=",ExpressionUUID->"f11d377e-baaa-4da6-976f-6f018257c63e"],
 
 Cell[BoxData["\<\"Source\\\\Documentation\\\\English\\\\Tutorials\\\\\
 KerrGeodesics.md\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[125]:=",ExpressionUUID->"78fc967c-3f36-4b8f-95e4-73817fe4ad42"],
+In[10]:=",ExpressionUUID->"a92857dd-f28d-4837-8dc8-804dff230139"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
-     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
-     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
-     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
+     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"p\"\>", 
      ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
-     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
-     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
-     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
+     ",", "\<\"Time\"\>", ",", "\<\"x\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], 
+    "}"}]}],
   SequenceForm[
   "Removing ", {
-   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
-    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+   "a", "orbit", "orbitA", "orbitD", "orbitFS", "p", "Parametrization", "r", 
+    "r0", "Time", "x", "\[CurlyPhi]"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[34]:=",ExpressionUUID->"3e803e47-6930-4962-b313-ca008480671f"],
+In[34]:=",ExpressionUUID->"97f512de-336c-4777-868d-144a8238ac5d"],
 
 Cell[BoxData["\<\"Source\\\\Documentation\\\\English\\\\Tutorials\\\\\
 NearHorizonGeodesics.md\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[34]:=",ExpressionUUID->"774ea4cb-3803-4590-86d9-2d63807ff25d"],
+In[34]:=",ExpressionUUID->"36a12800-e83c-40aa-8b09-e65cbb86dbdb"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -699,24 +487,24 @@ Cell[BoxData[
      ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
      ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
      ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
-     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", ",", "\<\"x$\"\>", 
+     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", 
      ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
      ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
   SequenceForm[
   "Removing ", {
    "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
     "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
-    "Rmax", "Time", "turningPointTime", "x", "x$", "\[CapitalDelta]\[Lambda]",
-     "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+    "Rmax", "Time", "turningPointTime", "x", "\[CapitalDelta]\[Lambda]", 
+    "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"5dfa08be-b635-4310-856d-1c7906a35fee"],
+In[21]:=",ExpressionUUID->"5b682b33-c071-48a1-bfc6-3deb25668090"],
 
 Cell[BoxData["\<\"Indexing Documentation\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"526de8d0-fce5-401a-bd18-4aded889d785"]
+In[21]:=",ExpressionUUID->"abb7ba0f-c24f-4630-ac89-539eb89002cd"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -742,33 +530,33 @@ java.lang.ClassLoader.loadClass(ClassLoader.java:357)\\\\\\\\n\\\\\\\\tat \
 java.lang.Class.getDeclaredConstructors0(Native Method)\\\\\\\\n\\\\\\\\tat \
 java.lang.Class.privateGetDeclaredConstructors(Class.java:2671)\\\\\\\\n\\\\\\\
 \\tat java.lang.Class.getConstructors(Class.java:1651)\\\\\\\"\\\"}]\\).\"",2,
-   125,88,24101436362153202690,"Local","JLink`Java"},
+   10,3,24101485763725177815,"Local","JLink`Java"},
   "MessageTemplate2"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"39b4761b-502b-421e-8f18-af86a9a7f686"],
+In[21]:=",ExpressionUUID->"4f79d440-ecc9-4508-a0a5-179c29fe925e"],
 
 Cell[BoxData[
  TemplateBox[{
   "JLink`LoadJavaClass","fail",
    "\"Java failed to load class \
 \\!\\(\\*RowBox[{\\\"\\\\\\\"com.wolfram.documentationsearch.\
-DocumentationIndexer\\\\\\\"\\\"}]\\).\"",2,125,89,24101436362153202690,
-   "Local","JLink`LoadJavaClass"},
+DocumentationIndexer\\\\\\\"\\\"}]\\).\"",2,10,4,24101485763725177815,"Local",
+   "JLink`LoadJavaClass"},
   "MessageTemplate2"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"fb664bd7-ae26-49b3-9a38-2f616121b5bd"],
+In[21]:=",ExpressionUUID->"73ac1b80-9e98-491d-8e57-a0d58b90851e"],
 
 Cell[BoxData[
  TemplateBox[{
   "JLink`KeepJavaObject","obj",
    "\"At least one argument to KeepJavaObject was not a valid Java object.\"",
-   2,125,90,24101436362153202690,"Local","JLink`KeepJavaObject"},
+   2,10,5,24101485763725177815,"Local","JLink`KeepJavaObject"},
   "MessageTemplate2"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"89c70ec2-12ba-4f77-8bc9-ae9bf8ae09b9"],
+In[21]:=",ExpressionUUID->"f95d16de-fc03-4b6e-8fb9-5431560559af"],
 
 Cell[BoxData[
  TemplateBox[{
@@ -778,17 +566,17 @@ Cell[BoxData[
 org.apache.lucene.index.IndexReader.open(Ljava/lang/String;)Lorg/apache/\
 lucene/index/IndexReader;\\\\\\\\n\\\\\\\\tat \
 com.wolfram.documentationsearch.spelling.DidYouMeanIndexer.createSpellIndex(\
-DidYouMeanIndexer.java:17)\\\\\\\"\\\"}]\\).\"",2,125,91,24101436362153202690,
+DidYouMeanIndexer.java:17)\\\\\\\"\\\"}]\\).\"",2,10,6,24101485763725177815,
    "Local","JLink`Java"},
   "MessageTemplate2"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"b284691f-4bac-403a-84e7-ec1cf987e70f"],
+In[21]:=",ExpressionUUID->"be6dfd7e-1a87-4db8-89f4-60fef876900a"],
 
 Cell[BoxData["\<\"Done\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"883747b3-878f-4842-95eb-56c61d268168"]
+In[21]:=",ExpressionUUID->"a14e236a-e2a9-479e-89f2-03a7ce7ed2c5"]
 }, Open  ]]
 },
 WindowSize->{766, 360},

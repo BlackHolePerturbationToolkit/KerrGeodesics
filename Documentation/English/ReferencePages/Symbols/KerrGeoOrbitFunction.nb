@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"cfa3373d-38d2-43f2-81f4-00b4ee988f57"],
+   0}},ExpressionUUID->"6e7dfe76-8c6d-43d9-a958-4e02ee2d7647"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -15,12 +15,12 @@ Cell[TextData[{
  ButtonBox["KerrGeoOrbitFunction",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbitFunction"]
-}], "LinkTrail",ExpressionUUID->"4d6dcb8a-d39a-4265-b4e9-e3bbf2fb939b"],
+}], "LinkTrail",ExpressionUUID->"2f542b0c-c4dc-42f8-b1f0-ec6bcee3dd91"],
 
 Cell[CellGroupData[{
 
 Cell["KerrGeoOrbitFunction", \
-"ObjectName",ExpressionUUID->"aa5d0b7f-915c-4c5b-93a5-211032d40c17"],
+"ObjectName",ExpressionUUID->"c6e88590-aeb2-4670-b134-beed840fb05f"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -32,18 +32,18 @@ Cell[BoxData[GridBox[{
        StyleBox[
         RowBox[{"a", ",", "p", ",", "e", ",", "x", ",", "assoc"}], "TI"], 
        "]"}]], "InlineFormula",ExpressionUUID->
-      "3c2028d1-7522-461d-84d3-612edb5a0f68"],
+      "900129d6-7271-47be-85cc-c4127618f47a"],
      "\[LineSeparator]an object for storing the trajectory and orbital \
 parameters in the assoc Association."
-    }],ExpressionUUID->"46a2e889-a8a1-4847-8463-83dc613ca545"]}
-  }]], "Usage",ExpressionUUID->"edba94fc-69d7-4690-9a5b-222d6a34a7b1"]
+    }],ExpressionUUID->"3a0d6ee0-0164-46c3-b03c-316f70ef23d8"]}
+  }]], "Usage",ExpressionUUID->"755fc2e0-e7f6-4584-a3a9-8bf783b3ff49"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"501b97eb-1443-4d06-85a2-042ee8eaf28a"],
+Cell[" ", "FooterCell",ExpressionUUID->"32e56ce7-d9fa-477b-a8fe-b355c47fcec8"],
 
-Cell[BoxData[""],ExpressionUUID->"6ac8ae1f-10bb-4206-b034-0a485a661a19"]
+Cell[BoxData[""],ExpressionUUID->"9821d534-7d8f-45fe-a905-a788bd04c249"]
 }, Open  ]]
 },
 Saveable->False,

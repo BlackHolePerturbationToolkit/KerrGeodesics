@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"873af011-07a2-42f8-acaf-42951a769746"],
+   0}},ExpressionUUID->"85815780-9fd2-4e89-9179-ee7149e131c6"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -15,11 +15,11 @@ Cell[TextData[{
  ButtonBox["NearHorizonGeoOrbit",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/ref/NearHorizonGeoOrbit"]
-}], "LinkTrail",ExpressionUUID->"363b9b46-c19f-46a5-b1a7-73efe2e9a04d"],
+}], "LinkTrail",ExpressionUUID->"06c1ad20-fbab-48b7-bdb4-ee7e53c4ebc3"],
 
 Cell[BoxData[GridBox[{
    {Cell["KERRGEODESICS`NEARHORIZONGEOORBIT PACLET SYMBOL", "PacletNameCell",
-     ExpressionUUID->"ba108383-2764-4859-acae-e3eb9f1fa24a"], Cell[TextData[{
+     ExpressionUUID->"1dbedc89-eaa6-4e47-abb6-6f351af2f95e"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
@@ -29,7 +29,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "4642b865-b75a-4c0a-a800-e934ede3f619"],
+      "43ed7f57-bbfb-4bee-be3c-488ee0b53476"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -45,7 +45,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "9436f0e3-0ec9-44d5-a501-0a73557a0ac0"],
+      "a1bd45ba-2dd4-4029-b23a-e2a08278e40f"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -56,16 +56,16 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "785be624-5024-4449-8522-7cbf2f5dda27"],
+      "5b5afadd-423b-4cdd-ac0e-3b096ffa8fd9"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"3e2df70b-5eb4-41b3-abe0-73cc9a6b3794"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"50004ffc-22c9-4ccb-a6a2-eebf95688fe6"],
+    }], "AnchorBar",ExpressionUUID->"35cbf0b4-2d7d-48ea-8c95-2e218a03b8e3"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"4601660e-8d6c-4bd1-a875-8a5cd133e7a9"],
 
 Cell[CellGroupData[{
 
 Cell["NearHorizonGeoOrbit", \
-"ObjectName",ExpressionUUID->"76d00db3-a6f0-4d0c-a890-050df3082721"],
+"ObjectName",ExpressionUUID->"9b851687-76e7-4db0-8c1e-8bc331698910"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -79,13 +79,11 @@ Cell[BoxData[GridBox[{
         "spacetime", ",", " ", "\[ScriptCapitalE]", ",", " ", 
          "\[ScriptCapitalL]", ",", " ", "\[ScriptCapitalQ]", ",", " ", 
          "\[Mu]"}], "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "07175f72-5635-4e93-b309-18d523e712bc"],
-     "\[LineSeparator]NearHorizonGeoOrbit[spacetime, \[ScriptCapitalE], \
-\[ScriptCapitalL], \[ScriptCapitalQ], \[Mu]] returns a \
-NearHorizonGeoOrbitFunction[..] which stores the (numerical) trajectory and \
-orbital parameters of a near-horizon geodesic."
-    }],ExpressionUUID->"6dad153c-a659-45ab-b43b-9f0de54bdf9d"]}
-  }]], "Usage",ExpressionUUID->"f0a1618c-182f-45f6-bdc1-b23ad5f6af20"]
+      "a3e7ee4f-ae7c-4fe0-a56b-8f69ecee384b"],
+     "\[LineSeparator]returns a NearHorizonGeoOrbitFunction[..] which stores \
+the (numerical) trajectory and orbital parameters of a near-horizon geodesic."
+    }],ExpressionUUID->"65faf38f-727a-403c-ab5b-8bc8f75662e6"]}
+  }]], "Usage",ExpressionUUID->"fc240bad-45b9-46bd-b6c1-7e26ab250e4e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -131,7 +129,7 @@ Cell["", "NotesSection",
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->0,
  "WholeCelGroupOpener" -> 
- True,ExpressionUUID->"0e6a87c1-b371-44ca-9be9-d6ebba74e403"],
+ True,ExpressionUUID->"701eed5d-ab8c-4078-9e65-60f3574c3e3a"],
 
 Cell["\<\
 This function should be used to get numerical trajectory or any other orbital \
@@ -140,40 +138,40 @@ function determines automatically the radial and polar classes to which the \
 geodesic belongs, and returns a NearHorizonGeoOrbitFunction storing the \
 trajectory and orbital information. See the NearHorizonGeodesics tutorial for \
 more informations and examples.\
-\>", "Notes",ExpressionUUID->"198a64fb-738c-4af0-a044-632bd96e6b56"],
+\>", "Notes",ExpressionUUID->"20088111-909b-4c62-8327-2971976d4092"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"5d986a3a-6fa2-49c8-a4dc-0a44fe2cfa28"],
+"Notes",ExpressionUUID->"428c62c7-43cc-4c49-9f44-2439329eb234"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "74446ff7-89c0-4946-985e-8605ebe7e5f0"], "CosTheta", "False", Cell[
+     "c19c2969-37cb-4b3b-acbb-10c42333b412"], "CosTheta", "False", Cell[
     "Gives the trajectory in terms of z=cos \[Theta] instead of \[Theta]", 
-     "TableText",ExpressionUUID->"27b2f50c-0ba3-4a97-9c9e-6352720c61a7"]},
+     "TableText",ExpressionUUID->"7c48461f-8b28-470e-b027-8884880e4c24"]},
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "b1b35ce3-be90-48cb-aa61-b38f499306ae"], "ExplicitMass", "1", Cell[
+     "a61e65c7-6eb1-46ca-852a-0f89750989ba"], "ExplicitMass", "1", Cell[
     "Set the spacetime mass to any desired value", "TableText",ExpressionUUID->
-     "70d82cb0-387f-4ee1-a6e1-a3f1f605c2d3"]},
+     "17d78c0d-7d0f-4a25-b248-ed607bb00c29"]},
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "b3141ba3-5db9-47da-845a-0b860a5c71e5"], "Numerical", "True", Cell[
+     "42421a6b-c1fd-4226-b490-a8d068467cf4"], "Numerical", "True", Cell[
     "Gives the parametrization in terms of numerical expressions", 
-     "TableText",ExpressionUUID->"c37aaa5f-010b-4313-95ff-655a9b0ff507"]},
+     "TableText",ExpressionUUID->"3b044d78-ceb3-4c36-abab-537e360e0afd"]},
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "9fe78d39-48bf-4d32-a687-b395a704b4d8"], "Parametrization", "Mino", 
+     "0999eb4b-1c31-486a-99d0-69327db9d644"], "Parametrization", "Mino", 
     Cell["\<\
 Parametrization as a function of the Mino type or of the radial coordinate R\
-\>", "TableText",ExpressionUUID->"4d2c5044-09da-4918-8df6-4dc5b17efe21"]},
+\>", "TableText",ExpressionUUID->"abb54a5c-3da2-4aa0-b0fe-5ec41fe0ea43"]},
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "a960a32e-18eb-4860-8dd5-fb2ab0c4ae1f"], "RadialMotion", "Ingoing", 
+     "65a1eda5-fb1b-4aa3-a942-03d33cf52b93"], "RadialMotion", "Ingoing", 
     Cell["\<\
 Define the initial sign of the radial velocity. Enable the distinction \
 between plunging and outward geodesics\
-\>", "TableText",ExpressionUUID->"19674d96-1d84-4dbf-ab10-55f9d3f6d286"]},
+\>", "TableText",ExpressionUUID->"9e805336-8428-4412-8a94-a71d336fbbac"]},
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "bf4cd8de-3374-40a0-8790-2c91b61de488"], "SimplificationRule", 
+     "4c7f8ea0-3feb-47fe-bbda-41b845c0fd72"], "SimplificationRule", 
     "Simplify", Cell["\<\
 Choose the simplification rule used to process the output expressions\
-\>", "TableText",ExpressionUUID->"c1cdc07d-f418-4b04-b90d-eb7f0e61359a"]}
+\>", "TableText",ExpressionUUID->"685b976a-4afe-44c9-afba-ef9ee26509bd"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
@@ -185,7 +183,7 @@ Choose the simplification rule used to process the output expressions\
  GridBoxDividers->{
   "Rows" -> {{
      True, True, True, True, True, True, 
-      True}}}},ExpressionUUID->"9268c3e9-ec6e-4b33-a6bd-b86e782f17ae"]
+      True}}}},ExpressionUUID->"781305d7-370b-46fc-bf7b-0d9a39afb272"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -225,7 +223,7 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"ee99239d-c304-46b4-b11a-b35e634162be"],
+  0,ExpressionUUID->"82d003f1-df2a-47b5-9e30-18baf649ae6a"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -234,7 +232,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/NearHorizonGeoOrbitClass"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "18702e17-c724-4809-a97b-3bd414619a8c"],
+  "c7ea79e0-fbb6-4668-ae3b-866aeb91850f"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -245,7 +243,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/NearHorizonGeoOrbitFunction"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "961480ae-e933-4a41-baae-e2544acacb91"],
+  "159510e6-f5f7-4aff-8491-492940a2dde8"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -256,8 +254,8 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbit"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "16257ff4-59c7-4f19-b5b3-d1486bdafc6d"]
-}], "SeeAlso",ExpressionUUID->"6e85f599-c6fc-47a1-bce4-9b8e3369efd2"]
+  "5f12ce5e-9d0e-44fb-923c-8f603411a395"]
+}], "SeeAlso",ExpressionUUID->"dcfc12d2-71c2-4a45-b6c3-5044891e9d31"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -299,13 +297,13 @@ Cell["", "TutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"7cbfdcb5-6cdb-4408-b442-96cc5a538b48"],
+  0,ExpressionUUID->"6ceea0bb-3e97-4c30-91ec-3064f2f72eb8"],
 
 Cell[TextData[ButtonBox["NearHorizonGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/tutorial/NearHorizonGeodesics"]], \
-"Tutorials",ExpressionUUID->"59a846e8-ad2e-4088-86bc-d3a5ea6a2c42"]
+"Tutorials",ExpressionUUID->"6f90a516-1a42-4209-bcae-95c3b3e65b7c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -346,20 +344,20 @@ Cell["", "MoreAboutSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"46b273c0-785c-47ba-ad6b-a9016655bbaf"],
+  0,ExpressionUUID->"9aa8e2e6-9ab1-4ea9-b81b-d44089669d3b"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/guide/KerrGeodesics"]], \
-"MoreAbout",ExpressionUUID->"6ffaae81-c37e-449d-a126-c71ca5f7bb0f"]
+"MoreAbout",ExpressionUUID->"9475af68-af55-448d-b5ea-12a05acad662"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"a649e479-e5a4-40c3-8cd3-119a5400c308"],
+Cell[" ", "FooterCell",ExpressionUUID->"4453d35f-261b-4cac-98a9-a92dae05d61e"],
 
-Cell[BoxData[""],ExpressionUUID->"c4cc7d93-f95c-4518-a7fb-d7c68c1f323d"]
+Cell[BoxData[""],ExpressionUUID->"02cb0c68-3e7b-48ad-9f41-5a1ec2e1e79d"]
 }, Open  ]]
 },
 Saveable->False,
@@ -380,10 +378,9 @@ TaggingRules->{
     "en", "paclet" -> "KerrGeodesics`NearHorizonGeoOrbit", "status" -> "None",
      "summary" -> 
     "NearHorizonGeoOrbit[spacetime, \[ScriptCapitalE], \[ScriptCapitalL], \
-\[ScriptCapitalQ], \[Mu]] NearHorizonGeoOrbit[spacetime, \[ScriptCapitalE], \
-\[ScriptCapitalL], \[ScriptCapitalQ], \[Mu]] returns a \
-NearHorizonGeoOrbitFunction[..] which stores the (numerical) trajectory and \
-orbital parameters of a near-horizon geodesic.", 
+\[ScriptCapitalQ], \[Mu]] returns a NearHorizonGeoOrbitFunction[..] which \
+stores the (numerical) trajectory and orbital parameters of a near-horizon \
+geodesic.", 
     "synonyms" -> {
      "NearHorizonGeoOrbit", "NEARHORIZONGEOORBIT", "nearhorizongeoorbit"}, 
     "title" -> "NearHorizonGeoOrbit", "windowTitle" -> "NearHorizonGeoOrbit", 

@@ -23,14 +23,14 @@ NearHorizonGeoOrbitFunction::usage = "NearHorizonGeoOrbitFunction[assoc] an obje
 BHPTStyle := {0 -> 0, \[Lambda]f -> Subscript[\[Lambda], f], Rf -> Subscript[R, f], RPlus -> SubPlus[R], ti -> Subscript[t, i], \[Phi]i -> Subscript[\[Phi], i], t0 -> Subscript[t, 0], 
 \[Phi]0 -> Subscript[\[Phi], 0], e -> \[ScriptE], \[Lambda]0 -> Subscript[\[Lambda], 0], T0 -> Subscript[T, 0], \[Lambda]Plus -> SubPlus[\[Lambda]], \[Lambda]Minus -> SubMinus[\[Lambda]], Rm -> Subscript[R, m], 
 \[Lambda]m -> Subscript[\[Lambda], m], R0 -> Subscript[R, 0], Ti -> Subscript[T, i], \[Lambda]i -> Subscript[\[Lambda], i], EE -> \[ScriptCapitalE], CC -> \[ScriptCapitalC],  Q -> \[ScriptCapitalQ], lStar -> SubStar[\[ScriptCapitalL]], 
-lNot -> "\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \(\[SmallCircle]\)]\)", l -> \[ScriptCapitalL], CNot -> "\!\(\*SubscriptBox[\(\[ScriptCapitalC]\), \(\[SmallCircle]\)]\)", zP->SubPlus[z], zM->SubMinus[z], 
+lNought -> "\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \(\[SmallCircle]\)]\)", l -> \[ScriptCapitalL], CNot -> "\!\(\*SubscriptBox[\(\[ScriptCapitalC]\), \(\[SmallCircle]\)]\)", zP->SubPlus[z], zM->SubMinus[z], 
 si\[Theta]->"\!\(\*SubsuperscriptBox[\(s\), \(\[Theta]\), \(i\)]\)", \[Theta]i->"\!\(\*SubscriptBox[\(\[Theta]\), \(i\)]\)", \[CapitalPhi]0->"\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(i\)]\)", 
 \[Lambda]Minus->"\!\(\*SubscriptBox[\(\[Lambda]\), \(-\)]\)", \[Lambda]Plus->"\!\(\*SubscriptBox[\(\[Lambda]\), \(+\)]\)", M -> "M", \[Mu] -> "\[Mu]", Ri -> "\!\(\*SubscriptBox[\(R\), \(i\)]\)", Subscript[\[CapitalPhi], \[Theta]]->"\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)", \[Kappa]->"\[Kappa]"}
 
 Begin["`Private`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*NHEK radial parametrizations of generating classes*)
 
 
@@ -91,7 +91,7 @@ NHEKBoundedSubcriticalRadial[R_]:={\[Lambda]Plus + 1/Sqrt[CC] ArcCos[(CC R-EE l)
 NHEKBoundedSubcriticalMino[\[Lambda]_]:={Sqrt[CC]/EE Sin[Sqrt[CC](\[Lambda]-\[Lambda]Plus)]/(l/Sqrt[CC+l^2]+Cos[Sqrt[CC](\[Lambda]-\[Lambda]Plus)]), EE/CC(l+Sqrt[CC+l^2]Cos[Sqrt[CC](\[Lambda]-\[Lambda]Plus)]), \[CapitalPhi]0 - 3l/4(\[Lambda]-\[Lambda]Plus)+2 ArcTanh[(l-Sqrt[CC+l^2])/Sqrt[CC]Tan[Sqrt[CC]/2(\[Lambda]-\[Lambda]Plus)]]+l Subscript[\[CapitalPhi], \[Theta]][\[Lambda]]}
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Near-NHEK radial parametrizations of generating classes*)
 
 
@@ -115,10 +115,10 @@ NearNHEKSphericalMino[\[Lambda]_]:={t0+l/R0 (\[Lambda]-\[Lambda]0), R0, \[Phi]0-
 (*PlungingStarNull*)
 
 
-NearNHEKPlungingStarNullRadial[R_]:={(R-Ri)/(\[Kappa] lStar),ti-1/(2\[Kappa])Log[(R^2-\[Kappa]^2)/(Ri^2-\[Kappa]^2)],\[Phi]i+3/(4\[Kappa])R+1/2 Log[(R-\[Kappa])/(R+\[Kappa])] +lStar Subscript[\[CapitalPhi], \[Theta]][\[Lambda]]}
+NearNHEKPlungingStarNullRadial[R_]:={-(R-Ri)/(\[Kappa] lStar),ti-1/(2\[Kappa])Log[(R^2-\[Kappa]^2)/(Ri^2-\[Kappa]^2)],\[Phi]i+3/(4\[Kappa])R+1/2 Log[(R-\[Kappa])/(R+\[Kappa])] +lStar Subscript[\[CapitalPhi], \[Theta]][\[Lambda]]}
 
 
-NearNHEKPlungingStarNullMino[\[Lambda]_]:={ti-1/(2\[Kappa]) Log[1+\[Kappa] lStar (\[Lambda]-\[Lambda]i) (\[Kappa] lStar(\[Lambda]-\[Lambda]i)-2Ri)/(Ri^2-\[Kappa]^2)], Ri-\[Kappa] lStar (\[Lambda]-\[Lambda]i), \[Phi]i-3/4 lStar (\[Lambda]-\[Lambda]i)+1/2 Log[(1-(\[Kappa] lStar (\[Lambda]-\[Lambda]i))/(Ri-\[Kappa]))/(1-(\[Kappa] lStar(\[Lambda]-\[Lambda]i))/Ri+\[Kappa])]+lStar Subscript[\[CapitalPhi], \[Theta]][\[Lambda]]}
+NearNHEKPlungingStarNullMino[\[Lambda]_]:={ti-1/(2\[Kappa]) Log[1+\[Kappa] lStar (\[Lambda]-\[Lambda]i) (\[Kappa] lStar(\[Lambda]-\[Lambda]i)-2Ri)/(Ri^2-\[Kappa]^2)], Ri-\[Kappa] lStar (\[Lambda]-\[Lambda]i), \[Phi]i-3/4 lStar (\[Lambda]-\[Lambda]i)+1/2 Log[(1-(\[Kappa] lStar (\[Lambda]-\[Lambda]i))/(Ri-\[Kappa]))/(1-(\[Kappa] lStar(\[Lambda]-\[Lambda]i))/(Ri+\[Kappa]))]+lStar Subscript[\[CapitalPhi], \[Theta]][\[Lambda]]}
 
 
 (* ::Subsection:: *)
@@ -128,7 +128,7 @@ NearNHEKPlungingStarNullMino[\[Lambda]_]:={ti-1/(2\[Kappa]) Log[1+\[Kappa] lStar
 NearNHEKPlungingBoundedStarRadial[R_]:={-Sqrt[v\[Kappa][R]]/(e lStar),1/\[Kappa] ArcCosh[Abs[R+\[Kappa]^2 lStar/e]/Sqrt[R^2-\[Kappa]^2]],-3/(4e)Sqrt[v\[Kappa][R]]+ArcTanh[Sqrt[v\[Kappa][R]]/(e+lStar R)]+lStar Subscript[\[CapitalPhi], \[Theta]][\[Lambda]]}
 
 
-NearNHEKPlungingBoundedStarMino[\[Lambda]_]:={-1/\[Kappa] ArcTanh[2\[Kappa] e lStar^2(\[Lambda]-\[Lambda]0)/(\[Kappa]^2lStar^2+e^2(lStar^2(\[Lambda]-\[Lambda]0)^2-1))], R0 + e lStar/2(\[Lambda]-\[Lambda]0)^2, -3/4 lStar(\[Lambda]-\[Lambda]0)+Sign[e]ArcTanh[2\[Kappa] e lStar^2(\[Lambda]-\[Lambda]0)/(\[Kappa]^2lStar^2+e^2(lStar^2(\[Lambda]-\[Lambda]0)^2-1))]+lStar Subscript[\[CapitalPhi], \[Theta]][\[Lambda]]}
+NearNHEKPlungingBoundedStarMino[\[Lambda]_]:={-1/\[Kappa] ArcTanh[2\[Kappa] e lStar^2(\[Lambda]-\[Lambda]0)/(\[Kappa]^2lStar^2+e^2(lStar^2(\[Lambda]-\[Lambda]0)^2-1))], R0 + e lStar/2(\[Lambda]-\[Lambda]0)^2, -3/4 lStar(\[Lambda]-\[Lambda]0)+Sign[e]ArcTanh[2e^2 lStar (\[Lambda]-\[Lambda]0)/(-\[Kappa]^2lStar^2+e^2(lStar^2(\[Lambda]-\[Lambda]0)^2+1))]+lStar Subscript[\[CapitalPhi], \[Theta]][\[Lambda]]}
 
 
 (* ::Subsection:: *)
@@ -183,7 +183,7 @@ NearNHEKDeflectingRadial[R_]:={\[Lambda]Minus+1/Sqrt[-CC]ArcCosh[(e l-R CC)/Sqrt
 NearNHEKDeflectingMino[\[Lambda]_]:={NearNHEKDeflectingRadial[DeflectingR[\[Lambda]]][[2]], DeflectingR[\[Lambda]], NearNHEKDeflectingRadial[DeflectingR[\[Lambda]]][[3]]}
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Polar parametrizations*)
 
 
@@ -198,13 +198,13 @@ NearNHEKDeflectingMino[\[Lambda]_]:={NearNHEKDeflectingRadial[DeflectingR[\[Lamb
 \[CapitalDelta]\[Theta]=1/2(1-(Q+l^2)/\[Epsilon]0);
 zPlus=\[CapitalDelta]\[Theta]+Sign[\[Epsilon]0]Sqrt[\[CapitalDelta]\[Theta]^2+Q/\[Epsilon]0];
 zMinus=\[CapitalDelta]\[Theta]-Sign[\[Epsilon]0]Sqrt[\[CapitalDelta]\[Theta]^2+Q/\[Epsilon]0];
-zNull=Q/(Q+l^2);
+zNought=Q/(Q+l^2);
 
 
 \[CapitalTheta][z_]:=-l^2 z +(Q+\[Epsilon]0 z)(1-z)
 
 
-mFunction[\[Lambda]_,\[CapitalLambda]_,\[Lambda]\[Theta]_]:=Floor[2/\[CapitalLambda] (\[Lambda]-\[Lambda]\[Theta])+1/2]
+mFunctionPositiveQ[\[Lambda]_,\[CapitalLambda]_,\[Lambda]\[Theta]_]:=Floor[2/\[CapitalLambda] (\[Lambda]-\[Lambda]\[Theta])+1/2]
 
 
 (* ::Subsubsection:: *)
@@ -250,7 +250,7 @@ nearHorizonPolarDictionary:={a->M,EE->l/(2M),\[Epsilon]0->CNot,\[CapitalTheta]->
 \[CapitalDelta]\[Theta]=\[CapitalDelta]\[Theta]/.nearHorizonPolarDictionary;
 zPlus=zPlus/.nearHorizonPolarDictionary;
 zMinus=zMinus/.nearHorizonPolarDictionary;
-zNull=zNull/.nearHorizonPolarDictionary;
+zNought=zNought/.nearHorizonPolarDictionary;
 
 
 (* ::Subsubsection:: *)
@@ -279,14 +279,14 @@ cos\[Theta]PendularNoughtNH[\[Lambda]_]:=cos\[Theta]PendularNought[\[Lambda]]/.n
 (**)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Flips*)
 
 
-LeftRightFlip:={T->-T, T0->-T0, Ti->-Ti, \[CapitalPhi]->-\[CapitalPhi], \[CapitalPhi]0->-\[CapitalPhi]0, \[CapitalPhi]i->-\[CapitalPhi]i, \[Lambda]->-\[Lambda], \[Lambda]i->-\[Lambda]i, \[Lambda]Minus->-\[Lambda]Minus, \[Lambda]0->-\[Lambda]0, \[Lambda]Plus->-\[Lambda]Plus, si\[Theta]->-si\[Theta], siR->-siR}
+LeftRightFlip:={T->-T, T0->-T0, Ti->-Ti, \[CapitalPhi]->-\[CapitalPhi], \[CapitalPhi]0->-\[CapitalPhi]0, \[CapitalPhi]i->-\[CapitalPhi]i, \[Lambda]->-\[Lambda], \[Lambda]i->-\[Lambda]i, \[Lambda]Minus->-\[Lambda]Minus, \[Lambda]0->-\[Lambda]0, \[Lambda]Plus->-\[Lambda]Plus, \[Lambda]f -> -\[Lambda]f, si\[Theta]->-si\[Theta], siR->-siR}
 
 
-DiagFlip:={R->-R, Ri->-Ri, R0->-R0, RPlus->-RPlus, RMinus->-RMinus, \[CapitalPhi]->-\[CapitalPhi], \[CapitalPhi]0->-\[CapitalPhi]0, \[CapitalPhi]i->-\[CapitalPhi]i, l->-l, lStar->-lStar, lNot->-lNot, siR->-siR}
+DiagFlip:={R->-R, Ri->-Ri, R0->-R0, RPlus->-RPlus, RMinus->-RMinus, \[CapitalPhi]->-\[CapitalPhi], \[CapitalPhi]0->-\[CapitalPhi]0, \[CapitalPhi]i->-\[CapitalPhi]i, l->-l, lStar->-lStar, lNought->-lNought, siR->-siR}
 
 
 LeftRightFlipMino[assos_]:=Module[{},
@@ -310,7 +310,7 @@ DiagFlipRadial[assos_]:=Module[{},
 (*Get the symbolic form of the orbits: GetOrbit method*)
 
 
-Simplification[rule_, ass_, expr_]:=Module[{},
+SimplifyOrbit[rule_, ass_, expr_]:=Module[{},
 	Switch[rule,
 	"Simplify", Return[Assuming[ass, Simplify[expr]]];,
 	"FullSimplify", Return[Assuming[ass, FullSimplify[expr]]];,
@@ -319,12 +319,12 @@ Simplification[rule_, ass_, expr_]:=Module[{},
 ];
 
 
-Options[GetOrbit] = {"OutStyle" -> "BHPT", "SimplificationRule" -> "Simplify", "Retrograde" -> False, "ReplaceLStar" -> False, "ReplaceC" -> False, "ReplaceLNot" -> False, "ReplaceCNot" -> False, "ReplaceRoots" -> False, "ReplaceTurningPoints" -> False, "CosTheta" -> True, "ReplacePhiTheta" -> False};
+Options[GetOrbit] = {"OutStyle" -> "BHPT", "SimplifyOrbitRule" -> "Simplify", "Retrograde" -> False, "ReplaceLStar" -> False, "ReplaceC" -> False, "ReplacelNought" -> False, "ReplaceCNot" -> False, "ReplaceRoots" -> False, "ReplaceTurningPoints" -> False, "CosTheta" -> True, "ReplacePhiTheta" -> False};
 
 GetOrbit[spacetime_, parametrization_, radial_, polar_, type_, OptionsPattern[]]:=Module[{style, toFlip, rule, cosTheta, polarAssumptions, radialTrajectory, assos, replaceLStarRule, replaceCRule, radialAssumptions,assumptions, mu, trajectory, parameters, energy, momentum, carter, 
-initialData, criticalMomentum, LNot, casimir,  kappa, criticalRadius, radialPotential, radialRoots, polarPotential, polarRoots, CCNot, PhiTheta, frequencies, turningPoints, rootDictionary, paramForm},
+initialData, criticalMomentum, lNought, casimir,  kappa, criticalRadius, radialPotential, radialRoots, polarPotential, polarRoots, CCNot, PhiTheta, frequencies, turningPoints, rootDictionary, paramForm},
 
-Clear[T, R, \[CapitalPhi], \[Lambda], EE, l, Q, CC, lStar, lNot, CNot, \[Lambda]i, zP, zM, z0, m, \[Lambda]Plus, \[Lambda]Minus, si\[Theta], \[Lambda]0, T0, R0, Rm, \[Lambda]m, \[CapitalPhi]0, t, \[Phi], e, \[Lambda]f, \[Theta], t, r];
+Clear[T, R, \[CapitalPhi], \[Lambda], EE, l, Q, CC, lStar, lNought, CNot, \[Lambda]i, zP, zM, z0, m, \[Lambda]Plus, \[Lambda]Minus, si\[Theta], \[Lambda]0, T0, R0, Rm, \[Lambda]m, \[CapitalPhi]0, t, \[Phi], e, \[Lambda]f, \[Theta], t, r];
 
 (* Define the type of geodesic *)
 Switch[type,
@@ -336,16 +336,16 @@ Switch[type,
 parameters = {energy, momentum, carter, mu};
 criticalMomentum = 2/Sqrt[3]Sqrt[M^2 mu^2+Q];
 casimir = 3/4(lStar^2-l^2);
-LNot = 2 M mu;
-CCNot = (l^2-lNot^2)/4;
+lNought = 2 M mu;
+CCNot = (l^2-lNought^2)/4;
 
 (* Replacement rules *)
 If[OptionValue["ReplaceLStar"], lStar = criticalMomentum;];
 If[OptionValue["ReplaceC"], CC = casimir;];
-If[OptionValue["ReplaceLNot"], lNot = LNot;];
+If[OptionValue["ReplacelNought"], lNought = lNought;];
 If[OptionValue["ReplaceCNot"], CNot = CCNot;];
 If[OptionValue["ReplaceTurningPoints"], m = turningPoints;];
-If[OptionValue["ReplaceRoots"], rootDictionary = {zP->zPlus, zM->zMinus, z0->zNull};, rootDictionary = {};];
+If[OptionValue["ReplaceRoots"], rootDictionary = {zP->zPlus, zM->zMinus, z0->zNought};, rootDictionary = {};];
 
 (* Radial Part *)
 Switch[spacetime,
@@ -401,7 +401,7 @@ Switch[spacetime,
 	
 	,"Outward",
 		(* FLIP *)
-		toFlip = GetOrbit["NHEK", parametrization, "Plunging", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplaceLNot" -> OptionValue["ReplaceLNot"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
+		toFlip = GetOrbit["NHEK", parametrization, "Plunging", polar, type, "OutStyle"-> "None", "SimplifyOrbitRule" -> OptionValue["SimplifyOrbitRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplacelNought"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
 		toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"] = toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"]/.LeftRightFlip;
 		toFlip["Radial Class"] = "Outward";
 		Switch[parametrization,
@@ -489,7 +489,7 @@ Switch[spacetime,
 	
 	,"OutwardStar",
 		(* FLIP *)
-		toFlip = GetOrbit["NHEK", parametrization, "PlungingStar", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplaceLNot" -> OptionValue["ReplaceLNot"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
+		toFlip = GetOrbit["NHEK", parametrization, "PlungingStar", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplacelNought"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
 		toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"] = toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"]/.LeftRightFlip;
 		toFlip["Radial Class"] = "OutwardStar";
 		Switch[parametrization,
@@ -526,7 +526,7 @@ Switch[spacetime,
 	
 	,"BoundedStarMinus",
 		(* FLIP *)
-		toFlip = GetOrbit["NHEK", parametrization, "PlungingStar", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> True, "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplaceLNot" -> OptionValue["ReplaceLNot"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
+		toFlip = GetOrbit["NHEK", parametrization, "PlungingStar", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> True, "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplacelNought"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
 		
 		toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"] = toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"]/.DiagFlip;
 		toFlip["Radial Class"] = "BoundedStarMinus";
@@ -551,7 +551,7 @@ Switch[spacetime,
 		
 	,"BoundedSupercritical",
 		(* FLIP *)
-		toFlip = GetOrbit["NHEK", parametrization, "Plunging", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplaceLNot" -> OptionValue["ReplaceLNot"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
+		toFlip = GetOrbit["NHEK", parametrization, "Plunging", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplacelNought"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
 		
 		toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"] = toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"]/.DiagFlip;
 		toFlip["Radial Class"] = "BoundedSupercritical";
@@ -634,7 +634,7 @@ Switch[spacetime,
 	
 	,"OutwardStarNull",
 	(* FLIP *)
-		toFlip = GetOrbit["Near-NHEK", parametrization, "PlungingStarNull", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplaceLNot" -> OptionValue["ReplaceLNot"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
+		toFlip = GetOrbit["Near-NHEK", parametrization, "PlungingStarNull", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplacelNought"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
 		toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"] = toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"]/.LeftRightFlip;
 		toFlip["Radial Class"] = "OutwardStarNull";
 		Switch[parametrization,
@@ -671,7 +671,7 @@ Switch[spacetime,
 	
 	,"OutwardStar",
 		(* FLIP *)
-		toFlip = GetOrbit["Near-NHEK", parametrization, "PlungingStar", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplaceLNot" -> OptionValue["ReplaceLNot"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
+		toFlip = GetOrbit["Near-NHEK", parametrization, "PlungingStar", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplacelNought"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
 		toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"] = toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"]/.LeftRightFlip;
 		toFlip["Radial Class"] = "OutwardStar";
 		Switch[parametrization,
@@ -707,7 +707,7 @@ Switch[spacetime,
 		
 	,"BoundedStarMinus",
 		(* FLIP *)
-		toFlip = GetOrbit["Near-NHEK", parametrization, "PlungingStar", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> True, "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplaceLNot" -> OptionValue["ReplaceLNot"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
+		toFlip = GetOrbit["Near-NHEK", parametrization, "PlungingStar", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> True, "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplacelNought"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
 		
 		toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"] = toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"]/.DiagFlip;
 		toFlip["Radial Class"] = "BoundedStarMinus";
@@ -801,7 +801,7 @@ Switch[spacetime,
 		
 	,"Outward",
 		(* FLIP *)
-		toFlip = GetOrbit["Near-NHEK", parametrization, "Plunging", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplaceLNot" -> OptionValue["ReplaceLNot"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
+		toFlip = GetOrbit["Near-NHEK", parametrization, "Plunging", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplacelNought"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
 		toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"] = toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"]/.LeftRightFlip;
 		toFlip["Radial Class"] = "Outward";
 		Switch[parametrization,
@@ -847,28 +847,28 @@ Switch[spacetime,
 Switch[polar,
 "Pendular",
 	(*** Pendular ***)
-	polarAssumptions = {Q>0 && l^2!=lNot^2 && CNot!=0 && si\[Theta]^2==1};
+	polarAssumptions = {Q>0 && l^2!=lNought^2 && CNot!=0 && si\[Theta]^2==1};
 	polarPotential = Assuming[polarAssumptions, Simplify[v\[Theta][z]]];
 	polarRoots = {SubMinus[z] -> zMinus, SubPlus[z] -> zPlus}/.nearHorizonPolarDictionary;
 	frequencies = Assuming[polarAssumptions,Simplify[{"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> \[CapitalLambda]PendularNH}/.rootDictionary]];
 	PhiTheta = \[CapitalPhi]PendularNH[\[Lambda], m]/.rootDictionary;
-	turningPoints = mFunction[\[Lambda], \[CapitalLambda]PendularNH, \[Lambda]i\[Theta]PendularNH]/.rootDictionary;
+	turningPoints = mFunctionPositiveQ[\[Lambda], \[CapitalLambda]PendularNH, \[Lambda]i\[Theta]PendularNH]/.rootDictionary;
 	cosTheta = cos\[Theta]PendularNH[\[Lambda]]/.rootDictionary;
 	
 ,"PendularNought",
 	(*** PendularNot ***)
 	CCNot = 0;
 	If[OptionValue["Retrograde"], 
-		polarAssumptions = {Q>0 && l==-lNot  && si\[Theta]^2==1};
-		l = -lNot;,
-		polarAssumptions = {Q>0 && l==lNot && si\[Theta]^2==1};
-		l = lNot; 
+		polarAssumptions = {Q>0 && l==-lNought  && si\[Theta]^2==1};
+		l = -lNought;,
+		polarAssumptions = {Q>0 && l==lNought && si\[Theta]^2==1};
+		l = lNought; 
 	];
 	polarPotential = Assuming[polarAssumptions, Simplify[v\[Theta][z]]];
-	polarRoots = {"\!\(\*SubscriptBox[\(z\), \(0\)]\)" -> zNull}/.nearHorizonPolarDictionary;
+	polarRoots = {"\!\(\*SubscriptBox[\(z\), \(0\)]\)" -> zNought}/.nearHorizonPolarDictionary;
 	frequencies = Assuming[polarAssumptions,Simplify[{"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> \[CapitalLambda]PendularNoughtNH}/.rootDictionary]];
 	PhiTheta = \[CapitalPhi]PendularNoughtNH[\[Lambda], m]/.rootDictionary;
-	turningPoints = mFunction[\[Lambda], \[CapitalLambda]PendularNoughtNH, \[Lambda]i\[Theta]PendularNoughtNH]/.rootDictionary;
+	turningPoints = mFunctionPositiveQ[\[Lambda], \[CapitalLambda]PendularNoughtNH, \[Lambda]i\[Theta]PendularNoughtNH]/.rootDictionary;
 	cosTheta = cos\[Theta]PendularNoughtNH[\[Lambda]]/.rootDictionary;
 	
 ,"Equatorial",
@@ -876,8 +876,8 @@ Switch[polar,
 	carter = 0;
 	Q = 0;
 	If[OptionValue["Retrograde"], 
-		polarAssumptions = {Q==0 && 0>=l>=-lNot && si\[Theta]^2==1 && z==0};,
-		polarAssumptions = {Q==0 && 0<=l<=lNot && si\[Theta]^2==1 && z==0};
+		polarAssumptions = {Q==0 && 0>=l>=-lNought && si\[Theta]^2==1 && z==0};,
+		polarAssumptions = {Q==0 && 0<=l<=lNought && si\[Theta]^2==1 && z==0};
 	];
 	polarPotential = Assuming[polarAssumptions, Simplify[v\[Theta][z]]];
 	polarRoots = Undefined;
@@ -907,9 +907,13 @@ Switch[parametrization,
 (* Parametrization form *)
 paramForm = Switch[parametrization,
 	"Mino",
-		If[OptionValue["CosTheta"], "{T(\[Lambda]), R(\[Lambda]), cos \[Theta](\[Lambda]), \[CapitalPhi](\[Lambda])}", "{T(\[Lambda]), R(\[Lambda]), \[Theta](\[Lambda]), \[CapitalPhi](\[Lambda])}"]
+		Switch[spacetime
+			,"NHEK", If[OptionValue["CosTheta"], "{T(\[Lambda]), R(\[Lambda]), cos \[Theta](\[Lambda]), \[CapitalPhi](\[Lambda])}", "{T(\[Lambda]), R(\[Lambda]), \[Theta](\[Lambda]), \[CapitalPhi](\[Lambda])}"]
+			,"Near-NHEK", If[OptionValue["CosTheta"], "{t(\[Lambda]), R(\[Lambda]), cos \[Theta](\[Lambda]), \[Phi](\[Lambda])}", "{t(\[Lambda]), R(\[Lambda]), \[Theta](\[Lambda]), \[Phi](\[Lambda])}"]]
 	,"Radial",
-		If[OptionValue["CosTheta"], "{\[Lambda](R), T(R), cos \[Theta](R), \[CapitalPhi](R)}", "{\[Lambda](R), T(R), \[Theta](R), \[CapitalPhi](R)}"]
+		Switch[spacetime
+			,"NHEK", If[OptionValue["CosTheta"], "{\[Lambda](R), T(R), cos \[Theta](R), \[CapitalPhi](R)}", "{\[Lambda](R), T(R), \[Theta](R), \[CapitalPhi](R)}"]
+			,"Near-NHEK", If[OptionValue["CosTheta"], "{\[Lambda](R), t(R), cos \[Theta](R), \[Phi](R)}", "{\[Lambda](R), t(R), \[Theta](R), \[Phi](R)}"]]
 ];
 
 (* Output *)
@@ -936,13 +940,13 @@ assos = Association[
 	"Energy" -> energy,
 	"Angular Momentum" -> momentum,
 	"Carter Constant" -> carter,
-	"LNought" -> LNot,
+	"LNought" -> lNought,
 	"Kappa" -> kappa,
 	"Critical Radius" -> criticalRadius,
 	"Polar Potential" -> ToFunction[polarPotential, z, style, rule, assumptions],
-	"Polar Roots" -> Simplification[rule, assumptions, polarRoots],
-	"PhiTheta" -> Simplification[rule, assumptions, PhiTheta],
-	"Frequencies" -> Simplification[rule, assumptions, frequencies],
+	"Polar Roots" -> SimplifyOrbit[rule, assumptions, polarRoots],
+	"PhiTheta" -> SimplifyOrbit[rule, assumptions, PhiTheta],
+	"Frequencies" -> SimplifyOrbit[rule, assumptions, frequencies],
 	"CNought" -> CCNot,
 	"Turning Points" -> ToFunction[turningPoints, \[Lambda], style, rule, assumptions],
 	"Parametrization Form" -> paramForm
@@ -952,7 +956,7 @@ Return[assos/.style];
 
 ];
 
-ToFunction[expr_, var_, style_, rule_, assumptions_]:=Function[var, Simplification[rule, assumptions, expr]/.style]
+ToFunction[expr_, var_, style_, rule_, assumptions_]:=Function[var, SimplifyOrbit[rule, assumptions, expr]/.style]
 
 
 (* ::Section:: *)
@@ -969,7 +973,7 @@ NearHorizonGeoOrbitClass[spacetime_String, radial_String, polar_String, OptionsP
 	parametrization = OptionValue["Parametrization"];
 	
 	assoc = GetOrbit[spacetime, parametrization, radial, polar, type, "OutStyle"-> OptionValue["Style"], "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], 
-	"ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplaceLNot" -> OptionValue["ReplaceLNought"], "ReplaceCNot" -> OptionValue["ReplaceCNought"], 
+	"ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplaceLNought"], "ReplaceCNot" -> OptionValue["ReplaceCNought"], 
 	"ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], 
 	"ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]//Quiet;
 	
@@ -983,7 +987,7 @@ NearHorizonGeoOrbitClass[spacetime_String, radial_String, polar_String, OptionsP
 
 Options[NearHorizonGeoOrbit] = {"RadialMotion" -> "Ingoing", "ExplicitMass" -> 1, "Parametrization" -> "Mino", "SimplificationRule" -> "Simplify", "CosTheta" -> False, "Numerical" -> True};
 
-NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{si\[Theta]_, Ti_, Ri_, \[Theta]i_, \[CapitalPhi]i_, \[Lambda]i_}:{1, 0, Ri, \[Pi]/2, 0, 0}, OptionsPattern[]]:=Module[{CC, paramRule, mass, parametrization, assoc, lStar, isRetro, lNot, radial, polar, type},
+NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{si\[Theta]_, Ti_, Ri_, \[Theta]i_, \[CapitalPhi]i_, \[Lambda]i_}:{1, 0, Ri, \[Pi]/2, 0, 0}, OptionsPattern[]]:=Module[{CC, paramRule, mass, parametrization, assoc, lStar, isRetro, lNought, radial, polar, type},
 	
 	mass = OptionValue["ExplicitMass"];
 	parametrization = OptionValue["Parametrization"];
@@ -1084,21 +1088,21 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 	
 	
 	(* Determine the polar class *)
-	lNot = 2 mass mu;
+	lNought = 2 mass mu;
 	
 	Which[
-		l==lNot && Q>0, polar = "PendularNought"; isRetro = False;,
-		l==-lNot && Q>0, polar = "PendularNought"; isRetro = True;,
-		l^2!=lNot^2 && l>0 && Q>0, polar = "Pendular"; isRetro = False;,
-		l^2!=lNot^2 && l<0 && Q>0, polar = "Pendular"; isRetro = True;,
-		l^2<=lNot^2 && l>0 && Q==0, polar = "Equatorial"; isRetro = False;,
-		l^2<=lNot^2 && l<0 && Q==0, polar = "Equatorial"; isRetro = True;,
+		l==lNought && Q>0, polar = "PendularNought"; isRetro = False;,
+		l==-lNought && Q>0, polar = "PendularNought"; isRetro = True;,
+		l^2!=lNought^2 && l>0 && Q>0, polar = "Pendular"; isRetro = False;,
+		l^2!=lNought^2 && l<0 && Q>0, polar = "Pendular"; isRetro = True;,
+		l^2<=lNought^2 && l>0 && Q==0, polar = "Equatorial"; isRetro = False;,
+		l^2<=lNought^2 && l<0 && Q==0, polar = "Equatorial"; isRetro = True;,
 		_, Print["Uncorrect input parameters: unable to determine the polar class !"]; Return[$Failed];	
 	];
 	
 	(* Produce the output *)
 	assoc = GetOrbit[st, parametrization, radial, polar, type, "OutStyle"-> "None", "SimplificationRule" -> "None", 
-	"Retrograde" -> isRetro, "ReplaceLStar" -> True, "ReplaceC" ->True, "ReplaceLNot" -> True, "ReplaceCNot" -> True, "ReplaceRoots" -> True, 
+	"Retrograde" -> isRetro, "ReplaceLStar" -> True, "ReplaceC" ->True, "ReplacelNought" -> True, "ReplaceCNot" -> True, "ReplaceRoots" -> True, 
 	"ReplaceTurningPoints" -> True, "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> True]//Quiet;
 	
 	(* Rule to replace initial data and parameters*)

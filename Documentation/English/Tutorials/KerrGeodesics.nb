@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "TutorialColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"7feb0dce-d4b3-4542-82c1-efce535a10d2"],
+   0}},ExpressionUUID->"cf30df74-544a-47a1-ba54-d028fc18ff92"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -11,11 +11,11 @@ Cell[TextData[{
  ButtonBox["KerrGeodesics",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/tutorial/KerrGeodesics"]
-}], "LinkTrail",ExpressionUUID->"0c1ac324-83bf-488c-aac0-1a70cdbdbecf"],
+}], "LinkTrail",ExpressionUUID->"31586714-e522-449a-bc36-0fae496bd661"],
 
 Cell[BoxData[GridBox[{
    {Cell["KERRGEODESICS TUTORIAL", "PacletNameCell",ExpressionUUID->
-     "51a2669e-84a7-493a-95fd-f28e944c3ace"], Cell[TextData[{
+     "00d7f6a8-9716-4456-862c-0cdb66853982"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Related Tutorials \[RightGuillemet]\"\>",
@@ -25,7 +25,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "9a42ff62-c278-40cc-9576-8e2c8d9a1cdf"],
+      "5ccfaef8-79c5-4fb6-8bd9-cf513a52fb02"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -44,29 +44,29 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "09ae1cdd-b558-4781-b0f6-63d21e80cc63"]
-    }], "AnchorBar",ExpressionUUID->"48ed2426-a22c-498c-8097-7d7ee2b3b683"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"bb8fca5f-034c-4207-8b6f-fb4d0434d1b1"],
+      "3df9fce2-681e-4b94-9d62-a14b264bccfb"]
+    }], "AnchorBar",ExpressionUUID->"2deb743f-afe4-437d-9fa3-3a5c5f1bb046"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"f061a233-0d35-400e-bcf6-8ad46e112cd4"],
 
 Cell[CellGroupData[{
 
 Cell["Kerr Geodesics", \
-"Title",ExpressionUUID->"c6088e98-6657-40a9-b21c-64bfc0cfbf63"],
+"Title",ExpressionUUID->"6d6a8e6c-181f-41a9-ab52-c99fc194e48e"],
 
 Cell["\<\
 The KerrGeodesics package provides functions for computing quantities related \
 to bound timelike geodesic orbits in Kerr spacetime. Before using the \
 functions, first load the package\
-\>", "Text",ExpressionUUID->"d93dc21c-7526-4782-929d-399f4fec3137"],
+\>", "Text",ExpressionUUID->"d47fc996-f2f3-4e68-af2a-172ec67e7b87"],
 
 Cell[BoxData[
  RowBox[{"<<", "KerrGeodesics`"}]], "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"7dda3d70-7de4-4de2-997e-1f6783a4789e"],
+ CellLabel->"In[1]:=",ExpressionUUID->"cd5ff86d-c285-44a1-904e-b79d4517e711"],
 
 Cell[CellGroupData[{
 
 Cell["Orbital parametrization", \
-"Subsection",ExpressionUUID->"5119e84d-5211-4a72-a23d-b1934c956fdf"],
+"Subsection",ExpressionUUID->"27c291ab-20ce-4437-b3ef-7df432ec91d4"],
 
 Cell[TextData[{
  "All the orbits are paremterized by:\n  a - the black \
@@ -78,28 +78,28 @@ eccentricity\n  ",
     SubscriptBox["x", "inc"], "=", 
     RowBox[{"Cos", "[", 
      SubscriptBox["\[Theta]", "inc"], "]"}]}], TraditionalForm]],
-  ExpressionUUID->"a779ceb9-9a59-4be1-8a34-8ccf66ac1483"],
+  ExpressionUUID->"0c69526d-33ff-424a-9a1b-4f072b3f6258"],
  "\n  \n  The parameters ",
  Cell[BoxData[
   FormBox[
    RowBox[{"{", 
     RowBox[{"a", ",", "p", ",", "e", ",", 
      SubscriptBox["\[Theta]", "inc"]}], "}"}], TraditionalForm]],
-  ExpressionUUID->"5857d6a1-0b32-4ff1-98d3-3dcaf17df804"],
+  ExpressionUUID->"350d0ab9-f6aa-4161-8ef7-f0756d3a68d7"],
  " are described in, e.g., Sec. II of arXiv:gr-qc/0509101"
-}], "Text",ExpressionUUID->"c21f16b6-2076-48e3-97a7-6fd449cfd338"]
+}], "Text",ExpressionUUID->"c9c3e945-cc00-4964-81c0-1010b8f28d8f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Constants of motion and orbital frequencies", "Subsection",
  CellChangeTimes->{{3.7090219843089333`*^9, 
-  3.709021998381135*^9}},ExpressionUUID->"01137dca-a4ab-4411-8058-\
-8942350ce0ef"],
+  3.709021998381135*^9}},ExpressionUUID->"413ebfba-8573-44b4-b260-\
+c70865b40dd6"],
 
 Cell["\<\
 Compute the constants of motion: energy, angular momentum and Carter constant\
-\>", "Text",ExpressionUUID->"d2987e4e-85f0-48a5-ad97-c9d3d7e06047"],
+\>", "Text",ExpressionUUID->"f3da6421-3f36-41f9-a89c-be48473226a6"],
 
 Cell[CellGroupData[{
 
@@ -108,7 +108,7 @@ Cell[BoxData[
   RowBox[{"0.9`20", ",", "10", ",", "0.5`20", ",", 
    RowBox[{"Cos", "[", 
     RowBox[{"\[Pi]", "/", "3"}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[2]:=",ExpressionUUID->"64413104-70c6-4ef8-9c3b-14fb57b69363"],
+ CellLabel->"In[2]:=",ExpressionUUID->"99f070ec-0604-4f9e-86c7-a2c53d3389ab"],
 
 Cell[BoxData[
  RowBox[{"\[LeftAssociation]", 
@@ -120,11 +120,11 @@ Cell[BoxData[
    RowBox[{"\<\"\[ScriptCapitalQ]\"\>", "\[Rule]", 
     "9.9666815875696188798922610135885014702`16.89827938196065"}]}], 
   "\[RightAssociation]"}]], "Output",
- CellLabel->"Out[2]=",ExpressionUUID->"8d91e320-d2cd-453d-bf20-cd7fd7121795"]
+ CellLabel->"Out[2]=",ExpressionUUID->"9e72f98c-3313-4ed8-af77-a50f41836f14"]
 }, Open  ]],
 
 Cell["They can also be computed separately", \
-"Text",ExpressionUUID->"de938606-41a0-4b69-a3b7-228c72806612"],
+"Text",ExpressionUUID->"9a0da3b9-990d-44b6-901c-c0a374449697"],
 
 Cell[CellGroupData[{
 
@@ -149,7 +149,7 @@ Cell[BoxData[
      RowBox[{"KerrGeoCarterConstant", "[", 
       RowBox[{"a", ",", "p", ",", "e", ",", "x"}], "]"}]}], "}"}]}], 
   "\[IndentingNewLine]", "]"}]], "Input",
- CellLabel->"In[3]:=",ExpressionUUID->"0577c8e9-134c-4b0a-bf4d-33857dfe3393"],
+ CellLabel->"In[3]:=",ExpressionUUID->"907acd07-0ad5-4a90-9a6a-4640e16d2a0f"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -158,14 +158,14 @@ Cell[BoxData[
    "1.81884192219757339848695633754530711226`17.198022530341397", ",", 
    "9.9666815875696188798922610135885014702`16.89827938196065"}], 
   "}"}]], "Output",
- CellLabel->"Out[3]=",ExpressionUUID->"1614ba4f-e29b-4eaa-9d1a-4c298e2f16d6"]
+ CellLabel->"Out[3]=",ExpressionUUID->"2e14fbcf-8d6a-4d16-9004-71c53b62abea"]
 }, Open  ]],
 
 Cell["Some cases can be evaluated analytically, e.g.,", "Text",
  CellChangeTimes->{{3.709536698884091*^9, 3.7095367045863333`*^9}, {
   3.7095367424760437`*^9, 3.709536744084807*^9}, {3.709537182068915*^9, 
-  3.709537183911771*^9}},ExpressionUUID->"f9fac560-de6f-4714-9bf7-\
-c07d370d41a7"],
+  3.709537183911771*^9}},ExpressionUUID->"4e80a561-7fba-46dc-bfe7-\
+8805a05db432"],
 
 Cell[CellGroupData[{
 
@@ -175,7 +175,7 @@ Cell[BoxData[
    RowBox[{"0", ",", "p", ",", "e", ",", "1"}], "]"}], 
   RowBox[{"(*", 
    RowBox[{"Schwarzschild", " ", "orbit"}], "*)"}]}]], "Input",
- CellLabel->"In[4]:=",ExpressionUUID->"0eb67533-9ed9-4a38-ab31-0a18a6089540"],
+ CellLabel->"In[4]:=",ExpressionUUID->"9ae255c2-bd73-47f6-b5ca-f0f44348af59"],
 
 Cell[BoxData[
  RowBox[{"\[LeftAssociation]", 
@@ -204,7 +204,7 @@ Cell[BoxData[
        SuperscriptBox["e", "2"], "+", "p"}]]]}], ",", 
    RowBox[{"\<\"\[ScriptCapitalQ]\"\>", "\[Rule]", "0"}]}], 
   "\[RightAssociation]"}]], "Output",
- CellLabel->"Out[4]=",ExpressionUUID->"77191938-6064-4084-b646-c666a095a6c0"]
+ CellLabel->"Out[4]=",ExpressionUUID->"72572eae-a872-435b-96dc-1c3a9cee9033"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -216,7 +216,7 @@ Cell[BoxData[
   RowBox[{"(*", 
    RowBox[{"Polar", ",", " ", 
     RowBox[{"spherical", " ", "orbit"}]}], "*)"}]}]], "Input",
- CellLabel->"In[5]:=",ExpressionUUID->"535b8eaa-1452-49d4-a874-fc6cddce4ab9"],
+ CellLabel->"In[5]:=",ExpressionUUID->"79660b12-1073-4393-a83e-9d0a4aa3ee80"],
 
 Cell[BoxData[
  RowBox[{"\[LeftAssociation]", 
@@ -275,13 +275,13 @@ Cell[BoxData[
          RowBox[{"(", 
           RowBox[{"1", "+", "p"}], ")"}]}]}], ")"}]}]]}]}], 
   "\[RightAssociation]"}]], "Output",
- CellLabel->"Out[5]=",ExpressionUUID->"4b6065f6-0b6c-48b7-93d4-1c0c01da3a5d"]
+ CellLabel->"Out[5]=",ExpressionUUID->"46a355e1-ed1a-4afd-8cb6-3a2cc6c29155"]
 }, Open  ]],
 
 Cell["\<\
 The frequencies can be computed w.r.t. Boyer-Lindquist time (default) or Mino \
 time\
-\>", "Text",ExpressionUUID->"c7d8c180-498a-4b23-b6f1-756b051f1d37"],
+\>", "Text",ExpressionUUID->"e4157d2a-22a0-49b9-93b1-a44c958ee8d4"],
 
 Cell[CellGroupData[{
 
@@ -295,7 +295,7 @@ Cell[BoxData[{
    RowBox[{"Cos", "[", 
     RowBox[{"\[Pi]", "/", "3"}], "]"}], ",", 
    RowBox[{"Time", "\[Rule]", "\"\<Mino\>\""}]}], "]"}]}], "Input",
- CellLabel->"In[6]:=",ExpressionUUID->"b46c1ec3-0836-4620-aad4-ff4501392250"],
+ CellLabel->"In[6]:=",ExpressionUUID->"03b5eb8c-9557-48ce-9efc-54b26fb320c1"],
 
 Cell[BoxData[
  RowBox[{"\[LeftAssociation]", 
@@ -310,7 +310,7 @@ Cell[BoxData[
 \"\>", "\[Rule]", 
     "0.02254148625589115431824793921656612812`11.62915973254917"}]}], 
   "\[RightAssociation]"}]], "Output",
- CellLabel->"Out[6]=",ExpressionUUID->"fbd82f9a-0a3a-4a99-b832-e9c1344979f6"],
+ CellLabel->"Out[6]=",ExpressionUUID->"d8896899-8968-4aca-9b77-a1e655675b5f"],
 
 Cell[BoxData[
  RowBox[{"\[LeftAssociation]", 
@@ -325,11 +325,11 @@ Cell[BoxData[
 \\(\[Phi]\\)]\\)\"\>", "\[Rule]", 
     "3.84269200150553154589218983544120585192`11.656077898489738"}]}], 
   "\[RightAssociation]"}]], "Output",
- CellLabel->"Out[7]=",ExpressionUUID->"89c8b00f-48b3-49d8-9380-64d2de161877"]
+ CellLabel->"Out[7]=",ExpressionUUID->"3501fa7f-1b04-4a88-a05c-6c0762450cce"]
 }, Open  ]],
 
 Cell["The frequencies can also be evaluated in the extremal limit", \
-"Text",ExpressionUUID->"17b9a858-3117-43de-bd45-0fe1c043faed"],
+"Text",ExpressionUUID->"846084d4-edf9-4707-be00-d208efa7125b"],
 
 Cell[CellGroupData[{
 
@@ -338,7 +338,7 @@ Cell[BoxData[
   RowBox[{"1", ",", "10", ",", "0.5", ",", 
    RowBox[{"Cos", "[", 
     RowBox[{"\[Pi]", "/", "3"}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[8]:=",ExpressionUUID->"b0e2ddd4-0de0-43a5-bea8-bca5f2754b0d"],
+ CellLabel->"In[8]:=",ExpressionUUID->"1d1411ea-e285-4882-aeb5-445840e6bc5d"],
 
 Cell[BoxData[
  RowBox[{"\[LeftAssociation]", 
@@ -350,26 +350,26 @@ Cell[BoxData[
    RowBox[{"\<\"\\!\\(\\*SubscriptBox[\\(\[CapitalOmega]\\), \\(\[Phi]\\)]\\)\
 \"\>", "\[Rule]", "0.022460112973478077`"}]}], 
   "\[RightAssociation]"}]], "Output",
- CellLabel->"Out[8]=",ExpressionUUID->"da08960e-4c58-4239-96bf-56051a4788c5"]
+ CellLabel->"Out[8]=",ExpressionUUID->"39f7905a-1d27-4b91-8fbd-747b8af975db"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Properties of bound geodesics", \
-"Subsection",ExpressionUUID->"5b32a28e-e496-4dfb-9a4f-c7069c5af0d5"],
+"Subsection",ExpressionUUID->"fbcb4925-0bd3-45cd-92fb-95a5a9531ceb"],
 
 Cell["\<\
 The inner-most circular orbit (ISCO) is only defined in the equatorial plane. \
 You can get analytic results\
-\>", "Text",ExpressionUUID->"2283fccf-87cb-426f-87de-81d74cf63d94"],
+\>", "Text",ExpressionUUID->"268a8db4-1892-42ac-b03b-34bf1ba37833"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"KerrGeoISCO", "[", 
   RowBox[{"a", ",", "1"}], "]"}]], "Input",
- CellLabel->"In[9]:=",ExpressionUUID->"c07fbb9c-6189-4b13-8341-1104a76f5e5f"],
+ CellLabel->"In[9]:=",ExpressionUUID->"04d8906c-50ae-42ca-ab67-de7c5a8dea85"],
 
 Cell[BoxData[
  RowBox[{"3", "+", 
@@ -460,11 +460,11 @@ Cell[BoxData[
                   RowBox[{"1", "+", "a"}], ")"}], 
                  RowBox[{"1", "/", "3"}]]}], ")"}]}]}], ")"}], "2"]}]]}]}], 
       ")"}]}], ")"}]}]}]], "Output",
- CellLabel->"Out[9]=",ExpressionUUID->"8cf276df-0177-470b-95ed-87940742562e"]
+ CellLabel->"Out[9]=",ExpressionUUID->"97cdbe6e-af1a-4b89-8a2d-ffae09d98a88"]
 }, Open  ]],
 
 Cell["Or numerical results", \
-"Text",ExpressionUUID->"253a4be6-7b54-44d8-ad25-79f82ffef481"],
+"Text",ExpressionUUID->"ad209204-47cd-4bfa-9e0a-d3dfc57232b8"],
 
 Cell[CellGroupData[{
 
@@ -476,33 +476,33 @@ Cell[BoxData[
    RowBox[{"KerrGeoISCO", "[", 
     RowBox[{"0.9", ",", 
      RowBox[{"-", "1"}]}], "]"}]}], "}"}]], "Input",
- CellLabel->"In[10]:=",ExpressionUUID->"2e7fb634-24c7-4823-b345-cfaf614692ad"],
+ CellLabel->"In[10]:=",ExpressionUUID->"e5190cf2-1e0e-4101-8383-32cdbf4898ac"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{"2.320883041761887`", ",", "8.717352279606489`"}], "}"}]], "Output",
- CellLabel->"Out[10]=",ExpressionUUID->"d8789275-fc1a-45d4-9f8c-0a3eb91fa15c"]
+ CellLabel->"Out[10]=",ExpressionUUID->"9d7d026a-2507-4cf3-b746-76d7821bdae4"]
 }, Open  ]],
 
 Cell["\<\
 Out of the equatorial plane we can define the Inner-most stable spherical \
 orbit (ISSO).\
-\>", "Text",ExpressionUUID->"cd93073b-1277-454f-b068-5f46e5840296"],
+\>", "Text",ExpressionUUID->"a6b8d1ae-551f-492a-83e9-47ef09543552"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"KerrGeoISSO", "[", 
   RowBox[{"0.9", ",", "0.9"}], "]"}]], "Input",
- CellLabel->"In[11]:=",ExpressionUUID->"4f333034-7504-4e5d-9385-6bcf9c1e1232"],
+ CellLabel->"In[11]:=",ExpressionUUID->"c92ce325-8090-4146-a4fb-7b22e4244626"],
 
 Cell[BoxData["2.536395566552138`"], "Output",
- CellLabel->"Out[11]=",ExpressionUUID->"0ecd4b3f-5e5c-4ce6-8606-41ef357440f8"]
+ CellLabel->"Out[11]=",ExpressionUUID->"a0366a6f-ad7f-4b61-86f4-e2379a917cb3"]
 }, Open  ]],
 
 Cell["\<\
 We can also located separatrix between bound and plunging orbits\
-\>", "Text",ExpressionUUID->"fb6e9b8f-9a1f-461f-a496-84f81691b2cb"],
+\>", "Text",ExpressionUUID->"5e1cb4e6-80a9-4387-9180-568f2a7f00a7"],
 
 Cell[CellGroupData[{
 
@@ -511,15 +511,15 @@ Cell[BoxData[
   RowBox[{"0.9`20", ",", "0.5`20", ",", 
    RowBox[{"Cos", "[", 
     RowBox[{"\[Pi]", "/", "4"}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[12]:=",ExpressionUUID->"6ac88df3-15fe-41c9-a629-ff78bce53285"],
+ CellLabel->"In[12]:=",ExpressionUUID->"55f8c4a5-04ac-4985-89c1-5c92b1403e21"],
 
 Cell[BoxData["3.60578818280282176471859861608468065914`18."], "Output",
- CellLabel->"Out[12]=",ExpressionUUID->"5234d1c9-5191-4281-aec8-c101888e4295"]
+ CellLabel->"Out[12]=",ExpressionUUID->"db8ef2d6-8a73-4e56-ab1d-3d61bd633dca"]
 }, Open  ]],
 
 Cell["\<\
 The separatrix can be evaluated analytic for some special cases, e.g.,\
-\>", "Text",ExpressionUUID->"d8bde881-5c23-4a7a-a633-ae2ec8eb1670"],
+\>", "Text",ExpressionUUID->"19d4e6c1-f5bb-4654-b809-8815f9de78d3"],
 
 Cell[CellGroupData[{
 
@@ -528,35 +528,35 @@ Cell[BoxData[{
   RowBox[{"0", ",", "p", ",", "x"}], "]"}], "\[IndentingNewLine]", 
  RowBox[{"KerrGeoSeparatrix", "[", 
   RowBox[{"1", ",", "p", ",", "1"}], "]"}]}], "Input",
- CellLabel->"In[13]:=",ExpressionUUID->"310e3144-56e2-48cd-b57f-908a4c1ee045"],
+ CellLabel->"In[13]:=",ExpressionUUID->"4d0ca8e4-748c-4dc8-82e8-575447fc0965"],
 
 Cell[BoxData[
  RowBox[{"6", "+", 
   RowBox[{"2", " ", "p"}]}]], "Output",
- CellLabel->"Out[13]=",ExpressionUUID->"c5c30a4c-abbb-40b3-95fd-3a399cd8ad45"],
+ CellLabel->"Out[13]=",ExpressionUUID->"2e816174-1055-41b9-a7e6-d139a3a47dae"],
 
 Cell[BoxData[
  RowBox[{"1", "+", "p"}]], "Output",
- CellLabel->"Out[14]=",ExpressionUUID->"3e2b9380-3182-41a2-9537-3460d8ec3079"]
+ CellLabel->"Out[14]=",ExpressionUUID->"6c150cc5-9c3a-49da-93cd-b296bf0f16b3"]
 }, Open  ]],
 
 Cell["We can also locate the photon sphere radius", \
-"Text",ExpressionUUID->"794e2f10-48ee-446b-b9e4-452e65a4b043"],
+"Text",ExpressionUUID->"7faa68e6-ad6a-44d0-ad02-e846b2d9037e"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"KerrGeoPhotonSphereRadius", "[", 
   RowBox[{"0.9`20", ",", "0.9`20"}], "]"}]], "Input",
- CellLabel->"In[15]:=",ExpressionUUID->"d787eadb-3ed9-432d-a2a6-2cf31fa4cd09"],
+ CellLabel->"In[15]:=",ExpressionUUID->"86702c32-641d-408b-bc92-4ef3dbae96aa"],
 
 Cell[BoxData["1.60391887328839861929519419059322160321`19."], "Output",
- CellLabel->"Out[15]=",ExpressionUUID->"4030e63e-820c-4a07-a8e9-096ce308d862"]
+ CellLabel->"Out[15]=",ExpressionUUID->"9399c308-3e9a-4afe-be91-62d3faa0eb43"]
 }, Open  ]],
 
 Cell["\<\
 This can also be evaluated analytically for a few special cases, e.g.,\
-\>", "Text",ExpressionUUID->"712c6698-06f0-40ff-872d-dc173ba84b74"],
+\>", "Text",ExpressionUUID->"63a04db2-0457-49d4-9dfc-4e1a441bd6a0"],
 
 Cell[CellGroupData[{
 
@@ -566,7 +566,7 @@ Cell[BoxData[{
    RowBox[{"-", "1"}]}], "]"}], "\[IndentingNewLine]", 
  RowBox[{"KerrGeoPhotonSphereRadius", "[", 
   RowBox[{"1", ",", "x"}], "]"}]}], "Input",
- CellLabel->"In[16]:=",ExpressionUUID->"bbd1d4e0-f8fa-4998-96e2-9403a1241d41"],
+ CellLabel->"In[16]:=",ExpressionUUID->"932aa861-f845-4a66-80a9-e076f816148f"],
 
 Cell[BoxData[
  RowBox[{"2", " ", 
@@ -576,7 +576,7 @@ Cell[BoxData[
      FractionBox[
       RowBox[{"2", " ", 
        RowBox[{"ArcCos", "[", "a", "]"}]}], "3"], "]"}]}], ")"}]}]], "Output",
- CellLabel->"Out[16]=",ExpressionUUID->"235d8f89-f0f7-4af6-8561-9a1b38938e6c"],
+ CellLabel->"Out[16]=",ExpressionUUID->"6cae2193-72be-4cee-9ed8-c1bb418aafa5"],
 
 Cell[BoxData[
  RowBox[{"If", "[", 
@@ -590,12 +590,12 @@ Cell[BoxData[
      SqrtBox["2"], " ", 
      SqrtBox[
       RowBox[{"1", "-", "x"}]]}], "-", "x"}], ",", "1"}], "]"}]], "Output",
- CellLabel->"Out[17]=",ExpressionUUID->"411cff54-5926-4b73-9436-3326c1566e4a"]
+ CellLabel->"Out[17]=",ExpressionUUID->"595b8dfb-e798-4fe7-af40-1f48b98afced"]
 }, Open  ]],
 
 Cell["\<\
 We can also locate the inner-most bound spherical orbit (IBSO)\
-\>", "Text",ExpressionUUID->"63b25b80-57c8-4889-b4ba-11f9328ee7d4"],
+\>", "Text",ExpressionUUID->"db88a1ec-978d-4a5c-b832-1c6cc1863c7b"],
 
 Cell[CellGroupData[{
 
@@ -606,30 +606,30 @@ Cell[BoxData[{
     RowBox[{"\[Pi]", "/", "4"}], "]"}]}], "]"}], "\[IndentingNewLine]", 
  RowBox[{"KerrGeoIBSO", "[", 
   RowBox[{"a", ",", "1"}], "]"}]}], "Input",
- CellLabel->"In[18]:=",ExpressionUUID->"49866acf-d545-4355-a58a-b463611b0e41"],
+ CellLabel->"In[18]:=",ExpressionUUID->"717a404b-43be-4688-8f77-3f04b8cec7f5"],
 
 Cell[BoxData["2.09573838055442828199420825580204339812`19."], "Output",
- CellLabel->"Out[18]=",ExpressionUUID->"36936778-ad49-4723-b548-51020916394f"],
+ CellLabel->"Out[18]=",ExpressionUUID->"2a124353-b093-4227-acc1-8c257d189568"],
 
 Cell[BoxData[
  RowBox[{"2", "+", 
   RowBox[{"2", " ", 
    SqrtBox[
     RowBox[{"1", "-", "a"}]]}], "-", "a"}]], "Output",
- CellLabel->"Out[19]=",ExpressionUUID->"e986ec8d-c3b0-445a-93d4-17a71269b1b5"]
+ CellLabel->"Out[19]=",ExpressionUUID->"2df8c667-c0e0-4135-afb5-90e0260e9345"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Compute the orbital trajectory", \
-"Subsection",ExpressionUUID->"9b2d611c-7819-4c62-8ff8-7ef9cca248df"],
+"Subsection",ExpressionUUID->"3427038b-b785-4c85-90f8-bec325b93c38"],
 
 Cell["\<\
 The KerrGeoOrbit[] function can be used to return a KerrGeoOrbitFunction \
 which can be queried for the properties of the orbit. For generic orbits the \
 trajectory is returned w.r.t. Mino time\
-\>", "Text",ExpressionUUID->"d238a7ca-194b-47ca-8ccf-924aac36577f"],
+\>", "Text",ExpressionUUID->"814f7a1e-d097-40d6-92de-b328665765c3"],
 
 Cell[BoxData[{
  RowBox[{
@@ -643,10 +643,10 @@ Cell[BoxData[{
    RowBox[{"{", 
     RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[CurlyPhi]"}], "}"}], "=", 
    RowBox[{"orbit", "[", "\"\<Trajectory\>\"", "]"}]}], ";"}]}], "Input",
- CellLabel->"In[20]:=",ExpressionUUID->"0b27c846-1c39-4627-a1ba-58af18d69246"],
+ CellLabel->"In[20]:=",ExpressionUUID->"bc926c09-2649-4140-9fd0-a39221b74467"],
 
 Cell["Plot the orbit", \
-"Text",ExpressionUUID->"498246b1-d3cc-4c8d-9873-fe82dbb0fded"],
+"Text",ExpressionUUID->"62ebb7db-e66f-4e70-877b-8caaeb4bb38f"],
 
 Cell[CellGroupData[{
 
@@ -692,7 +692,7 @@ Cell[BoxData[
           RowBox[{"1", "-", 
            RowBox[{"0.998", "^", "2"}]}], "]"}]}]}], "]"}]}], "}"}], "]"}]}], 
   "]"}]], "Input",
- CellLabel->"In[22]:=",ExpressionUUID->"ccaf0b7b-9392-4b0b-8772-98ab61f51148"],
+ CellLabel->"In[22]:=",ExpressionUUID->"38f71407-cb35-42c2-bbec-3137a6423847"],
 
 Cell[BoxData[
  Graphics3DBox[{{{{}, {}, 
@@ -1660,7 +1660,7 @@ R5dz80pq8AoIKVpcl/NuRnrvlwx0vdZRYd5OjxfDK0BBrey1WHQDem/MfZdy
 eh299PlkcIqNDpSinXr6DaqQR1Nz+hXldWQoOaq4vpMOiN6zl1yYy5BsYfv0
 K+Z1VGSWuOM9oIP/AcTAZvc=
         "]]},
-      Annotation[#, "Charting`Private`Tag$5176895#1"]& ]}, {}}, 
+      Annotation[#, "Charting`Private`Tag$4088#1"]& ]}, {}}, 
    {GrayLevel[0], SphereBox[{0, 0, 0}, 1.0632139225171164`]}},
   Boxed->False,
   DisplayFunction->Identity,
@@ -1686,7 +1686,7 @@ K+Z1VGSWuOM9oIP/AcTAZvc=
   Ticks->{Automatic, Automatic, Automatic},
   ViewPoint->{1.3, -2.4, 2.},
   ViewVertical->{0., 0., 1.}]], "Output",
- CellLabel->"Out[22]=",ExpressionUUID->"a47ad77d-6f62-4f5b-ae1a-bbce4d85b6ea"]
+ CellLabel->"Out[22]=",ExpressionUUID->"41093366-a4a1-4895-90fa-951924922751"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1699,14 +1699,14 @@ Cell[BoxData[{
    RowBox[{"orbit", "[", "\"\<CarterConstant\>\"", "]"}]}], 
   "}"}], "\[IndentingNewLine]", 
  RowBox[{"orbit", "[", "\"\<ConstantsOfMotion\>\"", "]"}]}], "Input",
- CellLabel->"In[23]:=",ExpressionUUID->"c4a1a51c-111a-43ee-9ae4-3f782d99cb48"],
+ CellLabel->"In[23]:=",ExpressionUUID->"9fc0aa72-0646-4988-9854-d723a4cf8d77"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
   "0.9105141158635779`", ",", "1.7456346703725456`", ",", 
    "3.132380838651713`"}], "}"}]], "Output",
- CellLabel->"Out[23]=",ExpressionUUID->"2c35af8e-6e9d-4425-9fd3-5e850763b208"],
+ CellLabel->"Out[23]=",ExpressionUUID->"7afe751f-416b-4d2b-979c-08df52f7fadb"],
 
 Cell[BoxData[
  RowBox[{"\[LeftAssociation]", 
@@ -1717,27 +1717,27 @@ Cell[BoxData[
    ",", 
    RowBox[{"\<\"\[ScriptCapitalQ]\"\>", "\[Rule]", "3.132380838651713`"}]}], 
   "\[RightAssociation]"}]], "Output",
- CellLabel->"Out[24]=",ExpressionUUID->"3e1beea7-02b9-401d-b07a-0ff159d7ade0"]
+ CellLabel->"Out[24]=",ExpressionUUID->"abfe154b-e3d0-457e-b30a-e5badfbe02bc"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"orbit", "[", "\"\<Frequencies\>\"", "]"}]], "Input",
- CellLabel->"In[25]:=",ExpressionUUID->"7d20523e-68cc-4a6b-9379-2d0a85ad54f2"],
+ CellLabel->"In[25]:=",ExpressionUUID->"4674555a-7d09-4302-bfda-8b4219a8813d"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
   "0.8602610549339375`", ",", "2.494410198515401`", ",", 
    "3.750325731459289`"}], "}"}]], "Output",
- CellLabel->"Out[25]=",ExpressionUUID->"da70c3e0-c069-4abc-95b9-89aae1577478"]
+ CellLabel->"Out[25]=",ExpressionUUID->"fefbd909-4157-4bc4-b4fa-c4bd7b0e8c8a"]
 }, Open  ]],
 
 Cell["\<\
 For orbits in the equatorial plane you can also parametrize the orbits by the \
 Darwin parameter\
-\>", "Text",ExpressionUUID->"c9469a7a-29c9-44cc-a954-8356ae091810"],
+\>", "Text",ExpressionUUID->"e8db4399-ae40-4075-9146-73125d48ea45"],
 
 Cell[CellGroupData[{
 
@@ -1747,7 +1747,7 @@ Cell[BoxData[
    RowBox[{"0.9", ",", "10", ",", "0.5", ",", "1", ",", 
     RowBox[{"Parametrization", "\[Rule]", "\"\<Darwin\>\""}]}], 
    "]"}]}]], "Input",
- CellLabel->"In[26]:=",ExpressionUUID->"eb7b1f1a-995d-485d-9200-730d14bc3bd6"],
+ CellLabel->"In[26]:=",ExpressionUUID->"a698eff7-c298-4e72-a05b-27d1f3cbd754"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -2009,7 +2009,7 @@ edrDo7iXkRjFnU6rdMcbLacruwmQRpdUtMJ9UVvfKLlwlS40HSqQ10GAv75H
 Z5vjzmi5xDr4b5Xe43LlyO0WAlwfZ9fcjbv24fULywf+0i1Md5kcr8ef4///
 +9j/A5sSz4I=
                     "]]}, 
-                  Annotation[#, "Charting`Private`Tag$5176921#1"]& ]}}, {}}, {
+                  Annotation[#, "Charting`Private`Tag$4163#1"]& ]}}, {}}, {
                GrayLevel[0], 
                SphereBox[{0, 0, 0}, 1.4358898943540672`]}}, {
              DisplayFunction -> Identity, 
@@ -2327,7 +2327,7 @@ edrDo7iXkRjFnU6rdMcbLacruwmQRpdUtMJ9UVvfKLlwlS40HSqQ10GAv75H
 Z5vjzmi5xDr4b5Xe43LlyO0WAlwfZ9fcjbv24fULywf+0i1Md5kcr8ef4///
 +9j/A5sSz4I=
                     "]]}, 
-                  Annotation[#, "Charting`Private`Tag$5176921#1"]& ]}}, {}}, {
+                  Annotation[#, "Charting`Private`Tag$4163#1"]& ]}}, {}}, {
                GrayLevel[0], 
                SphereBox[{0, 0, 0}, 1.4358898943540672`]}}, {
              DisplayFunction -> Identity, 
@@ -2416,16 +2416,16 @@ Z5vjzmi5xDr4b5Xe43LlyO0WAlwfZ9fcjbv24fULywf+0i1Md5kcr8ef4///
      "\[ScriptCapitalE]" -> 0.963777761727654, "\[ScriptCapitalL]" -> 
       3.4895531299142935`, "\[ScriptCapitalQ]" -> 0], 
     "Trajectory" -> {
-     KerrGeodesics`KerrGeoOrbit`Private`t$5176910, 
-      KerrGeodesics`KerrGeoOrbit`Private`r$5176910, 
-      KerrGeodesics`KerrGeoOrbit`Private`\[Theta]$5176910, 
-      KerrGeodesics`KerrGeoOrbit`Private`\[Phi]$5176910}, 
+     KerrGeodesics`KerrGeoOrbit`Private`t$4149, 
+      KerrGeodesics`KerrGeoOrbit`Private`r$4149, 
+      KerrGeodesics`KerrGeoOrbit`Private`\[Theta]$4149, 
+      KerrGeodesics`KerrGeoOrbit`Private`\[Phi]$4149}, 
     "RadialRoots" -> {20., 6.666666666666666, 1.4499056546759341`, 0.}, "a" -> 
     0.9, "p" -> 10, "e" -> 0.5, "Inclination" -> 1]],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellLabel->"Out[26]=",ExpressionUUID->"6d57c0ad-2b93-4cdc-9e10-8131f9f4257f"]
+ CellLabel->"Out[26]=",ExpressionUUID->"94b4cbe9-ba1a-4bae-9bfc-b64a3480527e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2434,21 +2434,21 @@ Cell[BoxData[{
  RowBox[{"orbitD", "[", "0", "]"}], "\[IndentingNewLine]", 
  RowBox[{"orbitD", "[", 
   RowBox[{"2", "\[Pi]"}], "]"}]}], "Input",
- CellLabel->"In[27]:=",ExpressionUUID->"bc0387f1-7be4-4ef4-8dab-55e84430c65c"],
+ CellLabel->"In[27]:=",ExpressionUUID->"7b4bf49d-3154-497e-a33a-2d7649ae4086"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
   "0.`", ",", "6.666666666666666`", ",", "1.5707963267948966`", ",", "0.`"}], 
   "}"}]], "Output",
- CellLabel->"Out[27]=",ExpressionUUID->"a030df14-f032-4a86-9b4b-eb2051f494cd"],
+ CellLabel->"Out[27]=",ExpressionUUID->"2816bc09-9b72-431d-8877-c8d2745aa7c2"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
   "378.40800610683897`", ",", "6.666666666666666`", ",", 
    "1.5707963267948966`", ",", "8.112767469050885`"}], "}"}]], "Output",
- CellLabel->"Out[28]=",ExpressionUUID->"c438c684-e6d1-42ce-a723-82ffd9c5649b"]
+ CellLabel->"Out[28]=",ExpressionUUID->"d91170a8-7202-4ae1-8d1c-e38644ad8415"]
 }, Open  ]],
 
 Cell["\<\
@@ -2458,7 +2458,7 @@ There are two methods to compute the orbit: \[OpenCurlyDoubleQuote]FastSpec\
 KerrGeoOrbitFunction[] but then the trajectory is quicker to evaluate. The \
 latter is fast to compute the KerrGeoOrbitFunction[] but then it is slower to \
 evaluate.\
-\>", "Text",ExpressionUUID->"cf601dbc-9c95-46b0-802d-5e3597491879"],
+\>", "Text",ExpressionUUID->"c3e8df5e-0724-4bc5-a196-d0f6032445e2"],
 
 Cell[CellGroupData[{
 
@@ -2479,11 +2479,11 @@ Cell[BoxData[{
       RowBox[{"\[Pi]", "/", "3"}], "]"}], ",", 
      RowBox[{"Method", "\[Rule]", "\"\<Analytic\>\""}]}], "]"}]}], 
   "]"}]}], "Input",
- CellLabel->"In[29]:=",ExpressionUUID->"fe9ce07a-5071-4efe-88f0-63806716ca62"],
+ CellLabel->"In[29]:=",ExpressionUUID->"757bb8e6-31c3-4112-b271-c371d46ca8d7"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.140625`", ",", 
+  RowBox[{"0.15625`", ",", 
    InterpretationBox[
     RowBox[{
      TagBox["KerrGeoOrbitFunction",
@@ -3032,8 +3032,7 @@ dtSu/dcm2WFL25EPFGUpaF7vFI7/MfFkukGy5R422Prm0ZfsHClov0lgjqeT
 MPHrrjPbtt0hQc3xxE4ee2mofWu5bGCUiSPKCivjREjQuO32ofFb0tDouOL6
 7jEmnuZK6uPVXgO3JXQ+3ngmDf8HTP4LUA==
                     "]]}, 
-                    Annotation[#, 
-                    "Charting`Private`Tag$5177044#1"]& ]}}, {}}, {
+                    Annotation[#, "Charting`Private`Tag$4295#1"]& ]}}, {}}, {
                  GrayLevel[0], 
                  SphereBox[{0, 0, 0}, 1.141067359796659]}}, {
                DisplayFunction -> Identity, 
@@ -3641,8 +3640,7 @@ dtSu/dcm2WFL25EPFGUpaF7vFI7/MfFkukGy5R422Prm0ZfsHClov0lgjqeT
 MPHrrjPbtt0hQc3xxE4ee2mofWu5bGCUiSPKCivjREjQuO32ofFb0tDouOL6
 7jEmnuZK6uPVXgO3JXQ+3ngmDf8HTP4LUA==
                     "]]}, 
-                    Annotation[#, 
-                    "Charting`Private`Tag$5177044#1"]& ]}}, {}}, {
+                    Annotation[#, "Charting`Private`Tag$4295#1"]& ]}}, {}}, {
                  GrayLevel[0], 
                  SphereBox[{0, 0, 0}, 1.141067359796659]}}, {
                DisplayFunction -> Identity, 
@@ -3738,10 +3736,10 @@ MPHrrjPbtt0hQc3xxE4ee2mofWu5bGCUiSPKCivjREjQuO32ofFb0tDouOL6
       "Frequencies" -> {1.4561986530097368`, 2.9411624038764645`, 
        3.4790049743224207`}, 
       "Trajectory" -> {
-       KerrGeodesics`KerrGeoOrbit`Private`t$5176944, 
-        KerrGeodesics`KerrGeoOrbit`Private`r$5176944, 
-        KerrGeodesics`KerrGeoOrbit`Private`\[Theta]$5176944, 
-        KerrGeodesics`KerrGeoOrbit`Private`\[Phi]$5176944}, 
+       KerrGeodesics`KerrGeoOrbit`Private`t$4195, 
+        KerrGeodesics`KerrGeoOrbit`Private`r$4195, 
+        KerrGeodesics`KerrGeoOrbit`Private`\[Theta]$4195, 
+        KerrGeodesics`KerrGeoOrbit`Private`\[Phi]$4195}, 
       "RadialRoots" -> {10., 3.333333333333333, 1.8042250726984788`, 
        0.8496698655197596}, 
       "PolarRoots" -> {0.5235987755982969, 2.617993877991496}, "a" -> 0.99, 
@@ -3749,11 +3747,11 @@ MPHrrjPbtt0hQc3xxE4ee2mofWu5bGCUiSPKCivjREjQuO32ofFb0tDouOL6
     Editable->False,
     SelectWithContents->True,
     Selectable->False]}], "}"}]], "Output",
- CellLabel->"Out[29]=",ExpressionUUID->"55839e19-380e-4027-9834-49583accadd0"],
+ CellLabel->"Out[29]=",ExpressionUUID->"83a1a8c4-3d9b-4b20-9e3f-0198de7d7281"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.`", ",", 
+  RowBox[{"0.015625`", ",", 
    InterpretationBox[
     RowBox[{
      TagBox["KerrGeoOrbitFunction",
@@ -4616,8 +4614,7 @@ WExEAAjAXAR4Dg==
 -1.709874317908799}, {
                     3.4263167229188642`, -0.4996059822112323, \
 -1.693561686639334}}]}, 
-                    Annotation[#, 
-                    "Charting`Private`Tag$5177257#1"]& ]}}, {}}, {
+                    Annotation[#, "Charting`Private`Tag$4511#1"]& ]}}, {}}, {
                  GrayLevel[0], 
                  SphereBox[{0, 0, 0}, 1.141067359796659]}}, {
                DisplayFunction -> Identity, 
@@ -5538,8 +5535,7 @@ WExEAAjAXAR4Dg==
 -1.709874317908799}, {
                     3.4263167229188642`, -0.4996059822112323, \
 -1.693561686639334}}]}, 
-                    Annotation[#, 
-                    "Charting`Private`Tag$5177257#1"]& ]}}, {}}, {
+                    Annotation[#, "Charting`Private`Tag$4511#1"]& ]}}, {}}, {
                  GrayLevel[0], 
                  SphereBox[{0, 0, 0}, 1.141067359796659]}}, {
                DisplayFunction -> Identity, 
@@ -5635,17 +5631,17 @@ WExEAAjAXAR4Dg==
       "Frequencies" -> {1.4561986530097368`, 2.9411624038764645`, 
        3.4790049743224207`}, 
       "Trajectory" -> {
-       KerrGeodesics`KerrGeoOrbit`Private`t$5177067, 
-        KerrGeodesics`KerrGeoOrbit`Private`r$5177067, 
-        KerrGeodesics`KerrGeoOrbit`Private`\[Theta]$5177067, 
-        KerrGeodesics`KerrGeoOrbit`Private`\[Phi]$5177067}, 
+       KerrGeodesics`KerrGeoOrbit`Private`t$4318, 
+        KerrGeodesics`KerrGeoOrbit`Private`r$4318, 
+        KerrGeodesics`KerrGeoOrbit`Private`\[Theta]$4318, 
+        KerrGeodesics`KerrGeoOrbit`Private`\[Phi]$4318}, 
       "RadialRoots" -> {10., 3.333333333333333, 1.8042250726984788`, 
        0.8496698655197596}, "a" -> 0.99, "p" -> 5, "e" -> 0.5, "Inclination" -> 
       Rational[1, 2]]],
     Editable->False,
     SelectWithContents->True,
     Selectable->False]}], "}"}]], "Output",
- CellLabel->"Out[30]=",ExpressionUUID->"91b5bcc9-00b6-4ca3-8f96-35d76f7bde38"]
+ CellLabel->"Out[30]=",ExpressionUUID->"1f721a81-11c8-40fb-b38a-596efb0b3659"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -5658,7 +5654,7 @@ Cell[BoxData[{
   RowBox[{"orbitA", "[", "100", "]"}], "//", 
   "Timing"}], "\[IndentingNewLine]", 
  RowBox[{"%", "/", "%%"}]}], "Input",
- CellLabel->"In[31]:=",ExpressionUUID->"b4144128-5e1e-4d84-9534-f91bce969260"],
+ CellLabel->"In[31]:=",ExpressionUUID->"7678ce3f-0710-4aed-9495-0559ee08d3b2"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -5668,11 +5664,11 @@ Cell[BoxData[
     "4812.412299835557`", ",", "3.859471333765709`", ",", 
      "1.245268471655703`", ",", "347.9211372001863`"}], "}"}]}], 
   "}"}]], "Output",
- CellLabel->"Out[31]=",ExpressionUUID->"7363b3e5-84e1-4e3f-b4c4-736843e93b20"],
+ CellLabel->"Out[31]=",ExpressionUUID->"3b7cb1c9-f076-4868-bb92-2731bba56207"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.015625`", ",", 
+  RowBox[{"0.`", ",", 
    RowBox[{"{", 
     RowBox[{
      RowBox[{"4812.412299835556`", "\[VeryThinSpace]", "-", 
@@ -5684,21 +5680,32 @@ Cell[BoxData[
      RowBox[{"347.9211372001863`", "\[VeryThinSpace]", "-", 
       RowBox[{"4.92334075464315`*^-15", " ", "\[ImaginaryI]"}]}]}], "}"}]}], 
   "}"}]], "Output",
- CellLabel->"Out[32]=",ExpressionUUID->"d6d641ae-0e64-4c11-87df-484be65d1da1"],
+ CellLabel->"Out[32]=",ExpressionUUID->"c557e39c-355b-4813-9504-7edb52866d96"],
 
 Cell[BoxData[
  TemplateBox[{
   "Power","infy",
    "\"Infinite expression \\!\\(\\*FractionBox[\\\"1\\\", \\\"0.`\\\"]\\) \
-encountered.\"",2,33,87,24101436362153202690,"Local"},
+encountered.\"",2,33,1,24101485763725177815,"Local"},
   "MessageTemplate"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[31]:=",ExpressionUUID->"739b6551-c903-44ce-9e83-c980405665cf"],
+In[31]:=",ExpressionUUID->"a1e41171-05d9-4410-83c0-864936af90f8"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Infinity","indet",
+   "\"Indeterminate expression \\!\\(\\*RowBox[{\\\"0.`\\\", \\\" \\\", \
+\\\"ComplexInfinity\\\"}]\\) encountered.\"",2,33,2,24101485763725177815,
+   "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[31]:=",ExpressionUUID->"7c02a699-4500-4184-aa47-3a04a5ed4b20"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"ComplexInfinity", ",", 
+  RowBox[{"Indeterminate", ",", 
    RowBox[{"{", 
     RowBox[{
      RowBox[{"0.9999999999999999`", "\[VeryThinSpace]", "-", 
@@ -5710,7 +5717,7 @@ Cell[BoxData[
      RowBox[{"1.`", "\[VeryThinSpace]", "-", 
       RowBox[{"1.415073770528166`*^-17", " ", "\[ImaginaryI]"}]}]}], "}"}]}], 
   "}"}]], "Output",
- CellLabel->"Out[33]=",ExpressionUUID->"9d98ba0f-30ee-457e-93cd-640db183cb76"]
+ CellLabel->"Out[33]=",ExpressionUUID->"091735ba-90c7-47aa-a531-cf2273a7772a"]
 }, Open  ]]
 }, Open  ]],
 
@@ -5753,17 +5760,17 @@ Cell["", "RelatedTutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"4da598b8-ea30-4a77-854e-6df64e1c8e63"],
+  0,ExpressionUUID->"8e0d4193-2e44-4207-8ac4-e7f7f27aeb9a"],
 
 Cell[TextData[ButtonBox["NearHorizonGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/tutorial/NearHorizonGeodesics"]], \
-"RelatedTutorials",ExpressionUUID->"5e39cd77-d1ce-4b11-84e6-a1525277aa36"]
+"RelatedTutorials",ExpressionUUID->"63245453-0091-4d6f-9df2-16513f0eca58"]
 }, Open  ]]
 }, Open  ]],
 
-Cell[" ", "FooterCell",ExpressionUUID->"b278998b-30e7-4120-8c2d-6ce62cfba648"]
+Cell[" ", "FooterCell",ExpressionUUID->"7562c677-da90-4069-925c-c33318285486"]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",
