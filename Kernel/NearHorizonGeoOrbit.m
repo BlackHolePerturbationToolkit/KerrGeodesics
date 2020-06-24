@@ -10,10 +10,8 @@
 
 BeginPackage["KerrGeodesics`NearHorizonGeoOrbit`"];
 
-NearHorizonGeoOrbitClass::usage = "NearHorizonGeoOrbitClass[spacetime, radialClass, polarClass] returns a NearHorizonGeoOrbitFunction[..] which stores the (symbolic) trajectory and orbital parameters of 
-a generic near-horizon geodesic of given radial and polar class. The classification refers to arXiv:2001.03478.";
-NearHorizonGeoOrbit::usage = "NearHorizonGeoOrbit[spacetime, \[ScriptCapitalE], \[ScriptCapitalL], \[ScriptCapitalQ], \[Mu]] returns a NearHorizonGeoOrbitFunction[..] which stores the (numerical) trajectory and orbital parameters of a 
-near-horizon geodesic.";
+NearHorizonGeoOrbitClass::usage = "NearHorizonGeoOrbitClass[spacetime, radialClass, polarClass] returns a NearHorizonGeoOrbitFunction[..] which stores the (symbolic) trajectory and orbital parameters of a generic near-horizon geodesic of given radial and polar class. The classification refers to arXiv:2001.03478.";
+NearHorizonGeoOrbit::usage = "NearHorizonGeoOrbit[spacetime, \[ScriptCapitalE], \[ScriptCapitalL], \[ScriptCapitalQ], \[Mu]] returns a NearHorizonGeoOrbitFunction[..] which stores the (numerical) trajectory and orbital parameters of a near-horizon geodesic.";
 NearHorizonGeoOrbitFunction::usage = "NearHorizonGeoOrbitFunction[assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 
 

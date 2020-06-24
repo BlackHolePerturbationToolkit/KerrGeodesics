@@ -1,7 +1,7 @@
 {
  "Application" -> "KerrGeodesics",
  "Title" -> "KerrGeodesics",
- "Related Tutorials" -> {},
+ "Related Tutorials" -> {"NearHorizonGeodesics"},
  "Keywords" -> {"Kerr", "Geodesic"},
  "Label" -> "KerrGeodesics Tutorial",
  "Package" -> "KerrGeodesics",

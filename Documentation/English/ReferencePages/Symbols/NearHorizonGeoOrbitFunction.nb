@@ -1,45 +1,49 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
- CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"0bee1900-9426-42b6-b600-596566a2e4e6"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["KerrGeodesics`KerrGeoOrbit",
+ ButtonBox["KerrGeodesics`NearHorizonGeoOrbit",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics`KerrGeoOrbit"],
+  ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics`NearHorizonGeoOrbit"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["KerrGeoOrbit",
+ ButtonBox["NearHorizonGeoOrbitFunction",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbit"]
-}], "LinkTrail"],
+  ButtonData->"paclet:KerrGeodesics/ref/NearHorizonGeoOrbitFunction"]
+}], "LinkTrail",ExpressionUUID->"6f221f73-383f-437e-8164-225b66f2e8e2"],
 
 Cell[BoxData[GridBox[{
-   {Cell["KERRGEODESICS`KERRGEOORBIT PACLET SYMBOL", "PacletNameCell"], Cell[
-    TextData[{
+   {Cell["KERRGEODESICS`NEARHORIZONGEOORBIT PACLET SYMBOL", "PacletNameCell",
+     ExpressionUUID->"cc5ab0ff-81f9-4fd5-bc22-3c26174adf60"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
-        StripOnInput->False], {"KerrGeodesics":>Documentation`HelpLookup[
-       "paclet:KerrGeodesics/tutorial/KerrGeodesics"]},
+        StripOnInput->False], {"NearHorizonGeodesics":>
+       Documentation`HelpLookup[
+       "paclet:KerrGeodesics/tutorial/NearHorizonGeodesics"]},
        Appearance->None,
        MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0}],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "ca82f796-f88e-477a-9e71-29c2b97cd660"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
-        StripOnInput->False], {"KerrGeoConstantsOfMotion":>
+        StripOnInput->False], {"NearHorizonGeoOrbit":>
        Documentation`HelpLookup[
-       "paclet:KerrGeodesics/ref/KerrGeoConstantsOfMotion"], 
-       "KerrGeoSeparatrix":>Documentation`HelpLookup[
-       "paclet:KerrGeodesics/ref/KerrGeoSeparatrix"]},
+       "paclet:KerrGeodesics/ref/NearHorizonGeoOrbit"], 
+       "NearHorizonGeoOrbitClass":>Documentation`HelpLookup[
+       "paclet:KerrGeodesics/ref/NearHorizonGeoOrbitClass"]},
        Appearance->None,
        MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0}],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "9b54394d-3bc6-4ad7-95e1-7a91083a57d4"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -49,30 +53,29 @@ Cell[BoxData[GridBox[{
        "paclet:KerrGeodesics/guide/KerrGeodesics"]},
        Appearance->None,
        MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0}],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "87007d19-e7ef-4b89-a772-450a680e98a6"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar"]}
-  }]], "AnchorBarGrid"],
-
-Cell["KerrGeoOrbit", "ObjectName"],
+    }], "AnchorBar",ExpressionUUID->"460cd4d3-7d5c-42eb-a68d-59b6c5cd5ba3"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"b916c424-a8f1-4611-aeb4-dda2cc409ba2"],
 
 Cell[CellGroupData[{
 
+Cell["NearHorizonGeoOrbitFunction", \
+"ObjectName",ExpressionUUID->"ae8c3af4-ffdc-48c1-bf8a-d52c566520d0"],
+
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
-     Cell[BoxData[
-      RowBox[{
-       ButtonBox["KerrGeoOrbit",
-        BaseStyle->"Link",
-        ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbit"], "[", 
-       StyleBox[
-        RowBox[{"a", ",", "p", ",", "e", ",", "x"}], "TI"], "]"}]], 
-      "InlineFormula"],
-     "\[LineSeparator]returns a KerrGeoOrbitFunction[..] which stores the \
-orbital trajectory and parameters."
-    }]]}
-  }]], "Usage"],
+     Cell[TextData[ButtonBox["NearHorizonGeoOrbitFunction",
+      BaseStyle->"Link",
+      ButtonData->"paclet:KerrGeodesics/ref/NearHorizonGeoOrbitFunction"]], 
+      "InlineFormula",ExpressionUUID->"93704308-32bd-49d0-b84c-0f34cbac0fc1"],
+     "\[LineSeparator][assoc], an object for storing the trajectory and \
+orbital parameters in the assoc Association."
+    }],ExpressionUUID->"1699f6ca-a7c2-4e28-98c7-a65c05ecddcd"]}
+  }]], "Usage",ExpressionUUID->"4c73a18d-40a1-495f-9105-517340a5f49f"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -106,13 +109,8 @@ Cell["", "NotesSection",
         TextData[{
           Cell[
            BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "Details and Options"}], "NotesSection"], 
-       Appearance -> {Automatic, None}, BaseStyle -> None, 
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
        ButtonFunction :> (FrontEndExecute[{
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], All, ButtonCell], 
@@ -121,27 +119,17 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->0,
- "WholeCelGroupOpener" -> True],
+ "WholeCelGroupOpener" -> 
+ True,ExpressionUUID->"282d5ca5-e522-4ce4-8b7a-a66e7526efb5"],
 
-Cell["Computes the orbit in Boyer-Lindquist coordinates", "Notes"],
-
-Cell["The following options can be given: ", "Notes"],
-
-Cell[BoxData[GridBox[{
-   {Cell["      ", "TableRowIcon"], "Method", "FastSpec", Cell[
-    "Choose between Analytic or FastSpec", "TableText"]},
-   {Cell["      ", "TableRowIcon"], "Parametrization", "Mino", Cell[
-    "Choose between Mino or Darwin (only for equatorial orbits)", "TableText"]}
-  },
-  GridBoxAlignment->{
-   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
-    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
- GridBoxOptions->{
- GridBoxBackground->{
-  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {None, {None}}, 
-   "RowsIndexed" -> {}},
- GridBoxDividers->{"Rows" -> {{True, True, True}}}}]
-}, Open  ]]
+Cell["\<\
+This is the core function of the package, similar to the \
+KerrGeoOrbitFunction. When either NearHorizonGeoOrbit or \
+NearHorizonGeoOrbitClass are called, a NearHorizonGeoOrbitFunction object is \
+returned. It contains an association from which the geodesic trajectory as \
+well as a number of orbital information can be accessed. See the \
+NearHorizonGeodesics tutorial for more informations and examples.\
+\>", "Notes",ExpressionUUID->"39187f1a-6d8a-4c4a-9576-dac763d730d3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -171,40 +159,38 @@ Cell["", "SeeAlsoSection",
         TextData[{
           Cell[
            BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "See Also"}], "SeeAlsoSection"], BaseStyle -> 
-       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
-       "Preemptive", ButtonFunction :> (FrontEndExecute[{
+            TemplateBox[{24}, "Spacer1"]]], "See Also"}], "SeeAlsoSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], All, ButtonCell], 
           FrontEndToken["OpenCloseGroup"], 
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
- CellFrameLabelMargins->0],
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"d4269f5f-4e42-4f0c-9aab-e006e1417cd6"],
 
 Cell[TextData[{
  Cell[BoxData[
   StyleBox[
-   ButtonBox["KerrGeoConstantsOfMotion",
+   ButtonBox["NearHorizonGeoOrbit",
     BaseStyle->"Link",
-    ButtonData->"paclet:KerrGeodesics/ref/KerrGeoConstantsOfMotion"],
-   FontFamily->"Verdana"]], "InlineFormula"],
+    ButtonData->"paclet:KerrGeodesics/ref/NearHorizonGeoOrbit"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "fd53433d-c1b8-4886-a57c-f33d7b193984"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
  " ",
  Cell[BoxData[
   StyleBox[
-   ButtonBox["KerrGeoSeparatrix",
+   ButtonBox["NearHorizonGeoOrbitClass",
     BaseStyle->"Link",
-    ButtonData->"paclet:KerrGeodesics/ref/KerrGeoSeparatrix"],
-   FontFamily->"Verdana"]], "InlineFormula"]
-}], "SeeAlso"]
+    ButtonData->"paclet:KerrGeodesics/ref/NearHorizonGeoOrbitClass"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "560ad137-751e-413b-a049-011d7227336b"]
+}], "SeeAlso",ExpressionUUID->"747618d9-f208-466c-bd13-733f987ee7bf"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -235,13 +221,9 @@ Cell["", "TutorialsSection",
         TextData[{
           Cell[
            BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "Tutorials"}], "TutorialsSection"], BaseStyle -> 
-       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+            TemplateBox[{24}, "Spacer1"]]], "Tutorials"}], 
+        "TutorialsSection"], BaseStyle -> None, 
+       Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
        "Preemptive", ButtonFunction :> (FrontEndExecute[{
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], All, ButtonCell], 
@@ -249,11 +231,14 @@ Cell["", "TutorialsSection",
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
- CellFrameLabelMargins->0],
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"43fdb7ad-f31c-4524-b3cf-6c5f461a3474"],
 
-Cell[TextData[ButtonBox["KerrGeodesics",
+Cell[TextData[ButtonBox["NearHorizonGeodesics",
  BaseStyle->"Link",
- ButtonData->"paclet:KerrGeodesics/tutorial/KerrGeodesics"]], "Tutorials"]
+ ButtonData->
+  "paclet:KerrGeodesics/tutorial/NearHorizonGeodesics"]], \
+"Tutorials",ExpressionUUID->"58322fc3-6475-4b93-8d85-8f4db85de0cf"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -283,13 +268,9 @@ Cell["", "MoreAboutSection",
         TextData[{
           Cell[
            BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "More About"}], "MoreAboutSection"], BaseStyle -> 
-       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+            TemplateBox[{24}, "Spacer1"]]], "More About"}], 
+        "MoreAboutSection"], BaseStyle -> None, 
+       Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
        "Preemptive", ButtonFunction :> (FrontEndExecute[{
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], All, ButtonCell], 
@@ -297,44 +278,52 @@ Cell["", "MoreAboutSection",
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
- CellFrameLabelMargins->0],
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"26efde39-034b-41bb-9b22-96782fcb43b7"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
- ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"]], "MoreAbout"]
+ ButtonData->
+  "paclet:KerrGeodesics/guide/KerrGeodesics"]], \
+"MoreAbout",ExpressionUUID->"ed4727aa-5b16-49a9-a8e9-2bf412724f62"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell"],
+Cell[" ", "FooterCell",ExpressionUUID->"64f0845c-4172-48b7-8f44-9c4bdef1910f"],
 
-Cell[BoxData[""]]
+Cell[BoxData[""],ExpressionUUID->"955ac739-b080-4403-9c11-9e37281a5647"]
 }, Open  ]]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",
 WindowSize->{725, 750},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-WindowTitle->"KerrGeoOrbit",
+WindowTitle->"NearHorizonGeoOrbitFunction",
 Visible->True,
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
    "context" -> "KerrGeodesics`", 
-    "keywords" -> {"KerrGeoOrbit", "KERRGEOORBIT", "kerrgeoorbit"}, "index" -> 
-    True, "label" -> "KerrGeodesics/KerrGeodesics`KerrGeoOrbit Symbol", 
-    "language" -> "en", "paclet" -> "KerrGeodesics`KerrGeoOrbit", "status" -> 
-    "None", "summary" -> 
-    "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores \
-the orbital trajectory and parameters.", 
-    "synonyms" -> {"KerrGeoOrbit", "KERRGEOORBIT", "kerrgeoorbit"}, "title" -> 
-    "KerrGeoOrbit", "windowTitle" -> "KerrGeoOrbit", "type" -> "Symbol", 
-    "uri" -> "KerrGeodesics/ref/KerrGeoOrbit"}, "SearchTextTranslated" -> "", 
-  "LinkTrails" -> ""},
+    "keywords" -> {
+     "NearHorizonGeoOrbitFunction", "NEARHORIZONGEOORBITFUNCTION", 
+      "nearhorizongeoorbitfunction"}, "index" -> True, "label" -> 
+    "KerrGeodesics/KerrGeodesics`NearHorizonGeoOrbit Symbol", "language" -> 
+    "en", "paclet" -> "KerrGeodesics`NearHorizonGeoOrbit", "status" -> "None",
+     "summary" -> 
+    "NearHorizonGeoOrbitFunction[assoc], an object for storing the trajectory \
+and orbital parameters in the assoc Association.", 
+    "synonyms" -> {
+     "NearHorizonGeoOrbitFunction", "NEARHORIZONGEOORBITFUNCTION", 
+      "nearhorizongeoorbitfunction"}, "title" -> 
+    "NearHorizonGeoOrbitFunction", "windowTitle" -> 
+    "NearHorizonGeoOrbitFunction", "type" -> "Symbol", "uri" -> 
+    "KerrGeodesics/ref/NearHorizonGeoOrbitFunction", "WorkflowDockedCell" -> 
+    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
+  False},
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (July 29, \
-2015)",
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]
