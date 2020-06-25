@@ -15,12 +15,12 @@ NearHorizonGeoOrbit::usage = "NearHorizonGeoOrbit[spacetime, \[ScriptCapitalE], 
 NearHorizonGeoOrbitFunction::usage = "NearHorizonGeoOrbitFunction[assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Conventions for the output syntax*)
 
 
 (* Rule to write the output with well-chosen notations *)
-BHPTStyle := {0 -> 0, \[Lambda]f -> Subscript[\[Lambda], f], Rf -> Subscript[R, f], RPlus -> SubPlus[R], ti -> Subscript[t, i], \[Phi]i -> Subscript[\[Phi], i], t0 -> Subscript[t, 0], 
+BHPTStyle := {(*0 -> 0,*) \[Lambda]f -> Subscript[\[Lambda], f], Rf -> Subscript[R, f], RPlus -> SubPlus[R], ti -> Subscript[t, i], \[Phi]i -> Subscript[\[Phi], i], t0 -> Subscript[t, 0], 
 \[Phi]0 -> Subscript[\[Phi], 0], e -> \[ScriptE], \[Lambda]0 -> Subscript[\[Lambda], 0], T0 -> Subscript[T, 0], \[Lambda]Plus -> SubPlus[\[Lambda]], \[Lambda]Minus -> SubMinus[\[Lambda]], Rm -> Subscript[R, m], 
 \[Lambda]m -> Subscript[\[Lambda], m], R0 -> Subscript[R, 0], Ti -> Subscript[T, i], \[Lambda]i -> Subscript[\[Lambda], i], EE -> \[ScriptCapitalE], CC -> \[ScriptCapitalC],  Q -> \[ScriptCapitalQ], lStar -> SubStar[\[ScriptCapitalL]], 
 lNought -> "\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \(\[SmallCircle]\)]\)", l -> \[ScriptCapitalL], CNot -> "\!\(\*SubscriptBox[\(\[ScriptCapitalC]\), \(\[SmallCircle]\)]\)", zP->SubPlus[z], zM->SubMinus[z], 
@@ -290,18 +290,22 @@ DiagFlip:={R->-R, Ri->-Ri, R0->-R0, RPlus->-RPlus, RMinus->-RMinus, \[CapitalPhi
 
 
 LeftRightFlipMino[assos_]:=Module[{},
+    (* (T, R, \[Theta], \[CapitalPhi]) \[Rule] (-T, R, \[Theta], -\[CapitalPhi]) *)
 	Return[{-assos["Trajectory"][[1]], assos["Trajectory"][[2]], assos["Trajectory"][[3]], -assos["Trajectory"][[4]]}]
 ];
 
 DiagFlipMino[assos_]:=Module[{},
+    (* (T, R, \[Theta], \[CapitalPhi]) \[Rule] (T, -R, \[Theta], -\[CapitalPhi]) *)
 	Return[{assos["Trajectory"][[1]], -assos["Trajectory"][[2]], assos["Trajectory"][[3]], -assos["Trajectory"][[4]]}]
 ];
 
 LeftRightFlipRadial[assos_]:=Module[{},
+    (* (\[Lambda], T, \[Theta], \[CapitalPhi]) \[Rule] (-\[Lambda], -T, \[Theta], -\[CapitalPhi]) *)
 	Return[{-assos["Trajectory"][[1]], -assos["Trajectory"][[2]], assos["Trajectory"][[3]], -assos["Trajectory"][[4]]}]
 ];
 
 DiagFlipRadial[assos_]:=Module[{},
+	(* (\[Lambda], T, \[Theta], \[CapitalPhi]) \[Rule] (\[Lambda], T, \[Theta], -\[CapitalPhi]); R is flipped using the DiagFlip association rule *)
 	Return[{assos["Trajectory"][[1]], assos["Trajectory"][[2]], assos["Trajectory"][[3]], -assos["Trajectory"][[4]]}]
 ];
 
@@ -319,7 +323,7 @@ SimplifyOrbit[rule_, ass_, expr_]:=Module[{},
 ];
 
 
-Options[GetOrbit] = {"OutStyle" -> "BHPT", "SimplifyOrbitRule" -> "Simplify", "Retrograde" -> False, "ReplaceLStar" -> False, "ReplaceC" -> False, "ReplacelNought" -> False, "ReplaceCNot" -> False, "ReplaceRoots" -> False, "ReplaceTurningPoints" -> False, "CosTheta" -> True, "ReplacePhiTheta" -> False};
+Options[GetOrbit] = {"OutStyle" -> "BHPT", "SimplificationRule" -> "Simplify", "Retrograde" -> False, "ReplaceLStar" -> False, "ReplaceC" -> False, "ReplacelNought" -> False, "ReplaceCNot" -> False, "ReplaceRoots" -> False, "ReplaceTurningPoints" -> False, "CosTheta" -> True, "ReplacePhiTheta" -> False};
 
 GetOrbit[spacetime_, parametrization_, radial_, polar_, type_, OptionsPattern[]]:=Module[{style, toFlip, rule, cosTheta, polarAssumptions, radialTrajectory, assos, replaceLStarRule, replaceCRule, radialAssumptions,assumptions, mu, trajectory, parameters, energy, momentum, carter, 
 initialData, criticalMomentum, lNought, casimir,  kappa, criticalRadius, radialPotential, radialRoots, polarPotential, polarRoots, CCNot, PhiTheta, frequencies, turningPoints, rootDictionary, paramForm},
@@ -401,7 +405,7 @@ Switch[spacetime,
 	
 	,"Outward",
 		(* FLIP *)
-		toFlip = GetOrbit["NHEK", parametrization, "Plunging", polar, type, "OutStyle"-> "None", "SimplifyOrbitRule" -> OptionValue["SimplifyOrbitRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplacelNought"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
+		toFlip = GetOrbit["NHEK", parametrization, "Plunging", polar, type, "OutStyle"-> "None", "SimplificationRule" -> OptionValue["SimplificationRule"], "Retrograde" -> OptionValue["Retrograde"], "ReplaceLStar" -> OptionValue["ReplaceLStar"], "ReplaceC" -> OptionValue["ReplaceC"], "ReplacelNought" -> OptionValue["ReplacelNought"], "ReplaceCNot" -> OptionValue["ReplaceCNot"], "ReplaceRoots" -> OptionValue["ReplaceRoots"], "ReplaceTurningPoints" -> OptionValue["ReplaceTurningPoints"], "CosTheta" -> OptionValue["CosTheta"], "ReplacePhiTheta" -> OptionValue["ReplacePhiTheta"]]; 
 		toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"] = toFlip["\!\(\*SubscriptBox[\(\[CapitalPhi]\), \(\[Theta]\)]\)"]/.LeftRightFlip;
 		toFlip["Radial Class"] = "Outward";
 		Switch[parametrization,
@@ -1115,7 +1119,9 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 	
 	If[assoc["Spacetime"]==$Failed["Spacetime"], Return["An error occured in the process !"]; Return[$Failed];];
 	
-	Return[NearHorizonGeoOrbitFunction[assoc/.paramRule]];
+	assoc = assoc/.paramRule;
+	
+	Return[NearHorizonGeoOrbitFunction[assoc]];
 	
 ];
 

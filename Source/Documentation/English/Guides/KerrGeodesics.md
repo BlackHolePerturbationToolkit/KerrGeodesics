@@ -5,8 +5,7 @@
  "Summary" -> 
    "Functions for working with bound timelike geodesics in Kerr spacetime.",
  "Description" -> 
-   {"The KerrGeodesics package provides functions for computing bound timelike geodesics and their properties in Kerr spacetime. It also includes functions for computing 
-   any timelike or null future-directed near-horizon geodesic."},
+   {"The KerrGeodesics package provides functions for computing bound timelike geodesics and their properties in Kerr spacetime. It also includes functions for computing any timelike or null future-directed near-horizon geodesic."},
  "Keywords" -> {"Kerr", "Geodesic"},
  "Label" -> "KerrGeodesics Application",
  "Synonyms" -> {"KerrGeodesics", "KerrGeodesics"},

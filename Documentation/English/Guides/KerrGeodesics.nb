@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "GuideColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"24d26f93-853f-455a-974e-81bc16c9b1e9"],
+   0}},ExpressionUUID->"c16c8c11-be6f-44c9-925c-b646bde89a9a"],
 
 Cell[TextData[{
  ButtonBox["KerrGeodesics",
@@ -11,11 +11,11 @@ Cell[TextData[{
  ButtonBox["Geodesics in Kerr spacetime",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:KerrGeodesics/guide/KerrGeodesics"]
-}], "LinkTrail",ExpressionUUID->"29fa36de-8d85-47dd-a07a-dd69c8249738"],
+}], "LinkTrail",ExpressionUUID->"e1ff3bfd-6814-4cfe-9205-17c91b1e4acd"],
 
 Cell[BoxData[GridBox[{
    {Cell["KERRGEODESICS GUIDE", "PacletNameCell",ExpressionUUID->
-     "d4c37ed4-0999-4c3a-b19c-a933c924f2e9"], Cell[TextData[{
+     "a30d63d0-9710-4381-ab16-5f2bfea2c4a9"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
@@ -26,7 +26,7 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "b266921b-38ff-4aae-94a1-695c74b1fb3c"],
+      "887ae31c-97c9-4f03-90d9-8808b9529b30"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -45,206 +45,205 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "4cfd3cb4-70f0-458f-b586-f478537eb9f5"]
-    }], "AnchorBar",ExpressionUUID->"2d0cd82f-ff8e-434e-ad3a-83ffbb47d98b"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"948e7dff-8b06-45fa-8ad8-5c47a82668da"],
+      "5e337c71-1258-4867-8190-72b2fefce8a7"]
+    }], "AnchorBar",ExpressionUUID->"d07c9924-0c0e-4f03-bb48-ba7a18dfdd95"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"d8af93ec-f4ae-4250-89c2-712a1f7a7744"],
 
 Cell[CellGroupData[{
 
 Cell["Geodesics in Kerr spacetime", \
-"GuideTitle",ExpressionUUID->"50e28266-3d43-42da-a5f2-7b68114954b5"],
+"GuideTitle",ExpressionUUID->"26e3058c-eb19-48f6-9062-279fc39adc51"],
 
 Cell["\<\
 The KerrGeodesics package provides functions for computing bound timelike \
 geodesics and their properties in Kerr spacetime. It also includes functions \
-for computing 
-   any timelike or null future-directed near-horizon geodesic.\
-\>", "GuideAbstract",ExpressionUUID->"fa9beade-2c02-4442-b771-bf030fa4e128"],
+for computing any timelike or null future-directed near-horizon geodesic.\
+\>", "GuideAbstract",ExpressionUUID->"09734c5d-abda-403b-9d62-c4c2950da7a9"],
 
 Cell[CellGroupData[{
 
 Cell["Kerr geodesics", \
-"GuideFunctionsSubsection",ExpressionUUID->"1632c220-7a0e-4fdd-9458-\
-da56648363c8"],
+"GuideFunctionsSubsection",ExpressionUUID->"4f954222-bafa-434c-a900-\
+e3e1666e3781"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoEnergy",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoEnergy"]], 
-  "InlineFunctionSans",ExpressionUUID->"8a679df6-9d4b-4973-a1fb-185e7101364e"],
+  "InlineFunctionSans",ExpressionUUID->"d9a68643-1d1a-4f5c-bf4a-1c3bfa8f4403"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the orbital energy"
-}], "GuideText",ExpressionUUID->"01114acf-9571-4e1e-9b0c-6414006232c4"],
+}], "GuideText",ExpressionUUID->"6f80cda6-17dc-4439-a2e4-56fe9eb5aedd"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoAngularMomentum",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoAngularMomentum"]], 
-  "InlineFunctionSans",ExpressionUUID->"563d7bb6-4633-4c63-9cc0-db619f89ab09"],
+  "InlineFunctionSans",ExpressionUUID->"57b00559-e287-4f65-9829-00118dbf4399"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the orbit angular momentum about the symmetry axes of the spacetime"
-}], "GuideText",ExpressionUUID->"5d6beaf4-fdb7-4e01-b989-c75d33a0415f"],
+}], "GuideText",ExpressionUUID->"d75af9b8-6cfa-4cf3-a0d5-4d069ffc7851"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoCarterConstant",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoCarterConstant"]], 
-  "InlineFunctionSans",ExpressionUUID->"d2dc5f61-85ff-496e-a91b-9dd45dd1d5e0"],
+  "InlineFunctionSans",ExpressionUUID->"da8fdadf-01da-43c9-9f67-18efe879e8b7"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the Carter Constant"
-}], "GuideText",ExpressionUUID->"cfe24dae-806e-4461-b911-1778128f5a42"],
+}], "GuideText",ExpressionUUID->"9c2ffac4-9179-40fc-a42d-02bcab4fee6a"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoConstantsOfMotion",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoConstantsOfMotion"]], 
-  "InlineFunctionSans",ExpressionUUID->"135c35b8-c03e-4f84-991b-1d44dbfa6c15"],
+  "InlineFunctionSans",ExpressionUUID->"c9023b45-6b2b-4a3b-9e09-c43715539acf"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the constants of motion (energy, angular momentum and Carter \
 constant)"
-}], "GuideText",ExpressionUUID->"4a48a9f9-bc27-4d8e-9f12-23c7ad0e2a6b"],
+}], "GuideText",ExpressionUUID->"6b0c1ffb-7e4c-4b8d-a418-2514272ea662"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoFrequencies",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFrequencies"]], 
-  "InlineFunctionSans",ExpressionUUID->"0898780d-ef54-41f5-9a19-022b2d127f98"],
+  "InlineFunctionSans",ExpressionUUID->"bec1dbdb-cd4d-4074-9bc8-88dc906faa0e"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Compute the orbital frequencies"
-}], "GuideText",ExpressionUUID->"56a3e963-9422-43cf-93be-e2b3530765e6"],
+}], "GuideText",ExpressionUUID->"3beeea84-35a9-41ee-8710-f9fa5d06ddbd"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoBoundOrbitQ",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoBoundOrbitQ"]], 
-  "InlineFunctionSans",ExpressionUUID->"527f3a55-b158-4896-a960-6765808d4ae5"],
+  "InlineFunctionSans",ExpressionUUID->"154c2951-f215-437c-bd68-eda5eba56df5"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Checks if the given (numerical) orbital parameters corresponds to a bound \
 orbit"
-}], "GuideText",ExpressionUUID->"e59c069c-bcce-4020-ba57-b2203c629c46"],
+}], "GuideText",ExpressionUUID->"a002c7c5-7bbe-498a-8375-87a50380f0e7"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoPhotonSphereRadius",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoPhotonSphereRadius"]], 
-  "InlineFunctionSans",ExpressionUUID->"257f9d5c-dce7-4bbe-8612-610227722d4d"],
+  "InlineFunctionSans",ExpressionUUID->"34310d79-58d2-4b2c-b878-c43caf90fa31"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the radius of the photon sphere for given black hole spin and \
 inclination"
-}], "GuideText",ExpressionUUID->"044fa477-2149-44e3-86d5-dde57e069bdc"],
+}], "GuideText",ExpressionUUID->"38a9ba46-3d45-44ae-b76e-a3467f9e867d"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoISCO",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISCO"]], "InlineFunctionSans",
-  ExpressionUUID->"e7fcfd17-6a4a-4cc3-8cc4-cd025882cd27"],
+  ExpressionUUID->"236b8f26-3b6d-4b95-96a3-97a80d7ccbc2"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the location of the inner-most stable circular orbit (ISCO)"
-}], "GuideText",ExpressionUUID->"9cfd7588-dac2-45d6-bbd9-cf799d1686a7"],
+}], "GuideText",ExpressionUUID->"4678f4aa-0109-49bf-87f0-97561d411ac0"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoIBSO",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoIBSO"]], "InlineFunctionSans",
-  ExpressionUUID->"2b2e2340-3f34-4ad3-bcad-595af3df350a"],
+  ExpressionUUID->"d131d203-4748-4cbc-bf88-20a38e60f7da"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the location of the inner-most bound spherical orbit (IBSO)"
-}], "GuideText",ExpressionUUID->"4da1e813-c489-42df-97a3-a9b3e3889926"],
+}], "GuideText",ExpressionUUID->"efb819dc-3360-4081-b1c8-11d43eb9dba3"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoISSO",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISSO"]], "InlineFunctionSans",
-  ExpressionUUID->"d23af972-187f-43bf-8c0e-0767fb634b21"],
+  ExpressionUUID->"85daf39f-adb7-48ad-98fb-273466de02ca"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the location of the inner-most stable spherical orbit (ISSO)"
-}], "GuideText",ExpressionUUID->"3c279129-389e-4a64-8c49-29783de97858"],
+}], "GuideText",ExpressionUUID->"09ec3d7d-1a4b-472a-a957-95f7996c67a4"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoSeparatrix",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoSeparatrix"]], 
-  "InlineFunctionSans",ExpressionUUID->"5ff602d9-e5ba-481d-8e75-685eaff87435"],
+  "InlineFunctionSans",ExpressionUUID->"14981fa8-e81e-4466-87aa-b54cdd4af36d"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the value p at the separatrix between stable and \
 plunging/scattered orbits"
-}], "GuideText",ExpressionUUID->"bf4efae4-4e6a-499c-8627-4b078d3c126c"],
+}], "GuideText",ExpressionUUID->"b574eaf7-f0d8-47f1-8751-cd38eb4318ee"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KerrGeoOrbit",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbit"]], "InlineFunctionSans",
-  ExpressionUUID->"2d71a12a-9bbe-4fde-95a8-1a5c09267229"],
+  ExpressionUUID->"7cedabca-372c-4c16-845a-313e3fc00613"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the orbit trajectory in Boyer-Lindquist coordinates"
-}], "GuideText",ExpressionUUID->"9e18d901-ab18-4307-8cce-2bd3daf0e182"]
+}], "GuideText",ExpressionUUID->"589bb158-06a9-430d-ae9c-dacf7632d35f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Near-horizon geodesics", \
-"GuideFunctionsSubsection",ExpressionUUID->"80b6c066-a02e-4edd-9c36-\
-53cb19e01c4e"],
+"GuideFunctionsSubsection",ExpressionUUID->"29aacc9d-a31d-438c-afef-\
+a0d64508e13d"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["NearHorizonGeoOrbit",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/NearHorizonGeoOrbit"]], 
-  "InlineFunctionSans",ExpressionUUID->"62843be8-106d-4621-b9f0-7989b6321bc7"],
+  "InlineFunctionSans",ExpressionUUID->"4863e041-0b70-4b17-9c2e-2dd98ddd5fdb"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the trajectory and properties of a near-horizon geodesic from \
 numerical orbital parameters."
-}], "GuideText",ExpressionUUID->"37adc856-8d55-486a-bf55-e84f3a1f10f4"],
+}], "GuideText",ExpressionUUID->"8bd3e81d-3049-46b7-aa9e-f1d162b26d27"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["NearHorizonGeoOrbitClass",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/NearHorizonGeoOrbitClass"]], 
-  "InlineFunctionSans",ExpressionUUID->"bf088ebe-5577-4bf3-b253-e88d1f819b75"],
+  "InlineFunctionSans",ExpressionUUID->"d6019ab8-3d14-4a50-b236-4f9b40b0b84f"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Computes the symbolic orbit and properties of a chosen near-horizon \
 geodesic."
-}], "GuideText",ExpressionUUID->"acc6eb3c-4aa7-4289-a58d-4127516a7f03"],
+}], "GuideText",ExpressionUUID->"834e0c9f-7058-4bca-ace1-54ca807d46cc"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["NearHorizonGeoOrbitFunction",
   BaseStyle->"Link",
   ButtonData->"paclet:KerrGeodesics/ref/NearHorizonGeoOrbitFunction"]], 
-  "InlineFunctionSans",ExpressionUUID->"c570fe11-1f62-46ba-b41d-6bea70387b50"],
+  "InlineFunctionSans",ExpressionUUID->"84bcf3b7-945c-4c84-bea3-9a439b35b1d3"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "An object for storing the trajectory and orbital parameters of a \
 near-horizon geodesic."
-}], "GuideText",ExpressionUUID->"689e3705-1789-4843-9c03-7a3d32a4c351"]
+}], "GuideText",ExpressionUUID->"d4745a97-3bd4-4857-ab2f-93ba7a20096c"]
 }, Open  ]]
 }, Open  ]],
 
@@ -260,26 +259,26 @@ Cell["", "GuideTutorialsSection",
      Cell["TUTORIALS", "GuideTutorialsSection"], 
      Cell["Tutorials", "GuideTutorialsSection"]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"ee1c3b2a-2183-4499-98db-0c46f5af493b"],
+  0,ExpressionUUID->"562be732-b482-4dc8-9617-124d8f192fac"],
 
 Cell[TextData[ButtonBox["KerrGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/tutorial/KerrGeodesics"]], \
-"GuideTutorial",ExpressionUUID->"ad2fe223-af79-4af9-a50e-5fd3a052ca73"],
+"GuideTutorial",ExpressionUUID->"b52f7081-27bb-49af-bca3-61fb7270a2d5"],
 
 Cell[TextData[ButtonBox["NearHorizonGeodesics",
  BaseStyle->"Link",
  ButtonData->
   "paclet:KerrGeodesics/tutorial/NearHorizonGeodesics"]], \
-"GuideTutorial",ExpressionUUID->"370c3c74-5c02-4151-8478-9064d2e759a4"]
+"GuideTutorial",ExpressionUUID->"0788eaf2-6550-400f-b02c-4b48a097e742"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"e718486e-b84e-43d2-b16b-e84211e51013"],
+Cell[" ", "FooterCell",ExpressionUUID->"3d143bd8-0e93-450c-bc3e-f0767c704d2f"],
 
-Cell[BoxData[""],ExpressionUUID->"4e1d7c59-0b33-44ac-8d83-a42f57807c60"]
+Cell[BoxData[""],ExpressionUUID->"6b50751b-1a32-455d-8160-e72779cbeb81"]
 }, Open  ]]
 },
 Saveable->False,

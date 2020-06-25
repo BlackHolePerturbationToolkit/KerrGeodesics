@@ -4,7 +4,7 @@ Cell[BoxData[
   RowBox[{"SetDirectory", "[", 
    RowBox[{"ParentDirectory", "[", 
     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], ";"}]], "Input",
- CellLabel->"In[3]:=",ExpressionUUID->"7dc1f01a-58a2-4516-9d6b-de21e85431ea"],
+ CellLabel->"In[15]:=",ExpressionUUID->"7dc1f01a-58a2-4516-9d6b-de21e85431ea"],
 
 Cell[CellGroupData[{
 
@@ -14,13 +14,15 @@ Cell[BoxData[{
  RowBox[{"PacletInstall", "[", "\"\<KerrGeodesics\>\"", 
   "]"}], "\[IndentingNewLine]", 
  RowBox[{"<<", "KerrGeodesics`"}]}], "Input",
- CellLabel->"In[4]:=",ExpressionUUID->"ce9ee2f2-da6d-4b8f-a30e-7ec03258a0d1"],
+ CellLabel->"In[16]:=",ExpressionUUID->"ce9ee2f2-da6d-4b8f-a30e-7ec03258a0d1"],
 
 Cell[BoxData[
- RowBox[{"{", \
-"\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\"\>", 
+ RowBox[{"{", 
+  RowBox[{"\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\\\
+\\\"\>", ",", \
+"\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\"\>"}], 
   "}"}]], "Output",
- CellLabel->"Out[4]=",ExpressionUUID->"6fca2583-1df3-422d-a85e-1af0d08f5137"],
+ CellLabel->"Out[16]=",ExpressionUUID->"007ace68-0c13-4722-b884-e5c72b0aaf8e"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -38,7 +40,7 @@ spacetime.", "URL" -> "https://bhptoolkit.org/KerrGeodesics/", "License" ->
       "Guides/KerrGeodesics", "Resources" -> {"Guides/KerrGeodesics"}}}, 
    "Location" -> 
    "C:\\Users\\Admin\\Documents\\GitHub\\KerrGeodesics"]]], "Output",
- CellLabel->"Out[5]=",ExpressionUUID->"1b89d803-7179-4a9e-89e7-c0ded5e87a25"]
+ CellLabel->"Out[17]=",ExpressionUUID->"61c770cf-f48f-4495-b393-f061a279a9b4"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -51,11 +53,11 @@ Cell[BoxData[
      RowBox[{"ParentDirectory", "[", 
       RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ",", 
      "\"\<Documentation\>\""}], "}"}], "]"}]}]], "Input",
- CellLabel->"In[7]:=",ExpressionUUID->"e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
+ CellLabel->"In[19]:=",ExpressionUUID->"e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
 
 Cell[BoxData["\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\\
 KerrGeodesics\\\\Documentation\"\>"], "Output",
- CellLabel->"Out[7]=",ExpressionUUID->"8d7d3f43-49be-4446-bc34-d2cd53895fbb"]
+ CellLabel->"Out[19]=",ExpressionUUID->"be0bb5b9-c9d4-4162-af84-73ed6ae5e010"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -72,7 +74,7 @@ Cell[BoxData[
        RowBox[{"!", 
         RowBox[{"DirectoryQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], ",", 
    "10"}], "]"}]], "Input",
- CellLabel->"In[8]:=",ExpressionUUID->"b346dc9a-48f4-468f-ad6a-8546c58f02fc"],
+ CellLabel->"In[20]:=",ExpressionUUID->"b346dc9a-48f4-468f-ad6a-8546c58f02fc"],
 
 Cell[BoxData[
  TagBox[
@@ -95,18 +97,18 @@ Documentation\\\\English\\\\Tutorials\\\\KerrGeodesics.nb\"\>",
 Documentation\\\\English\\\\Tutorials\\\\NearHorizonGeodesics.nb\"\>"}], "}"}],
   Short[#, 10]& ]], "Output",
  CellLabel->
-  "Out[8]//Short=",ExpressionUUID->"68ef2824-eba3-4663-9ed0-527e3ac3a87c"]
+  "Out[20]//Short=",ExpressionUUID->"31a25f61-938b-4717-9eb8-ab9436ee525d"]
 }, Open  ]],
 
 Cell[BoxData[
  RowBox[{"DeleteFile", "[", "docFiles", "]"}]], "Input",
- CellLabel->"In[9]:=",ExpressionUUID->"3cd9bbce-a1fb-4da5-afc8-aa5b5b92ebb3"],
+ CellLabel->"In[21]:=",ExpressionUUID->"3cd9bbce-a1fb-4da5-afc8-aa5b5b92ebb3"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input",
- CellLabel->"In[10]:=",ExpressionUUID->"bf1d7897-7569-4360-9a3f-4a944c03b2ad"],
+ CellLabel->"In[22]:=",ExpressionUUID->"bf1d7897-7569-4360-9a3f-4a944c03b2ad"],
 
 Cell[CellGroupData[{
 
@@ -149,17 +151,17 @@ skipped:\\n\"\>", "\[InvisibleSpace]",
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"e31fdff0-ff72-4ca4-a8c9-b44986894526"],
+In[22]:=",ExpressionUUID->"b81f0ea8-abed-41c8-9103-f8cb51d6adcd"],
 
 Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"fcc8f4d3-b132-4dad-94a1-1f3c55567c6c"],
+In[22]:=",ExpressionUUID->"3d16d688-f6b8-48a4-9076-0b1b7e305ff2"],
 
 Cell[BoxData["\<\"KerrGeoAngularMomentum\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"8fd0012a-f7ab-47b3-9f89-12897c8db099"],
+In[22]:=",ExpressionUUID->"dded7fb1-c3d4-455f-882c-25b9b723af68"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -170,12 +172,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"d4b98496-5594-41b0-8c0e-6e19a25b654e"],
+In[22]:=",ExpressionUUID->"cb837f65-7699-47dc-9caf-1a45859a029b"],
 
 Cell[BoxData["\<\"KerrGeoCarterConstant\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"d27b3698-cd15-4130-b2d3-f09814c8e9fc"],
+In[22]:=",ExpressionUUID->"f433c297-cd58-41e7-85eb-d6ddf9c0ee13"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -186,12 +188,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"4c2a4028-5984-4bfd-9921-64928c3affb6"],
+In[22]:=",ExpressionUUID->"e40d1631-f9b2-44d7-bc8a-d446d5573697"],
 
 Cell[BoxData["\<\"KerrGeoConstantsOfMotion\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"be9777f9-955d-491e-9b5b-c2f0dc4aabff"],
+In[22]:=",ExpressionUUID->"89e5c26e-420d-4964-a4de-1c31f7d22373"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -202,12 +204,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"87640354-1963-439c-b63a-7da341ac8e63"],
+In[22]:=",ExpressionUUID->"009e81d7-5331-49f0-b884-36b7208eb414"],
 
 Cell[BoxData["\<\"KerrGeoEnergy\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"51b7b806-3bf8-409c-b810-c6d819d2ab05"],
+In[22]:=",ExpressionUUID->"f9cafad3-f88a-4973-ac41-d32537e56bde"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -218,12 +220,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"a7272069-b4e1-4ba1-8664-85d9e3581663"],
+In[22]:=",ExpressionUUID->"1b9be0aa-6217-4ec0-9a4b-2a73e35fd224"],
 
 Cell[BoxData["\<\"KerrGeoOrbit\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"9033b47b-b2b0-4916-a071-8ee0938f134d"],
+In[22]:=",ExpressionUUID->"6830d170-9936-4c28-8596-44f1573d139a"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -234,12 +236,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"ebca8ef7-b60c-456a-b21f-2e003f4d304f"],
+In[22]:=",ExpressionUUID->"abb3873c-3826-4e0b-bbfc-2e947fee895b"],
 
 Cell[BoxData["\<\"KerrGeoOrbitFunction\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"554def22-16ff-4e8d-85a7-dfda53670fb2"],
+In[22]:=",ExpressionUUID->"3a3802da-63cf-4f7b-896b-155bf8e76d9f"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -250,12 +252,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"39347e57-35ee-4100-b377-4a6e1155afe7"],
+In[22]:=",ExpressionUUID->"590a3b41-e151-447a-ad01-5e3978f3da43"],
 
 Cell[BoxData["\<\"KerrGeoFrequencies\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"6f9683c3-53f9-44d3-869b-28639dd46dfa"],
+In[22]:=",ExpressionUUID->"eaf22168-0887-440e-8432-f93ea22da9eb"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -267,12 +269,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"dcf69f7c-5544-49bd-8946-d9d59b84bf09"],
+In[22]:=",ExpressionUUID->"09658ff3-eaf2-4981-b705-8c995c9fd19a"],
 
 Cell[BoxData["\<\"KerrGeoBoundOrbitQ\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"615e30b9-cf53-4147-ab42-4af6e39cb9f4"],
+In[22]:=",ExpressionUUID->"bf947ac2-a50a-4517-833b-2f50c91ca618"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -284,12 +286,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"5b17821d-5e62-4d3b-a9f0-d12452886c9f"],
+In[22]:=",ExpressionUUID->"489066f0-7e32-4063-b23a-bca2f532c53a"],
 
 Cell[BoxData["\<\"KerrGeoIBSO\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"0dc25a18-0c6d-437e-b03b-d28a1ea56db4"],
+In[22]:=",ExpressionUUID->"c52ab9bf-9686-4870-8dd2-600e904f84ab"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -301,12 +303,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"27e3618c-186d-43e8-85a7-d2762fc22161"],
+In[22]:=",ExpressionUUID->"fa74767a-1c1e-474b-9d39-96994ad06d06"],
 
 Cell[BoxData["\<\"KerrGeoISCO\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"da8f59d5-25c9-4ace-ae12-5494348dd359"],
+In[22]:=",ExpressionUUID->"ea57924e-639d-47c9-811a-facdd6ccae88"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -318,12 +320,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"4fc6eec1-854d-4b33-850c-c5b61a7bd10f"],
+In[22]:=",ExpressionUUID->"c216996c-e56a-42d6-8ae7-7422673d0f84"],
 
 Cell[BoxData["\<\"KerrGeoISSO\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"b4b2b5e7-a5f8-4051-9862-d6ca93a3b027"],
+In[22]:=",ExpressionUUID->"0d54d36b-db4b-4bdc-a973-37fdbcdd7345"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -335,12 +337,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"64c4c678-ba53-4bd1-b4fc-9379dd85bbaa"],
+In[22]:=",ExpressionUUID->"27ba02b8-ef2a-473c-a898-c6e949c23a79"],
 
 Cell[BoxData["\<\"KerrGeoPhotonSphereRadius\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"d04b8d44-2f15-4233-b76d-9388c67828ab"],
+In[22]:=",ExpressionUUID->"7e3748f5-328f-48c9-b067-f36bbff6f111"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -352,12 +354,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"843907ab-e5d3-4229-bcf5-8267146419c6"],
+In[22]:=",ExpressionUUID->"73364264-cda7-4239-a79e-070981f0ebc0"],
 
 Cell[BoxData["\<\"KerrGeoSeparatrix\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"cff3897a-bc4e-43fa-976e-d5a43b8daee1"],
+In[22]:=",ExpressionUUID->"a0923f04-7910-42c0-bc03-f1ad1d040569"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -369,12 +371,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"d7203e08-d335-4a54-931d-8e630bb27285"],
+In[22]:=",ExpressionUUID->"e5b44a50-2f99-4d68-bf8c-0af263edf15d"],
 
 Cell[BoxData["\<\"NearHorizonGeoOrbit\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"7cef4aaa-cbe9-45d8-84e5-70c01c666029"],
+In[22]:=",ExpressionUUID->"71aff315-a1f4-43cb-a315-1b0c9d77ed62"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -386,12 +388,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"0889078e-9d96-4791-b298-bbc595a869ff"],
+In[22]:=",ExpressionUUID->"b8617d45-8407-4593-8f74-24abb851cd74"],
 
 Cell[BoxData["\<\"NearHorizonGeoOrbitClass\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"44295e01-1360-44ba-9faf-1d97e47e279d"],
+In[22]:=",ExpressionUUID->"df461c0a-3fed-4b37-b371-2746727218f3"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -403,12 +405,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"cce45f78-4332-4758-93ac-bb65043b3016"],
+In[22]:=",ExpressionUUID->"3588e84f-6384-43d8-b484-c08e47bd7ea5"],
 
 Cell[BoxData["\<\"NearHorizonGeoOrbitFunction\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"776eba13-c09f-463f-82b7-6aee51989198"],
+In[22]:=",ExpressionUUID->"7ad97f89-aab7-4749-a3d0-a30c76eb9c05"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -420,12 +422,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"b0d2a704-b83f-4641-89e4-fe3eeff8c107"],
+In[22]:=",ExpressionUUID->"11e4dda5-a73f-40ac-aa26-8c83943c6298"],
 
 Cell[BoxData["\<\"Building guides\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"5f238d31-aa37-4321-b811-840dd9c05bd3"],
+In[22]:=",ExpressionUUID->"052aabb2-cc48-4dd9-b312-8f4b6d89b5fe"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -440,18 +442,18 @@ English\\Guides"],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"d0bddae2-743b-4eb5-906f-bb76c5b6e861"],
+In[22]:=",ExpressionUUID->"72828ce1-ba91-4ead-949b-cd5fe2fea036"],
 
 Cell[BoxData["\<\"Building tutorials\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"f11d377e-baaa-4da6-976f-6f018257c63e"],
+In[22]:=",ExpressionUUID->"41db70a1-6b72-4a92-829e-adf337dc191c"],
 
 Cell[BoxData["\<\"Source\\\\Documentation\\\\English\\\\Tutorials\\\\\
 KerrGeodesics.md\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"a92857dd-f28d-4837-8dc8-804dff230139"],
+In[22]:=",ExpressionUUID->"3b1ff53c-a638-43e4-8c77-9eeab6064f7f"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -469,13 +471,13 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[34]:=",ExpressionUUID->"97f512de-336c-4777-868d-144a8238ac5d"],
+In[34]:=",ExpressionUUID->"4375a449-e4e4-471e-9022-495813acf6d4"],
 
 Cell[BoxData["\<\"Source\\\\Documentation\\\\English\\\\Tutorials\\\\\
 NearHorizonGeodesics.md\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[34]:=",ExpressionUUID->"36a12800-e83c-40aa-8b09-e65cbb86dbdb"],
+In[34]:=",ExpressionUUID->"0bc19c31-e025-4f93-8480-2f3bac89f348"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -499,12 +501,12 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[21]:=",ExpressionUUID->"5b682b33-c071-48a1-bfc6-3deb25668090"],
+In[21]:=",ExpressionUUID->"d2443f5e-c589-49ba-8713-c28d1a343146"],
 
 Cell[BoxData["\<\"Indexing Documentation\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[21]:=",ExpressionUUID->"abb7ba0f-c24f-4630-ac89-539eb89002cd"]
+In[21]:=",ExpressionUUID->"8906eb90-7a27-4e3a-a137-f17a61295fd1"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -530,33 +532,33 @@ java.lang.ClassLoader.loadClass(ClassLoader.java:357)\\\\\\\\n\\\\\\\\tat \
 java.lang.Class.getDeclaredConstructors0(Native Method)\\\\\\\\n\\\\\\\\tat \
 java.lang.Class.privateGetDeclaredConstructors(Class.java:2671)\\\\\\\\n\\\\\\\
 \\tat java.lang.Class.getConstructors(Class.java:1651)\\\\\\\"\\\"}]\\).\"",2,
-   10,3,24101485763725177815,"Local","JLink`Java"},
+   22,3,24101971922670393287,"Local","JLink`Java"},
   "MessageTemplate2"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[21]:=",ExpressionUUID->"4f79d440-ecc9-4508-a0a5-179c29fe925e"],
+In[21]:=",ExpressionUUID->"0b9ada73-a9b5-493b-af34-e15472d6e05a"],
 
 Cell[BoxData[
  TemplateBox[{
   "JLink`LoadJavaClass","fail",
    "\"Java failed to load class \
 \\!\\(\\*RowBox[{\\\"\\\\\\\"com.wolfram.documentationsearch.\
-DocumentationIndexer\\\\\\\"\\\"}]\\).\"",2,10,4,24101485763725177815,"Local",
+DocumentationIndexer\\\\\\\"\\\"}]\\).\"",2,22,4,24101971922670393287,"Local",
    "JLink`LoadJavaClass"},
   "MessageTemplate2"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[21]:=",ExpressionUUID->"73ac1b80-9e98-491d-8e57-a0d58b90851e"],
+In[21]:=",ExpressionUUID->"4ec9632b-4c59-4318-add2-e1abd213284a"],
 
 Cell[BoxData[
  TemplateBox[{
   "JLink`KeepJavaObject","obj",
    "\"At least one argument to KeepJavaObject was not a valid Java object.\"",
-   2,10,5,24101485763725177815,"Local","JLink`KeepJavaObject"},
+   2,22,5,24101971922670393287,"Local","JLink`KeepJavaObject"},
   "MessageTemplate2"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[21]:=",ExpressionUUID->"f95d16de-fc03-4b6e-8fb9-5431560559af"],
+In[21]:=",ExpressionUUID->"480a9839-9bb2-480d-b777-7bdd58fa4485"],
 
 Cell[BoxData[
  TemplateBox[{
@@ -566,17 +568,17 @@ Cell[BoxData[
 org.apache.lucene.index.IndexReader.open(Ljava/lang/String;)Lorg/apache/\
 lucene/index/IndexReader;\\\\\\\\n\\\\\\\\tat \
 com.wolfram.documentationsearch.spelling.DidYouMeanIndexer.createSpellIndex(\
-DidYouMeanIndexer.java:17)\\\\\\\"\\\"}]\\).\"",2,10,6,24101485763725177815,
+DidYouMeanIndexer.java:17)\\\\\\\"\\\"}]\\).\"",2,22,6,24101971922670393287,
    "Local","JLink`Java"},
   "MessageTemplate2"]], "Message", "MSG",
  CellLabel->
   "During evaluation of \
-In[21]:=",ExpressionUUID->"be6dfd7e-1a87-4db8-89f4-60fef876900a"],
+In[21]:=",ExpressionUUID->"5035d4b5-2108-4f61-ab6d-00236e9089fa"],
 
 Cell[BoxData["\<\"Done\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[21]:=",ExpressionUUID->"a14e236a-e2a9-479e-89f2-03a7ce7ed2c5"]
+In[21]:=",ExpressionUUID->"5c428515-034e-4180-a3f5-fe25d0521614"]
 }, Open  ]]
 },
 WindowSize->{766, 360},
