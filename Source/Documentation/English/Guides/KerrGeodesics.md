@@ -5,7 +5,7 @@
  "Summary" -> 
    "Functions for working with bound timelike geodesics in Kerr spacetime.",
  "Description" -> 
-   {"The KerrGeodesics package provides functions for computing bound timelike geodesics and their properties in Kerr spacetime"},
+   {"The KerrGeodesics package provides functions for computing bound timelike geodesics and their properties in Kerr spacetime. It also includes functions for computing any timelike or null future-directed near-horizon geodesic."},
  "Keywords" -> {"Kerr", "Geodesic"},
  "Label" -> "KerrGeodesics Application",
  "Synonyms" -> {"KerrGeodesics", "KerrGeodesics"},
@@ -26,9 +26,16 @@
 	  {"KerrGeoSeparatrix", "Computes the value p at the separatrix between stable and plunging/scattered orbits"},
 	  {"KerrGeoOrbit", "Computes the orbit trajectory in Boyer-Lindquist coordinates"}
     }
+   },
+   {"Title" -> "Near-horizon geodesics",
+    "DetailedFunctions" -> {
+	  {"NearHorizonGeoOrbit", "Computes the trajectory and properties of a near-horizon geodesic from numerical orbital parameters."},
+	  {"NearHorizonGeoOrbitClass", "Computes the symbolic orbit and properties of a chosen near-horizon geodesic."},
+	  {"NearHorizonGeoOrbitFunction", "An object for storing the trajectory and orbital parameters of a near-horizon geodesic."}
+    }
    }
  },
  "Tutorials" -> {
-   "KerrGeodesics"
+   "KerrGeodesics", "NearHorizonGeodesics"
  } 
 }
