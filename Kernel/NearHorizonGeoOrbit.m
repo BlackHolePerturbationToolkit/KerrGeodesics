@@ -164,7 +164,7 @@ NearNHEKBoundedSubcriticalMino[\[Lambda]_]:={NearNHEKBoundedSubcriticalRadial[Bo
 PlungingR[\[Lambda]_]:=1/CC(e l-Sqrt[-(CC+l^2)(e^2+\[Kappa]^2 CC)](Cosh[Sqrt[-CC](\[Lambda]-\[Lambda]f)]-Sqrt[2]Sinh[Sqrt[-CC](\[Lambda]-\[Lambda]f)]))
 
 
-NearNHEKPlungingRadial[R_]:={\[Lambda]f+(-Log[(2  Sqrt[-(CC+l^2) (e^2+CC \[Kappa]^2)])/Sqrt[-CC]+2 Sqrt[2] Sqrt[((CC+l^2) (e^2+CC \[Kappa]^2))/CC]]+Log[(2  (e l-CC R))/Sqrt[-CC]+2 Sqrt[e^2+2 e l R-CC R^2+(CC+l^2) \[Kappa]^2]])/Sqrt[-CC],1/(4\[Kappa]) Log[FPlus[R]/FMinus[R]],3l/(4 Sqrt[-CC])Log[e l-CC R+Sqrt[-CC]Sqrt[v\[Kappa][R]]]-1/2Log[GPlus[R]/((CC+l^2)(R^2-\[Kappa]^2))]+l Subscript[\[CapitalPhi], \[Theta]][\[Lambda]]}
+NearNHEKPlungingRadial[R_]:={\[Lambda]f-(-Log[(2  Sqrt[-(CC+l^2) (e^2+CC \[Kappa]^2)])/Sqrt[-CC]+2 Sqrt[2] Sqrt[((CC+l^2) (e^2+CC \[Kappa]^2))/CC]]+Log[(2  (e l-CC R))/Sqrt[-CC]+2 Sqrt[e^2+2 e l R-CC R^2+(CC+l^2) \[Kappa]^2]])/Sqrt[-CC],1/(4\[Kappa]) Log[FPlus[R]/FMinus[R]],3l/(4 Sqrt[-CC])Log[e l-CC R+Sqrt[-CC]Sqrt[v\[Kappa][R]]]-1/2Log[GPlus[R]/((CC+l^2)(R^2-\[Kappa]^2))]+l Subscript[\[CapitalPhi], \[Theta]][\[Lambda]]}
 
 
 NearNHEKPlungingMino[\[Lambda]_]:={NearNHEKPlungingRadial[PlungingR[\[Lambda]]][[2]], PlungingR[\[Lambda]], NearNHEKPlungingRadial[PlungingR[\[Lambda]]][[3]]}
