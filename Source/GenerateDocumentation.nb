@@ -4,7 +4,44 @@ Cell[BoxData[
   RowBox[{"SetDirectory", "[", 
    RowBox[{"ParentDirectory", "[", 
     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], ";"}]], "Input",
- ExpressionUUID -> "7dc1f01a-58a2-4516-9d6b-de21e85431ea"],
+ CellLabel->"In[15]:=",ExpressionUUID->"7dc1f01a-58a2-4516-9d6b-de21e85431ea"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"PacletDirectoryAdd", "[", 
+  RowBox[{"Directory", "[", "]"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"PacletInstall", "[", "\"\<KerrGeodesics\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"<<", "KerrGeodesics`"}]}], "Input",
+ CellLabel->"In[16]:=",ExpressionUUID->"ce9ee2f2-da6d-4b8f-a30e-7ec03258a0d1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\\\
+\\\"\>", ",", \
+"\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\"\>"}], 
+  "}"}]], "Output",
+ CellLabel->"Out[16]=",ExpressionUUID->"007ace68-0c13-4722-b884-e5c72b0aaf8e"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+  "Paclet", "[", "\<\"KerrGeodesics\"\>", ",", "\<\"0.2.0\"\>", ",", "<>", 
+   "]"}],
+  PacletManager`Paclet[
+  "Name" -> "KerrGeodesics", "Version" -> "0.2.0", "MathematicaVersion" -> 
+   "10.2+", "Creator" -> "Black Hole Perturbation Toolkit", "Description" -> 
+   "A set of functions for working with bound timelike geodesics in Kerr \
+spacetime.", "URL" -> "https://bhptoolkit.org/KerrGeodesics/", "License" -> 
+   "MIT", "Extensions" -> {{
+     "Kernel", "Root" -> "Kernel", "Context" -> {"KerrGeodesics`"}}, {
+     "Documentation", "Language" -> "English", "MainPage" -> 
+      "Guides/KerrGeodesics", "Resources" -> {"Guides/KerrGeodesics"}}}, 
+   "Location" -> 
+   "C:\\Users\\Admin\\Documents\\GitHub\\KerrGeodesics"]]], "Output",
+ CellLabel->"Out[17]=",ExpressionUUID->"61c770cf-f48f-4495-b393-f061a279a9b4"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -16,11 +53,11 @@ Cell[BoxData[
      RowBox[{"ParentDirectory", "[", 
       RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ",", 
      "\"\<Documentation\>\""}], "}"}], "]"}]}]], "Input",
- ExpressionUUID -> "e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
+ CellLabel->"In[19]:=",ExpressionUUID->"e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
 
-Cell[BoxData["\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation\"\>"], "Output",
- ExpressionUUID -> "b3903a30-aa2b-4e46-b7ce-8f1ceb83c162"]
+Cell[BoxData["\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\\
+KerrGeodesics\\\\Documentation\"\>"], "Output",
+ CellLabel->"Out[19]=",ExpressionUUID->"be0bb5b9-c9d4-4162-af84-73ed6ae5e010"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -37,101 +74,520 @@ Cell[BoxData[
        RowBox[{"!", 
         RowBox[{"DirectoryQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], ",", 
    "10"}], "]"}]], "Input",
- ExpressionUUID -> "b346dc9a-48f4-468f-ad6a-8546c58f02fc"],
+ CellLabel->"In[20]:=",ExpressionUUID->"b346dc9a-48f4-468f-ad6a-8546c58f02fc"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{"{", 
-   RowBox[{"\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Guides/KerrGeodesics.nb\"\>", 
-    ",", "\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Index/_0.cfs\"\>", 
-    ",", "\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Index/segments_3\"\>", ",", 
-    RowBox[{"\[LeftSkeleton]", "3", "\[RightSkeleton]"}], 
-    ",", "\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/SpellIndex/segments.gen\"\>", 
-    ",", "\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Tutorials/KerrGeodesics.nb\"\>"}], "}"}],
+   RowBox[{"\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\\\
+\\Documentation\\\\English\\\\Guides\\\\KerrGeodesics.nb\"\>", 
+    ",", "\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\\\\\
+Documentation\\\\English\\\\ReferencePages\\\\Symbols\\\\\
+KerrGeoAngularMomentum.nb\"\>", 
+    ",", "\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\\\\\
+Documentation\\\\English\\\\ReferencePages\\\\Symbols\\\\KerrGeoBoundOrbitQ.\
+nb\"\>", ",", 
+    RowBox[{"\[LeftSkeleton]", "13", "\[RightSkeleton]"}], 
+    ",", "\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\\\\\
+Documentation\\\\English\\\\ReferencePages\\\\Symbols\\\\NearHorizonGeoOrbit.\
+nb\"\>", ",", \
+"\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\\\\\
+Documentation\\\\English\\\\Tutorials\\\\KerrGeodesics.nb\"\>", 
+    ",", "\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\\\\\
+Documentation\\\\English\\\\Tutorials\\\\NearHorizonGeodesics.nb\"\>"}], "}"}],
   Short[#, 10]& ]], "Output",
- ExpressionUUID -> "0ce1393f-f99b-4d4e-ab08-17d44d234fa4"]
+ CellLabel->
+  "Out[20]//Short=",ExpressionUUID->"31a25f61-938b-4717-9eb8-ab9436ee525d"]
 }, Open  ]],
 
 Cell[BoxData[
  RowBox[{"DeleteFile", "[", "docFiles", "]"}]], "Input",
- ExpressionUUID -> "3cd9bbce-a1fb-4da5-afc8-aa5b5b92ebb3"],
+ CellLabel->"In[21]:=",ExpressionUUID->"3cd9bbce-a1fb-4da5-afc8-aa5b5b92ebb3"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input",
- ExpressionUUID -> "bf1d7897-7569-4360-9a3f-4a944c03b2ad"],
+ CellLabel->"In[22]:=",ExpressionUUID->"bf1d7897-7569-4360-9a3f-4a944c03b2ad"],
 
 Cell[CellGroupData[{
 
-Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
-Cell[BoxData["\<\"Building guides\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
-
 Cell[BoxData[
  InterpretationBox[
-  RowBox[{"\<\"Creating \"\>", 
-   "\[InvisibleSpace]", \
-"\<\"/Users/barry/Library/Mathematica/Applications/KerrGeodesics/\
-Documentation/English/Guides\"\>"}],
+  RowBox[{"\<\"Undocumented symbols for package NearHorizonGeoOrbit \
+skipped:\\n\"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"BHPTStyle\"\>", ",", "\<\"CC\"\>", ",", "\<\"CC$\"\>", 
+     ",", "\<\"CNot\"\>", ",", "\<\"e\"\>", ",", "\<\"EE\"\>", 
+     ",", "\<\"EE$\"\>", ",", "\<\"f\"\>", ",", "\<\"i\"\>", ",", "\<\"l\"\>",
+      ",", "\<\"lNought\"\>", ",", "\<\"lNought$\"\>", ",", "\<\"lStar\"\>", 
+     ",", "\<\"lStar$\"\>", ",", "\<\"l$\"\>", ",", "\<\"m\"\>", 
+     ",", "\<\"M\"\>", ",", "\<\"Q\"\>", ",", "\<\"Q$\"\>", ",", "\<\"R\"\>", 
+     ",", "\<\"R0\"\>", ",", "\<\"Rf\"\>", ",", "\<\"Ri\"\>", 
+     ",", "\<\"Rm\"\>", ",", "\<\"RPlus\"\>", ",", "\<\"si\[Theta]\"\>", 
+     ",", "\<\"t\"\>", ",", "\<\"T\"\>", ",", "\<\"t0\"\>", ",", "\<\"T0\"\>",
+      ",", "\<\"ti\"\>", ",", "\<\"Ti\"\>", ",", "\<\"z\"\>", 
+     ",", "\<\"zM\"\>", ",", "\<\"zP\"\>", ",", "\<\"\[ScriptCapitalC]\"\>", 
+     ",", "\<\"\[ScriptE]\"\>", ",", "\<\"\[ScriptCapitalE]\"\>", 
+     ",", "\<\"\[ScriptCapitalL]\"\>", ",", "\<\"\[ScriptCapitalQ]\"\>", 
+     ",", "\<\"\[Theta]\"\>", ",", "\<\"\[Theta]i\"\>", 
+     ",", "\<\"\[Kappa]\"\>", ",", "\<\"\[Lambda]\"\>", 
+     ",", "\<\"\[Lambda]0\"\>", ",", "\<\"\[Lambda]f\"\>", 
+     ",", "\<\"\[Lambda]i\"\>", ",", "\<\"\[Lambda]m\"\>", 
+     ",", "\<\"\[Lambda]Minus\"\>", ",", "\<\"\[Lambda]Plus\"\>", 
+     ",", "\<\"\[Mu]\"\>", ",", "\<\"\[Phi]\"\>", 
+     ",", "\<\"\[CapitalPhi]\"\>", ",", "\<\"\[Phi]0\"\>", 
+     ",", "\<\"\[CapitalPhi]0\"\>", ",", "\<\"\[Phi]i\"\>"}], "}"}]}],
   SequenceForm[
-  "Creating ", 
-   "/Users/barry/Library/Mathematica/Applications/KerrGeodesics/Documentation/\
-English/Guides"],
+  "Undocumented symbols for package NearHorizonGeoOrbit skipped:\n", {
+   "BHPTStyle", "CC", "CC$", "CNot", "e", "EE", "EE$", "f", "i", "l", 
+    "lNought", "lNought$", "lStar", "lStar$", "l$", "m", "M", "Q", "Q$", "R", 
+    "R0", "Rf", "Ri", "Rm", "RPlus", "si\[Theta]", "t", "T", "t0", "T0", "ti",
+     "Ti", "z", "zM", "zP", "\[ScriptCapitalC]", "\[ScriptE]", 
+    "\[ScriptCapitalE]", "\[ScriptCapitalL]", "\[ScriptCapitalQ]", "\[Theta]",
+     "\[Theta]i", "\[Kappa]", "\[Lambda]", "\[Lambda]0", "\[Lambda]f", 
+    "\[Lambda]i", "\[Lambda]m", "\[Lambda]Minus", "\[Lambda]Plus", "\[Mu]", 
+    "\[Phi]", "\[CapitalPhi]", "\[Phi]0", "\[CapitalPhi]0", "\[Phi]i"}],
   Editable->False]], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"b81f0ea8-abed-41c8-9103-f8cb51d6adcd"],
 
-Cell[BoxData["\<\"Building tutorials\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
+Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"3d16d688-f6b8-48a4-9076-0b1b7e305ff2"],
 
-Cell[BoxData["\<\"Source/Documentation/English/Tutorials/KerrGeodesics.md\"\>\
-"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
+Cell[BoxData["\<\"KerrGeoAngularMomentum\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"dded7fb1-c3d4-455f-882c-25b9b723af68"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"\<\"Temp`a\"\>", ",", "\<\"Temp`e\"\>", 
-     ",", "\<\"Temp`orbit\"\>", ",", "\<\"Temp`orbitA\"\>", 
-     ",", "\<\"Temp`orbitD\"\>", ",", "\<\"Temp`orbitFS\"\>", 
-     ",", "\<\"Temp`p\"\>", ",", "\<\"Temp`Parametrization\"\>", 
-     ",", "\<\"Temp`r\"\>", ",", "\<\"Temp`result\"\>", ",", "\<\"Temp`t\"\>",
-      ",", "\<\"Temp`Time\"\>", ",", "\<\"Temp`x\"\>", 
-     ",", "\<\"Temp`\[Theta]\"\>", ",", "\<\"Temp`\[Lambda]\"\>", 
-     ",", "\<\"Temp`\[CurlyPhi]\"\>"}], "}"}]}],
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"cb837f65-7699-47dc-9caf-1a45859a029b"],
+
+Cell[BoxData["\<\"KerrGeoCarterConstant\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"f433c297-cd58-41e7-85eb-d6ddf9c0ee13"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"e40d1631-f9b2-44d7-bc8a-d446d5573697"],
+
+Cell[BoxData["\<\"KerrGeoConstantsOfMotion\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"89e5c26e-420d-4964-a4de-1c31f7d22373"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"009e81d7-5331-49f0-b884-36b7208eb414"],
+
+Cell[BoxData["\<\"KerrGeoEnergy\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"f9cafad3-f88a-4973-ac41-d32537e56bde"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"1b9be0aa-6217-4ec0-9a4b-2a73e35fd224"],
+
+Cell[BoxData["\<\"KerrGeoOrbit\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"6830d170-9936-4c28-8596-44f1573d139a"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"abb3873c-3826-4e0b-bbfc-2e947fee895b"],
+
+Cell[BoxData["\<\"KerrGeoOrbitFunction\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"3a3802da-63cf-4f7b-896b-155bf8e76d9f"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"590a3b41-e151-447a-ad01-5e3978f3da43"],
+
+Cell[BoxData["\<\"KerrGeoFrequencies\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"eaf22168-0887-440e-8432-f93ea22da9eb"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"09658ff3-eaf2-4981-b705-8c995c9fd19a"],
+
+Cell[BoxData["\<\"KerrGeoBoundOrbitQ\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"bf947ac2-a50a-4517-833b-2f50c91ca618"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"489066f0-7e32-4063-b23a-bca2f532c53a"],
+
+Cell[BoxData["\<\"KerrGeoIBSO\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"c52ab9bf-9686-4870-8dd2-600e904f84ab"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"fa74767a-1c1e-474b-9d39-96994ad06d06"],
+
+Cell[BoxData["\<\"KerrGeoISCO\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"ea57924e-639d-47c9-811a-facdd6ccae88"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"c216996c-e56a-42d6-8ae7-7422673d0f84"],
+
+Cell[BoxData["\<\"KerrGeoISSO\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"0d54d36b-db4b-4bdc-a973-37fdbcdd7345"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"27ba02b8-ef2a-473c-a898-c6e949c23a79"],
+
+Cell[BoxData["\<\"KerrGeoPhotonSphereRadius\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"7e3748f5-328f-48c9-b067-f36bbff6f111"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"73364264-cda7-4239-a79e-070981f0ebc0"],
+
+Cell[BoxData["\<\"KerrGeoSeparatrix\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"a0923f04-7910-42c0-bc03-f1ad1d040569"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"e5b44a50-2f99-4d68-bf8c-0af263edf15d"],
+
+Cell[BoxData["\<\"NearHorizonGeoOrbit\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"71aff315-a1f4-43cb-a315-1b0c9d77ed62"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"b8617d45-8407-4593-8f74-24abb851cd74"],
+
+Cell[BoxData["\<\"NearHorizonGeoOrbitClass\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"df461c0a-3fed-4b37-b371-2746727218f3"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"3588e84f-6384-43d8-b484-c08e47bd7ea5"],
+
+Cell[BoxData["\<\"NearHorizonGeoOrbitFunction\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"7ad97f89-aab7-4749-a3d0-a30c76eb9c05"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"p\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"a", "p", "r0", "Time"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"11e4dda5-a73f-40ac-aa26-8c83943c6298"],
+
+Cell[BoxData["\<\"Building guides\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"052aabb2-cc48-4dd9-b312-8f4b6d89b5fe"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Creating \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"C:\\\\Users\\\\Admin\\\\Documents\\\\GitHub\\\\KerrGeodesics\\\\\
+Documentation\\\\English\\\\Guides\"\>"}],
+  SequenceForm[
+  "Creating ", 
+   "C:\\Users\\Admin\\Documents\\GitHub\\KerrGeodesics\\Documentation\\\
+English\\Guides"],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"72828ce1-ba91-4ead-949b-cd5fe2fea036"],
+
+Cell[BoxData["\<\"Building tutorials\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"41db70a1-6b72-4a92-829e-adf337dc191c"],
+
+Cell[BoxData["\<\"Source\\\\Documentation\\\\English\\\\Tutorials\\\\\
+KerrGeodesics.md\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"3b1ff53c-a638-43e4-8c77-9eeab6064f7f"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
+     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"p\"\>", 
+     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Time\"\>", ",", "\<\"x\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], 
+    "}"}]}],
   SequenceForm[
   "Removing ", {
-   "Temp`a", "Temp`e", "Temp`orbit", "Temp`orbitA", "Temp`orbitD", 
-    "Temp`orbitFS", "Temp`p", "Temp`Parametrization", "Temp`r", "Temp`result",
-     "Temp`t", "Temp`Time", "Temp`x", "Temp`\[Theta]", "Temp`\[Lambda]", 
-    "Temp`\[CurlyPhi]"}],
+   "a", "orbit", "orbitA", "orbitD", "orbitFS", "p", "Parametrization", "r", 
+    "r0", "Time", "x", "\[CurlyPhi]"}],
   Editable->False]], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
+ CellLabel->
+  "During evaluation of \
+In[34]:=",ExpressionUUID->"4375a449-e4e4-471e-9022-495813acf6d4"],
+
+Cell[BoxData["\<\"Source\\\\Documentation\\\\English\\\\Tutorials\\\\\
+NearHorizonGeodesics.md\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[34]:=",ExpressionUUID->"0bc19c31-e025-4f93-8480-2f3bac89f348"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"analyticalOrbit\"\>", 
+     ",", "\<\"horizonTime\"\>", ",", "\<\"orbit\"\>", ",", "\<\"orbitA\"\>", 
+     ",", "\<\"orbitD\"\>", ",", "\<\"orbitFS\"\>", ",", "\<\"orbitMino\"\>", 
+     ",", "\<\"orbitRadial\"\>", ",", "\<\"p\"\>", 
+     ",", "\<\"Parametrization\"\>", ",", "\<\"r\"\>", ",", "\<\"r0\"\>", 
+     ",", "\<\"Rmax\"\>", ",", "\<\"Time\"\>", 
+     ",", "\<\"turningPointTime\"\>", ",", "\<\"x\"\>", 
+     ",", "\<\"\[CapitalDelta]\[Lambda]\"\>", ",", "\<\"\[Lambda]Max\"\>", 
+     ",", "\<\"\[Lambda]Min\"\>", ",", "\<\"\[CurlyPhi]\"\>"}], "}"}]}],
+  SequenceForm[
+  "Removing ", {
+   "a", "analyticalOrbit", "horizonTime", "orbit", "orbitA", "orbitD", 
+    "orbitFS", "orbitMino", "orbitRadial", "p", "Parametrization", "r", "r0", 
+    "Rmax", "Time", "turningPointTime", "x", "\[CapitalDelta]\[Lambda]", 
+    "\[Lambda]Max", "\[Lambda]Min", "\[CurlyPhi]"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[21]:=",ExpressionUUID->"d2443f5e-c589-49ba-8713-c28d1a343146"],
 
 Cell[BoxData["\<\"Indexing Documentation\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"],
+ CellLabel->
+  "During evaluation of \
+In[21]:=",ExpressionUUID->"8906eb90-7a27-4e3a-a137-f17a61295fd1"]
+}, Open  ]],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`Java","excptn",
+   "\"A Java exception occurred: \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"java.lang.VerifyError: class \
+com.wolfram.documentationsearch.SynonymAnalyzer overrides final method \
+tokenStream.(Ljava/lang/String;Ljava/io/Reader;)Lorg/apache/lucene/analysis/\
+TokenStream;\\\\\\\\n\\\\\\\\tat java.lang.ClassLoader.defineClass1(Native \
+Method)\\\\\\\\n\\\\\\\\tat \
+java.lang.ClassLoader.defineClass(ClassLoader.java:763)\\\\\\\\n\\\\\\\\tat \
+java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)\\\\\\\
+\\n\\\\\\\\tat java.net.URLClassLoader.defineClass(URLClassLoader.java:468)\\\
+\\\\\\n\\\\\\\\tat java.net.URLClassLoader.access$100(URLClassLoader.java:74)\
+\\\\\\\\n\\\\\\\\tat java.net.URLClassLoader$1.run(URLClassLoader.java:369)\\\
+\\\\\\n\\\\\\\\tat java.net.URLClassLoader$1.run(URLClassLoader.java:363)\\\\\
+\\\\n\\\\\\\\tat java.security.AccessController.doPrivileged(Native Method)\\\
+\\\\\\n\\\\\\\\tat java.net.URLClassLoader.findClass(URLClassLoader.java:362)\
+\\\\\\\\n\\\\\\\\tat \
+java.lang.ClassLoader.loadClass(ClassLoader.java:424)\\\\\\\\n\\\\\\\\tat \
+java.lang.ClassLoader.loadClass(ClassLoader.java:357)\\\\\\\\n\\\\\\\\tat \
+java.lang.Class.getDeclaredConstructors0(Native Method)\\\\\\\\n\\\\\\\\tat \
+java.lang.Class.privateGetDeclaredConstructors(Class.java:2671)\\\\\\\\n\\\\\\\
+\\tat java.lang.Class.getConstructors(Class.java:1651)\\\\\\\"\\\"}]\\).\"",2,
+   22,3,24101971922670393287,"Local","JLink`Java"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[21]:=",ExpressionUUID->"0b9ada73-a9b5-493b-af34-e15472d6e05a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`LoadJavaClass","fail",
+   "\"Java failed to load class \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"com.wolfram.documentationsearch.\
+DocumentationIndexer\\\\\\\"\\\"}]\\).\"",2,22,4,24101971922670393287,"Local",
+   "JLink`LoadJavaClass"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[21]:=",ExpressionUUID->"4ec9632b-4c59-4318-add2-e1abd213284a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`KeepJavaObject","obj",
+   "\"At least one argument to KeepJavaObject was not a valid Java object.\"",
+   2,22,5,24101971922670393287,"Local","JLink`KeepJavaObject"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[21]:=",ExpressionUUID->"480a9839-9bb2-480d-b777-7bdd58fa4485"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`Java","excptn",
+   "\"A Java exception occurred: \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"java.lang.NoSuchMethodError: \
+org.apache.lucene.index.IndexReader.open(Ljava/lang/String;)Lorg/apache/\
+lucene/index/IndexReader;\\\\\\\\n\\\\\\\\tat \
+com.wolfram.documentationsearch.spelling.DidYouMeanIndexer.createSpellIndex(\
+DidYouMeanIndexer.java:17)\\\\\\\"\\\"}]\\).\"",2,22,6,24101971922670393287,
+   "Local","JLink`Java"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[21]:=",ExpressionUUID->"5035d4b5-2108-4f61-ab6d-00236e9089fa"],
 
 Cell[BoxData["\<\"Done\"\>"], "Print",
- ExpressionUUID -> "29087d19-57dd-4681-ac5c-1b9afd63bdff"]
-}, Open  ]]
+ CellLabel->
+  "During evaluation of \
+In[21]:=",ExpressionUUID->"5c428515-034e-4180-a3f5-fe25d0521614"]
 }, Open  ]]
 },
-WindowSize->{748, 632},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowSize->{766, 360},
+WindowMargins->{{-7, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
-2016)",
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
 StyleDefinitions->"Default.nb"
 ]
 
