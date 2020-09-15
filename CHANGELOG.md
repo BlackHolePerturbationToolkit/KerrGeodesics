@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
  - Assorted bug fixes needed to pass unit tests
  - Fixed a problem where loading the package with Needs would generate an error message.
-
+ - Disabled preview plot in output form for KerrGeoOrbitFunction as it caused a slowdown in some cases.
 
 ## [0.2.0] - 2020-05-18
 
