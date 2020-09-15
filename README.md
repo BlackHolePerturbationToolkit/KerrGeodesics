@@ -1,7 +1,6 @@
 # KerrGeodesics
 
-Version 0.3.0
-Copyright 2017 Niels Warburton
+Copyright 2017-2020 Black Hole Perturbation Toolkit
 
 The KerrGeodesics package provides a set of functions for calculating
 properties of bound timelike geodesic orbits about a Kerr black hole.
