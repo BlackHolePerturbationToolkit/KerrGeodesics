@@ -54,11 +54,12 @@ rSchwarzDarwin[p_/;p>6, 0, \[Xi]_] := 0;
 (* ::Text:: *)
 (*Specialization to hyperbolic orbits*)
 (*The analytic equations here were derived by O. Long *)
+(*Note: tSchwarzDarwin takes the Re part to avoid a branch cut problem causing the Im part to be non-zero when using arbitrary precision*)
 
 
 (*t defined such that t=0 at periastron*)
 (*\[Phi] defined such that \[Phi]=0 at t=-\[Infinity]*)
-tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] := Sqrt[-4e^2+(-2+p)^2] (((-I) p Sqrt[-6+2e+p] EllipticE[(-6-2e+p)/(-6+2e+p)])/((-1+e^2) (-4+p))+(I p Sqrt[-6+2e+p] EllipticE[I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]], (-6-2e+p)/(-6+2e+p)])/((-1+e^2) (-4+p))-((2 I) p EllipticF[I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]], (-6-2e+p)/(-6+2e+p)])/((1+e) (-4+p) Sqrt[-6+2e+p])+((2 I) p EllipticK[(-6-2e+p)/(-6+2e+p)])/((1+e) (-4+p) Sqrt[-6+2e+p])-((2 I) EllipticPi[(6+2e-p)/4, (-6-2e+p)/(-6+2e+p)])/Sqrt[-6+2e+p]-((4 I) (8+p-p^2+e^2 (-8+3 p)) EllipticPi[(-6-2e+p)/(-4+p), (-6-2e+p)/(-6+2e+p)])/((-1+e^2) (-4+p)^2 Sqrt[-6+2e+p])+((2 I) EllipticPi[(6+2e-p)/4, I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]], (-6-2e+p)/(-6+2e+p)])/Sqrt[-6+2e+p]+((4 I) (8+p-p^2+e^2 (-8+3 p)) EllipticPi[(-6-2e+p)/(-4+p), I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]], (-6-2e+p)/(-6+2e+p)])/((-1+e^2) (-4+p)^2 Sqrt[-6+2e+p])+(e p Sqrt[-6+p-2e Cos[\[Chi]]] Sin[\[Chi]])/((-1+e^2) (-4+p) (1+e Cos[\[Chi]])))
+tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] := Sqrt[-4e^2+(-2+p)^2] (((-I) p Sqrt[-6+2e+p] EllipticE[(-6-2e+p)/(-6+2e+p)])/((-1+e^2) (-4+p))+(I p Sqrt[-6+2e+p] EllipticE[I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]], (-6-2e+p)/(-6+2e+p)])/((-1+e^2) (-4+p))-((2 I) p EllipticF[I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]], (-6-2e+p)/(-6+2e+p)])/((1+e) (-4+p) Sqrt[-6+2e+p])+((2 I) p EllipticK[(-6-2e+p)/(-6+2e+p)])/((1+e) (-4+p) Sqrt[-6+2e+p])-((2 I) EllipticPi[(6+2e-p)/4, (-6-2e+p)/(-6+2e+p)])/Sqrt[-6+2e+p]-((4 I) (8+p-p^2+e^2 (-8+3 p)) EllipticPi[(-6-2e+p)/(-4+p), (-6-2e+p)/(-6+2e+p)])/((-1+e^2) (-4+p)^2 Sqrt[-6+2e+p])+((2 I) EllipticPi[(6+2e-p)/4, I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]], (-6-2e+p)/(-6+2e+p)])/Sqrt[-6+2e+p]+((4 I) (8+p-p^2+e^2 (-8+3 p)) EllipticPi[(-6-2e+p)/(-4+p), I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]], (-6-2e+p)/(-6+2e+p)])/((-1+e^2) (-4+p)^2 Sqrt[-6+2e+p])+(e p Sqrt[-6+p-2e Cos[\[Chi]]] Sin[\[Chi]])/((-1+e^2) (-4+p) (1+e Cos[\[Chi]])))//Re
 \[Phi]SchwarzDarwin[p_, e_/;e>1, \[Chi]_] :=(2 Sqrt[p](EllipticF[\[Chi]/2,(4e)/(6+2e-p)]+EllipticF[ArcSec[-e]/2,(4e)/(6+2e-p)]))/Sqrt[-6-2e+p]
 
 
