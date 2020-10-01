@@ -1091,11 +1091,7 @@ KerrGeoOrbitFunction /:
   BoxForm`ArrangeSummaryBox[
     KerrGeoOrbitFunction,
     kgof,
-    Module[{t, r, \[Theta], \[CurlyPhi]},
-      {t, r, \[Theta], \[CurlyPhi]} = kgof["Trajectory"];
-      Quiet[Show[ParametricPlot3D[{r[\[Lambda]] Sin[\[Theta][\[Lambda]]] Cos[\[CurlyPhi][\[Lambda]]],r[\[Lambda]] Sin[\[Theta][\[Lambda]]] Sin[\[CurlyPhi][\[Lambda]]],r[\[Lambda]] Cos[\[Theta][\[Lambda]]]}, {\[Lambda],0,2\[Pi]}, Boxed->False, Axes->False, PlotRange->All, ImageSize -> Dynamic[{Automatic, 3.5 CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[Magnification]}]],
-           Graphics3D[{Black,Sphere[{0,0,0},1+Sqrt[1-a^2]]}]]]
-      ],
+    None,
     summary,
     extended,
     form]
