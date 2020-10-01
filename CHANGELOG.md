@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+ - Make it possible to call Keys[orbit], where orbit is a KerrGeoOrbitFunction, to get a list of the keys associated with the KerrGeoOrbitFunction
+ - Added four-velocity calculation [Thanks Philip Lynch]
+     - New function KerrGeoFourVelocity[a,p,e,x]. You can pass the the option "Contravariant"->False(default)/True
+	 - You can also query a KerrGeoOrbitFunction for the four velocity as, e.g., orbit["FourVelocity"]
 
 ## [0.3.0] - 2020-09-15
 
