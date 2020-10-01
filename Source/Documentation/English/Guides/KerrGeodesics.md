@@ -10,7 +10,7 @@
  "Label" -> "KerrGeodesics Application",
  "Synonyms" -> {"KerrGeodesics", "KerrGeodesics"},
  "URL" -> "" ,
- "Packages" -> {
+ "Packages" -> 
    {"Title" -> "Kerr geodesics",
     "DetailedFunctions" -> {
 	  {"KerrGeoEnergy", "Computes the orbital energy"},
@@ -25,7 +25,7 @@
 	  {"KerrGeoISSO", "Computes the location of the inner-most stable spherical orbit (ISSO)"},
 	  {"KerrGeoSeparatrix", "Computes the value p at the separatrix between stable and plunging/scattered orbits"},
 	  {"KerrGeoOrbit", "Computes the orbit trajectory in Boyer-Lindquist coordinates"},
-	  {"KerrGeoVelocity", "Computes the components of the body's four-velocity"}
+	  {"KerrGeoFourVelocity", "Computes the components of the body's four-velocity"}
    }
  },
  "Tutorials" -> {
