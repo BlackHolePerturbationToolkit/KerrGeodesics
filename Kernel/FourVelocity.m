@@ -95,7 +95,7 @@ u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Equatorial (Darwin)*)
 
 
@@ -182,15 +182,15 @@ u\[Phi] = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]1][\[Lambda]
 (*KerrGeoVelocity Wrapper*)
 
 
-Options[KerrGeoFourVelocity] = {"Index" -> "Contravariant", "Parametrization"-> "Mino"}
+Options[KerrGeoFourVelocity] = {"Covariant" -> False, "Parametrization"-> "Mino"}
 SyntaxInformation[KerrGeoFourVelocity] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};
 
 
-KerrGeoFourVelocity[a_,p_,e_,x_,initPhases:{_,_}:{0,0},OptionsPattern[] ]:= Module[{param, index},
+KerrGeoFourVelocity[a_,p_,e_,x_,initPhases:{_,_}:{0,0}, OptionsPattern[]]:= Module[{param, index},
 param = OptionValue["Parametrization"];
-index= OptionValue["Index"];
 
-If[index == "Contravariant"|| index =="Covariant",
+If[OptionValue["Covariant"], index = "Covariant" , index="Contravariant", Message[KerrGeoFourVelocity::opttf,"Covariant",OptionValue["Covariant"]]; Return[] ];
+
 
 	If[param == "Darwin",
 
@@ -202,10 +202,8 @@ If[index == "Contravariant"|| index =="Covariant",
 
 	If[param == "Mino", Return[KerrGeoVelocityMino[a,p,e,x,initPhases, index]]];
 
-	Print["Unrecognized Paramaterization: " <>param];,
+	Print["Unrecognized Paramaterization: " <>param];
 
-	Print["Unrecognized Index: " <>index];
-]
 ]
 
 
