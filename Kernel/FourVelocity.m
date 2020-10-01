@@ -179,7 +179,7 @@ u\[Phi] = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]1][\[Lambda]
 
 
 (* ::Section:: *)
-(*KerrGeoVelocity Wrapper*)
+(*KerrGeoFourVelocity Wrapper*)
 
 
 Options[KerrGeoFourVelocity] = {"Covariant" -> False, "Parametrization"-> "Mino"}
