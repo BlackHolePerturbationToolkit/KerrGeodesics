@@ -8,7 +8,8 @@ packages =
   "ConstantsOfMotion",
   "KerrGeoOrbit",
   "OrbitalFrequencies",
-  "SpecialOrbits"
+  "SpecialOrbits",
+  "FourVelocity"
 };
 
 packageSymbols = Map[# -> DocumentedSymbols["KerrGeodesics", #] &, packages];
