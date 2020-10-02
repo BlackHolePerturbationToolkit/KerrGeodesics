@@ -16,8 +16,10 @@ BeginPackage["KerrGeodesics`KerrGeoOrbit`",
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 
-KerrGeoOrbitRThetaResonantP::usage = "KerrGeoOrbitRThetaResonantP[a,e,x,{\[Beta]r,\[Beta]th}] returns the semi-latus rectum p for a geodesic with resonant frequencies \[Beta]r/\[Beta]th=\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)/\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\).";
-KerrGeoOrbitRThetaResonantE::usage = "KerrGeoOrbitRThetaResonantE[a,p,x,{\[Beta]r,\[Beta]th}] returns the eccentricity e for a geodesic with resonant frequencies \[Beta]r/\[Beta]th=\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)/\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\).";
+(*KerrGeoOrbitRThetaResonantP::usage = "KerrGeoOrbitRThetaResonantP[a,e,x,{\[Beta]r,\[Beta]th}] returns the semi-latus rectum p for a geodesic with resonant frequencies \[Beta]r/\[Beta]th=\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)/\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\).";
+KerrGeoOrbitRThetaResonantE::usage = "KerrGeoOrbitRThetaResonantE[a,p,x,{\[Beta]r,\[Beta]th}] returns the eccentricity e for a geodesic with resonant frequencies \[Beta]r/\[Beta]th=\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)/\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\).";*)
+
+KerrGeoFindResonance::usage == "KerrGeoFindResonance[assoc,{\[Beta]r,\[Beta]th}]"
 
 Begin["`Private`"];
 
@@ -160,6 +162,8 @@ assoc = Association[
 KerrGeoOrbitFunction[a, p, e, x, assoc]
 
 ]
+
+
 
 (* ::Subsection::Closed:: *)
 (*Equatorial (Fast Spec - Darwin)*)
@@ -407,7 +411,6 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 (*FIXME: make the initial phases work in this case*)
 
 
-
 KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Module[{consts, assoc, t, r, \[Theta], \[Phi], En, L, Q, \[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t, e=0, x=1,r1,r2,r3,r4,velocity},
 
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
@@ -449,7 +452,6 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 (* ::Subsection::Closed:: *)
-
 (*Generic (Mino)*)
 
 
@@ -1215,6 +1217,26 @@ Module[{pg,argpg,resonantEqn,e0Test,e1Test,eGuess,ee,ratio},
 		Re[ee/.FindRoot[resonantEqn[ee],{ee,eGuess},PrecisionGoal->pg,WorkingPrecision->pg]]
 	]
 ];
+
+
+(* ::Subsection:: *)
+(*Generic resonance interface*)
+
+
+KerrGeoFindResonance::assocErr="Association should have 3 keys including both {a,x} and one of {p,e}"
+
+KerrGeoFindResonance[assoc_Association,{\[Beta]r_Integer, \[Beta]\[Theta]_Integer}]:=Block[{},
+	If[ContainsOnly[Keys[assoc],{"a","p","x"}],
+		"e"->KerrGeoOrbitRThetaResonantE["a"/.assoc, "p"/.assoc, "x"/.assoc, {\[Beta]r, \[Beta]\[Theta]}],
+		If[ContainsOnly[Keys[assoc],{"a","e","x"}],
+			"p"->KerrGeoOrbitRThetaResonantP["a"/.assoc, "e"/.assoc, "x"/.assoc, {\[Beta]r, \[Beta]\[Theta]}],
+			Message[KerrGeoFindResonance::assocErr]
+			]
+		]
+]
+
+
+
 
 
 (* ::Section::Closed:: *)
