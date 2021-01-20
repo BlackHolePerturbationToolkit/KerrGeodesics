@@ -59,6 +59,10 @@ KerrGeoIBSO[a,x]
 KerrGeoSeparatrix[a,e,x]
 ```
 
-### Further examples
+## Further examples
 
 See the Documentation Centre for a tutorial and documentation on individual commands. Example notebooks can also be found in the [Mathematica Toolkit Examples](https://github.com/BlackHolePerturbationToolkit/MathematicaToolkitExamples) repository.
+
+## Authors and contributors
+
+Niels Warburton, Maarten van de Meent, Zach Nasipak, Thomas Osburn, Charles Evans, Leo Stein, Philip Lynch
