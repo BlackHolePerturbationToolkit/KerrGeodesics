@@ -65,4 +65,4 @@ See the Documentation Centre for a tutorial and documentation on individual comm
 
 ## Authors and contributors
 
-Niels Warburton, Maarten van de Meent, Zach Nasipak, Thomas Osburn, Charles Evans, Leo Stein, Philip Lynch
+**Niels Warburton**, Maarten van de Meent, Zach Nasipak, Thomas Osburn, Charles Evans, Leo Stein, Philip Lynch
