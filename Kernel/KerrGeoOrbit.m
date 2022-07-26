@@ -19,7 +19,7 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 (*KerrGeoOrbitRThetaResonantP::usage = "KerrGeoOrbitRThetaResonantP[a,e,x,{\[Beta]r,\[Beta]th}] returns the semi-latus rectum p for a geodesic with resonant frequencies \[Beta]r/\[Beta]th=\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)/\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\).";
 KerrGeoOrbitRThetaResonantE::usage = "KerrGeoOrbitRThetaResonantE[a,p,x,{\[Beta]r,\[Beta]th}] returns the eccentricity e for a geodesic with resonant frequencies \[Beta]r/\[Beta]th=\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)/\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\).";*)
 
-KerrGeoFindResonance::usage == "KerrGeoFindResonance[assoc,{\[Beta]r,\[Beta]th}]"
+KerrGeoFindResonance::usage = "KerrGeoFindResonance[assoc,{\[Beta]r,\[Beta]th}]"
 
 Begin["`Private`"];
 
@@ -873,7 +873,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 	
 	(* Create functions for discrete cosine series coefficient fn *)
 	samplePhase=(freq \[Lambda]+phaseList);
-	fn[n_]:=fn[n]=(sampledF.Cos[nn*samplePhase])/.nn->n;
+	fn[n_]:=fn[n]=(sampledF . Cos[nn*samplePhase])/.nn->n;
 	
 	(* Calculate series coefficients until they equal 0 (with respect 
 	to the precision being used) *)
