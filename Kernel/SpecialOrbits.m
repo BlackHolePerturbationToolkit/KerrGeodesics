@@ -8,7 +8,7 @@
 (*Define usage for public functions*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Create Package*)
 
 
@@ -32,15 +32,16 @@ KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital pa
 (*KerrGeoOrbitRThetaResonantP::usage = "KerrGeoOrbitRThetaResonantP[a,e,x,{\[Beta]r,\[Beta]th}] returns the semi-latus rectum p for a geodesic with resonant frequencies \[Beta]r/\[Beta]th=\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)/\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\).";
 KerrGeoOrbitRThetaResonantE::usage = "KerrGeoOrbitRThetaResonantE[a,p,x,{\[Beta]r,\[Beta]th}] returns the eccentricity e for a geodesic with resonant frequencies \[Beta]r/\[Beta]th=\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)/\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\).";*)
 
-KerrGeoFindResonance::usage = "KerrGeoFindResonance[assoc,{\[Beta]r,\[Beta]th}]"
+KerrGeoFindResonance::usage = "KerrGeoFindResonance[assoc,{\[Beta]r,\[Beta]\[Theta],\[Beta]\[Phi]}] finds the location of a resonance given {a,x} and one of {p,e} as an association."
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Error messages*)
 
 
 KerrGeoFindResonance::noresonance = "Resonant orbits only occur for semi-latus rectum in range `1` \[LessEqual] p \[LessEqual] `2`"
 KerrGeoFindResonance::assocErr = "Association should have 3 keys including both {a,x} and one of {p,e}"
+KerrGeoFindResonance::missing = "Resonaces involving the \[Phi] frequency are not yet implemented"
 
 
 (* ::Subsection::Closed:: *)
@@ -243,11 +244,11 @@ KerrGeoISSO[a_,x_/;Abs[x]==1]:=KerrGeoISCO[a,x]
 KerrGeoISSO[a_,x_]:=KerrGeoSeparatrix[a,0,x]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Resonances*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*r\[Theta]-resonances*)
 
 
@@ -256,7 +257,7 @@ KerrGeoISSO[a_,x_]:=KerrGeoSeparatrix[a,0,x]
 (*	- Root finding methods are based on those described in Sec.  VE*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Testing functions*)
 
 
@@ -284,7 +285,7 @@ ValidResIntQ[\[Beta]r_,\[Beta]th_]:=Module[{resFlag},
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Useful functions for root-finding*)
 
 
@@ -342,7 +343,7 @@ y1y2[0,p_,e_,x_/;x^2<1]:=y1y2[0,p,e,1];
 Rf[0,alpha_,beta_]:=beta^(-1/2)EllipticK[1-alpha/beta];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Given (a,e,x) and Subscript[\[CapitalOmega], r]/Subscript[\[CapitalOmega], \[Theta]]= Subscript[\[Beta], r]/Subscript[\[Beta], \[Theta]] find p*)
 
 
@@ -383,7 +384,7 @@ Module[{pg,ratio,argpg,resonantEqn,pStar,pp,pgTest},
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Given (a,p,x) and Subscript[\[CapitalOmega], r]/Subscript[\[CapitalOmega], \[Theta]]= Subscript[\[Beta], r]/Subscript[\[Beta], \[Theta]] find e*)
 
 
@@ -402,7 +403,7 @@ Module[{pg,argpg,resonantEqn,e0Test,e1Test,eGuess,ee,ratio},
 	 based on the provided values of a, p, x *)
 	e0Test=KerrGeoOrbitRThetaResonantP[a,0,x,{\[Beta]r,\[Beta]\[Theta]},opts];
 	e1Test=KerrGeoOrbitRThetaResonantP[a,1,x,{\[Beta]r,\[Beta]\[Theta]},opts];
-	If[p<e0Tests || p> e1Test, Message[KerrGeoFindResonance::noresonance, e0Test, e1Test ]];
+	If[p<e0Tests || p> e1Test, Message[KerrGeoFindResonance::noresonance, e0Test, e1Test ]; Abort[];];
 	If[p==e0Test,Return[0]];
 	If[p==e1Test,Return[1]];
 	eGuess=(p-e0Test)/(e1Test-e0Test);
@@ -426,11 +427,13 @@ Module[{pg,argpg,resonantEqn,e0Test,e1Test,eGuess,ee,ratio},
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic resonance interface*)
 
 
-KerrGeoFindResonance[assoc_Association,{\[Beta]r_Integer, \[Beta]\[Theta]_Integer}]:=Block[{},
+KerrGeoFindResonance[assoc_Association,{\[Beta]r_Integer, \[Beta]\[Theta]_Integer, \[Beta]\[Phi]_Integer}]:= Module[{},Message[KerrGeoFindResonance::missing]; Return[$Failed]];
+
+KerrGeoFindResonance[assoc_Association,{\[Beta]r_Integer, \[Beta]\[Theta]_Integer, 0}]:=Block[{},
 	If[ContainsExactly[Keys[assoc],{"a","p","x"}],
 		"e"->KerrGeoOrbitRThetaResonantE["a"/.assoc, "p"/.assoc, "x"/.assoc, {\[Beta]r, \[Beta]\[Theta]}],
 		If[ContainsExactly[Keys[assoc],{"a","e","x"}],
@@ -439,9 +442,6 @@ KerrGeoFindResonance[assoc_Association,{\[Beta]r_Integer, \[Beta]\[Theta]_Intege
 			]
 		]
 ]
-
-
-
 
 
 (* ::Section::Closed:: *)
