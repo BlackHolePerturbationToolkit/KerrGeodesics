@@ -154,7 +154,7 @@ KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ]/;(Precision[{a1,x1}]!=\[Infinity])&&(-1<=
 p/.FindRoot[IBSOPoly/.{a->a1,x->x1},{p,KerrGeoIBSO[a1,0],KerrGeoIBSO[a1,-1]},WorkingPrecision->Max[MachinePrecision,prec-1]]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Separatrix*)
 
 
@@ -258,16 +258,11 @@ KerrGeoDarwinBoundsChi[e_]:= { -ArcCos[-1/e], ArcCos[-1/e] }
 
 (* ::Text:: *)
 (*Test whether an orbit is a scatter orbit*)
-(*Currently only for equatorial Schwarzschild orbits*)
-(*Lcrit derived by O. Long*)
+(*Currently only for Schwarzschild orbits*)
 
 
 KerrGeoScatterOrbitQ[0,p_?NumericQ,e_?NumericQ,1]:=Module[{\[CapitalEpsilon], L, Lcrit},
-	If[ e == 1 || e == 1,True,
-		\[CapitalEpsilon] = KerrGeoEnergy[0,p,e,1];
-		L = KerrGeoAngularMomentum[0,p,e,1];
-		Lcrit = (Sqrt[8-36\[CapitalEpsilon]^2+27\[CapitalEpsilon]^4-8\[CapitalEpsilon] Sqrt[-8+9\[CapitalEpsilon]^2]+9\[CapitalEpsilon]^3 Sqrt[-8+9\[CapitalEpsilon]^2]])/(Sqrt[2] Sqrt[-1+\[CapitalEpsilon]^2]);
-		If[Re[L] >= Lcrit && e > 1, True, False]]
+	If[p >= 6+2e && e >= 1, True, False]
 ]
 
 
