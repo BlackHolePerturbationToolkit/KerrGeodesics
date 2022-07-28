@@ -158,6 +158,8 @@ KerrGeoOrbitFunction[a, p, e, x, assoc]
 
 ]
 
+
+
 (* ::Subsection::Closed:: *)
 (*Equatorial (Fast Spec - Darwin)*)
 
@@ -404,7 +406,6 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 (*FIXME: make the initial phases work in this case*)
 
 
-
 KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Module[{consts, assoc, t, r, \[Theta], \[Phi], En, L, Q, \[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t, e=0, x=1,r1,r2,r3,r4,velocity},
 
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
@@ -446,11 +447,10 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 (* ::Subsection::Closed:: *)
-
 (*Generic (Mino)*)
 
 
-KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi],velocity},
+KerrGeoOrbitPhases[a_,p_,e_,x_]:=Module[{M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi],velocity,\[CapitalDelta]tr,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]r,\[CapitalDelta]\[Phi]\[Theta]},
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
 	{En,L,Q} = Values[consts];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
@@ -460,52 +460,50 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,consts
 	kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
 	k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
 
-rp=M+Sqrt[M^2-a^2];
-rm=M-Sqrt[M^2-a^2];
-hr=(r1-r2)/(r1-r3);
-hp=((r1-r2)(r3-rp))/((r1-r3)(r2-rp));
-hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
+	rp=M+Sqrt[M^2-a^2];
+	rm=M-Sqrt[M^2-a^2];
+	hr=(r1-r2)/(r1-r3);
+	hp=((r1-r2)(r3-rp))/((r1-r3)(r2-rp));
+	hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
 
-rq = Function[{qr},(r3(r1 - r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-r2(r1-r3))/((r1-r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-(r1-r3))];
+	rq = Function[{qr},(r3(r1 - r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-r2(r1-r3))/((r1-r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-(r1-r3))];
 
-zq = Function[{qz}, zm JacobiSN[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]]];
+	zq = Function[{qz}, zm JacobiSN[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]]];
 
-\[Psi]r[qr_]:=\[Psi]r[qr]= JacobiAmplitude[EllipticK[kr]/\[Pi] qr,kr];
+	\[Psi]r[qr_]:=\[Psi]r[qr]= JacobiAmplitude[EllipticK[kr]/\[Pi] qr,kr];
 
-tr[qr_]:= -En/Sqrt[(1-En^2) (r1-r3) (r2-r4)] (
-4(r2-r3) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr])
--4 (r2-r3)/(rp-rm) (
--(1/((-rm+r2) (-rm+r3)))(-2 a^2+rm (4-(a L)/En)) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr] )
-+1/((-rp+r2) (-rp+r3)) (-2 a^2+rp (4-(a L)/En)) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr])
-)
-+(r2-r3) (r1+r2+r3+r4) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr] )
-+(r1-r3) (r2-r4) (EllipticE[kr] qr/\[Pi]-EllipticE[\[Psi]r[qr],kr]+hr((Sin[\[Psi]r[qr]]Cos[\[Psi]r[qr]] Sqrt[1-kr Sin[\[Psi]r[qr]]^2])/(1-hr Sin[\[Psi]r[qr]]^2))) );
+	tr[qr_]:= -En/Sqrt[(1-En^2) (r1-r3) (r2-r4)] (
+		4(r2-r3) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr])
+		-4 (r2-r3)/(rp-rm) (
+		-(1/((-rm+r2) (-rm+r3)))(-2 a^2+rm (4-(a L)/En)) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr] )
+		+1/((-rp+r2) (-rp+r3)) (-2 a^2+rp (4-(a L)/En)) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr])
+		)
+		+(r2-r3) (r1+r2+r3+r4) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr] )
+		+(r1-r3) (r2-r4) (EllipticE[kr] qr/\[Pi]-EllipticE[\[Psi]r[qr],kr]+hr((Sin[\[Psi]r[qr]]Cos[\[Psi]r[qr]] Sqrt[1-kr Sin[\[Psi]r[qr]]^2])/(1-hr Sin[\[Psi]r[qr]]^2))) );
 
-\[Phi]r[qr_]:= (2 a En (-1/((-rm+r2) (-rm+r3))(2 rm-(a L)/En) (r2-r3) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr])+1/((-rp+r2) (-rp+r3))(2 rp-(a L)/En) (r2-r3) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr] )))/((-rm+rp) Sqrt[(1-En^2) (r1-r3) (r2-r4)]);
+	\[Phi]r[qr_]:= (2 a En (-1/((-rm+r2) (-rm+r3))(2 rm-(a L)/En) (r2-r3) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr])+1/((-rp+r2) (-rp+r3))(2 rp-(a L)/En) (r2-r3) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr] )))/((-rm+rp) Sqrt[(1-En^2) (r1-r3) (r2-r4)]);
 
-\[Psi]z[qz_]:= \[Psi]z[qz] = JacobiAmplitude[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]];
-tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE[\[Psi]z[qz],k\[Theta]]);
-\[Phi]z[qz_]:= -1/zp L ( EllipticPi[zm^2,k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticPi[zm^2,\[Psi]z[qz],k\[Theta]]);
+	\[Psi]z[qz_]:= \[Psi]z[qz] = JacobiAmplitude[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]];
+	tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE[\[Psi]z[qz],k\[Theta]]);
+	\[Phi]z[qz_]:= -1/zp L ( EllipticPi[zm^2,k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticPi[zm^2,\[Psi]z[qz],k\[Theta]]);
 
-{qt0, qr0, qz0, q\[Phi]0} = {initPhases[[1]], initPhases[[2]], initPhases[[3]], initPhases[[4]]};
-(*Calculate normalization constants so that t=0 and \[Phi]=0 at \[Lambda]=0 when qt0=0 and q\[Phi]0=0 *)
-Ct=tr[qr0]+tz[qz0]/.i_/;i==0:>0;
-C\[Phi]=\[Phi]r[qr0]+\[Phi]z[qz0]/.i_/;i==0:>0;
 
-t=Function[{Global`\[Lambda]}, Evaluate[ qt0 + \[CapitalUpsilon]t Global`\[Lambda] + tr[\[CapitalUpsilon]r Global`\[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-Ct ], Listable];
-r=Function[{Global`\[Lambda]}, Evaluate[ rq[\[CapitalUpsilon]r Global`\[Lambda]+ qr0] ], Listable];
-\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[zq[\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]] ], Listable];
-\[Phi]=Function[{Global`\[Lambda]}, Evaluate[ q\[Phi]0 + \[CapitalUpsilon]\[Phi] Global`\[Lambda] + \[Phi]r[\[CapitalUpsilon]r Global`\[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-C\[Phi] ], Listable];
+	t=Function[{Global`qt,Global`qr,Global`q\[Theta]}, Evaluate[ Global`qt+ tr[Global`qr] + tz[Global`q\[Theta]]], Listable];
+	r=Function[{Global`qr}, Evaluate[ rq[Global`qr] ], Listable];
+	\[Theta]=Function[{Global`q\[Theta]}, Evaluate[ ArcCos[zq[Global`q\[Theta]]] ], Listable];
+	\[Phi]=Function[{Global`q\[Phi],Global`qr,Global`q\[Theta]}, Evaluate[ Global`q\[Phi] + \[Phi]r[\[CapitalUpsilon]r Global`qr] + \[Phi]z[Global`q\[Theta]]], Listable];
 
-velocity = Values[KerrGeoFourVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]}]];
-
+	\[CapitalDelta]tr=Function[{Global`qr}, Evaluate[ tr[Global`qr] ], Listable];
+	\[CapitalDelta]t\[Theta]=Function[{Global`q\[Theta]}, Evaluate[ tz[Global`q\[Theta]] ], Listable];
+	\[CapitalDelta]\[Phi]r=Function[{Global`qr}, Evaluate[ \[Phi]r[Global`qr] ], Listable];
+	\[CapitalDelta]\[Phi]\[Theta]=Function[{Global`q\[Theta]}, Evaluate[ \[Phi]z[Global`q\[Theta]] ], Listable];
 
 	assoc = Association[
 	"a" -> a,
 	"p" -> p,
 	"e" -> e,
 	"Inclination" -> x,
-	"Parametrization"->"Mino", 
+	"Parametrization"->"Phases", 
 	"Energy" -> En, 
 	"AngularMomentum" -> L, 
 	"CarterConstant" -> Q, 
@@ -513,9 +511,9 @@ velocity = Values[KerrGeoFourVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]}]
 	"RadialFrequency" -> \[CapitalUpsilon]r,
 	"PolarFrequency" ->  \[CapitalUpsilon]\[Theta],
 	"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
-	"Frequencies" -> <|"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" ->  \[CapitalUpsilon]r, "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" ->  \[CapitalUpsilon]\[Theta], "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" ->  \[CapitalUpsilon]\[Phi] |> ,
+	"Frequencies" -> <|"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" ->  \[CapitalUpsilon]r, "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" ->  \[CapitalUpsilon]\[Theta], "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" ->  \[CapitalUpsilon]\[Phi] ,"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(t\)]\)" ->  \[CapitalUpsilon]t |> ,
 	"Trajectory" -> {t,r,\[Theta],\[Phi]},
-	"FourVelocity"-> velocity,
+	"TrajectoryDeltas" -> <|"\[CapitalDelta]tr"-> \[CapitalDelta]tr,"\[CapitalDelta]t\[Theta]"-> \[CapitalDelta]t\[Theta],"\[CapitalDelta]\[Phi]r"-> \[CapitalDelta]\[Phi]r,"\[CapitalDelta]\[Phi]\[Theta]"-> \[CapitalDelta]\[Phi]\[Theta]|>,
 	"RadialRoots" -> {r1,r2,r3,r4},
 	"a" -> a,
 	"p" -> p,
@@ -523,6 +521,39 @@ velocity = Values[KerrGeoFourVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]}]
 	"Inclination" -> x
 	];
 
+	KerrGeoOrbitFunction[a,p,e,x,assoc]
+
+]
+
+
+KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,qt0,qr0,qz0,q\[Phi]0,tr,tz,t,r,\[Theta],\[Phi],\[Phi]z,\[Phi]r,Ct,C\[Phi],velocity,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t},
+	assoc= Last@KerrGeoOrbitPhases[a,p,e,x];
+	
+	{qt0, qr0, qz0, q\[Phi]0} = {initPhases[[1]], initPhases[[2]], initPhases[[3]], initPhases[[4]]};
+	
+	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t}=Values@assoc["Frequencies"];
+	{t,r,\[Theta],\[Phi]}=assoc["Trajectory"];
+	
+	tr=assoc["TrajectoryDeltas"]["\[CapitalDelta]tr"];
+	tz=assoc["TrajectoryDeltas"]["\[CapitalDelta]t\[Theta]"];
+	\[Phi]r=assoc["TrajectoryDeltas"]["\[CapitalDelta]\[Phi]r"];
+	\[Phi]z=assoc["TrajectoryDeltas"]["\[CapitalDelta]\[Phi]\[Theta]"];
+
+	(*Calculate normalization constants so that t=0 and \[Phi]=0 at \[Lambda]=0 when qt0=0 and q\[Phi]0=0 *)
+	Ct=tr[qr0]+tz[qz0]/.i_/;i==0:>0;
+	C\[Phi]=\[Phi]r[qr0]+\[Phi]z[qz0]/.i_/;i==0:>0;
+
+	t=Function[{Global`\[Lambda]}, Evaluate[ t[qt0 + \[CapitalUpsilon]t Global`\[Lambda], \[CapitalUpsilon]r Global`\[Lambda] + qr0, \[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-Ct ], Listable];
+	r=Function[{Global`\[Lambda]}, Evaluate[ r[\[CapitalUpsilon]r Global`\[Lambda]+ qr0] ], Listable];
+	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ \[Theta][\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0] ], Listable];
+	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[ \[Phi][q\[Phi]0 + \[CapitalUpsilon]\[Phi] Global`\[Lambda] ,\[CapitalUpsilon]r Global`\[Lambda]+ qr0,\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-C\[Phi] ], Listable];
+
+	velocity = Values[KerrGeoFourVelocity[a,p,e,x,{qr0,qz0}]];
+
+	assoc["Parametrization"] = "Mino";
+	assoc["Trajectory"] = {t,r,\[Theta],\[Phi]};
+	assoc["FourVelocity"] = velocity;
+	
 	KerrGeoOrbitFunction[a,p,e,x,assoc]
 
 ]
@@ -831,7 +862,7 @@ Module[{test,compare,res,NInit,iter=1,fn,sampledFunc,phaseList,pg,eps,nTest},
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Subroutine that performs spectral integration on even functions*)
 
 
@@ -868,7 +899,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 	
 	(* Create functions for discrete cosine series coefficient fn *)
 	samplePhase=(freq \[Lambda]+phaseList);
-	fn[n_]:=fn[n]=(sampledF.Cos[nn*samplePhase])/.nn->n;
+	fn[n_]:=fn[n]=(sampledF . Cos[nn*samplePhase])/.nn->n;
 	
 	(* Calculate series coefficients until they equal 0 (with respect 
 	to the precision being used) *)
@@ -897,7 +928,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -1062,6 +1093,7 @@ If[method == "FastSpec",
 If[method == "Analytic",
 (*Changed "KerrGeoOrbitDarwin" to "KerrGeoOrbitEquatorialDarwin"*)
 	If[param == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
+	If[param == "Phases", Return[KerrGeoOrbitPhases[a, p, e, x]]];
 	If[param == "Darwin", 
 		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitEquatorialDarwin[a,p,e,x,initPhases]]]
 	];
