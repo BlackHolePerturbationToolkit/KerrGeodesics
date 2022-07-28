@@ -229,15 +229,15 @@ KerrGeoISSO[a_,x_/;Abs[x]==1]:=KerrGeoISCO[a,x]
 KerrGeoISSO[a_,x_]:=KerrGeoSeparatrix[a,0,x]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Scatter Orbits*)
 
 
 (* ::Text:: *)
-(*Schwarzschild Periastron*)
+(*Periastron*)
 
 
-KerrGeoPeriastron[0,p_,e_/;e>=1,x_]:= p/(1+e);
+KerrGeoPeriastron[a_,p_,e_/;e>=1,x_]:= p/(1+e);
 
 
 (* ::Text:: *)
