@@ -156,13 +156,13 @@ Function[{qz},Evaluate@With[
 
 
 PrecessionPhase[orbit_KerrGeoOrbitFunction,\[CapitalUpsilon]\[Psi]_,qr0_,qz0_,q\[Psi]0_:0]:=
-Function[{\[Lambda]},
+Function[{Global`\[Lambda]},
 	Evaluate@With[
 		{
 			\[CapitalUpsilon]r=orbit["RadialFrequency"],
 			\[CapitalUpsilon]z=orbit["PolarFrequency"]
 		},
-		q\[Psi]0+\[CapitalUpsilon]\[Psi] \[Lambda] +PrecessionPhaser[orbit][\[CapitalUpsilon]r \[Lambda] + qr0]+PrecessionPhasez[orbit][\[CapitalUpsilon]z \[Lambda] + qz0]
+		q\[Psi]0+\[CapitalUpsilon]\[Psi] Global`\[Lambda] +PrecessionPhaser[orbit][\[CapitalUpsilon]r Global`\[Lambda] + qr0]+PrecessionPhasez[orbit][\[CapitalUpsilon]z Global`\[Lambda] + qz0]
 ]
 ]
 
@@ -174,21 +174,9 @@ Function[{\[Lambda]},
 (*Tetrads*)
 
 
-MarckCarterFrame[orbit_KerrGeoOrbitFunction]:=
-	Module[
-		{
-			a,\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ],\[ScriptCapitalK],rf,\[Theta]f
-		},
-				a=orbit["a"];
-				{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}=Values@orbit["ConstantsOfMotion"];
-				\[ScriptCapitalK]=\[ScriptCapitalQ]+(a \[ScriptCapitalE]-\[ScriptCapitalL])^2;
-				rf=Function[\[Lambda],orbit["Trajectory"][[2]][\[Lambda]]];
-				\[Theta]f=Function[\[Lambda],orbit["Trajectory"][[3]][\[Lambda]]];
-				Function[{\[Lambda]},
-					Evaluate@With[{
-						r=rf[\[Lambda]],\[Theta]=\[Theta]f[\[Lambda]],rd=rf'[\[Lambda]],\[Theta]d=\[Theta]f'[\[Lambda]]
-					},
-					{(*(Subscript[e, i])^(a)Subscript[\[Eta], (a)(b)]Subscript[(\[Omega]^(b)), \[Mu]]*)
+MarckCarterFrame[{a_,\[ScriptCapitalE]_,\[ScriptCapitalL]_,\[ScriptCapitalK]_},{r_,rd_,\[Theta]_,\[Theta]d_}]:=
+	Module[{\[Alpha],\[Beta],\[CapitalSigma],\[CapitalDelta]},
+	{(*(Subscript[e, i])^(a)Subscript[\[Eta], (a)(b)]Subscript[(\[Omega]^(b)), \[Mu]]*)
 						{-\[ScriptCapitalE], rd/\[CapitalDelta][r],\[Theta]d, \[ScriptCapitalL]},
 						{(-r rd \[Alpha]-a^2 \[Beta] \[Theta]d Cos[\[Theta]] Sin[\[Theta]])/(Sqrt[\[ScriptCapitalK]] \[CapitalSigma][r,\[Theta]]),(r ((a^2+r^2) \[ScriptCapitalE]-a \[ScriptCapitalL]) \[Alpha])/(Sqrt[\[ScriptCapitalK]] \[CapitalDelta][r]),(a \[Beta] Cos[\[Theta]] (-\[ScriptCapitalL] Csc[\[Theta]]+a \[ScriptCapitalE] Sin[\[Theta]]))/Sqrt[\[ScriptCapitalK]],(a Sin[\[Theta]] ((a^2+r^2) \[Beta] \[Theta]d Cos[\[Theta]]+r rd \[Alpha] Sin[\[Theta]]))/(Sqrt[\[ScriptCapitalK]] \[CapitalSigma][r,\[Theta]])},
 						{(a^2 \[ScriptCapitalE] \[Alpha]+r^2 \[ScriptCapitalE] \[Alpha]+a \[ScriptCapitalL] (-\[Alpha]+\[Beta])-a^2 \[ScriptCapitalE] \[Beta] Sin[\[Theta]]^2)/\[CapitalSigma][r,\[Theta]],-((rd \[Alpha])/\[CapitalDelta][r]),-\[Beta] \[Theta]d,(-(a^2+r^2) \[ScriptCapitalL] \[Beta]+a (a \[ScriptCapitalL] \[Alpha]+a^2 \[ScriptCapitalE] (-\[Alpha]+\[Beta])+r^2 \[ScriptCapitalE] (-\[Alpha]+\[Beta])) Sin[\[Theta]]^2)/\[CapitalSigma][r,\[Theta]]},
@@ -199,8 +187,41 @@ MarckCarterFrame[orbit_KerrGeoOrbitFunction]:=
 						\[Alpha]-> Sqrt[(\[ScriptCapitalK]-a^2 Cos[\[Theta]]^2)/(r^2+\[ScriptCapitalK])],
 						\[Beta]-> 1/Sqrt[((\[ScriptCapitalK]-a^2 Cos[\[Theta]]^2)/(r^2+\[ScriptCapitalK]))]
 					}
+		]
+
+
+MarckCarterFrame[orbit_KerrGeoOrbitFunction]:=
+	Module[
+		{
+			a,\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ],\[ScriptCapitalK],rf,\[Theta]f,mcf,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta]
+		},
+				a=orbit["a"];
+				{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}=Values@orbit["ConstantsOfMotion"];
+				\[ScriptCapitalK]=\[ScriptCapitalQ]+(a \[ScriptCapitalE]-\[ScriptCapitalL])^2;
+				\[CapitalUpsilon]r=orbit["Frequencies"]["\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)"];
+				\[CapitalUpsilon]\[Theta]=orbit["Frequencies"]["\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)"];
+				rf=orbit["Trajectory"][[2]];
+				\[Theta]f=orbit["Trajectory"][[3]];
+				mcf=Switch[
+				orbit["Parametrization"],
+				"Mino",
+				Function[{Global`\[Lambda]},
+					Evaluate@With[{
+						r=rf[Global`\[Lambda]],\[Theta]=\[Theta]f[Global`\[Lambda]],rd=rf'[Global`\[Lambda]],\[Theta]d=\[Theta]f'[Global`\[Lambda]]
+					},
+					MarckCarterFrame[{a,\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalK]},{r,rd,\[Theta],\[Theta]d}]
+					]
+				],
+				"Phases",
+				Function[{Global`qr,Global`q\[Theta]},
+					Evaluate@With[{
+						r=rf[Global`qr],\[Theta]=\[Theta]f[Global`q\[Theta]],rd=\[CapitalUpsilon]r rf'[Global`qr],\[Theta]d=\[CapitalUpsilon]\[Theta] \[Theta]f'[Global`q\[Theta]]
+					},
+					MarckCarterFrame[{a,\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalK]},{r,rd,\[Theta],\[Theta]d}]
 					]
 				]
+				];
+				mcf
 	]
 
 
@@ -211,13 +232,13 @@ KerrParallelTransportFrameMino[a_,p_,e_,x_,initPhases:{_,_,_,_,_}:{0,0,0,0,0}]:=
 		\[CapitalUpsilon]\[Psi] = MinoPrecessionFrequency[orbit];
 		pt\[Psi]=PrecessionPhase[orbit,\[CapitalUpsilon]\[Psi],initPhases[[2]],initPhases[[3]],initPhases[[5]]];
 		
-		ptf=Function[{\[Lambda]},
+		ptf=Function[{Global`\[Lambda]},
 			Evaluate[
 				{
-					mcf[\[Lambda]][[1]],
-					mcf[\[Lambda]][[2]]Cos[pt\[Psi][\[Lambda]]]+mcf[\[Lambda]][[3]]Sin[pt\[Psi][\[Lambda]]],
-					-mcf[\[Lambda]][[2]]Sin[pt\[Psi][\[Lambda]]]+mcf[\[Lambda]][[3]]Cos[pt\[Psi][\[Lambda]]],
-					mcf[\[Lambda]][[4]]
+					mcf[Global`\[Lambda]][[1]],
+					mcf[Global`\[Lambda]][[2]]Cos[pt\[Psi][Global`\[Lambda]]]+mcf[Global`\[Lambda]][[3]]Sin[pt\[Psi][Global`\[Lambda]]],
+					-mcf[Global`\[Lambda]][[2]]Sin[pt\[Psi][Global`\[Lambda]]]+mcf[Global`\[Lambda]][[3]]Cos[pt\[Psi][Global`\[Lambda]]],
+					mcf[Global`\[Lambda]][[4]]
 				}
 			]
 		];
@@ -235,23 +256,23 @@ KerrParallelTransportFrameMino[a_,p_,e_,x_,initPhases:{_,_,_,_,_}:{0,0,0,0,0}]:=
 
 KerrParallelTransportFramePhases[a_,p_,e_,x_]:=Module[
 	{orbit,mcf,\[CapitalUpsilon]\[Psi],pt\[Psi],ptf,assoc},
-		orbit=Function[{qr,q\[Theta]},Evaluate@KerrGeoOrbit[a,p,e,x,{0,qr,q\[Theta],0},"Method"->"Analytic","Parametrization"-> "Mino"]];
-		mcf=Function[{qr,q\[Theta]},Evaluate@MarckCarterFrame[orbit[qr,q\[Theta]]][0]];
-		\[CapitalUpsilon]\[Psi] = MinoPrecessionFrequency[orbit[qr,q\[Theta]]];
-		pt\[Psi]=Function[{qr,q\[Theta],q\[Psi]},PrecessionPhase[orbit[qr,q\[Theta]],\[CapitalUpsilon]\[Psi],qr,q\[Theta],q\[Psi]][0]];
+		orbit=KerrGeoOrbit[a,p,e,x,"Method"->"Analytic","Parametrization"-> "Phases"];
+		mcf=Evaluate@MarckCarterFrame[orbit];
+		\[CapitalUpsilon]\[Psi] = MinoPrecessionFrequency[orbit];
+		pt\[Psi]=Function[{Global`qr,Global`q\[Theta],Global`q\[Psi]},Evaluate@PrecessionPhase[orbit,\[CapitalUpsilon]\[Psi],Global`qr,Global`q\[Theta],Global`q\[Psi]][0]];
 		
-		ptf=Function[{qr,q\[Theta],q\[Psi]},
+		ptf=Function[{Global`qr,Global`q\[Theta],Global`q\[Psi]},
 			Evaluate[
 				{
-					mcf[qr,q\[Theta]][[1]],
-					mcf[qr,q\[Theta]][[2]]Cos[pt\[Psi][qr,q\[Theta],q\[Psi]]]+mcf[qr,q\[Theta]][[3]]Sin[pt\[Psi][qr,q\[Theta],q\[Psi]]],
-					-mcf[qr,q\[Theta]][[2]]Sin[pt\[Psi][qr,q\[Theta],q\[Psi]]]+mcf[qr,q\[Theta]][[3]]Cos[pt\[Psi][qr,q\[Theta],q\[Psi]]],
-					mcf[qr,q\[Theta]][[4]]
+					mcf[Global`qr,Global`q\[Theta]][[1]],
+					mcf[Global`qr,Global`q\[Theta]][[2]]Cos[pt\[Psi][Global`qr,Global`q\[Theta],Global`q\[Psi]]]+mcf[Global`qr,Global`q\[Theta]][[3]]Sin[pt\[Psi][Global`qr,Global`q\[Theta],Global`q\[Psi]]],
+					-mcf[Global`qr,Global`q\[Theta]][[2]]Sin[pt\[Psi][Global`qr,Global`q\[Theta],Global`q\[Psi]]]+mcf[Global`qr,Global`q\[Theta]][[3]]Cos[pt\[Psi][Global`qr,Global`q\[Theta],Global`q\[Psi]]],
+					mcf[Global`qr,Global`q\[Theta]][[4]]
 				}
 			]
 		];
 		
-		assoc = Last@orbit[qr,q\[Theta]];
+		assoc = Last@orbit;
 		assoc["PrecessionFrequency"]=\[CapitalUpsilon]\[Psi];
 		assoc["ParallelTransportedFrame"]=ptf;
 		assoc["MarckCarterFrame"]=mcf;
