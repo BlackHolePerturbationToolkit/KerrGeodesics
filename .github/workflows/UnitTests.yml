@@ -1,0 +1,49 @@
+name: Run unit tests
+
+on:
+  push:
+  
+  pull_request:
+  
+  workflow_dispatch:
+
+jobs:
+  RunTests-MacOSX-x86-64:
+    runs-on: macos-latest
+    env:
+      WOLFRAM_SYSTEM_ID: MacOSX-x86-64
+      WOLFRAMENGINE_CACHE_KEY: WolframEngine-A
+      WOLFRAMENGINE_INSTALLATION_DIRECTORY: "/Applications/Wolfram Engine.app"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Cache/restore Wolfram Engine install
+        id: cache-restore
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.WOLFRAMENGINE_INSTALLATION_DIRECTORY }}
+          key: wolframengine-${{ env.WOLFRAM_SYSTEM_ID }}-${{ env.WOLFRAMENGINE_CACHE_KEY }}
+
+      - name: Install Wolfram Engine
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        run: |
+          echo 'Installing Wolfram Engine...'
+          brew install --cask wolfram-engine
+          echo 'Installed Wolfram Engine.'
+      - name: Run unit tests
+        env:
+          WOLFRAMENGINE_EXECUTABLES_DIRECTORY: "${{ env.WOLFRAMENGINE_INSTALLATION_DIRECTORY }}/Contents/Resources/Wolfram Player.app/Contents/MacOS"
+          WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAM_LICENSE_ENTITLEMENT_ID }}
+          WOLFRAMSCRIPT_KERNELPATH: "${{ env.WOLFRAMENGINE_INSTALLATION_DIRECTORY }}/Contents/MacOS/WolframKernel"
+        run: |
+          export PATH="${{ env.WOLFRAMENGINE_EXECUTABLES_DIRECTORY }}:$PATH"
+          wolframscript -debug -verbose -script ./Tests/AllTests.wls
+      - name: Produce test report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Unit tests
+          path: TestReport.xml
+          reporter: jest-junit
+          fail-on-error: false
