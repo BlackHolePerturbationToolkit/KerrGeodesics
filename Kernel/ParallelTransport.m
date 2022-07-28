@@ -233,6 +233,35 @@ KerrParallelTransportFrameMino[a_,p_,e_,x_,initPhases:{_,_,_,_,_}:{0,0,0,0,0}]:=
 ]
 
 
+KerrParallelTransportFramePhases[a_,p_,e_,x_]:=Module[
+	{orbit,mcf,\[CapitalUpsilon]\[Psi],pt\[Psi],ptf,assoc},
+		orbit=Function[{qr,q\[Theta]},Evaluate@KerrGeoOrbit[a,p,e,x,{0,qr,q\[Theta],0},"Method"->"Analytic","Parametrization"-> "Mino"]];
+		mcf=Function[{qr,q\[Theta]},Evaluate@MarckCarterFrame[orbit[qr,q\[Theta]]][0]];
+		\[CapitalUpsilon]\[Psi] = MinoPrecessionFrequency[orbit[qr,q\[Theta]]];
+		pt\[Psi]=Function[{qr,q\[Theta],q\[Psi]},PrecessionPhase[orbit[qr,q\[Theta]],\[CapitalUpsilon]\[Psi],qr,q\[Theta],q\[Psi]][0]];
+		
+		ptf=Function[{qr,q\[Theta],q\[Psi]},
+			Evaluate[
+				{
+					mcf[qr,q\[Theta]][[1]],
+					mcf[qr,q\[Theta]][[2]]Cos[pt\[Psi][qr,q\[Theta],q\[Psi]]]+mcf[qr,q\[Theta]][[3]]Sin[pt\[Psi][qr,q\[Theta],q\[Psi]]],
+					-mcf[qr,q\[Theta]][[2]]Sin[pt\[Psi][qr,q\[Theta],q\[Psi]]]+mcf[qr,q\[Theta]][[3]]Cos[pt\[Psi][qr,q\[Theta],q\[Psi]]],
+					mcf[qr,q\[Theta]][[4]]
+				}
+			]
+		];
+		
+		assoc = Last@orbit[qr,q\[Theta]];
+		assoc["PrecessionFrequency"]=\[CapitalUpsilon]\[Psi];
+		assoc["ParallelTransportedFrame"]=ptf;
+		assoc["MarckCarterFrame"]=mcf;
+		assoc["PrecessionPhase"]=pt\[Psi];
+
+		KerrParallelTransportFrameFunction[a,p,e,x,assoc]
+
+]
+
+
 (* ::Section::Closed:: *)
 (*KerrParallelTransportFrame and KerrParallelTransportFrameFuction*)
 
@@ -247,11 +276,12 @@ KerrParallelTransportFrame[a_,p_,e_,x_, initPhases:{_,_,_,_,_}:{0,0,0,0,0},Optio
 method = OptionValue["Method"];
 param = OptionValue["Parametrization"];
 
-If[param =!= "Mino", Print["Only Mino time parametrization has been implemented for parallel transport."];Return[];];
+If[param =!= "Mino"&& param =!= "Phases", Print["Only Mino time parametrization has been implemented for parallel transport."];Return[];];
 If[method =!= "Analytic", Print["Only analytic method has been implemented for parallel transport."];Return[];];
 
 If[method == "Analytic",
 	If[param == "Mino", Return[KerrParallelTransportFrameMino[a, p, e, x, initPhases]]];
+	If[param == "Phases", Return[KerrParallelTransportFramePhases[a, p, e, x]]];
 ];
 
 Print["Unrecognized method: " <> method];
@@ -279,6 +309,7 @@ KerrParallelTransportFrameFunction /:
 
 
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == False] := assoc["ParallelTransportedFrame"][\[Lambda]]
+KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][\[Lambda]__] := assoc["ParallelTransportedFrame"][\[Lambda]]
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
 
 
