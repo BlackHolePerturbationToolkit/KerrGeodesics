@@ -225,6 +225,8 @@ KerrParallelTransportFrameMino[a_,p_,e_,x_,initPhases:{_,_,_,_,_}:{0,0,0,0,0}]:=
 		assoc = Last@orbit;
 		assoc["PrecessionFrequency"]=\[CapitalUpsilon]\[Psi];
 		assoc["ParallelTransportedFrame"]=ptf;
+		assoc["MarckCarterFrame"]=mcf;
+		assoc["PrecessionPhase"]=pt\[Psi];
 
 		KerrParallelTransportFrameFunction[a,p,e,x,assoc]
 
