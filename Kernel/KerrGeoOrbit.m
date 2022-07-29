@@ -450,7 +450,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -1053,7 +1053,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 		"RadialFrequency" -> \[CapitalUpsilon]r,
 		"PolarFrequency" ->  \[CapitalUpsilon]\[Theta],
 		"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
-		"Frequencies" -> <|"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" ->  \[CapitalUpsilon]r, "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" ->  \[CapitalUpsilon]\[Theta], "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" ->  \[CapitalUpsilon]\[Phi] , "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" ->  \[CapitalUpsilon]t|> ,
+		"Frequencies" -> <|"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" ->  \[CapitalUpsilon]r, "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" ->  \[CapitalUpsilon]\[Theta], "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" ->  \[CapitalUpsilon]\[Phi] , "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(t\)]\)" ->  \[CapitalUpsilon]t|> ,
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
 		"TrajectoryDeltas" -> <|"\[CapitalDelta]tr"-> \[CapitalDelta]tr,"\[CapitalDelta]t\[Theta]"-> \[CapitalDelta]t\[Theta],"\[CapitalDelta]\[Phi]r"-> \[CapitalDelta]\[Phi]r,"\[CapitalDelta]\[Phi]\[Theta]"-> \[CapitalDelta]\[Phi]\[Theta]|>,
 		"FourVelocity"-> velocity,
