@@ -287,6 +287,10 @@ KerrParallelTransportFramePhases[a_,p_,e_,x_]:=Module[
 (*KerrParallelTransportFrame and KerrParallelTransportFrameFuction*)
 
 
+KerrParallelTransportFrame::param="`1` is not a valid parametrization for KerrParallelTransportFrame."
+KerrParallelTransportFrame::method="`1` is not a valid method for KerrParallelTransportFrame."
+
+
 Options[KerrParallelTransportFrame] = {"Parametrization" -> "Mino", "Method" -> "Analytic"}
 SyntaxInformation[KerrParallelTransportFrame] = {"ArgumentsPattern"->{_,_,OptionsPattern[]}};
 
@@ -297,16 +301,16 @@ KerrParallelTransportFrame[a_,p_,e_,x_, initPhases:{_,_,_,_,_}:{0,0,0,0,0},Optio
 method = OptionValue["Method"];
 param = OptionValue["Parametrization"];
 
-If[param =!= "Mino"&& param =!= "Phases", Print["Only Mino time parametrization has been implemented for parallel transport."];Return[];];
-If[method =!= "Analytic", Print["Only analytic method has been implemented for parallel transport."];Return[];];
+If[param =!= "Mino"&& param =!= "Phases", Message[KerrParallelTransportFrame::param,param];Return[];];
+If[method =!= "Analytic", Message[KerrParallelTransportFrame::method,method];Return[];];
 
 If[method == "Analytic",
 	If[param == "Mino", Return[KerrParallelTransportFrameMino[a, p, e, x, initPhases]]];
 	If[param == "Phases", Return[KerrParallelTransportFramePhases[a, p, e, x]]];
+	Message[KerrParallelTransportFrame::param,param];
+	Return[];
 ];
-
-Print["Unrecognized method: " <> method];
-
+Message[KerrParallelTransportFrame::method,method]
 ]
 
 
