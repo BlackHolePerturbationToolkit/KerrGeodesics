@@ -158,6 +158,8 @@ KerrGeoOrbitFunction[a, p, e, x, assoc]
 
 ]
 
+
+
 (* ::Subsection::Closed:: *)
 (*Equatorial (Fast Spec - Darwin)*)
 
@@ -404,7 +406,6 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 (*FIXME: make the initial phases work in this case*)
 
 
-
 KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Module[{consts, assoc, t, r, \[Theta], \[Phi], En, L, Q, \[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t, e=0, x=1,r1,r2,r3,r4,velocity},
 
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
@@ -446,7 +447,6 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 (* ::Subsection::Closed:: *)
-
 (*Generic (Mino)*)
 
 
@@ -868,7 +868,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 	
 	(* Create functions for discrete cosine series coefficient fn *)
 	samplePhase=(freq \[Lambda]+phaseList);
-	fn[n_]:=fn[n]=(sampledF.Cos[nn*samplePhase])/.nn->n;
+	fn[n_]:=fn[n]=(sampledF . Cos[nn*samplePhase])/.nn->n;
 	
 	(* Calculate series coefficients until they equal 0 (with respect 
 	to the precision being used) *)
