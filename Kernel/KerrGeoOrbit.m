@@ -85,7 +85,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -446,7 +446,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -491,7 +491,7 @@ KerrGeoOrbitPhases[a_,p_,e_,x_]:=Module[{M=1,consts,En,L,Q,assoc,\[CapitalUpsilo
 	t=Function[{Global`qt,Global`qr,Global`q\[Theta]}, Evaluate[ Global`qt+ tr[Global`qr] + tz[Global`q\[Theta]]], Listable];
 	r=Function[{Global`qr}, Evaluate[ rq[Global`qr] ], Listable];
 	\[Theta]=Function[{Global`q\[Theta]}, Evaluate[ ArcCos[zq[Global`q\[Theta]]] ], Listable];
-	\[Phi]=Function[{Global`q\[Phi],Global`qr,Global`q\[Theta]}, Evaluate[ Global`q\[Phi] + \[Phi]r[\[CapitalUpsilon]r Global`qr] + \[Phi]z[Global`q\[Theta]]], Listable];
+	\[Phi]=Function[{Global`q\[Phi],Global`qr,Global`q\[Theta]}, Evaluate[ Global`q\[Phi] + \[Phi]r[Global`qr] + \[Phi]z[Global`q\[Theta]]], Listable];
 
 	\[CapitalDelta]tr=Function[{Global`qr}, Evaluate[ tr[Global`qr] ], Listable];
 	\[CapitalDelta]t\[Theta]=Function[{Global`q\[Theta]}, Evaluate[ tz[Global`q\[Theta]] ], Listable];
@@ -546,7 +546,7 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,
 	t=Function[{Global`\[Lambda]}, Evaluate[ t[qt0 + \[CapitalUpsilon]t Global`\[Lambda], \[CapitalUpsilon]r Global`\[Lambda] + qr0, \[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-Ct ], Listable];
 	r=Function[{Global`\[Lambda]}, Evaluate[ r[\[CapitalUpsilon]r Global`\[Lambda]+ qr0] ], Listable];
 	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ \[Theta][\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0] ], Listable];
-	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[ \[Phi][q\[Phi]0 + \[CapitalUpsilon]\[Phi] Global`\[Lambda] ,\[CapitalUpsilon]r Global`\[Lambda]+ qr0,\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-C\[Phi] ], Listable];
+	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[ \[Phi][q\[Phi]0 + \[CapitalUpsilon]\[Phi] Global`\[Lambda] , \[CapitalUpsilon]r Global`\[Lambda]+ qr0, \[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-C\[Phi] ], Listable];
 
 	velocity = Values[KerrGeoFourVelocity[a,p,e,x,{qr0,qz0}]];
 
