@@ -15,6 +15,9 @@ KerrGeoAngularMomentum::usage = "KerrGeoAngularMomentum[a, p, e, x] returns the 
 KerrGeoCarterConstant::usage = "KerrGeoCarterConstant[a, p, e, x] returns the Carter constant of the orbit."
 KerrGeoConstantsOfMotion::usage = "KerrGeoConstantsOfMotion[a, p, e, x] returns the three constants of motion."
 
+KerrGeoVelocityAtInfinity::usage = "KerrGeoVelocityAtInfinity[a, p, e, x] returns the magnitude of the velocity at infinity of a scatter orbit."
+KerrGeoImpactParameter::usage = "KerrGeoImpactParameter[a, p, e, x] returns the impact parameter of a scatter orbit."
+
 Begin["`Private`"];
 
 
@@ -46,6 +49,19 @@ KerrGeoAngularMomentum[0,p_,e_,x_]:=(p x)/Sqrt[-3-e^2+p]
 
 
 KerrGeoCarterConstant[0,p_,e_,x_]:=(p^2 (-1+x^2))/(3+e^2-p)
+
+
+(* ::Subsection::Closed:: *)
+(*Scatter*)
+
+
+KerrGeoVelocityAtInfinity[0,p_,e_/;e>1,x_]:=Module[{En},
+	En = KerrGeoEnergy[0,p,e,x];
+	Sqrt[En^2-1]/En
+]
+
+
+KerrGeoImpactParameter[0,p_,e_/;e>1,x_]:=KerrGeoAngularMomentum[0,p,e,x]/Sqrt[KerrGeoEnergy[0,p,e,x]^2-1]
 
 
 (* ::Subsection::Closed:: *)
