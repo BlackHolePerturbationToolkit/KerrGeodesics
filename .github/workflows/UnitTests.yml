@@ -40,6 +40,7 @@ jobs:
           export PATH="${{ env.WOLFRAMENGINE_EXECUTABLES_DIRECTORY }}:$PATH"
           wolframscript -debug -verbose -script ./Tests/AllTests.wls
       - name: Produce test report
+        id: testreport
         uses: dorny/test-reporter@v1
         if: always()
         with:
@@ -47,3 +48,41 @@ jobs:
           path: TestReport.xml
           reporter: jest-junit
           fail-on-error: false
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: gh-pages
+      - name: Generate the badge SVG image
+        uses: emibcn/badge-action@v1
+        id: badge
+        with:
+          label: 'tests'
+          status: "${{ steps.testreport.outputs.passed }} passed, ${{ steps.testreport.outputs.failed }} failed, ${{ steps.testreport.outputs.skipped }} skipped"
+          color: ${{
+            steps.testreport.outputs.failed == 0 && 'green'  ||
+            steps.testreport.outputs.failed >  0 && 'red' ||
+            'yellow' }}
+          path: gh-pages/testresult.svg
+      - name: Commit badge
+        env:
+          BRANCH: ${{ steps.extract_branch.outputs.branch }}
+          FILE: 'testresult.svg'
+        working-directory: ./gh-pages
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          mkdir -p "badges/${BRANCH}"
+          mv "${FILE}" "badges/${BRANCH}"
+          git add "badges/${BRANCH}/${FILE}"
+          git commit -m "Add/Update badge" || true
+      - name: Push badge commit
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          directory: gh-pages
