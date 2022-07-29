@@ -253,7 +253,7 @@ KerrGeoScatteringAngle[0,p_,e_/;e>=1,1]:= (4 Sqrt[p]EllipticF[ArcCos[-e^(-1)]/2,
 (*Values of the bounds of \[Chi] from the Darwin parameterization*)
 
 
-KerrGeoDarwinBoundsChi[e_]:= { -ArcCos[-1/e], ArcCos[-1/e] }
+KerrGeoDarwinBoundsChi[e_/;e>=1]:= { -ArcCos[-1/e], ArcCos[-1/e] }
 
 
 (* ::Text:: *)

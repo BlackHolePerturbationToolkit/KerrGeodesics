@@ -68,7 +68,7 @@ tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]==ArcCos[-1/e] := Sign[\[Chi]
 (*FIXME: make the below work for inclined orbits and accept initial phases*)
 
 
-KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En,L,Q, \[Delta]\[Phi], rP, \[Chi]Bounds, type},
+KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En,L,Q, type, \[Delta]\[Phi], rP, \[Chi]Bounds, v, b},
 
 t =Function[{Global`\[Chi]}, Evaluate[ tSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
 r =Function[{Global`\[Chi]}, Evaluate[ rSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
@@ -81,6 +81,8 @@ consts = KerrGeoConstantsOfMotion[0,p,e,1];
 rP = Evaluate[KerrGeoPeriastron[0,p,e,1]];
 \[Chi]Bounds = Evaluate[KerrGeoDarwinBoundsChi[e]];
 type = Evaluate[KerrGeoOrbitType[0,p,e,1]];
+v = Evaluate[KerrGeoVelocityAtInfinity[0,p,e,1]];
+b = Evaluate[KerrGeoImpactParameter[0,p,e,1]];
 
 assoc = Association[
 			"Trajectory" -> {t,r,\[Theta],\[Phi]},
@@ -96,6 +98,8 @@ assoc = Association[
 			"ScatteringAngle" -> \[Delta]\[Phi],
 			"Periastron" -> rP,
 			"DarwinBounds" -> \[Chi]Bounds,
+			"VelocityAtInfinity" -> v,
+			"ImpactParameter" -> b,
 			"OrbitType" -> type
 			];
 
