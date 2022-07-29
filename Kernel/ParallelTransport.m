@@ -283,7 +283,7 @@ KerrParallelTransportFramePhases[a_,p_,e_,x_]:=Module[
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KerrParallelTransportFrame and KerrParallelTransportFrameFuction*)
 
 
@@ -332,6 +332,7 @@ KerrParallelTransportFrameFunction /:
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][\[Lambda]_/;StringQ[\[Lambda]] == False] := assoc["ParallelTransportedFrame"][\[Lambda]]
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][\[Lambda]__] := assoc["ParallelTransportedFrame"][\[Lambda]]
 KerrParallelTransportFrameFunction[a_, p_, e_, x_, assoc_][y_?StringQ] := assoc[y]
+Keys[g_KerrParallelTransportFrameFunction]^:=Keys[g[[5]]]
 
 
 (* ::Section::Closed:: *)
