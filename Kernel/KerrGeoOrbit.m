@@ -868,7 +868,7 @@ Module[{test,compare,res,NInit,iter=1,fn,sampledFunc,phaseList,pg,eps,nTest},
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Subroutine that performs spectral integration on even functions*)
 
 
@@ -927,14 +927,14 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 	f[n_]:=fList[[n+1]];
 	
 	(* Construct integrated series solution *)
-	integratedF[phase_]:=2*Sum[f[n]/n Sin[n phase],{n,1,sampleMax}];
+	integratedF = Function[{Global`phase},Evaluate[2*Sum[f[n]/n Sin[n Global`phase],{n,1,sampleMax}]],Listable];
 	(* Allow function to evaluate lists by threading over them *)
 
 	integratedF
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
