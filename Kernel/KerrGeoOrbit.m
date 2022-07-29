@@ -85,7 +85,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -565,7 +565,7 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
@@ -927,7 +927,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 	f[n_]:=fList[[n+1]];
 	
 	(* Construct integrated series solution *)
-	integratedF[phase_]:=2*Sum[f[n]/n Sin[n phase],{n,1,sampleMax}];
+	integratedF = Function[{Global`phase},Evaluate[2*Sum[f[n]/n Sin[n Global`phase],{n,1,sampleMax}]],Listable];
 	(* Allow function to evaluate lists by threading over them *)
 
 	integratedF
