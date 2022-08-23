@@ -50,53 +50,60 @@ KerrGeoInit2Constants[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List]:=Module[{g=gK[a][
 
 
 KerrGeoInit2pex[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null,\[ScriptCapitalL]_:Null,\[ScriptCapitalQ]_:Null}]:=Module[{En,L,Q,rts,disc,r1,r2,zm},
-If[MemberQ[{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]},Null],{En,L,Q}=(Values@KerrGeoInit2Constants[a,{t0,r0,\[Theta]0,\[Phi]0},u]),{En,L,Q}={\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}];
-disc=RDisc[a,En,L,Q];
-rts=Sort@Re@RRoots[a,En,L,Q][[All,1,2]];
-If[PossibleZeroQ[a],
-zm = Q/(L^2+Q),  
-zm = 1/(2 a^2 (1-En^2)) (Q +L^2+a^2 (1-En^2)-Sqrt[(Q+L^2+a^2 (1-En^2))^2-4 a^2 (1-En^2) Q])
-];
-Which[
-Q<0,
-Print["Vortical (polar-cone) orbit detected"],
-disc<0,
-Print["Plunge orbit detected"],
-True,
-r1=If[En<1,rts[[4]],rts[[1]]];
-r2=If[En<1,rts[[3]],rts[[4]]];
-];
-<|"p"->(2 r1 r2)/(r1+r2),"e"->(r1-r2)/(r1+r2),"x"->Sign[L] Sqrt[1-zm]|>
+	If[MemberQ[{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]},Null],{En,L,Q}=(Values@KerrGeoInit2Constants[a,{t0,r0,\[Theta]0,\[Phi]0},u]),{En,L,Q}={\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}];
+	disc=RDisc[a,En,L,Q];
+	rts=Sort@Re@RRoots[a,En,L,Q][[All,1,2]];
+	If[PossibleZeroQ[a],
+		zm = Q/(L^2+Q),  
+		zm = 1/(2 a^2 (1-En^2)) (Q +L^2+a^2 (1-En^2)-Sqrt[(Q+L^2+a^2 (1-En^2))^2-4 a^2 (1-En^2) Q])
+	];
+	Which[
+		Q<0,
+		Print["Vortical (polar-cone) orbit detected"],
+		disc<0,
+		Print["Plunge orbit detected"],
+		True,
+		r1=If[En<1,rts[[4]],rts[[1]]];
+		r2=If[En<1,rts[[3]],rts[[4]]];
+	];
+	<|"p"->(2 r1 r2)/(r1+r2),"e"->(r1-r2)/(r1+r2),"x"->Sign[L] Sqrt[1-zm]|>
 ]
 KerrGeoInit2pex[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List]:=KerrGeoInit2pex[a,{t0,r0,\[Theta]0,\[Phi]0},u,{}]; (*To make elegant notation for optional arguments*)
 
 
 KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null,\[ScriptCapitalL]_:Null,\[ScriptCapitalQ]_:Null},{pp_:Null,ee_:Null,xx_:Null}] := Module[{zm,zp,mr,\[Lambda]r0,m\[Theta],\[Lambda]\[Theta]0,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,qr0,q\[Theta]0,\[Psi]r0,\[Psi]\[Theta]0,En,L,Q,p,e,x},
-If[MemberQ[{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]},Null],{En,L,Q}=(Values@KerrGeoInit2Constants[a,{t0,r0,\[Theta]0,\[Phi]0},u]),{En,L,Q}={\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}];
-If[MemberQ[{pp,ee,xx},Null],{p,e,x} = (Values@KerrGeoInit2pex[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q}]),{p,e,x} = {pp,ee,xx}];
-{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
-{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
-(*See Fujita & Hikida (0906.1420) section 4*)
-(*Preliminary definitions:*)
-\[Psi]r0 = ArcSin[Sqrt[(r1-r3)/(r1-r2) (r0-r2)/(r0-r3)]];
-mr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4); 
-(*Radial and polar phases*)
-\[Lambda]r0 = 1/Sqrt[1-En^2] 2/Sqrt[(r1-r3)(r2-r4)] EllipticF[\[Psi]r0,mr];
-zm = 1/(2 a^2 (1-En^2)) (Q +L^2+a^2 (1-En^2)-Sqrt[(Q+L^2+a^2 (1-En^2))^2-4 a^2 (1-En^2) Q]);
-zp = 1/(2 a^2 (1-En^2)) (Q +L^2+a^2 (1-En^2)+Sqrt[(Q+L^2+a^2 (1-En^2))^2-4 a^2 (1-En^2) Q]);
-m\[Theta] = zm/zp;
-\[Psi]\[Theta]0 = ArcSin[ Cos[\[Theta]0]/Sqrt[zm]];
-\[Lambda]\[Theta]0 = Sign[L]/Sqrt[a^2 (1 - En^2)zp] EllipticF[\[Psi]\[Theta]0,m\[Theta]];
-If[u[[2]]>0,
-qr0 = \[Lambda]r0 \[CapitalUpsilon]r,
-qr0 = 2\[Pi] - \[Lambda]r0 \[CapitalUpsilon]r
-];
-If[u[[3]]>0,
-q\[Theta]0 = \[Lambda]\[Theta]0 \[CapitalUpsilon]\[Theta],
-q\[Theta]0 = 2\[Pi] - \[Lambda]\[Theta]0 \[CapitalUpsilon]\[Theta];
-];
-(*Note that the current KerGeoOrbit implementation chooses integration constants so that at \[Lambda]=0 one has t0=qt0,\[Phi]=q\[Phi]0.*)
-{t0,qr0,q\[Theta]0,\[Phi]0}
+	If[MemberQ[{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]},Null],{En,L,Q}=(Values@KerrGeoInit2Constants[a,{t0,r0,\[Theta]0,\[Phi]0},u]),{En,L,Q}={\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}];
+	If[MemberQ[{pp,ee,xx},Null],{p,e,x} = (Values@KerrGeoInit2pex[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q}]),{p,e,x} = {pp,ee,xx}];
+	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
+	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
+	(*See Fujita & Hikida (0906.1420) section 4*)
+	(*Preliminary definitions:*)
+	\[Psi]r0 = ArcSin[Sqrt[(r1-r3)/(r1-r2) (r0-r2)/(r0-r3)]];
+	mr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4); 
+	(*Radial and polar phases*)
+	\[Lambda]r0 = 1/Sqrt[1-En^2] 2/Sqrt[(r1-r3)(r2-r4)] EllipticF[\[Psi]r0,mr];
+	If[PossibleZeroQ[a],
+		zm = Q/(L^2+Q),  
+		zm = 1/(2 a^2 (1-En^2)) (Q +L^2+a^2 (1-En^2)-Sqrt[(Q+L^2+a^2 (1-En^2))^2-4 a^2 (1-En^2) Q])
+	];
+	zp = 1/(2 a^2 (1-En^2)) (Q +L^2+a^2 (1-En^2)+Sqrt[(Q+L^2+a^2 (1-En^2))^2-4 a^2 (1-En^2) Q]);
+	m\[Theta] = zm/zp;
+	\[Psi]\[Theta]0 = ArcSin[ Cos[\[Theta]0]/Sqrt[zm]];
+	\[Lambda]\[Theta]0 = Sign[L]/Sqrt[(Q +L^2+a^2 (1-En^2)+Sqrt[(Q+L^2+a^2 (1-En^2))^2-4 a^2 (1-En^2) Q])/2] EllipticF[\[Psi]\[Theta]0,m\[Theta]];
+	If[u[[2]]>0,
+		qr0 = \[Lambda]r0 \[CapitalUpsilon]r,
+		qr0 = 2\[Pi] - \[Lambda]r0 \[CapitalUpsilon]r
+	];
+	Print[{\[Theta]0,u[[3]]}];
+	Print[Evaluate[\[Theta]0==\[Pi]/2&&u[[3]]==0]];
+	Which[
+		\[Theta]0==\[Pi]/2&&u[[3]]==0,q\[Theta]0=0,
+		u[[3]]>0,q\[Theta]0 = \[Lambda]\[Theta]0 \[CapitalUpsilon]\[Theta],
+		u[[3]]>=0, q\[Theta]0 = 2\[Pi] - \[Lambda]\[Theta]0 \[CapitalUpsilon]\[Theta];
+	];
+	(*Note that the current KerGeoOrbit implementation chooses integration constants so that at \[Lambda]=0 one has t0=qt0,\[Phi]=q\[Phi]0.*)
+	{t0,Re[qr0],Re[q\[Theta]0],\[Phi]0}
+	(*Real parts used to get rid of imaginary noise near turning points.*)
 ];
 KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{En_,L_,Q_}] :=KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q},{}] ;
 KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List] :=KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{},{}] ;
