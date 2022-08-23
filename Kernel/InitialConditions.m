@@ -78,7 +78,7 @@ If[MemberQ[{pp,ee,xx},Null],{p,e,x} = (Values@KerrGeoInit2pex[a,{t0,r0,\[Theta]0
 {r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
 (*See Fujita & Hikida (0906.1420) section 4*)
 (*Preliminary definitions:*)
-\[Psi]r0 = ArcSin[Sqrt[(r1-r3)/(r1-r2) (r-r2)/(r-r3)]];
+\[Psi]r0 = ArcSin[Sqrt[(r1-r3)/(r1-r2) (r0-r2)/(r0-r3)]];
 mr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4); 
 (*Radial and polar phases*)
 \[Lambda]r0 = 1/Sqrt[1-En^2] 2/Sqrt[(r1-r3)(r2-r4)] EllipticF[\[Psi]r0,mr];
@@ -99,13 +99,14 @@ q\[Theta]0 = 2\[Pi] - \[Lambda]\[Theta]0 \[CapitalUpsilon]\[Theta];
 {t0,qr0,q\[Theta]0,\[Phi]0}
 ];
 KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{En_,L_,Q_}] :=KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q},{}] ;
-KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List] :=KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{},{}]; (*To make elegant notation for optional arguments*)
+KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List] :=KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{},{}] ;
 
 
 (* ::Subsection:: *)
 (*Final wrapper function*)
 
 
+Clear[KerrGeoInitOrbit]
 KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null,\[ScriptCapitalL]_:Null,\[ScriptCapitalQ]_:Null},{pp_:Null,ee_:Null,xx_:Null}] := Module[{initPhases,En,L,Q,p,e,x},
 	(*If the optional arguments are supplemented, it is the responsibility of the user that they are consistent with the initial data!*)
 	If[MemberQ[{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]},Null],{En,L,Q}=(Values@KerrGeoInit2Constants[a,{t0,r0,\[Theta]0,\[Phi]0},u]),{En,L,Q}={\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}];
@@ -113,8 +114,8 @@ KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Nul
 	initPhases = KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q},{p,e,x}];
 	KerrGeoOrbit[a,p,e,x,initPhases]
 ]
-KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{En_,L_,Q_}] :=KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q},{}] ;
-KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List] :=KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{},{}]; (*To make elegant notation for optional arguments*)
+KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{En_,L_,Q_}] :=KerrGeoInitOrbit[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q},{}] ;
+KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List] :=KerrGeoInitOrbit[a,{t0,r0,\[Theta]0,\[Phi]0},u,{},{}]; (*To make elegant notation for optional arguments*)
 
 
 (* ::Section::Closed:: *)
