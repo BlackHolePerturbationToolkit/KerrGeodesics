@@ -40,13 +40,15 @@ RDisc[a_,\[ScriptCapitalE]_,\[ScriptCapitalL]_,\[ScriptCapitalQ]_]:=-16 (-a^8 \[
 (*From initial data to p, e, x and phases*)
 
 
+
 KerrGeoInit2Constants[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List]:=Module[{g=gK[a][t0,r0,\[Theta]0,\[Phi]0],\[ScriptCapitalK]=\[ScriptCapitalK][a][t0,r0,\[Theta]0,\[Phi]0],norm},
 	norm=u . g . u;
 	If[norm<0,
 		<|"E"->{-1,0,0,0} . g . (u/Sqrt[-norm]),"L"->{0,0,0,1} . g . (u/Sqrt[-norm]),"Q"->(u/Sqrt[-norm]) . \[ScriptCapitalK] . (u/Sqrt[-norm])|>,
-		Print["Initial velocity is not timelike."]
+		Message[KerrGeoInit2Constants::imnorm]; $Failed
 	]
 ];
+KerrGeoInit2Constants::imnorm = "Initial velocity is not timelike.";
 
 
 KerrGeoInit2pex[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null,\[ScriptCapitalL]_:Null,\[ScriptCapitalQ]_:Null}]:=Module[{En,L,Q,rts,disc,r1,r2,zm},
@@ -59,9 +61,9 @@ KerrGeoInit2pex[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null
 	];
 	Which[
 		Q<0,
-		Print["Vortical (polar-cone) orbit detected"],
+		Message[KerrGeoInit2pex::vortical]; $Failed,
 		disc<0,
-		Print["Plunge orbit detected"],
+		Message[KerrGeoInit2pex::plunge]; $Failed,
 		True,
 		r1=If[En<1,rts[[4]],rts[[1]]];
 		r2=If[En<1,rts[[3]],rts[[4]]];
@@ -69,6 +71,8 @@ KerrGeoInit2pex[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null
 	<|"p"->(2 r1 r2)/(r1+r2),"e"->(r1-r2)/(r1+r2),"x"->Sign[L] Sqrt[1-zm]|>
 ]
 KerrGeoInit2pex[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List]:=KerrGeoInit2pex[a,{t0,r0,\[Theta]0,\[Phi]0},u,{}]; (*To make elegant notation for optional arguments*)
+KerrGeoInit2pex::vortical = "Vortical (polar-cone) orbit detected";
+KerrGeoInit2pex::plunge = "Plunge orbit detected";
 
 
 KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null,\[ScriptCapitalL]_:Null,\[ScriptCapitalQ]_:Null},{pp_:Null,ee_:Null,xx_:Null}] := Module[{zm,zp,mr,\[Lambda]r0,m\[Theta],\[Lambda]\[Theta]0,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,qr0,q\[Theta]0,\[Psi]r0,\[Psi]\[Theta]0,En,L,Q,p,e,x},
@@ -94,8 +98,6 @@ KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:N
 		qr0 = \[Lambda]r0 \[CapitalUpsilon]r,
 		qr0 = 2\[Pi] - \[Lambda]r0 \[CapitalUpsilon]r
 	];
-	Print[{\[Theta]0,u[[3]]}];
-	Print[Evaluate[\[Theta]0==\[Pi]/2&&u[[3]]==0]];
 	Which[
 		\[Theta]0==\[Pi]/2&&u[[3]]==0,q\[Theta]0=0,
 		u[[3]]>0,q\[Theta]0 = \[Lambda]\[Theta]0 \[CapitalUpsilon]\[Theta],
