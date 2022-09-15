@@ -49,53 +49,6 @@ SNullCoM[a_,rs_,\[Theta]s_]:=Module[{M=1,\[Lambda]s,\[Eta]s},
 
 
 (* ::Input::Initialization:: *)
-\[Beta]K[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_]:=Module[{\[Beta]k,consts},
-consts=KerrSNullCoM[a,rs,\[Theta]s,\[Lambda],\[Eta],prs,p\[Theta]s];
-{\[Lambda],\[Eta]}=Values[consts];
-\[Beta]k=Sqrt[\[Eta]+a^2 Cos[\[Theta]s]^2-\[Lambda]^2 Cot[\[Theta]s]^2] 
-]
-
-
-(* ::Input::Initialization:: *)
-\[Alpha]K[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_]:=Module[{\[Alpha]k,consts},
-consts=KerrSNullCoM[a,rs,\[Theta]s,\[Lambda],\[Eta],prs,p\[Theta]s];
-{\[Lambda],\[Eta]}=Values[consts];
-\[Alpha]k=-\[Lambda] Csc[\[Theta]s]^2 
-]
-
-
-(* ::Input::Initialization:: *)
-\[Alpha]trial[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_]:=Module[{\[Alpha]k,consts,\[Tau],assoc},
-consts=KerrSNullCoM[a,rs,\[Theta]s,\[Lambda],\[Eta],prs,p\[Theta]s];
-assoc=Association["Trajectory"-> \[Alpha]k];
-\[Alpha]k[\[Tau]_]:=-\[Lambda] Csc[PolarMotion[a,rs,\[Theta]s,\[Lambda],\[Eta],prs,p\[Theta]s][\[Tau]]]^2 ;
-\[Alpha]trialFunction[a,rs,\[Theta]s,\[Lambda],\[Eta],prs,p\[Theta]s,assoc]
-]
-
-
-(* ::Input::Initialization:: *)
-Format[\[Alpha]trialFunction[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_,assoc_]]:="\[Alpha]trialFunction["<>ToString[a]<>","<>ToString[rs]<>","<>ToString[\[Theta]s]<>","<>ToString[\[Lambda]]<>","<>ToString[\[Eta]]<>","<>ToString[prs]<>","<>ToString[p\[Theta]s]<>",<<>>]";
-\[Alpha]trialFunction[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_,assoc_][\[Tau]_/;StringQ[\[Tau]]==False]:= assoc["Trajectory"][\[Tau]]
-\[Alpha]trialFunction[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_,assoc_][y_?StringQ] := assoc[y]
-
-
-(* ::Input::Initialization:: *)
-\[Beta]trial[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_]:=Module[{\[Beta]k,consts,assoc},
-(*consts=KerrSNullCoM[a,rs,\[Theta]s,\[Lambda],\[Eta],prs,p\[Theta]s];
-{\[Lambda],\[Eta]}=Values[consts];*)
-assoc=Association["Trajectory"-> \[Beta]k];
-\[Beta]k[\[Tau]_]:=\[Sqrt](\[Eta]+a^2 Cos[PolarMotion[a,rs,\[Theta]s,\[Lambda],\[Eta],prs,p\[Theta]s][\[Tau]]]^2-\[Lambda]^2 Cot[PolarMotion[a,rs,\[Theta]s,\[Lambda],\[Eta],prs,p\[Theta]s][\[Tau]]]^2) ;
-\[Beta]trialFunction[a,rs,\[Theta]s,\[Lambda],\[Eta],prs,p\[Theta]s,assoc]
-]
-
-
-(* ::Input::Initialization:: *)
-Format[\[Beta]trialFunction[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_,assoc_]]:="\[Beta]trialFunction["<>ToString[a]<>","<>ToString[rs]<>","<>ToString[\[Theta]s]<>","<>ToString[\[Lambda]]<>","<>ToString[\[Eta]]<>","<>ToString[prs]<>","<>ToString[p\[Theta]s]<>",<<>>]";
-\[Beta]trialFunction[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_,assoc_][\[Tau]_/;StringQ[\[Tau]]==False]:= assoc["Trajectory"][\[Tau]]
-\[Beta]trialFunction[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_,assoc_][y_?StringQ] := assoc[y]
-
-
-(* ::Input::Initialization:: *)
 SchwarzSphericalNullCoM[a_,ts_,rs_,\[Theta]s_,\[Phi]s_,prs_,p\[Theta]s_,p\[Phi]s_]:=Module[{M=1,\[Lambda],\[Eta]},
 \[Eta]=0;
 \[Lambda]=(Sqrt[2] rs^(3/2))/Sqrt[-M+rs]; 
@@ -122,35 +75,6 @@ NS=If[(rs^2+a^2-a \[Lambda])^2-(rs^2-2 M rs+a^2)(\[Eta]+(\[Lambda]-a)^2)>=0,NSol
 zamo[a_]:=Module[{M=1,r},
 r=M+2Sqrt[M^2-1/3 a^2]Cos[1/3 ArcCos[(M(M^2-a^2))/(M^2-1/3 a^2)^(3/2)]]
 ]
-
-
-(* ::Input::Initialization:: *)
-KerrNullGeoRadialRootsxx[a_,rs_,\[Theta]s_,\[Lambda]_,\[Eta]_,prs_,p\[Theta]s_]:=Module[{M=1,consts,A,B,C1,P,Q1,\[Omega]p,\[Omega]m,\[Xi]0,z,r1,r2,r3,r4,xp,xm,test1,test2,dis,t,\[Xi]1,\[Xi]2,x,y,R,\[CapitalTheta]},
-(*consts=KerrNullGeoCOM[a,ts,rs,\[Theta]s,\[Phi]s,prs,p\[Theta]s,p\[Phi]s];
-{\[Lambda],\[Eta]}=Values[consts];*)
-R=(rs^2+a^2-a \[Lambda])^2-(rs^2-2 M rs+a^2)(\[Eta]+(\[Lambda]-a)^2);
-(*\[CapitalTheta]=\[Eta]+a^2Cos[\[Theta]s]^2-\[Lambda]^2Cot[\[Theta]s]^2;*)
-A=a^2-\[Eta]-\[Lambda]^2(*eqn 79*);
-  B=2M (\[Eta]+(\[Lambda]-a)^2)(*eqn 80*);
-C1=-a^2\[Eta](*eqn 81*);   
-Print[R];
-P=-(A^2/12)-C1(*eqn 85*); 
-Q1=-(A/3)((A/6)^2-C1)-B^2/8(*eqn 86*); 
-xp=-(Q1/2)+Sqrt[(P/3)^3+(Q1/2)^2];
-xm=-(Q1/2)-Sqrt[(P/3)^3+(Q1/2)^2];
-\[Omega]p=If[Element[xp,Reals],CubeRoot[xp],CubeRoot[Abs[xp]]Exp[(I Arg[xp])/3]](*eqn 90*);
-\[Omega]m=If[Element[xm,Reals],CubeRoot[xm],CubeRoot[Abs[xm]]Exp[(I Arg[xm])/3]](*eqn 90*);
-\[Xi]0=Re[\[Omega]p+\[Omega]m-A/3](*eqn 87,Included Re because \[Xi]0 should always be real otherwise without Re we get ..+0.\[ImaginaryI]*);
-z=Sqrt[\[Xi]0/2](*eqn 94*);  
-\[Xi]1=Exp[2 \[Pi] I /3]\[Omega]p+Exp[-2 \[Pi] I/3]\[Omega]m-A/3(*eqn 88*);
-\[Xi]2=Exp[-2 \[Pi] I /3]\[Omega]p+Exp[2 \[Pi] I/3]\[Omega]m-A/3(*eqn 89*);
-dis=Discriminant[t^3+P t+ Q1,t];
-r1=-z-Sqrt[-(A/2)-z^2+B/(4z)] (*eqn 95a*); 
-r2=-z+Sqrt[-(A/2)-z^2+B/(4z)](*eqn 95b*); 
-r3=z-Sqrt[-(A/2)-z^2-B/(4z)](*eqn 95c*); 
-r4=z+Sqrt[-(A/2)-z^2-B/(4z)](*eqn 95d*);
-{"\!\(\*SubscriptBox[\(r\), \(1\)]\)"->r1,"\!\(\*SubscriptBox[\(r\), \(2\)]\)"->r2,"\!\(\*SubscriptBox[\(r\), \(3\)]\)"->r3,"\!\(\*SubscriptBox[\(r\), \(4\)]\)"->r4}]
-
 
 (* ::Title:: *)
 (*SPHERICAL and NON-SPHERICAL PHOTON ORBITS*)
