@@ -129,128 +129,46 @@ KerrGeoMinoFrequencies[a_,p_,e_?PossibleZeroQ, 1] := Module[{\[CapitalUpsilon]r,
 
 (*Simplified math from Fujita and Hikida in a way that still evaluates when x = 0 -> zm = 1.*)
 KerrGeoMinoFrequencies[a_, p_, e_, x_] := 
- Module[{M = 1, En, L, Q, r1, r2, r3, r4, z1, z2, kr, k\[Theta], rp, 
-   rm, hr, hp, hm, Kkr, Kk\[Theta], Ekr,
-   Ek\[Theta], Pihr, Pihp, Pihm, 
-   Piz1, \[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \
-\[CapitalUpsilon]\[Phi], \[CapitalGamma], \[CapitalOmega]r, \
-\[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi]}(*\[Epsilon]0,zm,
-  a2zp,\[Epsilon]0zp,zmOverZp,kr,
-  k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,
-  hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]}*), {En, L, Q} = 
-   Values[KerrGeoConstantsOfMotion[a, p, e, x]];
+ Module[{M = 1, En, L, Q, r1, r2, r3, r4, z1, z2, kr, k\[Theta], rp, rm, hr, hp, hm, Kkr, Kk\[Theta], Ekr, Ek\[Theta], Pihr, Pihp, Pihm, Piz1, \[CapitalUpsilon]r, \[CapitalUpsilon]\[Theta], \[CapitalUpsilon]\[Phi], \[CapitalGamma], \[CapitalOmega]r, \[CapitalOmega]\[Theta], \[CapitalOmega]\[Phi]}, 
+  {En, L, Q} = Values[KerrGeoConstantsOfMotion[a, p, e, x]];
   {r1, r2, r3, r4} = KerrGeoRadialRoots[a, p, e, x, En, Q];
-  (*{zminus,zplus}={Sqrt[1-x^2],Sqrt[Q/(1-x^2)]}(* = 
-  KerrGeoPolarRoots[a,p,e,x,En,L]*),
-  {zm,zp}={zminus^2,zplus^2},(*For some reason, 
-  Fujita and Hikida define zm=zminus^2 \[Equal] z1 and zp=
-  Q/(L^2 \[Epsilon]0 zm), with \[Epsilon]0=a^2(1\[Minus]En^2)/L^2, 
-  so that zp \[Equal] zplus^2/(a^2(1-En^2)) \[Equal] z2/(a^2(1-
-  En^2)). *)
+
+  (*
+  {zminus,zplus}={Sqrt[1-x^2],Sqrt[Q/(1-x^2)]},
+  For some reason, Fujita and Hikida define zm=zminus^2 and zp=Q/(L^2 \[Epsilon]0 zm), with \[Epsilon]0=a^2(1\[Minus]En^2)/L^2, 
+  so that zp = zplus^2/(a^2(1-En^2)). I have defined z1 \[Equal] zm and z2 \[Equal] zp(a^2(1-En^2)).
   *)
   z1 = 1 - x^2;
-  If [z1 == 0., z2 = a^2 (1 - En^2) + L^2;, z2 = Q/z1;];(*(a^2 (1-
-  En^2)+L^2/(1-z1))*)
+  z2 = If [z1 == 0, a^2 (1 - En^2) + L^2, Q/z1];
   
-  kr = \[Sqrt]((r1 \[Minus] r2)/(r1 \[Minus] r3) (r3 \[Minus] 
-         r4)/(r2 \[Minus] r4)); 
-  k\[Theta] = \[Sqrt](z1/z2 (a^2 (1 - En^2)));(*\[Sqrt](zm/zp)*)
+  kr = \[Sqrt]((r1 \[Minus] r2)/(r1 \[Minus] r3) (r3 \[Minus] r4)/(r2 \[Minus] r4)); 
+  k\[Theta] = \[Sqrt](z1/z2 (a^2 (1 - En^2)));
   rp = M + \[Sqrt](M^2 \[Minus] a^2); 
   rm = M - \[Sqrt](M^2 \[Minus] a^2);
   hr = (r1 \[Minus] r2)/(r1 \[Minus] r3); 
-  hp = (r1 \[Minus] 
-      r2) (r3 \[Minus] rp)/((r1 \[Minus] r3) (r2 \[Minus] rp)); 
-  hm = (r1 \[Minus] 
-      r2) (r3 \[Minus] rm)/((r1 \[Minus] r3) (r2 \[Minus] rm));
+  hp = (r1 \[Minus] r2) (r3 \[Minus] rp)/((r1 \[Minus] r3) (r2 \[Minus] rp)); 
+  hm = (r1 \[Minus] r2) (r3 \[Minus] rm)/((r1 \[Minus] r3) (r2 \[Minus] rm));
   
   Kkr = EllipticK[kr^2]; Kk\[Theta] = EllipticK[k\[Theta]^2]; 
   Ekr = EllipticE[kr^2]; Ek\[Theta] = EllipticE[k\[Theta]^2];
   Pihr = EllipticPi[hr, kr^2]; Pihp = EllipticPi[hp, kr^2]; 
   Pihm = EllipticPi[hm, kr^2]; Piz1 = EllipticPi[z1, k\[Theta]^2];
   
-  \[CapitalUpsilon]r = (\[Pi]/
-      2) \[Sqrt]((1 \[Minus] En^2) (r1 \[Minus] r3) (r2 \[Minus] r4))/
-     Kkr;
-  \[CapitalUpsilon]\[Theta] = (\[Pi]/2) \[Sqrt]z2/Kk\[Theta];(* 
-  L\[Sqrt](\[Epsilon]0 zp) \[Equal] \[Sqrt](Q/zm) \[Equal] \[Sqrt]z2 *)
+  \[CapitalUpsilon]r = (\[Pi]/2) \[Sqrt]((1 \[Minus] En^2) (r1 \[Minus] r3) (r2 \[Minus] r4))/Kkr;
+  \[CapitalUpsilon]\[Theta] = (\[Pi]/2) \[Sqrt]z2/Kk\[Theta];
   
-  (*If[a<M,*)
+  \[CapitalGamma] = 4 M^2 En + En/(1 - En^2) z2 (Kk\[Theta] \[Minus] Ek\[Theta])/Kk\[Theta] + (1/Kkr)(En/2 ((r3 (r1 + r2 + r3) \[Minus] r1 r2) Kkr + (r2 \[Minus] r3) (r1 + r2 + r3 + r4) Pihr + (r1 \[Minus] r3) (r2 \[Minus] r4) Ekr) + 2 M En (r3 Kkr + (r2 \[Minus] r3) Pihr) + 2 M/(rp \[Minus] rm) (((4 M^2 En \[Minus] a L) rp \[Minus] 2 M a^2 En)/(r3 \[Minus] rp) (Kkr \[Minus] (r2 \[Minus] r3)/(r2 \[Minus] rp) Pihp) \[Minus] ((4 M^2 En \[Minus] a L) rm \[Minus] 2 M a^2 En)/(r3 \[Minus] rm) (Kkr \[Minus] (r2 \[Minus] r3)/(r2 \[Minus] rm) Pihm)));
+  \[CapitalUpsilon]\[Phi] = L (Piz1/Kk\[Theta]) + a/(Kkr (rp \[Minus] rm))((2 M En rp \[Minus] a L)/(r3 \[Minus] rp) (Kkr \[Minus] (r2 \[Minus] r3)/(r2 \[Minus] rp) Pihp) \[Minus] (2 M En rm \[Minus] a L)/(r3 \[Minus] rm) (Kkr \[Minus] (r2 \[Minus] r3)/(r2 \[Minus] rm) Pihm));
   
-  \[CapitalGamma] = 4 M^2 En +
-    En/(1 - En^2) z2 (Kk\[Theta] \[Minus] Ek\[Theta])/Kk\[Theta] +
-    (1/Kkr)
-     (En/
-         2 ((r3 (r1 + r2 + r3) \[Minus] r1 r2) Kkr + (r2 \[Minus] 
-             r3) (r1 + r2 + r3 + r4) Pihr + (r1 \[Minus] 
-             r3) (r2 \[Minus] r4) Ekr) + 
-       2 M En (r3 Kkr + (r2 \[Minus] r3) Pihr) +
-       2 M/(rp \[Minus] 
-           rm) (((4 M^2 En \[Minus] a L) rp \[Minus] 
-              2 M a^2 En)/(r3 \[Minus] 
-              rp) (Kkr \[Minus] (r2 \[Minus] r3)/(r2 \[Minus] 
-                 rp) Pihp) \[Minus] ((4 M^2 En \[Minus] 
-                 a L) rm \[Minus] 2 M a^2 En)/(r3 \[Minus] 
-              rm) (Kkr \[Minus] (r2 \[Minus] r3)/(r2 \[Minus] rm) Pihm)
-         ));
-  \[CapitalUpsilon]\[Phi] = L (Piz1/Kk\[Theta]) +
-    a/(Kkr (rp \[Minus] rm))
-     ((2 M En rp \[Minus] a L)/(r3 \[Minus] 
-           rp) (Kkr \[Minus] (r2 \[Minus] r3)/(r2 \[Minus] 
-              rp) Pihp) \[Minus] (2 M En rm \[Minus] 
-           a L)/(r3 \[Minus] 
-           rm) (Kkr \[Minus] (r2 \[Minus] r3)/(r2 \[Minus] 
-              rm) Pihm));
-  (*];*)
-  (*If[a==M,
-  \[CapitalGamma]=;\[CapitalUpsilon]\[CurlyPhi]=;(21)whereh\
-\[PlusMinus]=];(21) is not valid for the case|a|=
-  Msince there exists divergent terms in1/(r+\[Minus]r\[Minus])
-  ]*)
-  \[CapitalOmega]r = \[CapitalUpsilon]r/\[CapitalGamma]; \
-\[CapitalOmega]\[Theta] = \[CapitalUpsilon]\[Theta]/\[CapitalGamma]; \
-\[CapitalOmega]\[Phi] = \[CapitalUpsilon]\[Phi]/\[CapitalGamma];
-  (*\[Epsilon]0=a^2 (1-En^2)/L^2;
-  zm=1-x^2;
-  a2zp=(L^2+a^2 (-1+En^2) (-1+zm))/((-1+En^2) (-1+zm));
-  \[Epsilon]0zp=-((L^2+a^2 (-1+En^2) (-1+zm))/(L^2 (-1+zm)));
-  (*zmOverZp=If[a==0,0,zm/((L^2+a^2 (-1+En^2) (-1+zm))/(a^2 (-1+
-  En^2) (-1+zm)))];*)zmOverZp=zm/((L^2+a^2 (-1+En^2) (-1+
-  zm))/(a^2 (-1+En^2) (-1+zm)));
-  kr=Sqrt[(r1-r2)/(r1-r3) (r3-r4)/(r2-r4)];(*Eq.(13)*)k\[Theta]=Sqrt[
-  zmOverZp];(*Eq.(13)*)\[CapitalUpsilon]r=(Pi Sqrt[(1-En^2)(r1-r3)(r2-
-  r4)])/(2EllipticK[
-  kr^2]);(*Eq.(15)*)\[CapitalUpsilon]\[Theta]=(Pi L \
-Sqrt[\[Epsilon]0zp])/(2EllipticK[k\[Theta]^2]);(*Eq.(15)*)rp=M+Sqrt[
-  M^2-a^2];
-  rm=M-Sqrt[M^2-a^2];
-  hr=(r1-r2)/(r1-r3);
-  hp=((r1-r2)(r3-rp))/((r1-r3)(r2-rp));
-  hm=((r1-r2)(r3-rm))/((r1-r3)(r2-rm));
-  (*Eq.(21)*)\[CapitalUpsilon]\[Phi]=(2\[CapitalUpsilon]\[Theta])/(Pi \
-Sqrt[\[Epsilon]0zp]) EllipticPi[zm,
-  k\[Theta]^2]+(2a \[CapitalUpsilon]r)/(Pi(rp-rm)Sqrt[(1-En^2)(r1-
-  r3)(r2-r4)])((2M En rp-a L)/(r3-rp) (EllipticK[kr^2]-(r2-r3)/(r2-
-  rp) EllipticPi[hp,kr^2])-(2M En rm-a L)/(r3-rm) (EllipticK[
-  kr^2]-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2]));
-  \[CapitalGamma]=
-  4M^2 En+(2a2zp En \[CapitalUpsilon]\[Theta])/(Pi L \
-Sqrt[\[Epsilon]0zp]) (EllipticK[k\[Theta]^2]-EllipticE[
-  k\[Theta]^2])+(2\[CapitalUpsilon]r)/(Pi Sqrt[(1-En^2)(r1-r3)(r2-
-  r4)]) (En/2 ((r3(r1+r2+r3)-r1 r2)EllipticK[kr^2]+(r2-r3)(r1+r2+r3+
-  r4)EllipticPi[hr,kr^2]+(r1-r3)(r2-r4)EllipticE[
-  kr^2])+2M En(r3 EllipticK[kr^2]+(r2-r3)EllipticPi[hr,
-  kr^2])+(2M)/(rp-rm) (((4M^2 En-a L)rp-2M a^2 En)/(r3-rp) (EllipticK[
-  kr^2]-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2])-((4M^2 En-
-  a L)rm-2M a^2 En)/(r3-rm) (EllipticK[kr^2]-(r2-r3)/(r2-
-  rm) EllipticPi[hm,kr^2])));*)
-  <|"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> \
-\[CapitalUpsilon]r, 
-   "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> 
-    Abs[\[CapitalUpsilon]\[Theta]], 
-   "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> \
-\[CapitalUpsilon]\[Phi], 
-   "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(t\)]\)" -> \
-\[CapitalGamma]|>
+  \[CapitalOmega]r = \[CapitalUpsilon]r/\[CapitalGamma];
+  \[CapitalOmega]\[Theta] = \[CapitalUpsilon]\[Theta]/\[CapitalGamma];
+  \[CapitalOmega]\[Phi] = \[CapitalUpsilon]\[Phi]/\[CapitalGamma];
+
+ <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> \[CapitalUpsilon]r,
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> Abs[\[CapitalUpsilon]\[Theta]],
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> \[CapitalUpsilon]\[Phi],
+    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(t\)]\)" -> \[CapitalGamma] |>
+
 ]
 
 
