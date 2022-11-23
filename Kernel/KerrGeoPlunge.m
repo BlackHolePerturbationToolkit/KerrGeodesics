@@ -10,7 +10,7 @@
 
 BeginPackage["KerrGeodesics`KerrGeoPlunge`"];
 
-KerrGeoPlunge::usage = "KerrGeoPlunge[a,rI] returns a KerrGeoPlungeFunction[..] which stores the orbital trajectory and parameters.";
+KerrGeoPlunge::usage = "Takes either KerrGeoPlunge[a, Generic, En ,L,Q] or KerrGeoPlunge[a, ISSO , RI] for generic Plunges or ISSO plunges respectively and returns a KerrGeoPlungeFunction[..] which stores the orbital trajectory and parameters. Here the ISSO plunges are paramaterised in terms of the choice of the radius of the ISSO for a given a there are range of allowed RI's which correspond to differeing inclinations in the prograde and retrograde directions, if an RI outside this range is given the used is provided with the range of allowed values to re-run the funciton.";
 KerrGeoPlungeFunction::usage = "KerrGeoPlungeFunction[a,rI,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 
 Begin["`Private`"];
@@ -20,7 +20,63 @@ Begin["`Private`"];
 (*Kerr*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
+(*ISSO Plunges (Mino)*)
+
+
+KerrGeoISSOPlungeMino[a_, RI_, initPhases:{_,_,_,_}:{0,0,0,0}] := Module[{consts, assoc,M=1, t, r, \[Theta], \[Phi], \[Epsilon], L, Q, R4, RM, RP, KZ, Z1, Z2, J,velocity},
+	
+	RM = M-Sqrt[M^2-a^2];
+	RP = M+Sqrt[M^2-a^2];
+	Q =- M (RI)^(5/2) ((Sqrt[(RI-RP)(RI-RM)]-2Sqrt[RI])^2-4a^2)/(4a^2 (RI^(3/2)-Sqrt[RI]-Sqrt[(RI-RP)(RI-RM)]));
+	\[Epsilon]=Sqrt[a^2 Q-2 RI^3+3 RI^4]/(Sqrt[3] RI^2);
+	L=Sqrt[3 a^2 Q-a^2 RI^2-Q RI^2+3 RI^4+a^2 RI^2 \[Epsilon]^2-3 RI^4 \[Epsilon]^2]/RI;
+	J = 1-\[Epsilon]^2;
+	{Z1,Z2}= {Sqrt[1/2 (1+(L^2+Q)/(a^2 J)-Sqrt[(1+(L^2+Q)/(a^2 J))^2-(4 Q)/(a^2 J)])],Sqrt[ (a^2 J)/2 (1+(L^2+Q)/(a^2 J)+Sqrt[(1+(L^2+Q)/(a^2 J))^2-(4 Q)/(a^2 J)])]};
+	consts = {\[Epsilon], L, Q};
+	R4 = (a^2 Q)/(J*RI^3);
+	KZ = a^2*J(Z1^2/Z2^2);
+	
+	r[\[Lambda]_] := ((RI (RI-R4)^2 J*\[Lambda]^2+4*R4)/((RI-R4)^2 J*\[Lambda]^2+4));
+
+	z[\[Lambda]_]:= Z1*JacobiSN[Z2*\[Lambda] + EllipticK[KZ],KZ];
+
+
+	tr[\[Lambda]_]:= ((a^2+RI^2) (-a L+(a^2+RI^2) \[Epsilon]) \[Lambda])/((RI-RM) (RI-RP))+(2 (R4-RI)^2 \[Epsilon] \[Lambda])/(4+J (R4-RI)^2 \[Lambda]^2)-(R4+3 RI+2 (RM+RP))/Sqrt[J] \[Epsilon] ArcTan[(\[Lambda] (RI-R4)Sqrt[J ]  )/2 ]+(2 (a^2+RM^2) (-a L+a^2 \[Epsilon]+RM^2 \[Epsilon]) ArcTanh[(2  Sqrt[RM-R4])/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RM])])/(Sqrt[RM-R4] (RI-RM)^(3/2) (-RM+RP)Sqrt[J])+(2 (a^2+RP^2) (-a L+a^2 \[Epsilon]+RP^2 \[Epsilon]) ArcTanh[(2  Sqrt[RP-R4])/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP])])/(Sqrt[J]Sqrt[RP-R4] (RI-RP)^(3/2) (RM-RP));
+
+	\[Phi]r[\[Lambda]_]:= 1/Sqrt[J] 2 a ((\[Lambda] (RI-R4)Sqrt[J ] (-a L+a^2 \[Epsilon]+RI^2 \[Epsilon]))/( 2(-R4+RI) (RI-RM) (RI-RP))+((-a L+a^2 \[Epsilon]+RM^2 \[Epsilon]) ArcTanh[(2  Sqrt[RM-R4])/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RM])])/(Sqrt[RM-R4] (RI-RM)^(3/2) (-RM+RP))+((-a L+a^2 \[Epsilon]+RP^2 \[Epsilon]) ArcTanh[(2  Sqrt[RP-R4])/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP])])/(Sqrt[RP-R4] (RI-RP)^(3/2) (RM-RP))) ;
+
+	tz[\[Lambda]_]:= 1/J \[Epsilon]  (-Z2 EllipticE[JacobiAmplitude[Z2 \[Lambda] + EllipticK[KZ],KZ],KZ]+(Z2-a^2 J/Z2) EllipticF[JacobiAmplitude[Z2 \[Lambda] + EllipticK[KZ],KZ],KZ]);
+	\[Phi]z[\[Lambda]_]:= L/Z2 EllipticPi[Z1^2,JacobiAmplitude[Z2 \[Lambda] + EllipticK[KZ],KZ],KZ];
+
+
+	t=Function[{Global`\[Lambda]}, Evaluate[ a*L Global`\[Lambda]  tr[Global`\[Lambda]] + tz[Global`\[Lambda]]], Listable];
+	r=Function[{Global`\[Lambda]}, Evaluate[ r[Global`\[Lambda]] ], Listable];
+	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda]]] ], Listable];
+	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[-a*\[Epsilon] Global`\[Lambda] + \[Phi]r[Global`\[Lambda]] + \[Phi]z[Global`\[Lambda]]], Listable];
+
+
+
+	assoc = Association[
+		"Parametrization"->"Mino", 
+		"Energy" -> \[Epsilon], 
+		"AngularMomentum" -> L, 
+		"CarterConstant" -> Q, 
+		"ConstantsOfMotion" -> consts,
+		"RadialRoots"-> {RI,RI,RI,R4},
+		"Trajectory" -> {t,r,\[Theta],\[Phi]},
+		"a" -> a,
+		"rI" -> RI,
+		"InitialPhases" -> initPhases
+	];
+	
+	KerrGeoPlungeFunction[a, \[Epsilon], L, Q, assoc]
+
+]
+
+
+
+(* ::Subsection:: *)
 (*Real Plunges (Mino)*)
 
 
@@ -208,22 +264,32 @@ tz[\[Lambda]_]:= \[Epsilon]/ J ((Z2-a^2 J/Z2) EllipticF[AMZ[\[Lambda]],KZ]-Z2 El
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
-KerrGeoPlunge[a_,\[Epsilon]_,L_,Q_, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Module[{param, method, ROOTS, RealRoots,ComplexRoots},
+KerrGeoPlunge[a_:0.9,PlungeType_:"Generic",Arg1_:0.8,L_:0.3,Q_:3, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Module[{param, \[Epsilon], method, RI, DN, RISSOMIN, RISSOMAX, ROOTS, RealRoots,ComplexRoots},
 (*FIXME: add stability check but make it possible to turn it off*)
 
-method = "Analytical";
-param = "MINO";
+If[PlungeType== "ISSO" ,
+	RI = Arg1;
+	DN = (27-45 a^2+17 a^4+a^6+8 a^3 (1-a^2))^(1/3);
+	RISSOMIN = 3+Sqrt[3+a^2+(9-10 a^2+a^4)/DN+DN]-1/2 \[Sqrt](72+8 (-6+a^2)-(4 (9-10 a^2+a^4))/DN-4 DN+(64 a^2)/Sqrt[3+a^2+(9-10 a^2+a^4)/DN+DN]);
+	RISSOMAX = 3+Sqrt[3+a^2+(9-10 a^2+a^4)/DN+DN]+1/2 \[Sqrt](72+8 (-6+a^2)-(4 (9-10 a^2+a^4))/DN-4 DN+(64 a^2)/Sqrt[3+a^2+(9-10 a^2+a^4)/DN+DN]);
+	If[Between[RI, {RISSOMIN,RISSOMAX} ], Return[KerrGeoISSOPlungeMino[a, RI, initPhases]]];
+	
+	Return[Print[StringForm["Please Provide valid value of rI. For a=``, the range of allowed rI's is given by ``." ,a,{RISSOMIN,RISSOMAX} ]]]];
 
-ROOTS = r/.Solve[(\[Epsilon](r^2+a^2)-a*L)^2-(r^2-2r+a^2)(r^2+(a*\[Epsilon]-L)^2+Q)==0,r];
+
+\[Epsilon] = Arg1;	
+ROOTS = r/.NSolve[(\[Epsilon](r^2+a^2)-a*L)^2-(r^2-2r+a^2)(r^2+(a*\[Epsilon]-L)^2+Q)==0,r];
+
 
 RealRoots = Select[ROOTS,Im[#]==0&];
 ComplexRoots = Select[ROOTS,Im[#]!=0&];
 
-If[Length[ComplexRoots]!=0, Return[KerrGeoComplexPlungeMino[a, \[Epsilon], L, Q, initPhases]]];
-If[Length[ComplexRoots]==0, Return[KerrGeoRealPlungeMino[a, \[Epsilon], L, Q, initPhases]]];
-
-
-
+If[PlungeType== "Generic" ,
+		
+		
+		If[Length[ComplexRoots]!=0, Return[KerrGeoComplexPlungeMino[a, \[Epsilon], L, Q, initPhases]]];
+		If[Length[ComplexRoots]==0, Return[KerrGeoRealPlungeMino[a, \[Epsilon], L, Q, initPhases]]];
+			];
 ]
 
 
