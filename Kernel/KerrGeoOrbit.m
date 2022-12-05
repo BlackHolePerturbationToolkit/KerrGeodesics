@@ -19,7 +19,7 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 Begin["`Private`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Schwarzschild*)
 
 
@@ -85,11 +85,11 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Equatorial (Darwin)*)
 
 
@@ -161,7 +161,7 @@ KerrGeoOrbitFunction[a, p, e, x, assoc]
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Equatorial (Fast Spec - Darwin)*)
 
 
@@ -234,7 +234,7 @@ Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps,coeffs,
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -311,14 +311,14 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Circular (Fast Spec - Darwin)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -401,7 +401,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Circular (Mino)*)
 
 
@@ -450,7 +450,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -565,7 +565,7 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
@@ -1070,7 +1070,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
