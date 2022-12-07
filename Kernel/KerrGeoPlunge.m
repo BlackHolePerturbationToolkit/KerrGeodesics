@@ -288,11 +288,11 @@ KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initPhases:{_,_,_,_}:{0,0,0,0
 (*Integrals*)
 RINT\[Lambda][\[Lambda]_] := ((A b-B e)/(A-B) \[Lambda]-1/ Sqrt[ J] ArcTan[(e-b)/(2 Sqrt[A B])  SNR[\[Lambda]]/Sqrt[1-kr^2 (SNR[\[Lambda]])^2]]+((A+B) (e-b))/(2 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]);
 
-R2INT\[Lambda][\[Lambda]_]:=\[Lambda] /(A-B) (A b^2-B e^2)+ Sqrt[A B ]/Sqrt[ J] (EllipticE[AMR[\[Lambda]],kr^2])-((A+B) (A^2+2 b^2-B^2-2 e^2))/(4 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]-(Sqrt[A B ] (A+B-(A-B)CNR[\[Lambda]]))/((A-B) Sqrt[ J]) (SNR[\[Lambda]] DNR[\[Lambda]])/(f+(SNR[\[Lambda]])^2)+ (A^2+2 b^2-B^2-2 e^2)/(2 (e-b) Sqrt[ J]) Re[ArcTan[( kr  DNR[\[Lambda]]SNR[\[Lambda]] -I kr^2 ( f +   SNR[\[Lambda]]^2))/(Sqrt[f] kr Sqrt[1+f kr^2])]];
-RMINT\[Lambda][\[Lambda]_] :=  ((A-B) \[Lambda])/(A (b-RM)-B (e-RM))+((e-b) (A (b-RM)+B (e-RM))EllipticPi[1/D2M^2,AMR[\[Lambda]],kr^2])/(2 Sqrt[A B J] (b-RM) (-e+RM) (A (b-RM)-B (e-RM))) -Re[(Sqrt[(e-b)]ArcTanh[( DNR[\[Lambda]]SNR[\[Lambda]]-I kr (D2M^2-SNR[\[Lambda]]^2))/(D2M  Sqrt[1-D2M^2 kr^2])])/(Sqrt[ J] Sqrt[ (e-RM) (RM-b)] Sqrt[ (A^2 (RM-b)-(e-RM) (b^2-B^2+e RM-b (e+RM)))])];
+R2INT\[Lambda][\[Lambda]_]:=\[Lambda] /(A-B) (A b^2-B e^2)+ Sqrt[A B ]/Sqrt[ J] (EllipticE[AMR[\[Lambda]],kr^2])-((A+B) (A^2+2 b^2-B^2-2 e^2))/(4 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]-(Sqrt[A B ] (A+B-(A-B)CNR[\[Lambda]]))/((A-B) Sqrt[ J]) (SNR[\[Lambda]] DNR[\[Lambda]])/(f+(SNR[\[Lambda]])^2)+ (A^2+2 b^2-B^2-2 e^2)/(2 (e-b) Sqrt[ J]) ArcTan[( kr  DNR[\[Lambda]]SNR[\[Lambda]] -I kr^2 ( f +   SNR[\[Lambda]]^2))/(Sqrt[f] kr Sqrt[1+f kr^2])];
+RMINT\[Lambda][\[Lambda]_] :=  ((A-B) \[Lambda])/(A (b-RM)-B (e-RM))+((e-b) (A (b-RM)+B (e-RM))EllipticPi[1/D2M^2,AMR[\[Lambda]],kr^2])/(2 Sqrt[A B J] (b-RM) (-e+RM) (A (b-RM)-B (e-RM))) -(Sqrt[(e-b)]ArcTanh[( DNR[\[Lambda]]SNR[\[Lambda]]-I kr (D2M^2-SNR[\[Lambda]]^2))/(D2M  Sqrt[1-D2M^2 kr^2])])/(Sqrt[ J] Sqrt[ (e-RM) (RM-b)] Sqrt[ (A^2 (RM-b)-(e-RM) (b^2-B^2+e RM-b (e+RM)))]);
 
 
-RPINT\[Lambda][\[Lambda]_] := ((A-B) \[Lambda])/(A (b-RP)+B (-e+RP))+((e-b) (A (b-RP)+B (e-RP))EllipticPi[1/D2P^2,AMR[\[Lambda]],kr^2])/(2 Sqrt[A B J] (b-RP) (-e+RP) (A (b-RP)+B (-e+RP))) -Re[( Sqrt[(e-b)]ArcTanh[( DNR[\[Lambda]]SNR[\[Lambda]]-I kr (D2P^2-SNR[\[Lambda]]^2))/(D2P  Sqrt[1-D2P^2 kr^2])])/(Sqrt[ J] Sqrt[(RP-b) (e-RP)] Sqrt[ (A^2 (RP-b)-(e-RP) (b^2-B^2+e RP-b (e+RP)))])];
+RPINT\[Lambda][\[Lambda]_] := ((A-B) \[Lambda])/(A (b-RP)+B (-e+RP))+((e-b) (A (b-RP)+B (e-RP))EllipticPi[1/D2P^2,AMR[\[Lambda]],kr^2])/(2 Sqrt[A B J] (b-RP) (-e+RP) (A (b-RP)+B (-e+RP))) -( Sqrt[(e-b)]ArcTanh[( DNR[\[Lambda]]SNR[\[Lambda]]-I kr (D2P^2-SNR[\[Lambda]]^2))/(D2P  Sqrt[1-D2P^2 kr^2])])/(Sqrt[ J] Sqrt[(RP-b) (e-RP)] Sqrt[ (A^2 (RP-b)-(e-RP) (b^2-B^2+e RP-b (e+RP)))]);
 
 tr[\[Lambda]_]:=  ((2 a^2 +RM^2+RM RP+RP^2)\[Epsilon])\[Lambda]+(R2INT\[Lambda][\[Lambda]]+RINT\[Lambda][\[Lambda]](RM+RP)) \[Epsilon] + ((RM^2+a^2)(\[Epsilon](RM^2+a^2)-a*L))/(RM-RP) RMINT\[Lambda][\[Lambda]]+ ((RP^2+a^2)(\[Epsilon](RP^2+a^2)-a*L))/(RP-RM) RPINT\[Lambda][\[Lambda]];
 \[Phi]r[\[Lambda]_]:= a( + ((\[Epsilon](RM^2+a^2)-a*L)/(RM-RP))RMINT\[Lambda][\[Lambda]]+ (\[Epsilon](RP^2+a^2)-a*L)/(RP-RM) RPINT\[Lambda][\[Lambda]]);
@@ -361,9 +361,9 @@ If[PlungeType== "ISSORadialParam" ,
 	Return[Print[StringForm["Please Provide valid value of rI. For a=``, the range of allowed rI's is given by ``." ,a,{RISSOMIN,RISSOMAX} ]]]];
 	
 If[PlungeType== "ISSOIncParam" ,
-	If[Between[Arg1, {0,\[Pi]/2} ], Return[KerrGeoISSOPlungeInc[a, Arg1, initPhases]]];
+	If[Between[Arg1, {0,\[Pi]} ], Return[KerrGeoISSOPlungeInc[a, Arg1, initPhases]]];
 	
-	Return[Print[StringForm["Please Provide valid value of Inclination between,``." ,{0,\[Pi]/2} ]]]];
+	Return[Print[StringForm["Please Provide valid value of Inclination between,``." ,{0,\[Pi]} ]]]];
 ]
 
 
