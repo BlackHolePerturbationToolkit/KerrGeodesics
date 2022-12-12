@@ -9,8 +9,10 @@
 
 
 BeginPackage["KerrGeodesics`KerrGeoPlunge`",
-	{"KerrGeodesics`SpecialOrbits`",
-	"KerrGeodesics`ConstantsOfMotion`"}];
+	{"KerrGeodesics`ConstantsOfMotion`",
+	 "KerrGeodesics`OrbitalFrequencies`",
+	 "KerrGeodesics`FourVelocity`"}];
+
 
 KerrGeoPlunge::usage = "Takes either KerrGeoPlunge[a, Generic, En ,L,Q] or KerrGeoPlunge[a, ISSO , RI] for generic Plunges or ISSO plunges respectively and returns a KerrGeoPlungeFunction[..] which stores the orbital trajectory and parameters. Here the ISSO plunges are paramaterised in terms of the choice of the radius of the ISSO for a given a there are range of allowed RI's which correspond to differeing inclinations in the prograde and retrograde directions, if an RI outside this range is given the used is provided with the range of allowed values to re-run the funciton.";
 KerrGeoPlungeFunction::usage = "KerrGeoPlungeFunction[a,rI,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
