@@ -242,7 +242,7 @@ KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","Na
 	kz = a*Sqrt[J](Z1/Z2);
 	
 	If[initCoords=={"NaN","NaN","NaN"},
-					{t0,r0,\[Phi]0}={0,R4,0};];	
+					{t0,r0,\[Phi]0}={0,R1,0};];	
 	If[initCoords!={"NaN","NaN","NaN"},
 					{t0,r0,\[Phi]0}=initCoords;];	
 
@@ -262,13 +262,13 @@ KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","Na
 
 	AMZ[\[Lambda]_]:=JacobiAmplitude[Z2 \[Lambda],kz^2];
 	
-	MinoR[x_]:=1/Sqrt[J A B] EllipticF[(\[Pi]/2 -ArcTan[(B(e-x)-A(x-b))/(2 Sqrt[A B]Sqrt[(e-x)(x-b)])]),kr^2];
+	MinoR[x_]:=1/Sqrt[J A B] EllipticF[(\[Pi]/2-ArcSin[(B(e-x)-A(x-b))/Sqrt[4 A B (e-x) (-b+x)+(B (e-x)-A (-b+x))^2]]),kr^2];
 	
 	r[\[Lambda]_] := ((A-B) (A b-B e) SNR[\[Lambda]]^2+2 (A B (b+e)+A B (b-e) CNR[\[Lambda]]))/(4 A B+(A-B)^2 SNR[\[Lambda]]^2);
 
 	z[\[Lambda]_]:= Z1*JacobiSN[Z2 \[Lambda],kz^2];
 
-
+	Print[MinoR[R1]];
 (*Integrals*)
 	RINT\[Lambda][\[Lambda]_] := ((A b-B e)/(A-B) \[Lambda]-1/ Sqrt[ J] ArcTan[(e-b)/(2 Sqrt[A B])  SNR[\[Lambda]]/Sqrt[1-kr^2 (SNR[\[Lambda]])^2]]+((A+B) (e-b))/(2 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]);
 
@@ -281,9 +281,9 @@ KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","Na
 	tz[\[Lambda]_]:= \[Epsilon]/ J ((Z2-a^2 J/Z2) EllipticF[AMZ[\[Lambda]],kz^2]-Z2 EllipticE[AMZ[\[Lambda]],kz^2]);
 	\[Phi]z[\[Lambda]_]:= (L EllipticPi[Z1^2,AMZ[\[Lambda]],(a^2 J Z1^2)/Z2^2])/Z2;
 
-
+	Print[+ MinoR[r0]];
 	t=Function[{Global`\[Lambda]}, Evaluate[  tr[Global`\[Lambda]+ MinoR[r0]] + tz[Global`\[Lambda]+ MinoR[r0]]-tr[MinoR[r0]]-tz[MinoR[r0]] + t0], Listable];
-	r=Function[{Global`\[Lambda]}, Evaluate[ r[Global`\[Lambda] + MinoR[r0]] ], Listable];
+	r=Function[{Global`\[Lambda]}, Evaluate[ r[Global`\[Lambda]+ MinoR[r0]]], Listable];
 	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda] + MinoR[r0]]]] , Listable];
 	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[ \[Phi]r[Global`\[Lambda]+ MinoR[r0]] + \[Phi]z[Global`\[Lambda]+ MinoR[r0]] -  \[Phi]r[MinoR[r0]] - \[Phi]z[MinoR[r0]] + \[Phi]0], Listable];
 
