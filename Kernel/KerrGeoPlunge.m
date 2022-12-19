@@ -29,8 +29,10 @@ Begin["`Private`"];
 (*ISSO Plunges*)
 
 
-KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:{"NaN","NaN","NaN"}] := Module[{consts, \[Theta]0, z, r0, z0, \[Phi]0, initConditions, t0, assoc,M=1,\[Chi]INC ,t,RI, r, \[Theta], \[Phi], \[Epsilon], L, Q, R4, RM, RP, kz, Z1, Z2, J,velocity},
-	
+KerrGeoISSOPlunge::r0outofbounds = "Intial radius `1` is larger than ISSO radius `2`.";
+
+
+KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:Automatic] := Module[{consts, \[Theta]0, z, r0, z0, \[Phi]0, initConditions, t0, assoc,M=1,\[Chi]INC ,t,RI, r, \[Theta], \[Phi], \[Epsilon], L, Q, R4, RM, RP, kz, Z1, Z2, J,velocity},
 	
 	RM = 1-Sqrt[1-a^2];
 	RP = 1+Sqrt[1-a^2];
@@ -54,15 +56,15 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:{"NaN","NaN","NaN"}
 	R4 = (a^2 Q)/(J*RI^3);
 	kz = a*Sqrt[J](Z1/Z2);
 	
-	If[initCoords[1]>RI,Return[Print["Picked r0 greater than ISSO radius"]]];
+	If[initCoords[[1]]>RI,
+		Message[KerrGeoISSOPlunge::r0outofbounds,initCoords[1],RI];
+		Return[$Failed]
+		];
 	
-	
-	
-	If[initCoords=={"NaN","NaN","NaN"},
-					{t0,r0,\[Phi]0}={0,R4,0};];	
-	If[initCoords!={"NaN","NaN","NaN"},
-					{t0,r0,\[Phi]0}=initCoords;];	
-
+	If[initCoords===Automatic,
+					{t0,r0,\[Phi]0}={0,R4,0},
+					{t0,r0,\[Phi]0}=initCoords
+					];	
 	
 	MinoR[x_] :=(2 Sqrt[x-R4])/Sqrt[J (RI-x) (R4-RI)^2];
 	
