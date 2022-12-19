@@ -25,11 +25,11 @@ Begin["`Private`"];
 (*Kerr*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*ISSO Plunges*)
 
 
-KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:{"NaN","NaN","NaN"}] := Module[{consts, \[Theta]0, z, r0, z0, \[Phi]0, initConditions, t0, assoc,M=1,\[Chi]INC ,t,RI, r, \[Theta], \[Phi], \[Epsilon], L, Q, R4, RM, RP, kz, Z1, Z2, J,velocity},
+KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:{"NaN","NaN","NaN"}] := Module[{consts,Mino, \[Theta]0, z, r0, z0, \[Phi]0, initConditions, t0, assoc,M=1,\[Chi]INC ,t,RI, r, \[Theta], \[Phi], \[Epsilon], L, Q, R4, RM, RP, kz, Z1, Z2, J,velocity},
 	
 	
 	RM = 1-Sqrt[1-a^2];
@@ -64,7 +64,8 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:{"NaN","NaN","NaN"}
 					{t0,r0,\[Phi]0}=initCoords;];	
 
 	
-	MinoR[x_] :=(2 Sqrt[x-R4])/Sqrt[J (RI-x) (R4-RI)^2];
+	MinoR[x_] :=(2 Sqrt[x-R4])/Sqrt[J (RI-x) (R4-RI)^2] - (2 Sqrt[r0-R4])/Sqrt[J (RI-x) (R4-RI)^2];
+	Mino=Function[{Global`r}, Evaluate[MinoR[Global`r]],Listable];
 	
 	r[\[Lambda]_] := ((RI (RI-R4)^2 J*\[Lambda]^2+4*R4)/((RI-R4)^2 J*\[Lambda]^2+4));
 
@@ -89,7 +90,8 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:{"NaN","NaN","NaN"}
 		"CarterConstant" -> Q, 
 		"ConstantsOfMotion" -> consts,
 		"RadialRoots"-> {RI,RI,RI,R4},
-		"MinoTimeFunctions"->{} ,
+		"Mino"-> Mino,
+		"HorizonCrossingTimeMino"-> {Mino[RM],Mino[RP]},
 		"PolarRoots"-> {Z1,Z2},
 		"EllipticBasis"-> {0,kz^2},
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
@@ -109,11 +111,11 @@ Clear["Global`*"]
 Solve[r== ((RI (RI-R4)^2 J*\[Lambda]^2+4*R4)/((RI-R4)^2 J*\[Lambda]^2+4)),\[Lambda]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Real Plunges (Mino)*)
 
 
-KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_,_}:{0,0,0}] := Module[{consts,assoc,M,t0,r0,\[Phi]0,kr,hR,hP,hM,\[CapitalUpsilon]T,\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]Tr,\[CapitalUpsilon]Tz,\[CapitalUpsilon]z,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Phi]r,\[CapitalUpsilon]\[Phi]z,t,r,z, \[Theta], J,\[Phi], R1,R2,R3,R4, RM, RP,ROOTS,RealRoots,ComplexRoots, kz, Z1, Z2},
+KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{0,0,0}] := Module[{consts,assoc,M,MinoR,T0,r0,\[Phi]0,kr,hR,hP,hM,\[CapitalUpsilon]T,\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]Tr,\[CapitalUpsilon]Tz,\[CapitalUpsilon]z,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Phi]r,\[CapitalUpsilon]\[Phi]z,t,r,z, \[Theta], J,\[Phi], R1,R2,R3,R4, RM, RP,ROOTS,RealRoots,ComplexRoots, kz, Z1, Z2},
 	
 	M=1;
 	J = 1-\[Epsilon]^2;
@@ -122,10 +124,21 @@ KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_,_}:{0,0,0}] :=
 	
 	ROOTS = r/.Solve[(\[Epsilon](r^2+a^2)-a*L)^2-(r^2-2M*r+a^2)(r^2+(a*\[Epsilon]-L)^2+Q)==0,r];
 
+	If[Length[Select[ROOTS,#>=RP&]>=3],
 	R1= ROOTS[[3]];
 	R2= ROOTS[[4]];
-	R3= ROOTS[[1]];
-	R4= ROOTS[[2]];
+	R3= Min[Select[ROOTS,#>=RP&]];
+	R4= Max[Select[ROOTS,#<=RM&]];];
+	If[Length[Select[ROOTS,#>=RP&]<3],
+	R1= ROOTS[[2]];
+	R2= ROOTS[[1]];
+	R3= Min[Select[ROOTS,#>=RP&]];
+	R4= Max[Select[ROOTS,#<=RM&]];];
+	
+	If[initCoords=={"NaN","NaN","NaN"},
+					{T0,r0,\[Phi]0}={0,R4,0};];	
+	If[initCoords!={"NaN","NaN","NaN"},
+					{T0,r0,\[Phi]0}=initCoords;];	
 	
 	
 	
@@ -139,6 +152,10 @@ KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_,_}:{0,0,0}] :=
 	hM =  hR (R1-RM)/(R4-RM);
 	
 
+	MinoR[x_]:= (2 (InverseJacobiSN[Sqrt[(-R1+R3) (r-R4)]/Sqrt[(r-R1) (R3-R4)] ,KR] - InverseJacobiSN[Sqrt[(-R1+R3) (r0-R4)]/Sqrt[(r0-R1) (R3-R4)] ,KR]))/Sqrt[J (R1-R3) (R2-R4)];
+	Mino=Function[{Global`r}, Evaluate[MinoR[Global`r]],Listable];
+	
+	r=Function[{Global`\[Lambda]}, Evaluate[r[Global`\[Lambda]+ MinoR[r0]] ], Listable];
 	
 	\[CapitalUpsilon]r= \[Pi]/(2*EllipticK[kr]) Sqrt[J(R3-R1)(R4-R2)];
 	
@@ -169,10 +186,10 @@ KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_,_}:{0,0,0}] :=
 	Tz[\[Lambda]_]:= TTz[JacobiAmplitude[EllipticK[kz^2]*(2*\[CapitalUpsilon]z*\[Lambda])/\[Pi],kz^2]] - TTz[\[Pi]]/\[Pi] \[CapitalUpsilon]z*\[Lambda];
 
 
-	t=Function[{Global`\[Lambda]}, Evaluate[Trr[Global`\[Lambda]]+Tz[Global`\[Lambda]] + \[CapitalUpsilon]T*Global`\[Lambda]], Listable];
-	r=Function[{Global`\[Lambda]}, Evaluate[r[Global`\[Lambda]] ], Listable];
-	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda]]]], Listable];
-	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[\[Phi]r[Global`\[Lambda]]+\[Phi]z[Global`\[Lambda]] + \[CapitalUpsilon]\[Phi]*Global`\[Lambda] ], Listable];
+	t=Function[{Global`\[Lambda]}, Evaluate[Trr[Global`\[Lambda]+ MinoR[r0]]+Tz[Global`\[Lambda]+ MinoR[r0]] + \[CapitalUpsilon]T*Global`\[Lambda]-Trr[Global`\[Lambda]]-Tz[Global`\[Lambda]] + T0], Listable];
+	r=Function[{Global`\[Lambda]}, Evaluate[r[Global`\[Lambda]+ MinoR[r0]] ], Listable];
+	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda]+ MinoR[r0]]]], Listable];
+	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[\[Phi]r[Global`\[Lambda]+ MinoR[r0]]+\[Phi]z[Global`\[Lambda]+ MinoR[r0]] + \[CapitalUpsilon]\[Phi]*Global`\[Lambda] -\[Phi]r[ MinoR[r0]]-\[Phi]z[MinoR[r0]]+ \[Phi]0], Listable];
 
 
 
@@ -182,11 +199,14 @@ KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_,_}:{0,0,0}] :=
 		"AngularMomentum" -> L, 
 		"CarterConstant" -> Q, 
 		"ConstantsOfMotion" -> consts,
+		"Mino"-> Mino,
+		"HorizonCrossingTimeMino"-> {Mino[RM],Mino[RP]},
 		"RadialRoots"-> {R1,R2,R3,R4},
 		"PolarRoots"-> {Z1,Z2},
 		"EllipticBasis"-> {kr^2,kz^2},
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
 		"a" -> a,
+		"Frequencies"-> {\[CapitalUpsilon]T, \[CapitalUpsilon]r,\[CapitalUpsilon]z,\[CapitalUpsilon]\[Phi]},
 		"\[Epsilon]" -> \[Epsilon],
 		"L" -> L,
 		"Q" -> Q,
@@ -198,7 +218,7 @@ KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_,_}:{0,0,0}] :=
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Complex Plunge (Mino)*)
 
 
@@ -206,7 +226,7 @@ KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_,_}:{0,0,0}] :=
 (*FIXME: make the initial phases work in this case*)
 
 
-KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","NaN","NaN"}] := Module[{consts, assoc,t0,r0,\[Phi]0,M,D1M,D1P,D2M,D2P,e,b,c,d,A,B,chi,kr,p2,f, t, r,z, \[Theta], J,\[Phi], R1,R2,R3,R4, RM, RP,ROOTS,RealRoots,ComplexRoots,kz,Z1, Z2, AMR,CNR,SNR,DNR,AMZ},
+KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","NaN","NaN"}] := Module[{consts, assoc,MinoR,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],t0,r0,\[Phi]0,M,D1M,D1P,D2M,D2P,e,b,c,d,A,B,chi,kr,p2,f, t, r,z, \[Theta], J,\[Phi], R1,R2,R3,R4, RM, RP,ROOTS,RealRoots,ComplexRoots,kz,Z1, Z2, AMR,CNR,SNR,DNR,AMZ},
 	
 	M=1;
 	J = 1-\[Epsilon]^2;
@@ -236,17 +256,16 @@ KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","Na
 	kr = Sqrt[((e-b)^2-(A-B)^2)/(4*A*B)];
 	p2 = b*A^2+e*B^2-(e+b)*A*B;
 	f = (4 A B)/(A-B)^2;
-	
-	
-	If[initCoords[1]>R2,Return[Print["Picked r0 greater than r2"]]];
 	kz = a*Sqrt[J](Z1/Z2);
+	
+	\[CapitalUpsilon]r = 2 \[Pi] EllipticK[kr^2]/Sqrt[A B (1-\[Epsilon]^2) ];
+	\[CapitalUpsilon]\[Theta] = \[Pi]/2 EllipticK[kz^2]/Z2;
+	
 	
 	If[initCoords=={"NaN","NaN","NaN"},
 					{t0,r0,\[Phi]0}={0,R1,0};];	
 	If[initCoords!={"NaN","NaN","NaN"},
 					{t0,r0,\[Phi]0}=initCoords;];	
-
-	
 	
 	D1M=Sqrt[ -f];
 	D2M=Sqrt[(4 A B (RM-b) (e-RM))/(A( b-RM)-B( e- RM))^2];
@@ -263,12 +282,13 @@ KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","Na
 	AMZ[\[Lambda]_]:=JacobiAmplitude[Z2 \[Lambda],kz^2];
 	
 	MinoR[x_]:=1/Sqrt[J A B] EllipticF[(\[Pi]/2-ArcSin[(B(e-x)-A(x-b))/Sqrt[4 A B (e-x) (-b+x)+(B (e-x)-A (-b+x))^2]]),kr^2];
+	Mino=Function[{Global`r}, Evaluate[MinoR[Global`r] -MinoR[r0] ],Listable];
+	
 	
 	r[\[Lambda]_] := ((A-B) (A b-B e) SNR[\[Lambda]]^2+2 (A B (b+e)+A B (b-e) CNR[\[Lambda]]))/(4 A B+(A-B)^2 SNR[\[Lambda]]^2);
 
 	z[\[Lambda]_]:= Z1*JacobiSN[Z2 \[Lambda],kz^2];
 
-	Print[MinoR[R1]];
 (*Integrals*)
 	RINT\[Lambda][\[Lambda]_] := ((A b-B e)/(A-B) \[Lambda]-1/ Sqrt[ J] ArcTan[(e-b)/(2 Sqrt[A B])  SNR[\[Lambda]]/Sqrt[1-kr^2 (SNR[\[Lambda]])^2]]+((A+B) (e-b))/(2 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]);
 
@@ -281,7 +301,6 @@ KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","Na
 	tz[\[Lambda]_]:= \[Epsilon]/ J ((Z2-a^2 J/Z2) EllipticF[AMZ[\[Lambda]],kz^2]-Z2 EllipticE[AMZ[\[Lambda]],kz^2]);
 	\[Phi]z[\[Lambda]_]:= (L EllipticPi[Z1^2,AMZ[\[Lambda]],(a^2 J Z1^2)/Z2^2])/Z2;
 
-	Print[+ MinoR[r0]];
 	t=Function[{Global`\[Lambda]}, Evaluate[  tr[Global`\[Lambda]+ MinoR[r0]] + tz[Global`\[Lambda]+ MinoR[r0]]-tr[MinoR[r0]]-tz[MinoR[r0]] + t0], Listable];
 	r=Function[{Global`\[Lambda]}, Evaluate[ r[Global`\[Lambda]+ MinoR[r0]]], Listable];
 	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda] + MinoR[r0]]]] , Listable];
@@ -296,8 +315,11 @@ KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","Na
 		"ConstantsOfMotion" -> consts,
 		"RadialRoots"-> {R1,R2,R3,R4},
 		"PolarRoots"-> {Z1,Z2},
-		"HorizonCrossingTimeMino"-> {Mino[-RP],Mino[-RM],Mino[RM],Mino[RP]},
+		"Mino"-> Mino,
+		"HorizonCrossingTimeMino"-> {Mino[RM],Mino[RP]},
 		"EllipticBasis"-> {kr^2,kz^2},
+		"RadialFrequency"->\[CapitalUpsilon]r,
+		"PolarFrequency"-> \[CapitalUpsilon]\[Theta],
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
 		"a" -> a,
 		"\[Epsilon]" -> \[Epsilon],
