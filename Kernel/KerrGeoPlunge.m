@@ -29,8 +29,12 @@ Begin["`Private`"];
 (*ISSO Plunges*)
 
 
-KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:{"NaN","NaN","NaN"}] := Module[{consts,Mino, \[Theta]0, z, r0, z0, \[Phi]0, initConditions, t0, assoc,M=1,\[Chi]INC ,t,RI, r, \[Theta], \[Phi], \[Epsilon], L, Q, R4, RM, RP, kz, Z1, Z2, J,velocity},
-	
+
+KerrGeoISSOPlunge::r0outofbounds = "Intial radius `1` is larger than ISSO radius `2`.";
+
+
+KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:Automatic] := Module[{consts, \[Theta]0, z, r0,Mino, z0, \[Phi]0, initConditions, t0, assoc,M=1,\[Chi]INC ,t,RI, r, \[Theta], \[Phi], \[Epsilon], L, Q, R4, RM, RP, kz, Z1, Z2, J,velocity},
+
 	
 	RM = 1-Sqrt[1-a^2];
 	RP = 1+Sqrt[1-a^2];
@@ -54,15 +58,15 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:{"NaN","NaN","NaN"}
 	R4 = (a^2 Q)/(J*RI^3);
 	kz = a*Sqrt[J](Z1/Z2);
 	
-	If[initCoords[1]>RI,Return[Print["Picked r0 greater than ISSO radius"]]];
+	If[initCoords[[1]]>RI,
+		Message[KerrGeoISSOPlunge::r0outofbounds,initCoords[1],RI];
+		Return[$Failed]
+		];
 	
-	
-	
-	If[initCoords=={"NaN","NaN","NaN"},
-					{t0,r0,\[Phi]0}={0,R4,0};];	
-	If[initCoords!={"NaN","NaN","NaN"},
-					{t0,r0,\[Phi]0}=initCoords;];	
-
+	If[initCoords===Automatic,
+					{t0,r0,\[Phi]0}={0,R4,0},
+					{t0,r0,\[Phi]0}=initCoords
+					];	
 	
 	MinoR[x_] :=(2 Sqrt[x-R4])/Sqrt[J (RI-x) (R4-RI)^2] - (2 Sqrt[r0-R4])/Sqrt[J (RI-x) (R4-RI)^2];
 	Mino=Function[{Global`r}, Evaluate[MinoR[Global`r]],Listable];
@@ -107,15 +111,11 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:{"NaN","NaN","NaN"}
 
 
 
-Clear["Global`*"]
-Solve[r== ((RI (RI-R4)^2 J*\[Lambda]^2+4*R4)/((RI-R4)^2 J*\[Lambda]^2+4)),\[Lambda]]
-
-
 (* ::Subsection:: *)
 (*Real Plunges (Mino)*)
 
 
-KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{0,0,0}] := Module[{consts,assoc,M,MinoR,T0,r0,\[Phi]0,kr,hR,hP,hM,\[CapitalUpsilon]T,\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]Tr,\[CapitalUpsilon]Tz,\[CapitalUpsilon]z,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Phi]r,\[CapitalUpsilon]\[Phi]z,t,r,z, \[Theta], J,\[Phi], R1,R2,R3,R4, RM, RP,ROOTS,RealRoots,ComplexRoots, kz, Z1, Z2},
+KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{0,0,0}] := Module[{consts,assoc,M,MinoR,t0,r0,\[Phi]0,kr,hR,hP,hM,\[CapitalUpsilon]t,\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]tr,\[CapitalUpsilon]tz,\[CapitalUpsilon]z,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Phi]r,\[CapitalUpsilon]\[Phi]z,t,r,z, \[Theta], J,\[Phi], R1,R2,R3,R4, RM, RP,ROOTS,RealRoots,ComplexRoots, kz, Z1, Z2},
 	
 	M=1;
 	J = 1-\[Epsilon]^2;
@@ -135,12 +135,16 @@ KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{0,0,0}] := M
 	R3= Min[Select[ROOTS,#>=RP&]];
 	R4= Max[Select[ROOTS,#<=RM&]];];
 	
-	If[initCoords=={"NaN","NaN","NaN"},
-					{T0,r0,\[Phi]0}={0,R4,0};];	
-	If[initCoords!={"NaN","NaN","NaN"},
-					{T0,r0,\[Phi]0}=initCoords;];	
-	
-	
+		
+	If[initCoords[[1]]>RI,
+		Message[KerrGeoISSOPlunge::r0outofbounds,initCoords[1],RI];
+		Return[$Failed]
+		];
+		
+	If[initCoords===Automatic,
+					{t0,r0,\[Phi]0}={0,R4,0},
+					{t0,r0,\[Phi]0}=initCoords
+					];	
 	
 	
 	{Z1,Z2}= {Sqrt[1/2 (1+(L^2+Q)/(a^2 J)-Sqrt[(1+(L^2+Q)/(a^2 J))^2-(4 Q)/(a^2 J)])],Sqrt[ (a^2 J)/2 (1+(L^2+Q)/(a^2 J)+Sqrt[(1+(L^2+Q)/(a^2 J))^2-(4 Q)/(a^2 J)])]};
@@ -172,21 +176,21 @@ KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{0,0,0}] := M
 	\[Phi]z[\[Lambda]_]:= -\[Phi]Tz[JacobiAmplitude[EllipticK[kz^2]*(2*(\[CapitalUpsilon]z*\[Lambda]))/\[Pi],kz^2]] + \[Phi]Tz[\[Pi]]/\[Pi] \[CapitalUpsilon]z*\[Lambda];
 	
 
-	\[CapitalUpsilon]Tr = (4+a^2)\[Epsilon]+\[Epsilon](1/2 ((4+R3+R4+R1)R1-R3*R4+(R3-R1)(R4-R2) EllipticE[kr]/EllipticK[kr]+(4+R3+R4+R1+R2)(R4-R1) EllipticPi[hR,kr]/EllipticK[kr])+2/(RP-RM) (((4-a*L/\[Epsilon])RP-2*a^2)/(R1-RP) (1-(R4-R1)/(R4-RP) EllipticPi[hP,kr]/EllipticK[kr])-((4-a*L/\[Epsilon])RM-2*a^2)/(R1-RM) (1-(R4-R1)/(R4-RM) EllipticPi[hM,kr]/EllipticK[kr])));
-	\[CapitalUpsilon]Tz= -a^2*\[Epsilon]+(\[Epsilon]*Q)/(J(Z1^2)) (1-EllipticE[kz^2]/EllipticK[kz^2]);
-	\[CapitalUpsilon]T= \[CapitalUpsilon]Tr +\[CapitalUpsilon]Tz;
-	TTr[\[Xi]_]:= (\[Epsilon](R4-R1))/Sqrt[J(R3-R1)(R4-R2)] ((4+R3+R4+R1+R2)EllipticPi[hR,\[Xi],kr]-4/(RP-RM) ((RP(4-a*L/\[Epsilon])-2*a^2)/((R4-RP)(R1-RP)) EllipticPi[hP,\[Xi],kr]-(RM(4-a*L/\[Epsilon])-2*a^2)/((R4-RM)(R1-RM)) EllipticPi[hM,\[Xi],kr])+((R3-R1)(R4-R2))/(R4-R1) (EllipticE[\[Xi],kr]-(hR*Sin[\[Xi]]*Cos[\[Xi]]Sqrt[1-kr*(Sin[\[Xi]])^2])/(1-hR*(Sin[\[Xi]])^2)));
-	TTz[\[Xi]_]:= -\[Epsilon]/J Z2*EllipticE[\[Xi],kz^2];
+	\[CapitalUpsilon]tr = (4+a^2)\[Epsilon]+\[Epsilon](1/2 ((4+R3+R4+R1)R1-R3*R4+(R3-R1)(R4-R2) EllipticE[kr]/EllipticK[kr]+(4+R3+R4+R1+R2)(R4-R1) EllipticPi[hR,kr]/EllipticK[kr])+2/(RP-RM) (((4-a*L/\[Epsilon])RP-2*a^2)/(R1-RP) (1-(R4-R1)/(R4-RP) EllipticPi[hP,kr]/EllipticK[kr])-((4-a*L/\[Epsilon])RM-2*a^2)/(R1-RM) (1-(R4-R1)/(R4-RM) EllipticPi[hM,kr]/EllipticK[kr])));
+	\[CapitalUpsilon]tz= -a^2*\[Epsilon]+(\[Epsilon]*Q)/(J(Z1^2)) (1-EllipticE[kz^2]/EllipticK[kz^2]);
+	\[CapitalUpsilon]t= \[CapitalUpsilon]tr +\[CapitalUpsilon]tz;
+	tTr[\[Xi]_]:= (\[Epsilon](R4-R1))/Sqrt[J(R3-R1)(R4-R2)] ((4+R3+R4+R1+R2)EllipticPi[hR,\[Xi],kr]-4/(RP-RM) ((RP(4-a*L/\[Epsilon])-2*a^2)/((R4-RP)(R1-RP)) EllipticPi[hP,\[Xi],kr]-(RM(4-a*L/\[Epsilon])-2*a^2)/((R4-RM)(R1-RM)) EllipticPi[hM,\[Xi],kr])+((R3-R1)(R4-R2))/(R4-R1) (EllipticE[\[Xi],kr]-(hR*Sin[\[Xi]]*Cos[\[Xi]]Sqrt[1-kr*(Sin[\[Xi]])^2])/(1-hR*(Sin[\[Xi]])^2)));
+	tTz[\[Xi]_]:= -\[Epsilon]/J Z2*EllipticE[\[Xi],kz^2];
 	
 	
 	r[\[Lambda]_]:=(R1(R3-R4)(JacobiSN[EllipticK[kr]/\[Pi]* (\[CapitalUpsilon]r*\[Lambda]),kr])^2-R4(R3-R1))/((R3-R4)(JacobiSN[EllipticK[kr]/\[Pi]* (\[CapitalUpsilon]r*\[Lambda]),kr])^2-(R3-R1));
 	z[\[Lambda]_]:=  Z1*JacobiSN[EllipticK[kz^2]*2 (\[CapitalUpsilon]z*\[Lambda])/\[Pi],kz^2];
 	
-	Trr[\[Lambda]_] := TTr[JacobiAmplitude[EllipticK[kr]*(\[CapitalUpsilon]r*\[Lambda])/\[Pi],kr]] - TTr[\[Pi]]/(2*\[Pi]) \[CapitalUpsilon]r*\[Lambda];
-	Tz[\[Lambda]_]:= TTz[JacobiAmplitude[EllipticK[kz^2]*(2*\[CapitalUpsilon]z*\[Lambda])/\[Pi],kz^2]] - TTz[\[Pi]]/\[Pi] \[CapitalUpsilon]z*\[Lambda];
+	tr[\[Lambda]_] := tTr[JacobiAmplitude[EllipticK[kr]*(\[CapitalUpsilon]r*\[Lambda])/\[Pi],kr]] - tTr[\[Pi]]/(2*\[Pi]) \[CapitalUpsilon]r*\[Lambda];
+	tz[\[Lambda]_]:= tTz[JacobiAmplitude[EllipticK[kz^2]*(2*\[CapitalUpsilon]z*\[Lambda])/\[Pi],kz^2]] - tTz[\[Pi]]/\[Pi] \[CapitalUpsilon]z*\[Lambda];
 
 
-	t=Function[{Global`\[Lambda]}, Evaluate[Trr[Global`\[Lambda]+ MinoR[r0]]+Tz[Global`\[Lambda]+ MinoR[r0]] + \[CapitalUpsilon]T*Global`\[Lambda]-Trr[Global`\[Lambda]]-Tz[Global`\[Lambda]] + T0], Listable];
+	t=Function[{Global`\[Lambda]}, Evaluate[tr[Global`\[Lambda]+ MinoR[r0]]+tz[Global`\[Lambda]+ MinoR[r0]] + \[CapitalUpsilon]T*Global`\[Lambda]-tr[Global`\[Lambda]]-tz[Global`\[Lambda]] + t0], Listable];
 	r=Function[{Global`\[Lambda]}, Evaluate[r[Global`\[Lambda]+ MinoR[r0]] ], Listable];
 	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda]+ MinoR[r0]]]], Listable];
 	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[\[Phi]r[Global`\[Lambda]+ MinoR[r0]]+\[Phi]z[Global`\[Lambda]+ MinoR[r0]] + \[CapitalUpsilon]\[Phi]*Global`\[Lambda] -\[Phi]r[ MinoR[r0]]-\[Phi]z[MinoR[r0]]+ \[Phi]0], Listable];
@@ -206,14 +210,13 @@ KerrGeoRealPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{0,0,0}] := M
 		"EllipticBasis"-> {kr^2,kz^2},
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
 		"a" -> a,
-		"Frequencies"-> {\[CapitalUpsilon]T, \[CapitalUpsilon]r,\[CapitalUpsilon]z,\[CapitalUpsilon]\[Phi]},
+		"Frequencies"-> {\[CapitalUpsilon]t, \[CapitalUpsilon]r,\[CapitalUpsilon]z,\[CapitalUpsilon]\[Phi]},
 		"\[Epsilon]" -> \[Epsilon],
 		"L" -> L,
 		"Q" -> Q,
 		"InitialPhases" -> initPhases
 	];
 	KerrGeoPlungeFunction[a, \[Epsilon], L, Q, assoc]
-
 ]
 
 
@@ -244,8 +247,6 @@ KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","Na
 	
 	{Z1,Z2}= {Sqrt[1/2 (1+(L^2+Q)/(a^2 J)-Sqrt[(1+(L^2+Q)/(a^2 J))^2-(4 Q)/(a^2 J)])],Sqrt[ (a^2 J)/2 (1+(L^2+Q)/(a^2 J)+Sqrt[(1+(L^2+Q)/(a^2 J))^2-(4 Q)/(a^2 J)])]};
 
-	
-	
 	e = R2;
 	b = R1;
 	c = Re[R3];
@@ -332,7 +333,7 @@ KerrGeoComplexPlungeMino[a_, \[Epsilon]_, L_, Q_ , initCoords:{_,_,_}:{"NaN","Na
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
@@ -342,8 +343,8 @@ KerrGeoPlunge[a_:0.9,{\[Epsilon]_:0.8,L_:0.3,Q_:3}, initPhases:{_,_,_}:{"NaN","N
 ROOTS = r/.NSolve[(\[Epsilon](r^2+a^2)-a*L)^2-(r^2-2r+a^2)(r^2+(a*\[Epsilon]-L)^2+Q)==0,r];
 
 
-RealRoots = Select[ROOTS,Im[#]==0&];
-ComplexRoots = Select[ROOTS,Im[#]!=0&];
+RealRoots = Select[ROOTS,PossibleZeroQ@Im[#]&];
+ComplexRoots = Select[ROOTS,Not@PossibleZeroQ@Im[#]&];
 
 	If[Length[ComplexRoots]!=0, Return[KerrGeoComplexPlungeMino[a, \[Epsilon], L, Q, initPhases]]];
 	If[Length[ComplexRoots]==0, Return[KerrGeoRealPlungeMino[a, \[Epsilon], L, Q, initPhases]]];
@@ -402,7 +403,7 @@ KerrGeoPlungeFunction[a_,\[Epsilon]_,L_,Q_,assoc_][y_?StringQ] := assoc[y]
 Keys[g_KerrGeoPlungeFunction]^:=Keys[g[[5]]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Close the package*)
 
 
