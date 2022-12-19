@@ -105,11 +105,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords:{_,_,_}:{"NaN","NaN","NaN"}
 
 
 
-Clear["Global`*"]
-Solve[r== ((RI (RI-R4)^2 J*\[Lambda]^2+4*R4)/((RI-R4)^2 J*\[Lambda]^2+4)),\[Lambda]]
-
-
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Real Plunges (Mino)*)
 
 
@@ -320,8 +316,8 @@ KerrGeoPlunge[a_:0.9,{\[Epsilon]_:0.8,L_:0.3,Q_:3}, initPhases:{_,_,_}:{"NaN","N
 ROOTS = r/.NSolve[(\[Epsilon](r^2+a^2)-a*L)^2-(r^2-2r+a^2)(r^2+(a*\[Epsilon]-L)^2+Q)==0,r];
 
 
-RealRoots = Select[ROOTS,Im[#]==0&];
-ComplexRoots = Select[ROOTS,Im[#]!=0&];
+RealRoots = Select[ROOTS,PossibleZeroQ@Im[#]&];
+ComplexRoots = Select[ROOTS,Not@PossibleZeroQ@Im[#]&];
 
 	If[Length[ComplexRoots]!=0, Return[KerrGeoComplexPlungeMino[a, \[Epsilon], L, Q, initPhases]]];
 	If[Length[ComplexRoots]==0, Return[KerrGeoRealPlungeMino[a, \[Epsilon], L, Q, initPhases]]];
