@@ -33,7 +33,7 @@ KerrGeoPlunge::r0outofbounds = "Intial radius `1` is not between ISSO radius `2`
 
 
 KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
-	{consts, \[Theta]0, z, r0,Mino, z0, \[Phi]0, initConditions, t0, assoc,M=1,\[Chi]INC ,t,RI, r, \[Theta], \[Phi], \[ScriptCapitalE], \[ScriptCapitalL], \[ScriptCapitalQ], R4, RM, RP, kz, Z1, Z2, J,velocity,MinoR,tr,tz,\[Phi]r,\[Phi]z},
+	{consts, \[Theta]0, z, r0,Mino, z0, \[Phi]0, initConditions, t0, assoc,M=1,\[Chi]INC ,t,RI, r, \[Theta], \[Phi], \[ScriptCapitalE], \[ScriptCapitalL], \[ScriptCapitalQ], R4, RM, RP,t\[Delta], kz, Z1, Z2, J,velocity,MinoR,tr,tz,\[Phi]r,\[Phi]z,LRoot},
 
 	RM = 1-Sqrt[1-a^2];
 	RP = 1+Sqrt[1-a^2];
@@ -43,7 +43,16 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 		\[ScriptCapitalQ] = - M (RI)^(5/2) ((Sqrt[(RI-RP)(RI-RM)]-2Sqrt[RI])^2-4a^2)/(4a^2 (RI^(3/2)-Sqrt[RI]-Sqrt[(RI-RP)(RI-RM)]));
 		\[ScriptCapitalE] = Sqrt[a^2 \[ScriptCapitalQ]-2 RI^3+3 RI^4]/(Sqrt[3] RI^2);
 		\[ScriptCapitalL] = Sqrt[3 a^2 \[ScriptCapitalQ]-a^2 RI^2-\[ScriptCapitalQ] RI^2+3 RI^4+a^2 RI^2 \[ScriptCapitalE]^2-3 RI^4 \[ScriptCapitalE]^2]/RI;
-		];
+	LofR[y_]:= 1/(2 Sqrt[3] y) (\[Sqrt](-((Sqrt[y] (4 a^6 M-3 M y^4 (-y^2+4 Sqrt[y] Sqrt[(y-RM) (y-RP)]-RM RP+y (-4+RM+RP))+6 a^2 y^2 ((4-3 M) y^2+4 (-1+M) Sqrt[y] Sqrt[(y-RM) (y-RP)]-M RM RP+y (-4+M (-4+RM+RP)))+a^4 ((-8+23 M) y^2+4 (2+M) Sqrt[y] Sqrt[(y-RM) (y-RP)]-M RM RP+y (8+M (-4+RM+RP)))))/(a^2 (Sqrt[y]-y^(3/2)+Sqrt[(y-RM) (y-RP)])))));
+	BLofR[\[Delta]_, y_] := LofR[y]- \[Delta];
+	DRootsBLofR[\[Delta]_]:= RootsBLofR[\[Delta]][[1]] - RootsBLofR[\[Delta]][[2]];
+	RootsBLofR[\[Delta]_]:=Select[y/.NSolve[BLofR[\[Delta], y]==0,y],PossibleZeroQ@Im[#]&] ;
+	t\[Delta] =0.00001;
+	While[DRootsBLofR[t\[Delta]]>= 10^-10,t\[Delta]  = t\[Delta] /10 ];
+	LRoot=RootsBLofR[t\[Delta]][[1]];
+	If[RI>LRoot ,\[ScriptCapitalL]=-\[ScriptCapitalL]];
+	];
+	
 	
 	If[PlungeType == "ISSOIncParam",
 		\[Chi]INC = Cos[Arg];
