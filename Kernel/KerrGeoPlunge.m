@@ -72,13 +72,10 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 		Message[KerrGeoPlunge::r0outofbounds,r0,RI,R4];
 		Return[$Failed]
 		];
-		
 	If[Abs[\[Theta]0]<Abs[ArcCos[Z1]]||Abs[\[Theta]0]>\[Pi] - Abs[ArcCos[Z1]],
 		Message[KerrGeoPlunge::z0outofbounds,\[Theta]0,Abs[ArcCos[Z1]],\[Pi]-Abs[ArcCos[Z1]] ];
 		Return[$Failed]
 		];
-		
-			
 	z0 = Cos[\[Theta]0];
 	
 	Minoz[z_] :=InverseJacobiSN[z/Z1,kz^2]/Z2;
@@ -118,10 +115,16 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 		"ConstantsOfMotion" -> consts,
 		"RadialFrequency"-> 0,
 		"PolarFrequency"-> \[CapitalUpsilon]z,
-		"AzimuthalFrequency"-> 0,
 		"Frequencies"-> <|"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)"-> 0, "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> \[CapitalUpsilon]z|>,
+		"RadialPeriod"-> Infinity,
+		"PolarPeriod"-> 2\[Pi]/\[CapitalUpsilon]z,
+		"Periods"-> <|"\!\(\*SubscriptBox[\(\[Lambda]\), \(r\)]\)"-> Infinity, "\!\(\*SubscriptBox[\(\[Lambda]\), \(\[Theta]\)]\)" -> 2\[Pi]/\[CapitalUpsilon]z|>,
 		"RadialRoots"-> {RI,RI,RI,R4},
+		"EllipticPolarBasisSq" -> kz^2,
 		"RadialMinoTime"-> Mino,
+		"RadialRootCrossingTimeMino"-> <|
+			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(I\)], \(\)]\)"-> \[PlusMinus] Infinity(* Time to ISSO *),
+			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(Outer\)], \(\)]\)"-> Abs[MinoR[R4]] - MinoR[r0](* Time to Inner*)|>,
 		"HorizonCrossingTimeMino"-> <|
 			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(+\)], \(+\)]\)"-> MCPP(* Time ingoing branch crosses outer horizon *),
 			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(-\)], \(+\)]\)"-> MCMP(* Time ingoing branch crosses inner horizon *),
@@ -137,7 +140,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Real Roots Generic Plunge (Mino)*)
 
 
@@ -161,18 +164,27 @@ KerrGeoRealPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCapita
 		ROOTS = OptionValue["Roots"]
 		];
 	If[Length[Select[ROOTS,#>=RP&]]>=3,
-	R1= ROOTS[[3]];
-	R2= ROOTS[[4]];
-	R3= Min[Select[ROOTS,#>=RP&]];
-	R4= Max[Select[ROOTS,#<=RM&]];];
-	
+	R1= ROOTS[[4]];
+	R2= ROOTS[[3]];
+	R3= ROOTS[[2]];
+	R4= ROOTS[[1]];];
 	
 	If[Length[Select[ROOTS,#>=RP&]]<3,
 	R1= ROOTS[[2]];
 	R2= ROOTS[[1]];
-	R3= Min[Select[ROOTS,#>=RP&]];
-	R4= Max[Select[ROOTS,#<=RM&]];];*
+	R3= ROOTS[[4]];
+	R4= ROOTS[[3]];
+	];
 	
+	
+	(*R1= ROOTS[[4]];
+	R2= ROOTS[[3]];
+	R3= Min[Select[ROOTS,#>=RP&]];
+	R4= Max[Select[ROOTS,#<=RM&]];
+	R1= ROOTS[[1]];
+	R2= ROOTS[[2]];
+	R3= Min[Select[ROOTS,#>=RP&]];
+	R4= Max[Select[ROOTS,#<=RM&]];*)
 	
 	If[initCoords===Automatic,
 					{t0,r0,\[Theta]0,\[Phi]0}={0,R4,\[Pi]/2,0},
@@ -258,10 +270,15 @@ KerrGeoRealPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCapita
 		"ConstantsOfMotion" -> consts,
 		"RadialFrequency"-> \[CapitalUpsilon]r,
 		"PolarFrequency"-> \[CapitalUpsilon]z,
-		"AzimuthalFrequency"-> 0,
 		"Frequencies"-> <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)"->\[CapitalUpsilon]r, "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> \[CapitalUpsilon]z |>,
+		"RadialPeriod"-> 2\[Pi]/\[CapitalUpsilon]r,
+		"PolarPeriod"-> 2\[Pi]/\[CapitalUpsilon]z,
+		"Periods"-> <|"\!\(\*SubscriptBox[\(\[Lambda]\), \(r\)]\)"-> 2\[Pi]/\[CapitalUpsilon]r, "\!\(\*SubscriptBox[\(\[Lambda]\), \(\[Theta]\)]\)" -> 2\[Pi]/\[CapitalUpsilon]z|>,
 		"RadialRoots"-> {R1,R2,R3,R4},
 		"RadialMinoTime"-> MinoRFunc,
+		"RadialRootCrossingTimeMino"-> <|
+			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(Inner\)], \(\)]\)"-> Abs[MinoR[R4]] - MinoR[r0](* Time outgoing to inner root*),
+			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(Outer\)], \(\)]\)"-> Abs[MinoR[R3]] - MinoR[r0](* Time outgoing to outer root*)|>,
 		"HorizonCrossingTimeMino"-> <|
 			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(+\)], \(+\)]\)"-> MCPP(* Time ingoing branch crosses outer horizon *),
 			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(-\)], \(+\)]\)"-> MCMP(* Time ingoing branch crosses inner horizon *),
@@ -324,10 +341,10 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 	
 	
 	D1M=Sqrt[ -f];
-	D2M=Sqrt[(4 A B (RM-b) (e-RM))/(A( b-RM)-B( e- RM))^2];
+	D2M=Sqrt[(4 A B (RM-b) (e-RM))]/(A( RM-b)+B(e- RM));
 
 	D1P=Sqrt[ -f];
-	D2P=Sqrt[(4 A B (RP-b) (e-RP))/(A( b-RP)-B( e- RP))^2];
+	D2P=Sqrt[(4 A B (RP-b) (e-RP))]/(A(RP- b)+B( e- RP));
 	
 	
 	AMR[\[Lambda]_]:=JacobiAmplitude[Sqrt[A B J] \[Lambda],kr^2];
@@ -355,10 +372,11 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 	z0 = Cos[\[Theta]0];
 	
 	Minoz[z_] :=InverseJacobiSN[z/Z1,kz^2]/Z2;
+	If[Abs[Arg]==\[Pi]/2, Minoz[z_] :=0];
 	MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];
 	
-	
-	MinoR[x_]:=1/Sqrt[J A B] EllipticF[(\[Pi]/2-ArcSin[(B(e-x)-A(x-b))/Sqrt[4 A B (e-x) (-b+x)+(B (e-x)-A (-b+x))^2]]),kr^2];
+
+	MinoR[x_]:= 1/Sqrt[J A B] EllipticF[(\[Pi]/2 -ArcSin[(B(e-x)-A(x-b))/(   B(e-x)+A(x-b)  )  ]),kr^2];
 	MinoRFunc=Function[{Global`r}, Evaluate[MinoR[Global`r] -MinoR[r0] ],Listable];
 	
 	
@@ -367,10 +385,12 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 	z[\[Lambda]_]:= Z1*JacobiSN[Z2 \[Lambda],kz^2];
 
 (*Integrals*)
+	
 	RINT\[Lambda][\[Lambda]_] := ((A b-B e)/(A-B) \[Lambda]-1/ Sqrt[ J] ArcTan[(e-b)/(2 Sqrt[A B])  SNR[\[Lambda]]/Sqrt[1-kr^2 (SNR[\[Lambda]])^2]]+((A+B) (e-b))/(2 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]);
-	R2INT\[Lambda][\[Lambda]_]:=\[Lambda] /(A-B) (A b^2-B e^2)+ Sqrt[A B ]/Sqrt[ J] (EllipticE[AMR[\[Lambda]],kr^2])-((A+B) (A^2+2 b^2-B^2-2 e^2))/(4 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]-(Sqrt[A B ] (A+B-(A-B)CNR[\[Lambda]]))/((A-B) Sqrt[ J]) (SNR[\[Lambda]] DNR[\[Lambda]])/(f+(SNR[\[Lambda]])^2)+ (A^2+2 b^2-B^2-2 e^2)/(4 (e-b) Sqrt[ J])ArcTan[(f-(1+2 f kr^2) SNR[\[Lambda]]^2),2 SNR[\[Lambda]] DNR[\[Lambda]]Sqrt[f (1+f kr^2)]];
+	
+	R2INT\[Lambda][\[Lambda]_]:=\[Lambda] /(A-B) (A b^2-B e^2)+ Sqrt[A B ]/Sqrt[ J] (EllipticE[AMR[\[Lambda]],kr^2])-((A+B) (A^2+2 b^2-B^2-2 e^2))/(4 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]-(Sqrt[A B ] (A+B-(A-B)CNR[\[Lambda]]))/((A-B) Sqrt[ J]) (SNR[\[Lambda]] DNR[\[Lambda]])/(f+(SNR[\[Lambda]])^2)+ (A^2+2 b^2-B^2-2 e^2)/(4 (e-b) Sqrt[ J])ArcTan[(2 SNR[\[Lambda]] DNR[\[Lambda]]Sqrt[f (1+f kr^2)])/(f-(1+2 f kr^2) SNR[\[Lambda]]^2)];
+	
 	RMINT\[Lambda][\[Lambda]_] :=  ((A-B) \[Lambda])/(A (b-RM)-B (e-RM))+((e-b) (A (b-RM)+B (e-RM)))/(2 Sqrt[A B J] (b-RM) (-e+RM) (A (b-RM)-B (e-RM))) EllipticPi[1/D2M^2,JacobiAmplitude[Sqrt[A B J] \[Lambda],kr^2],kr^2]-  Sqrt[(e-b)]/(Sqrt[ J] Sqrt[ (RM-b) (e-RM)] Sqrt[ (A^2 (RM-b)-(e-RM) (b^2-B^2+e RM-b (e+RM)))]) 1/4 (Log[((D2M  Sqrt[1-D2M^2 kr^2]+Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2M^2-SNR[\[Lambda]]^2))^2)/((D2M  Sqrt[1-D2M^2 kr^2]- Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2M^2-SNR[\[Lambda]]^2))^2)]);
-
 	RPINT\[Lambda][\[Lambda]_] :=  ((A-B) \[Lambda])/(A (b-RP)+B (-e+RP))+((e-b) (A (b-RP)+B (e-RP)))/(2 Sqrt[A B J] (b-RP) (-e+RP) (A (b-RP)+B (-e+RP))) EllipticPi[1/D2P^2,JacobiAmplitude[Sqrt[A B J] \[Lambda],kr^2],kr^2]- Sqrt[(e-b)]/(Sqrt[ J] Sqrt[(RP-b) (e-RP)] Sqrt[ (A^2 (RP-b)-(e-RP) (b^2-B^2+e RP-b (e+RP)))]) 1/4 (Log[((D2P  Sqrt[1-D2P^2 kr^2]+Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2P^2-SNR[\[Lambda]]^2))^2)/((D2P  Sqrt[1-D2P^2 kr^2]- Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2P^2-SNR[\[Lambda]]^2))^2)]);
 	tr[\[Lambda]_]:=  ((2 a^2 +RM^2+RM RP+RP^2)\[ScriptCapitalE])\[Lambda]+(R2INT\[Lambda][\[Lambda]]+RINT\[Lambda][\[Lambda]](RM+RP)) \[ScriptCapitalE] + ((RM^2+a^2)(\[ScriptCapitalE](RM^2+a^2)-a*\[ScriptCapitalL]))/(RM-RP) RMINT\[Lambda][\[Lambda]]+ ((RP^2+a^2)(\[ScriptCapitalE](RP^2+a^2)-a*\[ScriptCapitalL]))/(RP-RM) RPINT\[Lambda][\[Lambda]];
 	\[Phi]r[\[Lambda]_]:= a(((\[ScriptCapitalE](RM^2+a^2)-a*\[ScriptCapitalL])/(RM-RP))RMINT\[Lambda][\[Lambda]]+ (\[ScriptCapitalE](RP^2+a^2)-a*\[ScriptCapitalL])/(RP-RM) RPINT\[Lambda][\[Lambda]]);
@@ -382,15 +402,10 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda] + Minoz[z0]]]] , Listable];
 	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[ \[Phi]r[Global`\[Lambda]+ MinoR[r0]] + \[Phi]z[Global`\[Lambda]+ Minoz[z0]] -  \[Phi]r[MinoR[r0]] - \[Phi]z[Minoz[z0]] + \[Phi]0], Listable];
 
-	MCPP = -Abs[MinoR[RP]] -MinoR[r0];
-	MCMP = -Abs[MinoR[RM]] -MinoR[r0];
+	MCPP = -Abs[MinoR[RP]] -MinoR[r0]+(2\[Pi])/\[CapitalUpsilon]r;
+	MCMP = -Abs[MinoR[RM]] -MinoR[r0]+(2\[Pi])/\[CapitalUpsilon]r;
 	MCMM = Abs[MinoR[RM]] - MinoR[r0];
 	MCPM = Abs[MinoR[RP]] - MinoR[r0];
-	
-	If[MCPM<0, 
-	MCPP = (2\[Pi])/\[CapitalUpsilon]r - MinoR[RP]- MinoR[r0];
-	MCMP = (2\[Pi])/\[CapitalUpsilon]r - MinoR[RM]- MinoR[r0];
-	];
 	assoc = Association[
 		"a" -> a,
 		"Parametrization"->"Mino", 
@@ -401,13 +416,19 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 		"RadialFrequency"-> \[CapitalUpsilon]r,
 		"PolarFrequency"-> \[CapitalUpsilon]\[Theta],
 		"Frequencies"-> <|"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)"-> \[CapitalUpsilon]r, "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> \[CapitalUpsilon]\[Theta]|>,
+		"RadialPeriod"-> 2\[Pi]/\[CapitalUpsilon]r,
+		"PolarPeriod"-> 2\[Pi]/\[CapitalUpsilon]\[Theta],
+		"Periods"-> <|"\!\(\*SubscriptBox[\(\[Lambda]\), \(r\)]\)"-> 2\[Pi]/\[CapitalUpsilon]r, "\!\(\*SubscriptBox[\(\[Lambda]\), \(\[Theta]\)]\)" -> 2\[Pi]/\[CapitalUpsilon]\[Theta]|>,
 		"RadialRoots"-> {R1,R2,R3,R4},
 		"RadialMinoTime"-> MinoRFunc,
+		"RadialRootCrossingTimeMino"-> <|
+			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(Inner\)], \(\)]\)"-> Abs[MinoR[R1]] - MinoR[r0](* Time outgoing to inner root*),
+			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(Outer\)], \(\)]\)"-> Abs[MinoR[R2]] - MinoR[r0](* Time outgoing to outer root*)|>,
 		"HorizonCrossingTimeMino"-> <|
-			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(+\)], \(+\)]\)"-> MCPP(* Time ingoing branch crosses outer horizon *),
-			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(-\)], \(+\)]\)"-> MCMP(* Time ingoing branch crosses inner horizon *),
 			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(-\)], \(-\)]\)"-> MCMM(* Time outgoing branch crosses inner horizon *),
-			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(+\)], \(-\)]\)"-> MCPM(* Time outgoing branch crosses outer horizon *)
+			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(+\)], \(-\)]\)"-> MCPM(* Time outgoing branch crosses outer horizon *),
+			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(+\)], \(+\)]\)"-> MCPP(* Time ingoing branch crosses outer horizon *),
+			"\!\(\*SubsuperscriptBox[\(\[CapitalLambda]\), SubscriptBox[\(r\), \(-\)], \(+\)]\)"-> MCMP(* Time ingoing branch crosses inner horizon *)
 			|>,
 		"PolarRoots"-> {Z1,Z2},
 		"Trajectory" -> {t,r,\[Theta],\[Phi]}
@@ -416,7 +437,7 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
