@@ -25,6 +25,7 @@
 	  {"KerrGeoISSO", "Computes the location of the inner-most stable spherical orbit (ISSO)"},
 	  {"KerrGeoSeparatrix", "Computes the value p at the separatrix between stable and plunging/scattered orbits"},
 	  {"KerrGeoOrbit", "Computes the orbit trajectory in Boyer-Lindquist coordinates"},
+	  {"KerrGeoPlunges", "Computes the Plunging trajectory in Boyer-Lindquist coordinates"},
 	  {"KerrGeoFourVelocity", "Computes the components of the body's four-velocity"},
 	  {"KerrGeoFindResonances", "Computes the location of orbital resonances"}
    }
