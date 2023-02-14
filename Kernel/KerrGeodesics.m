@@ -1,7 +1,5 @@
 (* ::Package:: *)
 
-$BaseDirectory
-
 BeginPackage["KerrGeodesics`",
   {"KerrGeodesics`ConstantsOfMotion`",
    "KerrGeodesics`OrbitalFrequencies`",
@@ -9,7 +7,6 @@ BeginPackage["KerrGeodesics`",
    "KerrGeodesics`KerrGeoOrbit`",
    "KerrGeodesics`KerrGeoPlunge`",
    "KerrGeodesics`FourVelocity`"}]
-
 EndPackage[]
 
 
