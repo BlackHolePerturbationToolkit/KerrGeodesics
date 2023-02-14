@@ -30,7 +30,7 @@ Begin["`Private`"];
 
 
 KerrGeoPlunge::r0outofbounds = "Intial radius `1` is not between ISSO radius `2`, and inner radial root `3`.";
-KerrGeoPlunge::\[Theta]0outofbounds = "Intial polar angle `1` must be between the ranges (`2`,`3`) or (-`2`,-`3`)";
+KerrGeoPlunge::z0outofbounds = "Intial polar angle `1` must be between the ranges (`2`,`3`) or (-`2`,-`3`)";
 
 
 KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
@@ -82,7 +82,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 		Return[$Failed]
 		];
 	If[Abs[\[Theta]0]<Abs[ArcCos[Z1]]||Abs[\[Theta]0]>\[Pi] - Abs[ArcCos[Z1]],
-		Message[KerrGeoPlunge::\[Theta]0outofbounds,\[Theta]0,Abs[ArcCos[Z1]],\[Pi]-Abs[ArcCos[Z1]] ];
+		Message[KerrGeoPlunge::z0outofbounds,\[Theta]0,Abs[ArcCos[Z1]],\[Pi]-Abs[ArcCos[Z1]] ];
 		Return[$Failed]
 		];
 	z0 = Cos[\[Theta]0];
@@ -162,7 +162,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 
 
 KerrGeoPlunge::r0outofboundsGen = "Intial radius `1` is not between the outer radial root `2`, and inner radial root `3`.";
-KerrGeoPlunge::\[Theta]0outofbounds = "Intial polar angle `1` must be between the ranges (`2`,`3`) or (-`2`,-`3`)";
+KerrGeoPlunge::z0outofbounds = "Intial polar angle `1` must be between the ranges (`2`,`3`) or (-`2`,-`3`)";
 
 
 Options[KerrGeoRealPlungeMino] = {"Roots"-> Automatic};
@@ -220,11 +220,9 @@ KerrGeoRealPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCapita
 	kr = ((R3-R4)(R1-R2))/((R3-R1)(R4-R2));
 	
 	If[Abs[\[Theta]0]<Abs[ArcCos[Z1]]||Abs[\[Theta]0]>\[Pi] - Abs[ArcCos[Z1]],
-		Message[KerrGeoPlunge::\[Theta]0outofbounds,\[Theta]0,Abs[ArcCos[Z1]],\[Pi]-Abs[ArcCos[Z1]] ];
+		Message[KerrGeoPlunge::z0outofbounds,\[Theta]0,Abs[ArcCos[Z1]],\[Pi]-Abs[ArcCos[Z1]] ];
 		Return[$Failed]
 		];
-		
-
 
 	hR = (R3-R4)/(R3-R1);
 	hP = hR (R1-RP)/(R4-RP);
@@ -234,13 +232,6 @@ KerrGeoRealPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCapita
 	MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];
 	MinoR[r_]:= 2 InverseJacobiSN[Sqrt[(-R1+R3) (r-R4)]/Sqrt[(r-R1) (R3-R4)] ,kr]/Sqrt[J (R1-R3) (R2-R4)];
 	MinoRFunc=Function[{Global`r}, Evaluate[MinoR[Global`r]- MinoR[r0]],Listable];
-	
-	If[Abs[Arg]==\[Pi]/2, Minoz[z_] :=0];
-	MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];
-	
-	If[\[ScriptCapitalQ]==0, Minoz[z_] :=0];
-	MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];
-	
 	
 	\[CapitalUpsilon]r= \[Pi]/(2*EllipticK[kr]) Sqrt[J(R3-R1)(R4-R2)];
 	\[CapitalUpsilon]z= (\[Pi]*Z2)/(2*EllipticK[kz]);
@@ -258,10 +249,9 @@ KerrGeoRealPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCapita
 
 	\[CapitalUpsilon]tr = (4+a^2)\[ScriptCapitalE]+\[ScriptCapitalE](1/2 ((4+R3+R4+R1)R1-R3*R4+(R3-R1)(R4-R2) EllipticE[kr]/EllipticK[kr]+(4+R3+R4+R1+R2)(R4-R1) EllipticPi[hR,kr]/EllipticK[kr])+2/(RP-RM) (((4-a*\[ScriptCapitalL]/\[ScriptCapitalE])RP-2*a^2)/(R1-RP) (1-(R4-R1)/(R4-RP) EllipticPi[hP,kr]/EllipticK[kr])-((4-a*\[ScriptCapitalL]/\[ScriptCapitalE])RM-2*a^2)/(R1-RM) (1-(R4-R1)/(R4-RM) EllipticPi[hM,kr]/EllipticK[kr])));
 	\[CapitalUpsilon]tz = -a^2*\[ScriptCapitalE]+(\[ScriptCapitalE]*\[ScriptCapitalQ])/(J(Z1^2)) (1-EllipticE[kz]/EllipticK[kz]);
-	If[\[ScriptCapitalQ]==0, \[CapitalUpsilon]tz = -a^2*\[ScriptCapitalE]];
 	\[CapitalUpsilon]t= \[CapitalUpsilon]tr +\[CapitalUpsilon]tz;
 	
-		
+	
 	tTr[\[Xi]_]:= (\[ScriptCapitalE](R4-R1))/Sqrt[J(R3-R1)(R4-R2)] ((4+R3+R4+R1+R2)EllipticPi[hR,\[Xi],kr]-4/(RP-RM) ((RP(4-a*\[ScriptCapitalL]/\[ScriptCapitalE])-2*a^2)/((R4-RP)(R1-RP)) EllipticPi[hP,\[Xi],kr]-(RM(4-a*\[ScriptCapitalL]/\[ScriptCapitalE])-2*a^2)/((R4-RM)(R1-RM)) EllipticPi[hM,\[Xi],kr])+((R3-R1)(R4-R2))/(R4-R1) (EllipticE[\[Xi],kr]-(hR*Sin[\[Xi]]*Cos[\[Xi]]Sqrt[1-kr*(Sin[\[Xi]])^2])/(1-hR*(Sin[\[Xi]])^2)));
 	tTz[\[Xi]_]:= -\[ScriptCapitalE]/J Z2*EllipticE[\[Xi],kz];
 	
@@ -324,7 +314,7 @@ KerrGeoRealPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCapita
 
 
 KerrGeoPlunge::r0outofboundsGen = "Intial radius `1` is not between the outer radial root `2`, and inner radial root `3`.";
-KerrGeoPlunge::\[Theta]0outofbounds = "Intial polar angle `1` must be between the ranges (`2`,`3`) or (-`2`,-`3`)";
+KerrGeoPlunge::z0outofbounds = "Intial polar angle `1` must be between the ranges (`2`,`3`) or (-`2`,-`3`)";
 
 
 Options[KerrGeoComplexPlungeMino]= {"Roots"->Automatic};
@@ -385,7 +375,7 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 		Return[$Failed]
 		];
 	If[Abs[\[Theta]0]<Abs[ArcCos[Z1]]||Abs[\[Theta]0]>\[Pi] - Abs[ArcCos[Z1]],
-		Message[KerrGeoPlunge::\[Theta]0outofbounds,\[Theta]0,Abs[ArcCos[Z1]],\[Pi]-Abs[ArcCos[Z1]] ];
+		Message[KerrGeoPlunge::z0outofbounds,\[Theta]0,Abs[ArcCos[Z1]],\[Pi]-Abs[ArcCos[Z1]] ];
 		Return[$Failed]
 		];
 		
@@ -393,11 +383,7 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 	z0 = Cos[\[Theta]0];
 	
 	Minoz[z_] :=InverseJacobiSN[z/Z1,kz^2]/Z2;
-	
 	If[Abs[Arg]==\[Pi]/2, Minoz[z_] :=0];
-	MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];
-	
-	If[\[ScriptCapitalQ]==0, Minoz[z_] :=0];
 	MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];
 	
 
