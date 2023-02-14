@@ -18,10 +18,22 @@ BeginPackage["KerrGeodesics`KerrGeoOrbit`",
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 
+
+(* ::Subsection:: *)
+(*Error messages*)
+
+
+KerrGeoOrbit::OutOfBounds = "For this hyperbolic orbit the Darwin parameter \[Chi] must be between `1` and `2`"
+
+
+(* ::Subsection:: *)
+(*Being the private context*)
+
+
 Begin["`Private`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Schwarzschild*)
 
 
@@ -29,19 +41,15 @@ Begin["`Private`"];
 (*The analytic equations below are taken from Appendix B of "Fast Self-forced Inspirals" by M. van de Meent and N. Warburton, Class. Quant. Grav. 35:144003 (2018), arXiv:1802.05281*)
 
 
-(* ::Text:: *)
-(**)
-
-
 (*t and \[Phi] accumulated over one orbit*)
 \[CapitalPhi]SchwarzDarwin[p_,e_]:=4 Sqrt[p/(p-6+2e)] EllipticK[(4 e)/(p-6+2e)]
 TSchwarzDarwin[p_,e_]:=(2p Sqrt[(p-6+2e)((p-2)^2-4e^2)])/((1-e^2)(p-4)) EllipticE[(4e)/(p-6+2e)]-2p Sqrt[(p-2)^2-4e^2]/((1-e^2)Sqrt[p-6+2e]) EllipticK[(4e)/(p-6+2e)]-(4(8(1-e^2)+p(1+3e^2-p))Sqrt[(p-2)^2-4e^2])/((1-e)(1-e^2)(p-4)Sqrt[p-6+2e]) EllipticPi[-((2e)/(1-e)),(4e)/(p-6+2e)]+(16Sqrt[(p-2)^2-4e^2])/((p-2+2e)Sqrt[p-6+2e]) EllipticPi[(4e)/(p-2+2e),(4e)/(p-6+2e)]
 
 
-tSchwarzDarwin[p_,e_,\[Xi]_]:=TSchwarzDarwin[p,e]/2+((p Sqrt[(p-6+2e)((p-2)^2-4e^2)])/((1-e^2)(p-4)) EllipticE[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-p Sqrt[(p-2)^2-4e^2]/((1-e^2)Sqrt[p-6+2e]) EllipticF[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-(2(8(1-e^2)+p(1+3e^2-p))Sqrt[(p-2)^2-4e^2])/((1-e)(1-e^2)(p-4)Sqrt[p-6+2e]) EllipticPi[-((2e)/(1-e)),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]+(8Sqrt[(p-2)^2-4e^2])/((p-2+2e)Sqrt[p-6+2e]) EllipticPi[(4e)/(p-2+2e),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-e p Sqrt[((p-2)^2-4e^2)(p-6-2e Cos[\[Xi]])]/((1-e^2)(p-4)(1+e Cos[\[Xi]])) Sin[\[Xi]])
-rSchwarzDarwin[p_,e_,\[Chi]_]:=p/(1 + e Cos[\[Chi]])
+tSchwarzDarwin[p_,e_/;e<1,\[Xi]_]:=TSchwarzDarwin[p,e]/2+((p Sqrt[(p-6+2e)((p-2)^2-4e^2)])/((1-e^2)(p-4)) EllipticE[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-p Sqrt[(p-2)^2-4e^2]/((1-e^2)Sqrt[p-6+2e]) EllipticF[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-(2(8(1-e^2)+p(1+3e^2-p))Sqrt[(p-2)^2-4e^2])/((1-e)(1-e^2)(p-4)Sqrt[p-6+2e]) EllipticPi[-((2e)/(1-e)),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]+(8Sqrt[(p-2)^2-4e^2])/((p-2+2e)Sqrt[p-6+2e]) EllipticPi[(4e)/(p-2+2e),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-e p Sqrt[((p-2)^2-4e^2)(p-6-2e Cos[\[Xi]])]/((1-e^2)(p-4)(1+e Cos[\[Xi]])) Sin[\[Xi]])
+rSchwarzDarwin[p_,e_/;e<1,\[Chi]_]:=p/(1 + e Cos[\[Chi]])
 \[Theta]SchwarzDarwin[p_,e_,\[Chi]_]:= \[Pi]/2 
-\[Phi]SchwarzDarwin[p_,e_,\[Xi]_]:=\[CapitalPhi]SchwarzDarwin[p,e]/2+2Sqrt[p/(p-6+2e)]EllipticF[\[Xi]/2-\[Pi]/2,(4 e)/(p-6+2e)]
+\[Phi]SchwarzDarwin[p_,e_/;e<1,\[Xi]_]:=\[CapitalPhi]SchwarzDarwin[p,e]/2+2Sqrt[p/(p-6+2e)]EllipticF[\[Xi]/2-\[Pi]/2,(4 e)/(p-6+2e)]
 
 
 (* ::Text:: *)
@@ -60,34 +68,36 @@ rSchwarzDarwin[p_/;p>6, 0, \[Xi]_] := p;
 
 
 (*t defined such that t=0 at periastron*)
-(*\[Phi] defined such that \[Phi]=0 at t=-\[Infinity]*)
+(*\[Phi] defined such that \[Phi]=0 at t=-\[Infinity]. FIXME: check this agrees with the limit of the e < 1 code*)
 tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]<ArcCos[-1/e] := (I Sqrt[-4e^2+(-2+p)^2]p Sqrt[-6+2e+p] EllipticE[I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e)(1+e)(-4+p))+(Sqrt[-4e^2+(-2+p)^2]p Sqrt[-6+2e+p]Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticE[I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e)(1+e)(-4+p))-((2I)Sqrt[-4e^2+(-2+p)^2]p EllipticF[I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((1+e)(-4+p)Sqrt[-6+2e+p])-(2Sqrt[-4e^2+(-2+p)^2]p Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticF[I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((1+e)(-4+p)Sqrt[-6+2e+p])+((2I)Sqrt[-4e^2+(-2+p)^2] EllipticPi[(6+2e-p)/4,I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/Sqrt[-6+2e+p]+(2Sqrt[-4e^2+(-2+p)^2]Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticPi[(6+2e-p)/4,I ArcSinh[Sqrt[-6+p-2e*Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/Sqrt[-6+2e+p]+((4I)Sqrt[-4e^2+(-2+p)^2](8+p-p^2+e^2(-8+3p)) EllipticPi[(-6-2e+p)/(-4+p),I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e^2)(-4+p)^2Sqrt[-6+2e+p])+(4Sqrt[-4e^2+(-2+p)^2](8+p-p^2+e^2(-8+3p))Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticPi[(-6-2e+p)/(-4+p),I ArcSinh[Sqrt[-6+p-2e*Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e^2)(-4+p)^2Sqrt[-6+2e+p])+(e Sqrt[-4e^2+(-2+p)^2] p Sqrt[-6+p-2e Cos[\[Chi]]]Sin[\[Chi]])/((-1+e)(1+e)(-4+p)(1+e Cos[\[Chi]]))//Re
 tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]==ArcCos[-1/e] := Sign[\[Chi]] Infinity
+rSchwarzDarwin[p_, e_/;e>1, \[Chi]_]/; Abs[\[Chi]]<ArcCos[-1/e]:=p/(1 + e Cos[\[Chi]])
 \[Phi]SchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]<=ArcCos[-1/e] := (2 Sqrt[p](EllipticF[\[Chi]/2,(4e)/(6+2e-p)]+EllipticF[ArcSec[-e]/2,(4e)/(6+2e-p)]))/Sqrt[-6-2e+p]
+
+
+tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]>ArcCos[-1/e] := Message[KerrGeoOrbit::OutOfBounds, -ArcCos[-1/e], ArcCos[-1/e]];
+rSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]>ArcCos[-1/e] := Message[KerrGeoOrbit::OutOfBounds, -ArcCos[-1/e], ArcCos[-1/e]];
+\[Phi]SchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]>ArcCos[-1/e] := Message[KerrGeoOrbit::OutOfBounds, -ArcCos[-1/e], ArcCos[-1/e]];
+
+
+KerrGeoScatterDarwinBounds[e_/;e>=1]:= { -ArcCos[-1/e], ArcCos[-1/e] }
 
 
 (* ::Text:: *)
 (*FIXME: make the below work for inclined orbits and accept initial phases*)
 
 
+KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En, L,Q, type, \[Chi]Bounds, velocity},
 
-KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En,L,Q, type, \[Delta]\[Phi], rP, \[Chi]Bounds, v, b},
-
-t =Function[{Global`\[Chi]}, Evaluate[ tSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
-r =Function[{Global`\[Chi]}, Evaluate[ rSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
-\[Theta] =Function[{Global`\[Chi]}, Evaluate[ \[Theta]SchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
-\[Phi] =Function[{Global`\[Chi]}, Evaluate[ \[Phi]SchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
+t = Function[{Global`\[Chi]}, Evaluate[ tSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
+r = Function[{Global`\[Chi]}, Evaluate[ rSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
+\[Theta] = Function[{Global`\[Chi]}, Evaluate[ \[Theta]SchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
+\[Phi] = Function[{Global`\[Chi]}, Evaluate[ \[Phi]SchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
 
 consts = KerrGeoConstantsOfMotion[0,p,e,1];
-{En,L,Q} = Values[consts];
-\[Delta]\[Phi] = Evaluate[KerrGeoScatteringAngle[0,p,e,1]];
-rP = Evaluate[KerrGeoPeriastron[0,p,e,1]];
-\[Chi]Bounds = Evaluate[KerrGeoDarwinBoundsChi[e]];
+{En,L,Q} = {"\[ScriptCapitalE]","\[ScriptCapitalL]","Q"}/.consts;
 type = Evaluate[KerrGeoOrbitType[0,p,e,1]];
-v = Evaluate[KerrGeoVelocityAtInfinity[0,p,e,1]];
-b = Evaluate[KerrGeoImpactParameter[0,p,e,1]];
 velocity = Values[KerrGeoFourVelocity[0,p,e,1,"Parametrization"->"Darwin"]];
-
 
 assoc = Association[
 			"Trajectory" -> {t,r,\[Theta],\[Phi]},
@@ -101,11 +111,7 @@ assoc = Association[
 			"Energy" -> En,
 			"AngularMomentum" -> L,
 			"CarterConstant" -> Q,
-			"ScatteringAngle" -> \[Delta]\[Phi],
-			"Periastron" -> rP,
-			"DarwinBounds" -> \[Chi]Bounds,
-			"VelocityAtInfinity" -> v,
-			"ImpactParameter" -> b,
+			"Periastron" -> p/(1+e),
 			"OrbitType" -> type
 			];
 
@@ -187,6 +193,8 @@ assoc = Association[
 KerrGeoOrbitFunction[a, p, e, x, assoc]
 
 ]
+
+
 
 (* ::Subsection::Closed:: *)
 (*Equatorial (Fast Spec - Darwin)*)
@@ -557,6 +565,8 @@ tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE
 
 ]
 
+
+
 (* ::Subsubsection:: *)
 (*Scattering orbit (e > 1)*)
 
@@ -675,6 +685,8 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,
 	KerrGeoOrbitFunction[a,p,e,x,assoc]
 
 ]
+
+
 
 (* ::Subsection::Closed:: *)
 (*Generic (Fast Spec - Mino)*)

@@ -21,7 +21,7 @@ KerrGeoImpactParameter::usage = "KerrGeoImpactParameter[a, p, e, x] returns the 
 Begin["`Private`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Schwarzschild (a=0)*)
 
 
@@ -51,7 +51,7 @@ KerrGeoAngularMomentum[0,p_,e_,x_]:=(p x)/Sqrt[-3-e^2+p]
 KerrGeoCarterConstant[0,p_,e_,x_]:=(p^2 (-1+x^2))/(3+e^2-p)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Scatter*)
 
 
@@ -64,7 +64,16 @@ KerrGeoVelocityAtInfinity[0,p_,e_/;e>1,x_]:=Module[{En},
 KerrGeoImpactParameter[0,p_,e_/;e>1,x_]:=KerrGeoAngularMomentum[0,p,e,x]/Sqrt[KerrGeoEnergy[0,p,e,x]^2-1]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Text:: *)
+(*Schwarzschild hyperbolic scatter angle*)
+(*Defined as \[Phi](SuperPlus[\[ScriptCapitalI]])-\[Phi](SuperMinus[\[ScriptCapitalI]])*)
+(*Derived by O. Long*)
+
+
+KerrGeoScatteringAngle[0,p_,e_/;e>=1,1]:= (4 Sqrt[p]EllipticF[ArcCos[-e^(-1)]/2,(4e)/(6+2e-p)])/Sqrt[-6-2e+p]
+
+
+(* ::Subsection:: *)
 (*Convenience function to compute all three constants of motion*)
 
 
@@ -74,7 +83,17 @@ KerrGeoConstantsOfMotion[0,p_,e_,x_]:=
    "\[ScriptCapitalQ]" -> KerrGeoCarterConstant[0,p,e,x] |>
 
 
-(* ::Section:: *)
+KerrGeoConstantsOfMotion[0,p_,e_/;e>=1,x_]:= 
+ <|"\[ScriptCapitalE]" -> KerrGeoEnergy[0,p,e,x],
+   "\[ScriptCapitalL]" -> KerrGeoAngularMomentum[0,p,e,x],
+   "\[ScriptCapitalQ]" -> KerrGeoCarterConstant[0,p,e,x], 
+   "\!\(\*SubscriptBox[\(v\), \(\[Infinity]\)]\)" -> KerrGeoVelocityAtInfinity[0,p,e,x],
+   "b" -> KerrGeoImpactParameter[0,p,e,x],
+   "\[Delta]\[Phi]" -> KerrGeoScatteringAngle[0,p,e,x]
+   |>
+
+
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -172,7 +191,7 @@ KerrGeoConstantsOfMotion[a_,p_,e_,(0|0.)] :=
    "\[ScriptCapitalQ]" -> KerrGeoCarterConstant[a,p,e,0] |>
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spherical orbits (e=0)*)
 
 
@@ -196,7 +215,7 @@ f=p^4+a^2 (p (2+p)-(a^2+(-2+p) p) (-1+x^2));
 (*CarterConstant and ConstantsOfMotion calculations are covered by the generic case*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Marginally bound orbits (e = 1)*)
 
 
@@ -211,7 +230,7 @@ KerrGeoAngularMomentum[a_,p_,e_/;e==1,x_,En1_:Null]:= Module[{En=En1,\[Rho]2,zm}
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic orbits*)
 
 

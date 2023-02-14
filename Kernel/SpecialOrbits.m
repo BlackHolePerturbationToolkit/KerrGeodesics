@@ -8,7 +8,7 @@
 (*Define usage for public functions*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Create Package*)
 
 
@@ -16,7 +16,7 @@ BeginPackage["KerrGeodesics`SpecialOrbits`",
 	{"KerrGeodesics`ConstantsOfMotion`"}];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Usage messages*)
 
 
@@ -29,9 +29,6 @@ KerrGeoIBSO::usage = "KerrGeoISBO[a,x] returns the location of the innermost bou
 KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of p at the separatrix."
 KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a bound orbit."
 
-KerrGeoPeriastron::usage = "KerrGeoPeriastron[a,p,e,x] returns the value of the periastron of a scatter orbit."
-KerrGeoScatteringAngle::usage = "KerrGeoScatteringAngle[a,p,e,x] returns the value of the scattering angle (\[Phi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(+\)]\))-\[Phi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(-\)]\))) of a hyperbolic orbit."
-KerrGeoDarwinBoundsChi::usage = "KerrGeoDarwinBoundsChi[e] returns the values {\[Chi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(-\)]\)),\[Chi](\!\(\*SuperscriptBox[\(\[ScriptCapitalI]\), \(+\)]\)} from the Darwin paramaterisation for a Schwarzschild scatter orbit."
 KerrGeoScatterOrbitQ::usage = "KerrGeoScatterOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a scatter orbit."
 
 KerrGeoPlungeOrbitQ::usage = "KerrGeoPlungeOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a plunge orbit."
@@ -259,29 +256,6 @@ KerrGeoISSO[a_,x_]:=KerrGeoSeparatrix[a,0,x]
 
 
 (* ::Text:: *)
-(*Periastron*)
-
-
-KerrGeoPeriastron[a_,p_,e_/;e>=1,x_]:= p/(1+e);
-
-
-(* ::Text:: *)
-(*Schwarzschild hyperbolic scatter angle*)
-(*Defined as \[Phi](SuperPlus[\[ScriptCapitalI]])-\[Phi](SuperMinus[\[ScriptCapitalI]])*)
-(*Derived by O. Long*)
-
-
-KerrGeoScatteringAngle[0,p_,e_/;e>=1,1]:= (4 Sqrt[p]EllipticF[ArcCos[-e^(-1)]/2,(4e)/(6+2e-p)])/Sqrt[-6-2e+p]
-
-
-(* ::Text:: *)
-(*Values of the bounds of \[Chi] from the Darwin parameterization*)
-
-
-KerrGeoDarwinBoundsChi[e_/;e>=1]:= { -ArcCos[-1/e], ArcCos[-1/e] }
-
-
-(* ::Text:: *)
 (*Test whether an orbit is a scatter orbit*)
 (*Currently only for Schwarzschild orbits*)
 
@@ -291,7 +265,7 @@ KerrGeoScatterOrbitQ[0,p_?NumericQ,e_?NumericQ,1]:=Module[{\[CapitalEpsilon], L,
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Plunge Orbits*)
 
 
@@ -303,7 +277,7 @@ KerrGeoPlungeOrbitQ[0,p_?NumericQ,e_?NumericQ,1]:=
 	If[KerrGeoBoundOrbitQ[0,p,e,1] == KerrGeoScatterOrbitQ[0,p,e,1] == False, True, False]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Orbit type*)
 
 
