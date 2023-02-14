@@ -25,7 +25,7 @@ Begin["`Private`"];
 (*Kerr*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*ISSO Plunges*)
 
 
@@ -111,6 +111,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 	tz[\[Lambda]_]:= 1/J \[ScriptCapitalE]  (-Z2 EllipticE[JacobiAmplitude[Z2 \[Lambda] ,kz^2],kz^2]+(Z2-a^2 J/Z2) Z2 \[Lambda]);
 	\[Phi]z[\[Lambda]_]:= \[ScriptCapitalL]/Z2 EllipticPi[Z1^2,JacobiAmplitude[Z2 \[Lambda] ,kz^2],kz^2];
 
+
 	t=Function[{Global`\[Lambda]}, Evaluate[ a*\[ScriptCapitalL] Global`\[Lambda] + tr[Global`\[Lambda]+ MinoR[r0]] + tz[Global`\[Lambda]+ Minoz[z0]]-tr[MinoR[r0]]-tz[Minoz[z0]] + t0], Listable];
 	r=Function[{Global`\[Lambda]}, Evaluate[ r[Global`\[Lambda] + MinoR[r0]] ], Listable];
 	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda] + Minoz[z0]]]] , Listable];
@@ -157,7 +158,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Real Roots Generic Plunge (Mino)*)
 
 
@@ -398,19 +399,16 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 (*Integrals*)
 	
 	RINT\[Lambda][\[Lambda]_] := ((A b-B e)/(A-B) \[Lambda]-1/ Sqrt[ J] ArcTan[(e-b)/(2 Sqrt[A B])  SNR[\[Lambda]]/Sqrt[1-kr^2 (SNR[\[Lambda]])^2]]+((A+B) (e-b))/(2 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]);
+	
 	R2INT\[Lambda][\[Lambda]_]:=\[Lambda] /(A-B) (A b^2-B e^2)+ Sqrt[A B ]/Sqrt[ J] (EllipticE[AMR[\[Lambda]],kr^2])-((A+B) (A^2+2 b^2-B^2-2 e^2))/(4 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]-(Sqrt[A B ] (A+B-(A-B)CNR[\[Lambda]]))/((A-B) Sqrt[ J]) (SNR[\[Lambda]] DNR[\[Lambda]])/(f+(SNR[\[Lambda]])^2)+ (A^2+2 b^2-B^2-2 e^2)/(4 (e-b) Sqrt[ J])ArcTan[(f-(1+2 f kr^2) SNR[\[Lambda]]^2),2 SNR[\[Lambda]] DNR[\[Lambda]]Sqrt[f (1+f kr^2)]](*ArcTan[(2 SNR[\[Lambda]] DNR[\[Lambda]]Sqrt[f (1+f kr^2)])/(f-(1+2 f kr^2) SNR[\[Lambda]]^2)]*);
+	
 	RMINT\[Lambda][\[Lambda]_] :=  ((A-B) \[Lambda])/(A (b-RM)-B (e-RM))+((e-b) (A (b-RM)+B (e-RM)))/(2 Sqrt[A B J] (b-RM) (-e+RM) (A (b-RM)-B (e-RM))) EllipticPi[1/D2M^2,JacobiAmplitude[Sqrt[A B J] \[Lambda],kr^2],kr^2]-  Sqrt[(e-b)]/(Sqrt[ J] Sqrt[ (RM-b) (e-RM)] Sqrt[ (A^2 (RM-b)-(e-RM) (b^2-B^2+e RM-b (e+RM)))]) 1/4 (Log[((D2M  Sqrt[1-D2M^2 kr^2]+Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2M^2-SNR[\[Lambda]]^2))^2)/((D2M  Sqrt[1-D2M^2 kr^2]- Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2M^2-SNR[\[Lambda]]^2))^2)]);
 	RPINT\[Lambda][\[Lambda]_] :=  ((A-B) \[Lambda])/(A (b-RP)+B (-e+RP))+((e-b) (A (b-RP)+B (e-RP)))/(2 Sqrt[A B J] (b-RP) (-e+RP) (A (b-RP)+B (-e+RP))) EllipticPi[1/D2P^2,JacobiAmplitude[Sqrt[A B J] \[Lambda],kr^2],kr^2]- Sqrt[(e-b)]/(Sqrt[ J] Sqrt[(RP-b) (e-RP)] Sqrt[ (A^2 (RP-b)-(e-RP) (b^2-B^2+e RP-b (e+RP)))]) 1/4 (Log[((D2P  Sqrt[1-D2P^2 kr^2]+Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2P^2-SNR[\[Lambda]]^2))^2)/((D2P  Sqrt[1-D2P^2 kr^2]- Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2P^2-SNR[\[Lambda]]^2))^2)]);
-	
 	tr[\[Lambda]_]:=  ((2 a^2 +RM^2+RM RP+RP^2)\[ScriptCapitalE])\[Lambda]+(R2INT\[Lambda][\[Lambda]]+RINT\[Lambda][\[Lambda]](RM+RP)) \[ScriptCapitalE] + ((RM^2+a^2)(\[ScriptCapitalE](RM^2+a^2)-a*\[ScriptCapitalL]))/(RM-RP) RMINT\[Lambda][\[Lambda]]+ ((RP^2+a^2)(\[ScriptCapitalE](RP^2+a^2)-a*\[ScriptCapitalL]))/(RP-RM) RPINT\[Lambda][\[Lambda]];
 	\[Phi]r[\[Lambda]_]:= a(((\[ScriptCapitalE](RM^2+a^2)-a*\[ScriptCapitalL])/(RM-RP))RMINT\[Lambda][\[Lambda]]+ (\[ScriptCapitalE](RP^2+a^2)-a*\[ScriptCapitalL])/(RP-RM) RPINT\[Lambda][\[Lambda]]);
 	tz[\[Lambda]_]:= \[ScriptCapitalE]/ J ((Z2-a^2 J/Z2) Z2 \[Lambda] -Z2 EllipticE[AMZ[\[Lambda]],kz^2]);
 	\[Phi]z[\[Lambda]_]:= (\[ScriptCapitalL] EllipticPi[Z1^2,AMZ[\[Lambda]],(a^2 J Z1^2)/Z2^2])/Z2;
 
-
-
-(*Note: If including Precission Error May occur in the case of evaluating R2INT\[Lambda][0] due to a bug with mathematica in
- evaluating terms of the form EllipticE[0, num`n], num is any number and n is less thna machine precision*)
 	t=Function[{Global`\[Lambda]}, Evaluate[  tr[Global`\[Lambda]+ MinoR[r0]] + tz[Global`\[Lambda]+ Minoz[z0]]-tr[MinoR[r0]]-tz[Minoz[z0]] + t0], Listable];
 	r=Function[{Global`\[Lambda]}, Evaluate[ r[Global`\[Lambda]+ MinoR[r0]]], Listable];
 	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda] + Minoz[z0]]]] , Listable];
