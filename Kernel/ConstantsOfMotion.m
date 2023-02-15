@@ -66,11 +66,10 @@ KerrGeoImpactParameter[0,p_,e_/;e>1,x_]:=KerrGeoAngularMomentum[0,p,e,x]/Sqrt[Ke
 
 (* ::Text:: *)
 (*Schwarzschild hyperbolic scatter angle*)
-(*Defined as \[Phi](SuperPlus[\[ScriptCapitalI]])-\[Phi](SuperMinus[\[ScriptCapitalI]])*)
-(*Derived by O. Long*)
+(*Defined as \[Phi](SuperPlus[\[ScriptCapitalI]])-\[Phi](SuperMinus[\[ScriptCapitalI]]) - \[Pi] e.g. Eq. (29) of arXiv:2209.03740 *)
 
 
-KerrGeoScatteringAngle[0,p_,e_/;e>=1,1]:= (4 Sqrt[p]EllipticF[ArcCos[-e^(-1)]/2,(4e)/(6+2e-p)])/Sqrt[-6-2e+p]
+KerrGeoScatteringAngle[0,p_,e_/;e>=1,1]:= -\[Pi]+(4 Sqrt[p]EllipticF[ArcCos[-e^(-1)]/2,(4e)/(6+2e-p)])/Sqrt[-6-2e+p]
 
 
 (* ::Subsection:: *)
