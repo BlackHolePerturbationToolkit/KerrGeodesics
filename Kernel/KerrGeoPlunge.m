@@ -98,7 +98,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 		MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];];
 	
 		
-	MinoR[r_] :=(2 Sqrt[r-R4])/Sqrt[J (RI-r) (R4-RI)^2];
+	MinoR[r_] :=-(2 Sqrt[r-R4])/Sqrt[J (RI-r) (R4-RI)^2];
 	MinoRFunc=Function[{Global`r}, Evaluate[MinoR[Global`r]-MinoR[r0]  ],Listable];
 	
 	
@@ -155,7 +155,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Real Roots Generic Plunge (Mino)*)
 
 
@@ -313,7 +313,7 @@ KerrGeoRealPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCapita
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Complex Roots Generic Plunge (Mino)*)
 
 
@@ -473,11 +473,23 @@ KerrGeoPlunge::highenergy = "This code does not currently support plunging solut
 KerrGeoPlunge::negativecarter = "This code does not currently support plunging solutions with Q<0, Q=`1` has been selected ";
 KerrGeoPlunge::rIoutbounds = "Given ISSO radius `1` is not in the allowed range between `2` and `3` for spin `4`.";
 KerrGeoPlunge::Inclinationoutofbounds = "Given inclination angle `1` is not between -\!\(\*FractionBox[\(\[Pi]\), \(2\)]\) and \!\(\*FractionBox[\(\[Pi]\), \(2\)]\)."
+KerrGeoPlunge::aoutofbounds1 = "The plunges packages does not currently support the extremal a=1 case"
+KerrGeoPlunge::aoutofbounds0 = "The plunges packages does not currently support the zero spin a=0 case"
 
 
 KerrGeoPlunge[a_:0.9,{\[ScriptCapitalE]_:0.8,\[ScriptCapitalL]_:0.3,\[ScriptCapitalQ]_:3}, initCoords:{_,_,_,_}:Automatic,OptionsPattern[]]:=Module[
 	{param, method, RI, DN, RISSOMIN, RISSOMAX, ROOTS, RealRoots,ComplexRoots},
-
+	
+	If[a==0,
+		Message[KerrGeoPlunge::aoutofbounds0];
+		Return[$Failed]
+		];
+		
+	If[a==1,
+		Message[KerrGeoPlunge::aoutofbounds1];
+		Return[$Failed]
+		];
+	
 	If[\[ScriptCapitalE]>=1,
 		Message[KerrGeoPlunge::highenergy,\[ScriptCapitalE]];
 		Return[$Failed]
@@ -500,6 +512,15 @@ KerrGeoPlunge[a_:0.9,{\[ScriptCapitalE]_:0.8,\[ScriptCapitalL]_:0.3,\[ScriptCapi
 
 KerrGeoPlunge[a_:0.9,"ISSORadialParam",Arg1_:0.8, initCoords:{_,_,_,_}:Automatic,OptionsPattern[]]:=
 	Module[{RI,DN,RISSOMIN,RISSOMAX},
+	If[a==0,
+		Message[KerrGeoPlunge::aoutofbounds0,a];
+		Return[$Failed]
+		];
+		
+	If[a==1,
+		Message[KerrGeoPlunge::aoutofbounds1,a];
+		Return[$Failed]
+		];
 		RI = Arg1;
 		DN = (27-45 a^2+17 a^4+a^6+8 a^3 (1-a^2))^(1/3);
 		RISSOMIN = 3+Sqrt[3+a^2+(9-10 a^2+a^4)/DN+DN]-1/2 \[Sqrt](72+8 (-6+a^2)-(4 (9-10 a^2+a^4))/DN-4 DN+(64 a^2)/Sqrt[3+a^2+(9-10 a^2+a^4)/DN+DN]);
@@ -514,6 +535,16 @@ KerrGeoPlunge[a_:0.9,"ISSORadialParam",Arg1_:0.8, initCoords:{_,_,_,_}:Automatic
 
 KerrGeoPlunge[a_:0.9,"ISSOIncParam",Arg1_:0.8, initCoords:{_,_,_,_}:Automatic,OptionsPattern[]]:=
 	Module[{},
+	
+	If[a==0,
+		Message[KerrGeoPlunge::aoutofbounds0,a];
+		Return[$Failed]
+		];
+		
+	If[a==1,
+		Message[KerrGeoPlunge::aoutofbounds1,a];
+		Return[$Failed]
+		];
 		(* Other inclinations should be fine as well, right?*)
 		If[Not[-\[Pi]/2<=Arg1<=\[Pi]/2],
 			Message[KerrGeoPlunge::Inclinationoutofbounds, Arg1];
