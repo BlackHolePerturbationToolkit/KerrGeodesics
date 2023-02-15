@@ -37,7 +37,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 
 	RM = 1-Sqrt[1-a^2];
 	RP = 1+Sqrt[1-a^2];
-	
+
 	DN = (27-45 a^2+17 a^4+a^6+8 a^3 (1-a^2))^(1/3);
 	RISSOMIN=  3+Sqrt[3+a^2+(9-10 a^2+a^4)/DN+DN]-1/2 \[Sqrt](72+8 (-6+a^2)-(4 (9-10 a^2+a^4))/DN-4 DN+(64 a^2)/Sqrt[3+a^2+(9-10 a^2+a^4)/DN+DN]);
 	RISSOMAX=3+Sqrt[3+a^2+(9-10 a^2+a^4)/DN+DN]+1/2 \[Sqrt](72+8 (-6+a^2)-(4 (9-10 a^2+a^4))/DN-4 DN+(64 a^2)/Sqrt[3+a^2+(9-10 a^2+a^4)/DN+DN]);
@@ -45,32 +45,28 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 	(*This finds the correct sign of the angular momentum by determining the root of where the non-analytic form of the equation touches the axis on a \[ScriptCapitalL](RI) plot*)
 	If[PlungeType == "ISSORadialParam",
 		RI = Arg;
-		\[ScriptCapitalQ] = - M (RI)^(5/2) ((Sqrt[(RI-RP)(RI-RM)]-2Sqrt[RI])^2-4a^2)/(4a^2 (RI^(3/2)-Sqrt[RI]-Sqrt[(RI-RP)(RI-RM)]));
+		If[a==0,\[ScriptCapitalQ]=0,\[ScriptCapitalQ] = -M (RI)^(5/2) ((Sqrt[(RI-RP)(RI-RM)]-2Sqrt[RI])^2-4a^2)/(4a^2 (RI^(3/2)-Sqrt[RI]-Sqrt[(RI-RP)(RI-RM)]));
+		]; 
 		\[ScriptCapitalE] = Sqrt[a^2 \[ScriptCapitalQ]-2 RI^3+3 RI^4]/(Sqrt[3] RI^2);
 		\[ScriptCapitalL] = Sqrt[3 a^2 \[ScriptCapitalQ]-a^2 RI^2-\[ScriptCapitalQ] RI^2+3 RI^4+a^2 RI^2 \[ScriptCapitalE]^2-3 RI^4 \[ScriptCapitalE]^2]/RI;
 	RootCheckFunc[y_]:= (a^6-3 a^2 y^(5/2) (3 y^(3/2)+6 Sqrt[a^2+(-2+y) y]-2 y Sqrt[a^2+(-2+y) y])+y^(9/2) (20 Sqrt[y]-11 y^(3/2)+5 Sqrt[a^2+(-2+y) y]+3 y Sqrt[a^2+(-2+y) y])+a^4 (-4 y+3 y^2+Sqrt[y] Sqrt[a^2+(-2+y) y]+3 y^(3/2) Sqrt[a^2+(-2+y) y]));
-	LRoot = y/.FindRoot[RootCheckFunc[y],{y,6}];
-	If[RI>LRoot ,\[ScriptCapitalL]=-\[ScriptCapitalL]];];
-	
+	If[a==0,LRoot=6,y/.FindRoot[RootCheckFunc[y],{y,6}]];
+	If[a!=0,If[RI>LRoot ,\[ScriptCapitalL]=-\[ScriptCapitalL]]];
+	];
+
 	If[PlungeType == "ISSOIncParam",
 		\[Chi]INC = Cos[Arg - \[Pi]/2];
 		RI = KerrGeoISSO[a,\[Chi]INC];
 		{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]} = Values[KerrGeoConstantsOfMotion[a,RI,0,\[Chi]INC]][[1;;3]]
 		];
-	
 	J = 1-\[ScriptCapitalE]^2;
-	{Z1,Z2}= {Sqrt[1/2 (1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J)-Sqrt[(1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J))^2-(4 \[ScriptCapitalQ])/(a^2 J)])],Sqrt[ (a^2 J)/2 (1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J)+Sqrt[(1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J))^2-(4 \[ScriptCapitalQ])/(a^2 J)])]};
+	If[a==0, {Z1,Z2}={0,\[ScriptCapitalL]}, {Z1,Z2}= {Sqrt[1/2 (1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J)-Sqrt[(1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J))^2-(4 \[ScriptCapitalQ])/(a^2 J)])],Sqrt[ (a^2 J)/2 (1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J)+Sqrt[(1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J))^2-(4 \[ScriptCapitalQ])/(a^2 J)])]}];
 	R4 = (a^2 \[ScriptCapitalQ])/(J*RI^3);
 	kz = a*Sqrt[J](Z1/Z2);
 	\[CapitalUpsilon]z= (\[Pi]*Z2)/(2*EllipticK[kz^2]);
 	If[Arg==-(\[Pi]/2), \[ScriptCapitalL]= -\[ScriptCapitalL]];
-	
-	
 	If[a<0,\[ScriptCapitalL]=-\[ScriptCapitalL]];
-	
-	
 	consts = <|"\[ScriptCapitalE]"-> \[ScriptCapitalE],"\[ScriptCapitalL]"-> \[ScriptCapitalL], "\[ScriptCapitalQ]"->\[ScriptCapitalQ]|>;
-	
 	If[initCoords===Automatic,
 					{t0,r0,\[Theta]0,\[Phi]0}={0,R4,\[Pi]/2,0},
 					{t0,r0,\[Theta]0,\[Phi]0}=initCoords
@@ -84,9 +80,8 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 		Return[$Failed]
 		];
 	z0 = Cos[\[Theta]0];
-	
-
 	Minoz[z_] :=InverseJacobiSN[z/Z1,kz^2]/Z2;
+	If[a==0, Minoz[z_]:=0];
 	If[PlungeType == "ISSOIncParam",
 		If[Abs[Arg]==\[Pi]/2, Minoz[z_] :=0];
 		MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];];
@@ -96,16 +91,15 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 		MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];
 		If[Round[Arg - RISSOMAX,10^-14]==0,Minoz[z_] :=0];
 		MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];];
-	
-		
 	MinoR[r_] :=-(2 Sqrt[r-R4])/Sqrt[J (RI-r) (R4-RI)^2];
 	MinoRFunc=Function[{Global`r}, Evaluate[MinoR[Global`r]-MinoR[r0]  ],Listable];
-	
-	
+
 	r[\[Lambda]_] := ((RI (RI-R4)^2 J*\[Lambda]^2+4*R4)/((RI-R4)^2 J*\[Lambda]^2+4));
 	z[\[Lambda]_]:= Z1*JacobiSN[Z2*\[Lambda] ,kz^2];
-	tr[\[Lambda]_]:= ((a^2+RI^2) (-a \[ScriptCapitalL]+(a^2+RI^2) \[ScriptCapitalE])(\[Lambda]) )/((RI-RM) (RI-RP))+(2 ((R4-RI)^2) \[ScriptCapitalE] (\[Lambda]) )/(4+J (R4-RI)^2 (\[Lambda]) ^2)-(R4+3 RI+2 (RM+RP))/Sqrt[J] \[ScriptCapitalE] ArcTan[((\[Lambda])  (RI-R4)Sqrt[J ]  )/2 ]+( (a^2+RM^2) (-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RM^2 \[ScriptCapitalE])Log[Sqrt[(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RM]+2  Sqrt[RM-R4])^2/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RM]-2  Sqrt[RM-R4])^2]])/(Sqrt[RM-R4] (RI-RM)^(3/2) (-RM+RP)Sqrt[J])+( (a^2+RP^2) (-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RP^2 \[ScriptCapitalE]) Log[Sqrt[(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]+2  Sqrt[RP-R4])^2/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]-2  Sqrt[RP-R4])^2]])/(Sqrt[J]Sqrt[RP-R4] (RI-RP)^(3/2) (RM-RP));
-	\[Phi]r[\[Lambda]_]:= 1/Sqrt[J] 2 a (((\[Lambda]) (RI-R4)Sqrt[J ] (-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RI^2 \[ScriptCapitalE]))/( 2(-R4+RI) (RI-RM) (RI-RP))+((-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RM^2 \[ScriptCapitalE])Log[Sqrt[(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RM]+2  Sqrt[RM-R4])^2/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RM]-2  Sqrt[RM-R4])^2]])/(2Sqrt[RM-R4] (RI-RM)^(3/2) (-RM+RP))+((-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RP^2 \[ScriptCapitalE])Log[Sqrt[(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]+2  Sqrt[RP-R4])^2/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]-2  Sqrt[RP-R4])^2]])/(2Sqrt[RP-R4] (RI-RP)^(3/2) (RM-RP)))    ;
+	If[a!=0,tr[\[Lambda]_]:= ((a^2+RI^2) (-a \[ScriptCapitalL]+(a^2+RI^2) \[ScriptCapitalE])(\[Lambda]) )/((RI-RM) (RI-RP))+(2 ((R4-RI)^2) \[ScriptCapitalE] (\[Lambda]) )/(4+J (R4-RI)^2 (\[Lambda]) ^2)-(R4+3 RI+2 (RM+RP))/Sqrt[J] \[ScriptCapitalE] ArcTan[((\[Lambda])  (RI-R4)Sqrt[J ]  )/2 ]+( (a^2+RM^2) (-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RM^2 \[ScriptCapitalE])Log[Sqrt[(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RM]+2  Sqrt[RM-R4])^2/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RM]-2  Sqrt[RM-R4])^2]])/(Sqrt[RM-R4] (RI-RM)^(3/2) (-RM+RP)Sqrt[J])+( (a^2+RP^2) (-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RP^2 \[ScriptCapitalE]) Log[Sqrt[(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]+2  Sqrt[RP-R4])^2/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]-2  Sqrt[RP-R4])^2]])/(Sqrt[J]Sqrt[RP-R4] (RI-RP)^(3/2) (RM-RP))];
+	If[a==0,tr[\[Lambda]_]:= ((a^2+RI^2) (-a \[ScriptCapitalL]+(a^2+RI^2) \[ScriptCapitalE])(\[Lambda]) )/((RI-RM) (RI-RP))+(2 ((R4-RI)^2) \[ScriptCapitalE] (\[Lambda]) )/(4+J (R4-RI)^2 (\[Lambda]) ^2)-(R4+3 RI+2 (RM+RP))/Sqrt[J] \[ScriptCapitalE] ArcTan[((\[Lambda])  (RI-R4)Sqrt[J ]  )/2 ]+( (a^2+RP^2) (-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RP^2 \[ScriptCapitalE]) Log[Sqrt[(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]+2  Sqrt[RP-R4])^2/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]-2  Sqrt[RP-R4])^2]])/(Sqrt[J]Sqrt[RP-R4] (RI-RP)^(3/2) (RM-RP))];
+	If[a!=0,\[Phi]r[\[Lambda]_]:= 1/Sqrt[J] 2 a (((\[Lambda]) (RI-R4)Sqrt[J ] (-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RI^2 \[ScriptCapitalE]))/( 2(-R4+RI) (RI-RM) (RI-RP))+((-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RM^2 \[ScriptCapitalE])Log[Sqrt[(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RM]+2  Sqrt[RM-R4])^2/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RM]-2  Sqrt[RM-R4])^2]])/(2Sqrt[RM-R4] (RI-RM)^(3/2) (-RM+RP))+((-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RP^2 \[ScriptCapitalE])Log[Sqrt[(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]+2  Sqrt[RP-R4])^2/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]-2  Sqrt[RP-R4])^2]])/(2Sqrt[RP-R4] (RI-RP)^(3/2) (RM-RP))) ] ;
+	If[a==0,\[Phi]r[\[Lambda]_]:= 1/Sqrt[J] 2 a (((\[Lambda]) (RI-R4)Sqrt[J ] (-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RI^2 \[ScriptCapitalE]))/( 2(-R4+RI) (RI-RM) (RI-RP))+((-a \[ScriptCapitalL]+a^2 \[ScriptCapitalE]+RP^2 \[ScriptCapitalE])Log[Sqrt[(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]+2  Sqrt[RP-R4])^2/(\[Lambda] (RI-R4)Sqrt[J ] Sqrt[RI-RP]-2  Sqrt[RP-R4])^2]])/(2Sqrt[RP-R4] (RI-RP)^(3/2) (RM-RP)))  ]  ;
 	tz[\[Lambda]_]:= 1/J \[ScriptCapitalE]  (-Z2 EllipticE[JacobiAmplitude[Z2 \[Lambda] ,kz^2],kz^2]+(Z2-a^2 J/Z2) Z2 \[Lambda]);
 	\[Phi]z[\[Lambda]_]:= \[ScriptCapitalL]/Z2 EllipticPi[Z1^2,JacobiAmplitude[Z2 \[Lambda] ,kz^2],kz^2];
 
@@ -113,12 +107,10 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 	r=Function[{Global`\[Lambda]}, Evaluate[ r[Global`\[Lambda] + MinoR[r0]] ], Listable];
 	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda] + Minoz[z0]]]] , Listable];
 	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[-a*\[ScriptCapitalE] Global`\[Lambda] + \[Phi]r[Global`\[Lambda]+ MinoR[r0]] + \[Phi]z[Global`\[Lambda]+ Minoz[z0]] -  \[Phi]r[MinoR[r0]] - \[Phi]z[Minoz[z0]] + \[Phi]0], Listable];
-	
 	MCPP = -Abs[MinoR[RP]] -MinoR[r0];
 	MCMP = -Abs[MinoR[RM]] -MinoR[r0];
 	MCMM = Abs[MinoR[RM]] - MinoR[r0];
 	MCPM = Abs[MinoR[RP]] - MinoR[r0];
-
 	assoc = Association[
 		"a" -> a,
 		"rI" -> RI,
@@ -155,7 +147,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Real Roots Generic Plunge (Mino)*)
 
 
@@ -190,15 +182,7 @@ KerrGeoRealPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCapita
 	R3= ROOTS[[4]];
 	R4= ROOTS[[3]];];
 	
-	
-	(*R1= ROOTS[[4]];
-	R2= ROOTS[[3]];
-	R3= Min[Select[ROOTS,#>=RP&]];
-	R4= Max[Select[ROOTS,#<=RM&]];
-	R1= ROOTS[[1]];
-	R2= ROOTS[[2]];
-	R3= Min[Select[ROOTS,#>=RP&]];
-	R4= Max[Select[ROOTS,#<=RM&]];*)
+
 	
 	If[initCoords===Automatic,
 					{t0,r0,\[Theta]0,\[Phi]0}={0,R4,\[Pi]/2,0},
@@ -342,8 +326,8 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 	R3=ComplexRoots[[1]];
 	R4= ComplexRoots[[2]];
 	
-	{Z1,Z2}= {Sqrt[1/2 (1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J)-Sqrt[(1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J))^2-(4 \[ScriptCapitalQ])/(a^2 J)])],Sqrt[ (a^2 J)/2 (1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J)+Sqrt[(1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J))^2-(4 \[ScriptCapitalQ])/(a^2 J)])]};
-
+	If[a==0, {Z1,Z2}={0,\[ScriptCapitalL]}, {Z1,Z2}= {Sqrt[1/2 (1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J)-Sqrt[(1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J))^2-(4 \[ScriptCapitalQ])/(a^2 J)])],Sqrt[ (a^2 J)/2 (1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J)+Sqrt[(1+(\[ScriptCapitalL]^2+\[ScriptCapitalQ])/(a^2 J))^2-(4 \[ScriptCapitalQ])/(a^2 J)])]}];
+	
 	e = R2;
 	b = R1;
 	c = Re[R3];
@@ -391,13 +375,11 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 	z0 = Cos[\[Theta]0];
 	
 	Minoz[z_] :=InverseJacobiSN[z/Z1,kz^2]/Z2;
-	
 	If[Abs[Arg]==\[Pi]/2, Minoz[z_] :=0];
-	MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];
-	
+	If[a==0, Minoz[z_] :=0];
 	If[\[ScriptCapitalQ]==0, Minoz[z_] :=0];
 	MinozFunc=Function[{Global`z}, Evaluate[Minoz[Global`z]-Minoz[z0]  ],Listable];
-	
+
 
 	MinoR[x_]:= -1/Sqrt[J A B] EllipticF[(\[Pi]/2 -ArcSin[(B(e-x)-A(x-b))/(   B(e-x)+A(x-b)  )  ]),kr^2];
 	MinoRFunc=Function[{Global`r}, Evaluate[MinoR[Global`r] -MinoR[r0] ],Listable];
@@ -406,14 +388,17 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 	r[\[Lambda]_] := ((A-B) (A b-B e) SNR[\[Lambda]]^2+2 (A B (b+e)+A B (b-e) CNR[\[Lambda]]))/(4 A B+(A-B)^2 SNR[\[Lambda]]^2);
 
 	z[\[Lambda]_]:= Z1*JacobiSN[Z2 \[Lambda],kz^2];
+	If[kz==0, z[\[Lambda]_]:= Z1*Sin[Z2*\[Lambda]]];
 
 (*Integrals*)
 	
 	RINT\[Lambda][\[Lambda]_] := ((A b-B e)/(A-B) \[Lambda]-1/ Sqrt[ J] ArcTan[(e-b)/(2 Sqrt[A B])  SNR[\[Lambda]]/Sqrt[1-kr^2 (SNR[\[Lambda]])^2]]+((A+B) (e-b))/(2 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]);
 	R2INT\[Lambda][\[Lambda]_]:=\[Lambda] /(A-B) (A b^2-B e^2)+ Sqrt[A B ]/Sqrt[ J] (EllipticE[AMR[\[Lambda]],kr^2])-((A+B) (A^2+2 b^2-B^2-2 e^2))/(4 (A-B) Sqrt[A B J]) EllipticPi[-(1/f),AMR[\[Lambda]],kr^2]-(Sqrt[A B ] (A+B-(A-B)CNR[\[Lambda]]))/((A-B) Sqrt[ J]) (SNR[\[Lambda]] DNR[\[Lambda]])/(f+(SNR[\[Lambda]])^2)+ (A^2+2 b^2-B^2-2 e^2)/(4 (e-b) Sqrt[ J])ArcTan[(f-(1+2 f kr^2) SNR[\[Lambda]]^2),2 SNR[\[Lambda]] DNR[\[Lambda]]Sqrt[f (1+f kr^2)]](*ArcTan[(2 SNR[\[Lambda]] DNR[\[Lambda]]Sqrt[f (1+f kr^2)])/(f-(1+2 f kr^2) SNR[\[Lambda]]^2)]*);
-	RMINT\[Lambda][\[Lambda]_] :=  ((A-B) \[Lambda])/(A (b-RM)-B (e-RM))+((e-b) (A (b-RM)+B (e-RM)))/(2 Sqrt[A B J] (b-RM) (-e+RM) (A (b-RM)-B (e-RM))) EllipticPi[1/D2M^2,JacobiAmplitude[Sqrt[A B J] \[Lambda],kr^2],kr^2]-  Sqrt[(e-b)]/(Sqrt[ J] Sqrt[ (RM-b) (e-RM)] Sqrt[ (A^2 (RM-b)-(e-RM) (b^2-B^2+e RM-b (e+RM)))]) 1/4 (Log[((D2M  Sqrt[1-D2M^2 kr^2]+Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2M^2-SNR[\[Lambda]]^2))^2)/((D2M  Sqrt[1-D2M^2 kr^2]- Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2M^2-SNR[\[Lambda]]^2))^2)]);
+	If[a!=0,RMINT\[Lambda][\[Lambda]_] :=  ((A-B) \[Lambda])/(A (b-RM)-B (e-RM))+((e-b) (A (b-RM)+B (e-RM)))/(2 Sqrt[A B J] (b-RM) (-e+RM) (A (b-RM)-B (e-RM))) EllipticPi[1/D2M^2,JacobiAmplitude[Sqrt[A B J] \[Lambda],kr^2],kr^2]-  Sqrt[(e-b)]/(Sqrt[ J] Sqrt[ (RM-b) (e-RM)] Sqrt[ (A^2 (RM-b)-(e-RM) (b^2-B^2+e RM-b (e+RM)))]) 1/4 (Log[((D2M  Sqrt[1-D2M^2 kr^2]+Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2M^2-SNR[\[Lambda]]^2))^2)/((D2M  Sqrt[1-D2M^2 kr^2]- Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2M^2-SNR[\[Lambda]]^2))^2)])];
+	If[a==0,RMINT\[Lambda][\[Lambda]_] :=  ((A-B) \[Lambda])/(A (b-RM)-B (e-RM))];
 	RPINT\[Lambda][\[Lambda]_] :=  ((A-B) \[Lambda])/(A (b-RP)+B (-e+RP))+((e-b) (A (b-RP)+B (e-RP)))/(2 Sqrt[A B J] (b-RP) (-e+RP) (A (b-RP)+B (-e+RP))) EllipticPi[1/D2P^2,JacobiAmplitude[Sqrt[A B J] \[Lambda],kr^2],kr^2]- Sqrt[(e-b)]/(Sqrt[ J] Sqrt[(RP-b) (e-RP)] Sqrt[ (A^2 (RP-b)-(e-RP) (b^2-B^2+e RP-b (e+RP)))]) 1/4 (Log[((D2P  Sqrt[1-D2P^2 kr^2]+Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2P^2-SNR[\[Lambda]]^2))^2)/((D2P  Sqrt[1-D2P^2 kr^2]- Sqrt[1-kr^2 SNR[\[Lambda]]^2]SNR[\[Lambda]])^2+( kr (D2P^2-SNR[\[Lambda]]^2))^2)]);
-	
+
+
 	tr[\[Lambda]_]:=  ((2 a^2 +RM^2+RM RP+RP^2)\[ScriptCapitalE])\[Lambda]+(R2INT\[Lambda][\[Lambda]]+RINT\[Lambda][\[Lambda]](RM+RP)) \[ScriptCapitalE] + ((RM^2+a^2)(\[ScriptCapitalE](RM^2+a^2)-a*\[ScriptCapitalL]))/(RM-RP) RMINT\[Lambda][\[Lambda]]+ ((RP^2+a^2)(\[ScriptCapitalE](RP^2+a^2)-a*\[ScriptCapitalL]))/(RP-RM) RPINT\[Lambda][\[Lambda]];
 	\[Phi]r[\[Lambda]_]:= a(((\[ScriptCapitalE](RM^2+a^2)-a*\[ScriptCapitalL])/(RM-RP))RMINT\[Lambda][\[Lambda]]+ (\[ScriptCapitalE](RP^2+a^2)-a*\[ScriptCapitalL])/(RP-RM) RPINT\[Lambda][\[Lambda]]);
 	tz[\[Lambda]_]:= \[ScriptCapitalE]/ J ((Z2-a^2 J/Z2) Z2 \[Lambda] -Z2 EllipticE[AMZ[\[Lambda]],kz^2]);
@@ -423,11 +408,15 @@ KerrGeoComplexPlungeMino[a_, \[ScriptCapitalE]_, \[ScriptCapitalL]_, \[ScriptCap
 
 (*Note: If including Precission Error May occur in the case of evaluating R2INT\[Lambda][0] due to a bug with mathematica in
  evaluating terms of the form EllipticE[0, num`n], num is any number and n is less thna machine precision*)
+	Print[1];
 	t=Function[{Global`\[Lambda]}, Evaluate[  tr[Global`\[Lambda]+ MinoR[r0]] + tz[Global`\[Lambda]+ Minoz[z0]]-tr[MinoR[r0]]-tz[Minoz[z0]] + t0], Listable];
+	Print[2];
 	r=Function[{Global`\[Lambda]}, Evaluate[ r[Global`\[Lambda]+ MinoR[r0]]], Listable];
+	Print[3];
 	\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[z[Global`\[Lambda] + Minoz[z0]]]] , Listable];
+	Print[4];
 	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[ \[Phi]r[Global`\[Lambda]+ MinoR[r0]] + \[Phi]z[Global`\[Lambda]+ Minoz[z0]] -  \[Phi]r[MinoR[r0]] - \[Phi]z[Minoz[z0]] + \[Phi]0], Listable];
-
+	Print[5];
 	MCPP = -Abs[MinoR[RP]] -MinoR[r0]+(2\[Pi])/\[CapitalUpsilon]r;
 	MCMP = -Abs[MinoR[RM]] -MinoR[r0]+(2\[Pi])/\[CapitalUpsilon]r;
 	MCMM = Abs[MinoR[RM]] - MinoR[r0];
@@ -480,10 +469,6 @@ KerrGeoPlunge::aoutofbounds0 = "The plunges packages does not currently support 
 KerrGeoPlunge[a_:0.9,{\[ScriptCapitalE]_:0.8,\[ScriptCapitalL]_:0.3,\[ScriptCapitalQ]_:3}, initCoords:{_,_,_,_}:Automatic,OptionsPattern[]]:=Module[
 	{param, method, RI, DN, RISSOMIN, RISSOMAX, ROOTS, RealRoots,ComplexRoots},
 	
-	If[a==0,
-		Message[KerrGeoPlunge::aoutofbounds0];
-		Return[$Failed]
-		];
 		
 	If[a==1,
 		Message[KerrGeoPlunge::aoutofbounds1];
@@ -512,11 +497,6 @@ KerrGeoPlunge[a_:0.9,{\[ScriptCapitalE]_:0.8,\[ScriptCapitalL]_:0.3,\[ScriptCapi
 
 KerrGeoPlunge[a_:0.9,"ISSORadialParam",Arg1_:0.8, initCoords:{_,_,_,_}:Automatic,OptionsPattern[]]:=
 	Module[{RI,DN,RISSOMIN,RISSOMAX},
-	If[a==0,
-		Message[KerrGeoPlunge::aoutofbounds0,a];
-		Return[$Failed]
-		];
-		
 	If[a==1,
 		Message[KerrGeoPlunge::aoutofbounds1,a];
 		Return[$Failed]
@@ -535,12 +515,6 @@ KerrGeoPlunge[a_:0.9,"ISSORadialParam",Arg1_:0.8, initCoords:{_,_,_,_}:Automatic
 
 KerrGeoPlunge[a_:0.9,"ISSOIncParam",Arg1_:0.8, initCoords:{_,_,_,_}:Automatic,OptionsPattern[]]:=
 	Module[{},
-	
-	If[a==0,
-		Message[KerrGeoPlunge::aoutofbounds0,a];
-		Return[$Failed]
-		];
-		
 	If[a==1,
 		Message[KerrGeoPlunge::aoutofbounds1,a];
 		Return[$Failed]
