@@ -21,7 +21,7 @@ KerrGeoImpactParameter::usage = "KerrGeoImpactParameter[a, p, e, x] returns the 
 Begin["`Private`"];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Schwarzschild (a=0)*)
 
 
@@ -51,7 +51,7 @@ KerrGeoAngularMomentum[0,p_,e_,x_]:=(p x)/Sqrt[-3-e^2+p]
 KerrGeoCarterConstant[0,p_,e_,x_]:=(p^2 (-1+x^2))/(3+e^2-p)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Scatter*)
 
 
@@ -72,7 +72,7 @@ KerrGeoImpactParameter[0,p_,e_/;e>1,x_]:=KerrGeoAngularMomentum[0,p,e,x]/Sqrt[Ke
 KerrGeoScatteringAngle[0,p_,e_/;e>=1,1]:= -\[Pi]+(4 Sqrt[p]EllipticF[ArcCos[-e^(-1)]/2,(4e)/(6+2e-p)])/Sqrt[-6-2e+p]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Convenience function to compute all three constants of motion*)
 
 
@@ -88,7 +88,7 @@ KerrGeoConstantsOfMotion[0,p_,e_/;e>=1,x_]:=
    "\[ScriptCapitalQ]" -> KerrGeoCarterConstant[0,p,e,x], 
    "\!\(\*SubscriptBox[\(v\), \(\[Infinity]\)]\)" -> KerrGeoVelocityAtInfinity[0,p,e,x],
    "b" -> KerrGeoImpactParameter[0,p,e,x],
-   "\[Delta]\[Phi]" -> KerrGeoScatteringAngle[0,p,e,x]
+   "\[Psi]" -> KerrGeoScatteringAngle[0,p,e,x]
    |>
 
 
