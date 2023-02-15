@@ -147,7 +147,7 @@ KerrGeoISSOPlunge[a_, PlungeType_  ,Arg_, initCoords_] := Module[
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Real Roots Generic Plunge (Mino)*)
 
 
