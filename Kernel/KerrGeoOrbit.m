@@ -26,7 +26,7 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 KerrGeoOrbit::OutOfBounds = "For this hyperbolic orbit the Darwin parameter \[Chi] must be between `1` and `2`"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Being the private context*)
 
 
@@ -80,14 +80,15 @@ rSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]>ArcCos[-1/e] := Message[Kerr
 \[Phi]SchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]>ArcCos[-1/e] := Message[KerrGeoOrbit::OutOfBounds, -ArcCos[-1/e], ArcCos[-1/e]];
 
 
-KerrGeoScatterDarwinBounds[e_/;e>=1]:= { -ArcCos[-1/e], ArcCos[-1/e] }
+DarwinBounds[e_/;0<=e<1]:= {-\[Infinity], \[Infinity]}
+DarwinBounds[e_/;e>=1]:= { -ArcCos[-1/e], ArcCos[-1/e] }
 
 
 (* ::Text:: *)
 (*FIXME: make the below work for inclined orbits and accept initial phases*)
 
 
-KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En, L,Q, type, \[Chi]Bounds, velocity},
+KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En, L,Q, type, \[Chi]Bounds, velocity, paramRange},
 
 t = Function[{Global`\[Chi]}, Evaluate[ tSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
 r = Function[{Global`\[Chi]}, Evaluate[ rSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
@@ -98,6 +99,7 @@ consts = KerrGeoConstantsOfMotion[0,p,e,1];
 {En,L,Q} = {"\[ScriptCapitalE]","\[ScriptCapitalL]","Q"}/.consts;
 type = Evaluate[KerrGeoOrbitType[0,p,e,1]];
 velocity = Values[KerrGeoFourVelocity[0,p,e,1,"Parametrization"->"Darwin"]];
+paramRange = DarwinBounds[e];
 
 assoc = Association[
 			"Trajectory" -> {t,r,\[Theta],\[Phi]},
@@ -112,7 +114,8 @@ assoc = Association[
 			"AngularMomentum" -> L,
 			"CarterConstant" -> Q,
 			"Periastron" -> p/(1+e),
-			"OrbitType" -> type
+			"OrbitType" -> type,
+			"ParameterRange" -> paramRange
 			];
 
 KerrGeoOrbitFunction[0, p, e, 1, assoc]
