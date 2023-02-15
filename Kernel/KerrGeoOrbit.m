@@ -12,14 +12,12 @@ BeginPackage["KerrGeodesics`KerrGeoOrbit`",
 	{"KerrGeodesics`ConstantsOfMotion`",
 	 "KerrGeodesics`OrbitalFrequencies`",
 	 "KerrGeodesics`FourVelocity`"}];
-
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
-
 Begin["`Private`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Schwarzschild*)
 
 
@@ -85,11 +83,11 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Equatorial (Darwin)*)
 
 
@@ -161,14 +159,14 @@ KerrGeoOrbitFunction[a, p, e, x, assoc]
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Equatorial (Fast Spec - Darwin)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutines that checks for the number of samples necessary for spectral integration*)
 
 
@@ -234,7 +232,7 @@ Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps,coeffs,
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -311,14 +309,14 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Circular (Fast Spec - Darwin)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -401,7 +399,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Circular (Mino)*)
 
 
@@ -450,7 +448,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -565,14 +563,14 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutines for calculating \[Lambda](\[Psi]) and \[Lambda](\[Chi])*)
 
 
@@ -622,7 +620,7 @@ Module[{M=1,En,L,Q,zp,zm,\[Chi]\[Theta],\[Beta],P\[Theta],P\[Theta]Sample,NthIni
 
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutine for calculating \[Psi](\[Lambda]) and \[Chi](\[Lambda])*)
 
 
@@ -635,7 +633,7 @@ Module[{sampledFunc,NInit,phase},
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutines for calculating Subscript[\[CapitalDelta]\[Phi], r](Subscript[q, r]), Subscript[\[CapitalDelta]\[Phi], \[Theta]](Subscript[q, \[Theta]]), Subscript[\[CapitalDelta]t, r](Subscript[q, r]), Subscript[\[CapitalDelta]t, \[Theta]](Subscript[q, \[Theta]])*)
 
 
@@ -739,7 +737,7 @@ TimeOfMinoFastSpecTheta[a_,p_,e_,x_]:=Module[{\[CapitalUpsilon]\[Theta],\[Capita
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Generic subroutines that transform functions from *)
 (*\[Lambda] dependence to \[Psi] or \[Chi] dependence*)
 
@@ -791,7 +789,7 @@ Module[{M=1,En,L,Q,zp,zm,\[Beta],\[Chi]\[Theta],\[Theta]0,\[Theta]0Sample,P\[The
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutines that checks for the number of samples necessary for spectral integration of an even function*)
 
 
@@ -868,7 +866,7 @@ Module[{test,compare,res,NInit,iter=1,fn,sampledFunc,phaseList,pg,eps,nTest},
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subroutine that performs spectral integration on even functions*)
 
 
@@ -1070,7 +1068,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
