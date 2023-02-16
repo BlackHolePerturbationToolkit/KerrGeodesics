@@ -95,7 +95,7 @@ r = Function[{Global`\[Chi]}, Evaluate[ rSchwarzDarwin[p,e,Global`\[Chi]] ], Lis
 \[Phi] = Function[{Global`\[Chi]}, Evaluate[ \[Phi]SchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
 
 consts = KerrGeoConstantsOfMotion[0,p,e,1];
-{En,L,Q} = {"\[ScriptCapitalE]","\[ScriptCapitalL]","Q"}/.consts;
+{En,L,Q} = {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.consts;
 type = Evaluate[KerrGeoOrbitType[0,p,e,1]];
 velocity = Values[KerrGeoFourVelocity[0,p,e,1,"Parametrization"->"Darwin"]];
 paramRange = DarwinBounds[e];
