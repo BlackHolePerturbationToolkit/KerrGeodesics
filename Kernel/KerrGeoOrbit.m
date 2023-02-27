@@ -112,7 +112,7 @@ assoc = Association[
 			"Energy" -> En,
 			"AngularMomentum" -> L,
 			"CarterConstant" -> Q,
-			"Periastron" -> p/(1+e),
+			"Periastron" -> Evaluate[p/(1+e)],
 			"OrbitType" -> type,
 			"ParameterRange" -> paramRange
 			];
