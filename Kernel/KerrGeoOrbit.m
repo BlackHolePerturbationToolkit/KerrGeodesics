@@ -96,7 +96,7 @@ r = Function[{Global`\[Chi]}, Evaluate[ rSchwarzDarwin[p,e,Global`\[Chi]] ], Lis
 
 consts = KerrGeoConstantsOfMotion[0,p,e,1];
 {En,L,Q} = {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.consts;
-type = Evaluate[KerrGeoOrbitType[0,p,e,1]];
+type = KerrGeoOrbitType[0,p,e,1];
 velocity = Values[KerrGeoFourVelocity[0,p,e,1,"Parametrization"->"Darwin"]];
 paramRange = DarwinBounds[e];
 
@@ -112,7 +112,7 @@ assoc = Association[
 			"Energy" -> En,
 			"AngularMomentum" -> L,
 			"CarterConstant" -> Q,
-			"Periastron" -> Evaluate[p/(1+e)],
+			"Periastron" -> p/(1+e),
 			"OrbitType" -> type,
 			"ParameterRange" -> paramRange
 			];
