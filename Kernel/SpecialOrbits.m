@@ -8,7 +8,7 @@
 (*Define usage for public functions*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Create Package*)
 
 
@@ -16,7 +16,7 @@ BeginPackage["KerrGeodesics`SpecialOrbits`",
 	{"KerrGeodesics`ConstantsOfMotion`"}];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Usage messages*)
 
 
@@ -28,9 +28,9 @@ KerrGeoIBSO::usage = "KerrGeoISBO[a,x] returns the location of the innermost bou
 
 KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of p at the separatrix."
 
-KerrGeoOrbitType::usage = "KerrGeoOrbitType[a,p,e,x] outputs whether the parameters correspond to a bound, scatter or plunge orbit."
-
 KerrGeoFindResonance::usage = "KerrGeoFindResonance[assoc,{\[Beta]r,\[Beta]\[Theta],\[Beta]\[Phi]}] finds the location of a resonance given {a,x} and one of {p,e} as an association."
+
+KerrGeoOrbitType::usage = "KerrGeoOrbitType[a,p,e,x] outputs whether the parameters correspond to a bound, scatter or plunge orbit."
 
 (*KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a bound orbit."
 KerrGeoScatterOrbitQ::usage = "KerrGeoScatterOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a scatter orbit."
@@ -244,17 +244,17 @@ KerrGeoISSO[a_,x_/;Abs[x]==1]:=KerrGeoISCO[a,x]
 KerrGeoISSO[a_,x_]:=KerrGeoSeparatrix[a,0,x]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Bound Orbit Q*)
 
 
 KerrGeoBoundOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := Module[{ps},
-	ps = KerrGeoSeparatrix[a,e,x];
+	If[e > 0, ps = KerrGeoSeparatrix[a,e,x], ps = KerrGeoIBSO[a,x]];
 	If[p >= ps && 0 <= e < 1, True, False]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Scatter Orbit Q*)
 
 
@@ -265,7 +265,7 @@ KerrGeoBoundOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := Module
 KerrGeoScatterOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := If[p >= KerrGeoSeparatrix[a,e,x] && e >= 1, True, False]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plunge Orbit Q*)
 
 
@@ -277,7 +277,7 @@ KerrGeoPlungeOrbitQ[a_?NumericQ, p_?NumericQ,e_?NumericQ, x_?NumericQ]:=
 	If[KerrGeoBoundOrbitQ[0,p,e,1] == KerrGeoScatterOrbitQ[0,p,e,1] == False, True, False]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Orbit type*)
 
 
@@ -285,9 +285,36 @@ KerrGeoPlungeOrbitQ[a_?NumericQ, p_?NumericQ,e_?NumericQ, x_?NumericQ]:=
 (*Output the type of orbit based on the orbital parameters*)
 
 
-KerrGeoOrbitType[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ]:=
-	If[KerrGeoBoundOrbitQ[a,p,e,x] == True, "Bound",
-		If[KerrGeoScatterOrbitQ[a,p,e,x] == True, "Scatter", "Plunge"]]
+KerrGeoOrbitType[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ]:=Module[{output},
+
+	output = {,{}};
+	
+	If[KerrGeoBoundOrbitQ[a,p,e,x] == True, 
+		output[[1]] = "Bound";
+		If[PossibleZeroQ[e],
+			If[PossibleZeroQ[a], AppendTo[output[[2]],"Circular"],
+				If[PossibleZeroQ[Abs[x]-1], AppendTo[output[[2]],"Circular"], AppendTo[output[[2]],"Spherical"]]
+			],
+			AppendTo[output[[2]],"Eccentric"]
+		];
+	,
+	(*If not a bound orbit*)
+	If[KerrGeoScatterOrbitQ[a,p,e,x] == True, 
+		output[[1]] = "Scatter";
+		If[PossibleZeroQ[e-1], AppendTo[output[[2]], "Parabolic"]];
+		If[e>1, AppendTo[output[[2]], "Hyperbolic"]];
+		,
+		(*At the moment we say unknown as the plunge orbit Q is not complete*) 
+		output[[1]] = "Unknown"]
+	
+	];
+	
+	If[PossibleZeroQ[Abs[x]-1],AppendTo[output[[2]],"Equatorial"], AppendTo[output[[2]],"Inclined"]];
+	
+	
+	output
+		
+]
 
 
 (* ::Section::Closed:: *)

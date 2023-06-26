@@ -19,7 +19,7 @@ KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] 
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Error messages*)
 
 
@@ -33,7 +33,7 @@ KerrGeoOrbit::OutOfBounds = "For this hyperbolic orbit the Darwin parameter \[Ch
 Begin["`Private`"];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Schwarzschild*)
 
 
@@ -113,7 +113,7 @@ assoc = Association[
 			"AngularMomentum" -> L,
 			"CarterConstant" -> Q,
 			"Periastron" -> p/(1+e),
-			"OrbitType" -> type,
+			"Type" -> type,
 			"ParameterRange" -> paramRange
 			];
 
@@ -122,7 +122,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -191,7 +191,7 @@ assoc = Association[
 			"Energy" -> En,
 			"AngularMomentum" -> L,
 			"CarterConstant" -> Q,
-			"OrbitType" -> type,
+			"Type" -> type,
 			"InitialPhases" -> initPhases
 		];
 
@@ -346,7 +346,7 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 		"p" -> p,
 		"e" -> e,
 		"Inclination" -> x,
-		"OrbitType" -> type,
+		"Type" -> type,
 		"InitialPhases" -> initPhases
 		];
 	
@@ -361,7 +361,7 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -439,7 +439,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 		"p" -> p,
 		"e" -> e,
 		"Inclination" -> x,
-		"OrbitType" -> type,
+		"Type" -> type,
 		"InitialPhases" -> initPhases
 		];
 	
@@ -489,7 +489,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 		"p" -> p,
 		"e" -> e,
 		"Inclination" -> x,
-		"OrbitType" -> type,
+		"Type" -> type,
 		"InitialPhases" -> initPhases
 	];
 	
@@ -499,7 +499,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
 
 
@@ -574,7 +574,7 @@ tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE
 	"p" -> p,
 	"e" -> e,
 	"Inclination" -> x,
-	"OrbitType" -> type,
+	"Type" -> type,
 	"InitialPhases" -> {0, 0, 0, 0}
 	];
 
@@ -584,7 +584,7 @@ tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE
 
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Scattering orbit (e > 1)*)
 
 
@@ -665,7 +665,7 @@ assoc = Association[
 	"a" -> a,
 	"p" -> p,
 	"e" -> e,
-	"OrbitType" -> type,
+	"Type" -> type,
 	"Inclination" -> x
 	];
 
@@ -1208,7 +1208,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 		"p" -> p,
 		"e" -> e,
 		"Inclination" -> x,
-		"OrbitType" -> type,
+		"Type" -> type,
 		"InitialPhases" -> {qt0, qr0, q\[Theta]0, q\[Phi]0}
 		];
 	
@@ -1216,7 +1216,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
