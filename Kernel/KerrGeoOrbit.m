@@ -1104,7 +1104,7 @@ If[method == "FastSpec",
 	If[param == "Darwin", 
 		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitFastSpecDarwin[a,p,e,x,initPhases]]]
 	];
-	Print["Unrecognized parametrization: " <> OptionValue["Parametrization"]];
+	Message[KerrGeoOrbit::parametrization, "Unrecognized parametrization: " <> OptionValue["Parametrization"]];
 	
 ];
 
