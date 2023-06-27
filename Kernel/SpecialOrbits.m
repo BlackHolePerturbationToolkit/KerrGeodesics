@@ -282,35 +282,46 @@ KerrGeoPlungeOrbitQ[a_?NumericQ, p_?NumericQ,e_?NumericQ, x_?NumericQ]:=
 
 
 (* ::Text:: *)
-(*Output the type of orbit based on the orbital parameters*)
+(*Output the type of orbit based on the orbital parameters. *)
 
 
-KerrGeoOrbitType[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ]:=Module[{output},
+KerrGeoOrbitType[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ]:=Module[{output,IBSO,ISSO,rph},
 
-	output = {,{}};
-	
-	If[KerrGeoBoundOrbitQ[a,p,e,x] == True, 
-		output[[1]] = "Bound";
-		If[PossibleZeroQ[e],
-			If[PossibleZeroQ[a], AppendTo[output[[2]],"Circular"],
-				If[PossibleZeroQ[Abs[x]-1], AppendTo[output[[2]],"Circular"], AppendTo[output[[2]],"Spherical"]]
-			],
-			AppendTo[output[[2]],"Eccentric"]
-		];
-	,
-	(*If not a bound orbit*)
-	If[KerrGeoScatterOrbitQ[a,p,e,x] == True, 
-		output[[1]] = "Scatter";
-		If[PossibleZeroQ[e-1], AppendTo[output[[2]], "Parabolic"]];
-		If[e>1, AppendTo[output[[2]], "Hyperbolic"]];
+	If[PossibleZeroQ[e],
+		rph = KerrGeoPhotonSphereRadius[a,x];
+		IBSO = KerrGeoIBSO[a,x];
+		ISSO = KerrGeoISSO[a,x];
+		If[rph < p <= IBSO, output = {"Unbound", "Circular", "Unstable"}];
+		If[p == IBSO, output = {"MarginallyBound", "Circular", "Unstable"}];
+		If[IBSO < p < ISSO, output = {"Bound", "Circular", "Unstable"}];
+		If[p == ISSO, output = {"Bound", "Circular", "MarginallyStable"}];
+		If[p > ISSO, output = {"Bound", "Circular", "Stable"}];
+		If[!PossibleZeroQ[Abs[x]-1] && p > rph && !PossibleZeroQ[a], AppendTo[output,"Spherical"]];
+		
+		(*If none of the above. At the moment we say NotClassified as the PlungeOrbitQ is not complete*) 
+		If[p <= rph, output = {"NotClassified"}];
+
 		,
-		(*At the moment we say unknown as the plunge orbit Q is not complete*) 
-		output[[1]] = "Unknown"]
-	
+		(*If not a circular orbit*)
+		If[KerrGeoBoundOrbitQ[a,p,e,x] == True, 
+			output = {"Bound","Eccentric"};
+			,
+			(*If not a bound orbit*)
+			If[KerrGeoScatterOrbitQ[a,p,e,x] == True, 
+				output = {"Scatter"};
+				If[PossibleZeroQ[e-1], AppendTo[output, "Parabolic"]];
+				If[e>1, AppendTo[output, "Hyperbolic"]];
+				,
+				(*If none of the above. At the moment we say NotClassified as the PlungeOrbitQ is not complete*) 
+				output = {"NotClassified"}
+			];
+		];
 	];
-	
-	If[PossibleZeroQ[Abs[x]-1],AppendTo[output[[2]],"Equatorial"], AppendTo[output[[2]],"Inclined"]];
-	
+
+	If[ output[[1]] != "NotClassified",
+		If[PossibleZeroQ[Abs[x]-1], AppendTo[output,"Equatorial"], AppendTo[output,"Inclined"]];
+	];
+
 	
 	output
 		
