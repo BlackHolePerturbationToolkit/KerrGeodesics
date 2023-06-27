@@ -57,7 +57,7 @@ r4=1/4 (1-2 \[Rho]2+1/(a^2 zm^2+(-2+\[Rho]2) \[Rho]2)^2 (-a^4 (zm^4-2 zm^2 \[Rho
 
 
 KerrGeoPolarRoots[a_, p_, e_, x_] := Module[{En,L,Q,zm,zp},
-  {En,L,Q} = Values[KerrGeoConstantsOfMotion[a, p, e, x]];
+  {En,L,Q} = {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.KerrGeoConstantsOfMotion[a, p, e, x];
   zm = Sqrt[1-x^2];
   zp = (a^2 (1-En^2)+L^2/(1-zm^2))^(1/2);
   {zp,zm}

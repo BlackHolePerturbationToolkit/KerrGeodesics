@@ -122,7 +122,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -499,7 +499,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -584,14 +584,14 @@ tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE
 
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Scattering orbit (e > 1)*)
 
 
 KerrGeoOrbitMino[a_,p_,e_/;Abs@e>1,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[
 {M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi],qrS,\[Lambda]S,\[Phi]S,\[Theta]in,\[Theta]out,type},
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
-	{En,L,Q} = Values[consts];
+	{En,L,Q} = {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.consts;
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
 	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
 	{zp,zm} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoPolarRoots[a, p, e, x];
@@ -652,16 +652,15 @@ assoc = Association[
 	"Energy" -> En, 
 	"AngularMomentum" -> L, 
 	"CarterConstant" -> Q, 
-	"ConstantsOfMotion" -> consts,
+	"ConstantsOfMotion" -> Join[consts,<|"\[Psi]"-> \[Phi]S-\[Pi],
+	"ScatteringInclinations"-> <|"\!\(\*SubscriptBox[\(\[Theta]\), \(in\)]\)"-> \[Theta]in,"\!\(\*SubscriptBox[\(\[Theta]\), \(out\)]\)"-> \[Theta]out|>|>],
 	"RadialFrequency" -> \[CapitalUpsilon]r,
 	"PolarFrequency" ->  \[CapitalUpsilon]\[Theta],
 	"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
 	"Frequencies" -> <|"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)"-> \[CapitalUpsilon]r,"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)"->\[CapitalUpsilon]\[Theta],"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)"->\[CapitalUpsilon]\[Phi]|>,
 	"Trajectory" -> {t,r,\[Theta],\[Phi]},
 	"RadialRoots" -> {r1,r2,r3,r4},
-	"ScatteringMinoTime"-> \[Lambda]S,
-	"ScatteringAngle"-> \[Phi]S,
-	"ScatteringInclinations"-> <|"\!\(\*SubscriptBox[\(\[Theta]\), \(in\)]\)"-> \[Theta]in,"\!\(\*SubscriptBox[\(\[Theta]\), \(out\)]\)"-> \[Theta]out|>,
+	"ParameterRange"-> {-\[Lambda]S,\[Lambda]S},
 	"a" -> a,
 	"p" -> p,
 	"e" -> e,
