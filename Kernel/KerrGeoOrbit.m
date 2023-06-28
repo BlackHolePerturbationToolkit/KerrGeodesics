@@ -115,6 +115,7 @@ assoc = Association[
 			"FourVelocity"-> velocity,
 			"Parametrization" -> "Darwin", 
 			"ConstantsOfMotion"-> consts, 
+			"Frequencies"->KerrGeoFrequencies[0,p,e,1],
 			"a" -> 0,
 			"p" -> p,
 			"e" -> e,
@@ -132,7 +133,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -193,6 +194,7 @@ assoc = Association[
 			"FourVelocity"-> velocity,
 			"Parametrization" -> "Darwin", 
 			"ConstantsOfMotion"-> consts, 
+			"Frequencies" -> freqs,
 			"RadialRoots"->{r1,r2,r3,r4},
 			"a" -> a,
 			"p" -> p,
@@ -352,6 +354,7 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
 		"FourVelocity"-> velocities,
 		"RadialRoots" -> {r1,r2,r3,r4},
+		"Frequencies" -> KerrGeoFrequencies[a,p,e,x],
 		"a" -> a,
 		"p" -> p,
 		"e" -> e,
@@ -371,7 +374,7 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -509,7 +512,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
 
 
