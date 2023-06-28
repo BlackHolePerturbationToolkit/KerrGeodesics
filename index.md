@@ -11,12 +11,12 @@ The KerrGeodesics package for Mathematica provides functions for computing bound
 ## Example usage
 
 As a quick example, the figure at the top of this page is made using the simple commands:
-```
+```Mathematica
 orbit = KerrGeoOrbit[0.998, 3, 0.6, Cos[π/4]];
 {t, r, θ, φ} = orbit["Trajectory"];
 ```
 Followed by the plot command:
-```
+```Mathematica
 Show[
  ParametricPlot3D[{r[λ] Sin[θ[λ]] Cos[φ[λ]], r[λ] Sin[θ[λ]] Sin[φ[λ]], r[λ] Cos[θ[λ]]}, {λ, 0, 20}, 
   ImageSize -> 700, Boxed -> False, Axes -> False, PlotStyle -> Red, PlotRange -> All],
@@ -38,7 +38,7 @@ The parametrization $\\{a,p,e,\theta_\text{inc}\\}$ is described in, e.g., Sec. 
 ## Orbital constants and frequencies
 
 The constants of the motion can be computed using
-```
+```Mathematica
 KerrGeoEnergy[a,p,e,x]
 KerrGeoAngularMomentum[a,p,e,x]
 KerrGeoCarterConstant[a,p,e,x]
@@ -51,7 +51,7 @@ The orbital frequencies (w.r.t Boyer-Lindquist time $t$) are computed using `Ker
 
 The package allows you compute a variety of special orbits including the innermost stable circular/spherical orbit (ISCO/ISSO), innermost bound spherical orbit (IBSO), the photon orbit and the location of the separatrix between stable and plunging orbits. The relevant functions are:
 
-```
+```Mathematica
 KerrGeoISCO[a,x]
 KerrGeoISSO[a,x]
 KerrGeoPhotonSphereRadius[a,x]
