@@ -269,52 +269,6 @@ KerrGeoMinoFrequencyt\[Theta][a_,p_,e_,x_/;x^2==1,{En_,L_,Q_},{zp_,zm_}]:=Module
 
 
 (* ::Subsubsection::Closed:: *)
-(*Marginally bound (e = 1)*)
-
-
-KerrGeoMinoFrequencies[a_,p_,e_/;e==1,x_]:=Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
-{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
-
-{r1,r2,r3,r4} = KerrGeoRadialRoots[a,p,e,x,En,Q];
-\[Epsilon]0=a^2 (1-En^2)/L^2;
-zm=1-x^2;
-(*a2zp=(L^2+a^2 (-1+En^2) (-1+zm))/( (-1+En^2) (-1+zm));*)
-
-\[Epsilon]0zp=-(1/((-1+zm)));
-
-(*zmOverZp=If[a==0,0,zm/((L^2+a^2 (-1+En^2) (-1+zm))/(a^2 (-1+En^2) (-1+zm)))];*)
-zmOverZp=(-1+En^2)zm/((L^2+a^2 (-1+En^2) (-1+zm))/(a^2  (-1+zm)));
-
-
-kr=Sqrt[(r3-r4)/(r2-r4)];
-k\[Theta]=Sqrt[zmOverZp];(*Eq.(13)*)
-\[CapitalUpsilon]r=(Pi Sqrt[2(r2-r4)])/(2EllipticK[kr^2]);
-\[CapitalUpsilon]\[Theta]=( L Sqrt[\[Epsilon]0zp]);
-
-rp=M+Sqrt[M^2-a^2];
-rm=M-Sqrt[M^2-a^2];
-hr=1;
-hp=((r3-rp))/((r2-rp));
-hm=((r3-rm))/((r2-rm));
-
-(*Eq. (21)*)
-\[CapitalUpsilon]\[Phi]=  (2\[CapitalUpsilon]\[Theta])/(Pi Sqrt[\[Epsilon]0zp]) EllipticPi[zm,k\[Theta]^2]+a/(2Sqrt[1-a^2]) ((2  rp-a L)/(r3-rp) (1-(r2-r3)/(r2-rp) EllipticPi[hp,kr^2]/EllipticK[kr^2])-(2  rm-a L)/(r3-rm) (1-(r2-r3)/(r2-rm) EllipticPi[hm,kr^2]/EllipticK[kr^2]));
-
-\[CapitalGamma] = \[Infinity];
-
-
- <| "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)" -> \[CapitalUpsilon]r,
-    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)" -> Abs[\[CapitalUpsilon]\[Theta]],
-    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)" -> \[CapitalUpsilon]\[Phi],
-    "\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(t\)]\)" -> \[CapitalGamma] |>
-
-]
-
-
-
-
-
-(* ::Subsubsection::Closed:: *)
 (*KerrGeoMinoFrequencies*)
 
 
@@ -420,7 +374,7 @@ If[OptionValue["Time"]=="Proper",Return[KerrGeoProperFrequencies[a,p,e,x][[1;;3]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Close the package*)
 
 
