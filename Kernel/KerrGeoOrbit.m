@@ -33,6 +33,16 @@ KerrGeoOrbit::OutOfBounds = "For this hyperbolic orbit the Darwin parameter \[Ch
 Begin["`Private`"];
 
 
+(* ::Subsection::Closed:: *)
+(*Error messages*)
+
+
+KerrGeoOrbit::general = "`1`"
+
+
+KerrGeoOrbit::parametrization = "Parametrization error: `1`"
+
+
 (* ::Section::Closed:: *)
 (*Schwarzschild*)
 
@@ -1103,8 +1113,8 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 	are given as imaginary for restricted orbits. 
 	Maybe something to fix with KerrGeoMinoFrequencies*)
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
-	If[e>0&&(Im[\[CapitalUpsilon]r]!=0||Re[\[CapitalUpsilon]r]==0),Print["Unstable orbit. Aborting."]; Abort[]];
-	If[r2<1+Sqrt[1-a^2],Print["Unstable orbit. Aborting."]; Abort[]];
+	If[e>0&&(Im[\[CapitalUpsilon]r]!=0||Re[\[CapitalUpsilon]r]==0),Message[KerrGeoOrbit::parametrization, "Unstable orbit. Aborting."]; Abort[]];
+	If[r2<1+Sqrt[1-a^2], Message[KerrGeoOrbit::parametrization, "Unstable orbit. Aborting."]; Abort[]];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Re[{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t}];
 	
 	(*Parameterize r and \[Theta] in terms of Darwin-like parameters \[Psi] and \[Chi]*)
@@ -1169,7 +1179,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 			qr0=\[CapitalUpsilon]r*\[Lambda]r[\[Psi]0]+\[Psi]0;
 			q\[Theta]0=\[CapitalUpsilon]\[Theta]*\[Lambda]\[Theta][\[Chi]0]+\[Chi]0;
 			q\[Phi]0=\[Phi]Init,
-			Print["{t,r,\[Theta],\[Phi]} = "<>ToString[{tInit,rInit,\[Theta]Init,\[Phi]Init}]<>" is not a valid set of initial coordinates"]
+			Message[KerrGeoOrbit::parametrization, "{t,r,\[Theta],\[Phi]} = "<>ToString[{tInit,rInit,\[Theta]Init,\[Phi]Init}]<>" is not a valid set of initial coordinates"]
 		]
 	];
 	If[\[CapitalUpsilon]r==0,\[Lambda]r0=0,\[Lambda]r0=qr0/\[CapitalUpsilon]r];
@@ -1229,7 +1239,7 @@ KerrGeoOrbit[a_,p_,e_,x_, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Modu
 method = OptionValue["Method"];
 param = OptionValue["Parametrization"];
 
-If[param == "Darwin" && Abs[x]!=1, Print["Darwin parameterization only valid for equatorial motion"];Return[];];
+If[param == "Darwin" && Abs[x]!=1, Message[KerrGeoOrbit::parametrization, "Darwin parameterization only valid for equatorial motion"]; Return[];];
 
 If[Precision[{a,p,e,x}] > 30, method = "Analytic"];
 If[e > 1, method = "Analytic"];
@@ -1240,7 +1250,7 @@ If[method == "FastSpec",
 	If[param == "Darwin", 
 		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitFastSpecDarwin[a,p,e,x,initPhases]]]
 	];
-	Print["Unrecognized parametrization: " <> OptionValue["Parametrization"]];
+	Message[KerrGeoOrbit::parametrization, "Unrecognized parametrization: " <> OptionValue["Parametrization"]];
 	
 ];
 
@@ -1251,11 +1261,11 @@ If[method == "Analytic",
 	If[param == "Darwin", 
 		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitEquatorialDarwin[a,p,e,x,initPhases]]]
 	];
-	Print["Unrecognized parametrization: " <> OptionValue["Parametrization"]];
+	Message[KerrGeoOrbit::parametrization, "Unrecognized parametrization: " <> OptionValue["Parametrization"]];
 
 ];
 
-Print["Unrecognized method: " <> method];
+Message[KerrGeoOrbit::general, "Method " <> method <> " is not one of {FastSpec, Analytic}"];
 
 ]
 

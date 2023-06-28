@@ -22,6 +22,14 @@ KerrParallelTransportFrameFunction::usage = "KerrParallelTransportFrameFunction[
 Begin["`Private`"];
 
 
+(* ::Subsection::Closed:: *)
+(*Error messages*)
+
+
+KerrParallelTransportFrame::general = "`1`"
+KerrParallelTransportFrame::parametrization = "Parametrization error: `1`"
+
+
 (* ::Section::Closed:: *)
 (*Kerr*)
 
@@ -245,14 +253,14 @@ KerrParallelTransportFrame[a_,p_,e_,x_, initPhases:{_,_,_,_,_}:{0,0,0,0,0},Optio
 method = OptionValue["Method"];
 param = OptionValue["Parametrization"];
 
-If[param =!= "Mino", Print["Only Mino time parametrization has been implemented for parallel transport."];Return[];];
-If[method =!= "Analytic", Print["Only analytic method has been implemented for parallel transport."];Return[];];
+If[param =!= "Mino", Message[KerrParallelTransportFrame::parametrization, "Only Mino time parametrization has been implemented for parallel transport."]; Return[];];
+If[method =!= "Analytic", Message[KerrParallelTransportFrame::general, "Only Analytic method has been implemented for parallel transport."]; Return[];];
 
 If[method == "Analytic",
 	If[param == "Mino", Return[KerrParallelTransportFrameMino[a, p, e, x, initPhases]]];
 ];
 
-Print["Unrecognized method: " <> method];
+Message[KerrParallelTransportFrame::general, "Method: " <> method <> "is not one of {Analytic}."];
 
 ]
 

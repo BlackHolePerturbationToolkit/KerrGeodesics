@@ -97,6 +97,14 @@ KerrGeoConstantsOfMotion[0,p_,e_/;e>=1,x_]:=
 
 
 (* ::Subsection::Closed:: *)
+(*Negative a*)
+
+
+KerrGeoEnergy[a_?Negative,p_,e_,x_]:=KerrGeoEnergy[-a,p,e,-x]
+KerrGeoAngularMomentum[a_?Negative,p_,e_,x_]:=-KerrGeoAngularMomentum[-a,p,e,-x]
+
+
+(* ::Subsection::Closed:: *)
 (*Equatorial orbits (x^2 = 1)*)
 
 
@@ -114,7 +122,7 @@ KerrGeoCarterConstant[a_,p_,e_,x_/;x^2==1]:=0
 KerrGeoEnergy[a_,p_,0,x_/;x^2==1]:=((-2+p) Sqrt[p]+a/x)/Sqrt[2 a/x p^(3/2)+(-3+p) p^2]
 
 
-KerrGeoAngularMomentum[a_,p_,0,x_/;x^2==1]:=(a^2-2 a/x Sqrt[p]+p^2)/(Sqrt[2 a/x+(-3+p) Sqrt[p]] p^(3/4))
+KerrGeoAngularMomentum[a_,p_,0,x_/;x^2==1]:=((a^2+p^2)x-2 a Sqrt[p]) /(p^(3/4) Sqrt[x^2 (-3+p) Sqrt[p]+2 a x])
 
 
 (* ::Subsubsection::Closed:: *)
@@ -215,6 +223,21 @@ f=p^4+a^2 (p (2+p)-(a^2+(-2+p) p) (-1+x^2));
 
 
 (* ::Subsection::Closed:: *)
+(*Marginally bound orbits (e = 1)*)
+
+
+KerrGeoEnergy[a_,p_,e_/;e==1,x_]:=1
+
+
+KerrGeoAngularMomentum[a_,p_,e_/;e==1,x_,En1_:Null]:= Module[{En=En1,\[Rho]2},
+	If[En==Null,En=KerrGeoEnergy[a,p,e,x]];
+	\[Rho]2=p/(1+e);
+	((x^2) (-2 a \[Rho]2+Sqrt[2] /x Sqrt[\[Rho]2 (a^2+(-2+\[Rho]2) \[Rho]2) (a^2 (1-x^2)+\[Rho]2^2)]) )/(a^2 (1-x^2)+(-2+\[Rho]2) \[Rho]2)
+]
+
+
+
+(* ::Subsection::Closed:: *)
 (*Generic orbits*)
 
 
@@ -275,21 +298,6 @@ KerrGeoConstantsOfMotion[a_,p_,e_,x_] :=Module[{En,L},
 
  <|"\[ScriptCapitalE]" -> En, "\[ScriptCapitalL]" -> L, "\[ScriptCapitalQ]" -> KerrGeoCarterConstant[a,p,e,x,En,L] |>
  ]
-
-
-(* ::Subsection::Closed:: *)
-(*Generic scattered (e >= 1)*)
-
-
-KerrGeoEnergy[a_,p_,e_/;e==1,x_]:=1
-
-
-KerrGeoAngularMomentum[a_,p_,e_/;e==1,x_,En1_:Null]:= Module[{En=En1,\[Rho]2,zm},
-	If[En==Null,En=KerrGeoEnergy[a,p,e,x]];
-	\[Rho]2=p/(1+e);
-	zm = Sqrt[1-x^2];
-	((1-zm^2) (-2 a \[Rho]2+Sqrt[2] Sqrt[-((\[Rho]2 (a^2+(-2+\[Rho]2) \[Rho]2) (a^2 zm^2+\[Rho]2^2))/(-1+zm^2))]))/(a^2 zm^2+(-2+\[Rho]2) \[Rho]2)
-]
 
 
 (* ::Section::Closed:: *)

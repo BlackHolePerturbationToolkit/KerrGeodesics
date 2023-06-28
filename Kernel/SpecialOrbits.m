@@ -65,7 +65,7 @@ Begin["`Private`"];
 (*Schwarzschild ISCO is at r=6M*)
 
 
-KerrGeoISCO[(0|0.),x_]:=6
+KerrGeoISCO[_?PossibleZeroQ,x_]:=6
 
 
 (* ::Text:: *)
@@ -75,11 +75,11 @@ KerrGeoISCO[(0|0.),x_]:=6
 KerrGeoISCO[a_,x_/;x^2==1]:=Module[{M=1,Z1,Z2},
 	Z1=1+(1-a^2/M^2)^(1/3) ((1+a/M)^(1/3)+(1-a/M)^(1/3));
 	Z2=(3a^2/M^2 + Z1^2)^(1/2);
-	M(3+Z2-x ((3-Z1)(3+Z1+2Z2)/x^2)^(1/2))
+	M(3+Z2-x a ((3-Z1)(3+Z1+2Z2)/(a x)^2)^(1/2))
 ];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Photon Sphere*)
 
 
@@ -87,7 +87,7 @@ KerrGeoISCO[a_,x_/;x^2==1]:=Module[{M=1,Z1,Z2},
 (*The photon sphere is at 3M for all radii in Schwarzschild*)
 
 
-KerrGeoPhotonSphereRadius[(0|0.),x_]:=3
+KerrGeoPhotonSphereRadius[_?PossibleZeroQ,x_]:=3
 
 
 (* ::Text:: *)
@@ -102,7 +102,7 @@ KerrGeoPhotonSphereRadius[a_,-1]:=2(1+Cos[2/3 ArcCos[a]])
 (*For polar orbits the radius was given by E. Teo, General Relativity and Gravitation, v. 35, Issue 11, p. 1909-1926 (2003), Eq. (14)*)
 
 
-KerrGeoPhotonSphereRadius[a_,(0|0.)]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3 a^2)^(3/2)]]
+KerrGeoPhotonSphereRadius[a_,_?PossibleZeroQ]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3 a^2)^(3/2)]]
 
 
 (* ::Text:: *)
@@ -110,6 +110,7 @@ KerrGeoPhotonSphereRadius[a_,(0|0.)]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(
 
 
 KerrGeoPhotonSphereRadius[1,x_]:=If[x < Sqrt[3]-1, 1+Sqrt[2] Sqrt[1-x]-x, 1];
+KerrGeoPhotonSphereRadius[-1,x_]:=KerrGeoPhotonSphereRadius[1,-x]
 
 
 (* ::Text:: *)
@@ -133,11 +134,11 @@ This seems to be fine near the equatorial plane but might not be ideal for incli
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Innermost bound spherical orbits (IBSO)*)
 
 
-KerrGeoIBSO[0,x_]:= 4
+KerrGeoIBSO[_?PossibleZeroQ,x_]:= 4
 
 
 (* ::Text:: *)
@@ -175,37 +176,44 @@ KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ]/;(Precision[{a1,x1}]!=\[Infinity])&&(-1<=
 p/.FindRoot[IBSOPoly/.{a->a1,x->x1},{p,KerrGeoIBSO[a1,0],KerrGeoIBSO[a1,-1]},WorkingPrecision->Max[MachinePrecision,prec-1]]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Separatrix*)
+
+
+(* ::Text:: *)
+(*Negative spin*)
+
+
+KerrGeoSeparatrix[a_?Negative,e_,x_]:=KerrGeoSeparatrix[-a,e,-x]
 
 
 (* ::Text:: *)
 (*Schwarzschild*)
 
 
-KerrGeoSeparatrix[0,e_,x_]:= 6+2e;
+KerrGeoSeparatrix[_?PossibleZeroQ,e_,x_]:= 6+2e;
 
 
 (* ::Text:: *)
 (*From Glampedakis and Kennefick arXiv:gr-qc/0203086, for a=M we have Subscript[p, s]=1+e*)
 
 
-KerrGeoSeparatrix[1,e_,1]:= 1+e
+KerrGeoSeparatrix[a_/;a==1,e_,x_/;x==1]:= 1+e
 
 
 (* ::Text:: *)
 (*Polar ISSO in extremal case found from playing around with the equations (see L. Stein and N. Warburton arXiv:1912.07609)*)
 
 
-KerrGeoSeparatrix[1,0,0]:=1+Sqrt[3]+Sqrt[3+2 Sqrt[3]]
-KerrGeoSeparatrix[1,1,0]:=2/3 (3+(54-6Sqrt[33])^(1/3)+(6(9+Sqrt[33]))^(1/3))
+KerrGeoSeparatrix[a_/;a==1,_?PossibleZeroQ,_?PossibleZeroQ]:=1+Sqrt[3]+Sqrt[3+2 Sqrt[3]]
+KerrGeoSeparatrix[a_/;a==1,e_/;e==1,_?PossibleZeroQ]:=2/3 (3+(54-6Sqrt[33])^(1/3)+(6(9+Sqrt[33]))^(1/3))
 
 
 (* ::Text:: *)
 (*For e=1 the Subscript[p, s] is at 2 Subscript[r, ibso]*)
 
 
-KerrGeoSeparatrix[a_,1,x_]:=2KerrGeoIBSO[a,x]
+KerrGeoSeparatrix[a_,e_/;e==1,x_]:=2KerrGeoIBSO[a,x]
 
 
 (* ::Text:: *)

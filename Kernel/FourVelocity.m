@@ -16,7 +16,14 @@ KerrGeoFourVelocity::usage = "KerrGeoVelocity[a,p,e,x] returns the four-velocity
 Begin["`Private`"];
 
 
-(* ::Section:: *)
+(* ::Subsection::Closed:: *)
+(*Error messages*)
+
+
+KerrGeoFourVelocity::parametrization = "Parameterization error: `1`"
+
+
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -195,19 +202,19 @@ If[OptionValue["Covariant"], index = "Covariant" , index="Contravariant", Messag
 	If[param == "Darwin",
 
 	If[ Abs[x]!=1, 
-		Print["Darwin parameterization only valid for equatorial motion"];
+		Message[KerrGeoFourVelocity::parametrization, "Darwin parameterization only valid for equatorial motion"];
 		Return[];,
 		 Return[KerrGeoVelocityDarwin[a,p,e,x,initPhases, index]]]];
 
 
 	If[param == "Mino", Return[KerrGeoVelocityMino[a,p,e,x,initPhases, index]]];
 
-	Print["Unrecognized Paramaterization: " <>param];
+	Message[KerrGeoFourVelocity::parametrization, "Unrecognized Paramaterization: " <> param];
 
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Close the package*)
 
 
