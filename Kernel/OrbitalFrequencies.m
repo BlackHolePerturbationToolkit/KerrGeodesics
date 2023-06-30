@@ -250,7 +250,7 @@ KerrGeoMinoFrequencytr[a_/;a^2==1,p_,e_,x_,{En_,L_,Q_},{\[Rho]1_,\[Rho]2_,\[Rho]
 
 
 KerrGeoMinoFrequencyt\[Theta][a_,p_,e_,x_,{En_,L_,Q_},{zp_,zm_}]:=Module[{},
-   (En Q)/((1-En^2) zm^2) (1- EllipticE[a^2 (1-En^2)(zm/zp)^2]/EllipticK[(1-En^2)(zm/zp)^2])-a^2 En
+   (En Q)/((1-En^2) zm^2) (1- EllipticE[a^2 (1-En^2)(zm/zp)^2]/EllipticK[a^2 (1-En^2)(zm/zp)^2])-a^2 En
 ]
 
 
