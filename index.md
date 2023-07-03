@@ -68,3 +68,9 @@ See the Documentation Centre for a tutorial and documentation on individual comm
 ## Authors and contributors
 
 **Niels Warburton**, Maarten van de Meent, Zach Nasipak, Thomas Osburn, Charles Evans, Leo Stein, Philip Lynch, Oliver Long
+
+## Citing
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8108265.svg)](https://doi.org/10.5281/zenodo.8108265)
+
+In addition to citing the paper and acknowledging the Black Hole Perturbation Toolkit as suggested on the [front page](https://bhptoolkit.org) we also recommend citing the specific package version you use via the citation information on the package’s Zenodo page linked from the above DOI.
