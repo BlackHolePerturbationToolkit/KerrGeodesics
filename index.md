@@ -4,7 +4,7 @@
  <h1 style="display:inline">KerrGeodesics</h1> <span style="float:right;"><a href="https://bhptoolkit.org/mathematica-install.html" class = "code_btn">Install this package!</a></span>
 </p>
 
-The KerrGeodesics package for Mathematica provides functions for computing bound timelike geodesics and their properties in Kerr spacetime.
+The KerrGeodesics package for Mathematica provides functions for computing timelike geodesics and their properties in Kerr spacetime.
 
 <p align="center"><img src="kerr_generic_orbit.png" width="500px"></p>
 
@@ -33,7 +33,9 @@ $p$ - the semi-latus rectum
 $e$ - the eccentricity  
 $x_\text{inc} = \cos\theta_\text{inc}$ - the orbital inclination.  
 
-The parametrization $\\{a,p,e,\theta_\text{inc}\\}$ is described in, e.g., Sec. II of [arXiv:gr-qc/0509101](https://arxiv.org/abs/gr-qc/0509101)
+The parametrization $\\{a,p,e,\theta_\text{inc}\\}$ is described in, e.g., Sec. II of [arXiv:gr-qc/0509101](https://arxiv.org/abs/gr-qc/0509101).
+
+The package currently supports bound orbits and hyperbolic orbits ($e > 1$). Plunging orbits are coming in a future release.
 
 ## Orbital constants and frequencies
 
