@@ -1,0 +1,419 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16298,        411]
+NotebookOptionsPosition[     11803,        318]
+NotebookOutlinePosition[     12324,        336]
+CellTagsIndexPosition[     12281,        333]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["KerrGeodesics", "GuideTitle",
+ CellID->1149914704,ExpressionUUID->"3b796f97-a151-4b44-90a7-4c9e5b056bcb"],
+
+Cell["XXXX", "GuideAbstract",
+ CellID->1411090775,ExpressionUUID->"d338b6f8-b5e9-4f2c-9375-841acdeb32ad"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideFunctionsSection",
+ CellID->1540741604,ExpressionUUID->"2584198f-466f-4a3d-bc9b-24268ec3bcc5"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoEnergy",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoEnergy"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c40ac8e4-27e1-4161-a8df-4d4f38357a23",ExpressionUUID->
+  "4dce4ce5-4b61-4339-abe8-5e30c8beeee7"],
+ " \[LongDash] Computes the orbital energy"
+}], "GuideText",
+ CellChangeTimes->{{3.89697282178903*^9, 3.896972828969595*^9}, {
+  3.896972965740575*^9, 3.896972965740613*^9}, {3.89697310193435*^9, 
+  3.8969731022157183`*^9}},
+ CellID->886322902,ExpressionUUID->"dfb1045e-812e-45a7-947d-912374ec31e8"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoAngularMomentum",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoAngularMomentum"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "9e4e3e03-2b05-4c1f-9109-33176af2ac89"],
+ " \[LongDash] Computes the orbit angular momentum about the symmetry axes of \
+the spacetime"
+}], "GuideText",
+ CellChangeTimes->{{3.896972885325499*^9, 3.896972890500915*^9}, {
+  3.896973060972581*^9, 3.896973113222272*^9}},
+ CellID->1482438322,ExpressionUUID->"5e70a305-67cc-40c1-b57f-0fbd50b08a57"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoCarterConstant",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoCarterConstant"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "bb8b684e-8a9a-408a-aa02-f45fc387aafd"],
+ " \[LongDash] Computes the Carter Constant"
+}], "GuideText",
+ CellChangeTimes->{{3.896972885325499*^9, 3.896972890500915*^9}, {
+  3.896973060972581*^9, 3.896973087970634*^9}, {3.896973125631729*^9, 
+  3.8969731581651154`*^9}},
+ CellID->848835341,ExpressionUUID->"ad49ee20-0a9d-46da-8cd8-d9b6c806d1d4"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoConstantsOfMotion",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoConstantsOfMotion"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "4c560c79-be57-4ee6-bc59-2405e31e66a9"],
+ "\[LongDash] Computes the constants of motion, e.g., energy, angular \
+momentum and Carter constant and possibly others"
+}], "GuideText",
+ CellChangeTimes->{{3.896972885325499*^9, 3.896972890500915*^9}, {
+  3.896973060972581*^9, 3.896973087970634*^9}, {3.896973125631729*^9, 
+  3.8969732177398453`*^9}, {3.8969733700255957`*^9, 3.896973390061997*^9}},
+ CellID->118734042,ExpressionUUID->"3f00d6cf-22a0-41d3-a152-52598b53497f"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoFrequencies",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFrequencies"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"49030ef1-1bbf-4eb6-9277-fd17a5e9cc3c",ExpressionUUID->
+  "3af99b51-6f68-4ac7-984e-b78d31564859"],
+ " \[LongDash] Computes the orbital frequencies with respect to \
+Boyer-Lindquist, Mino or proper time"
+}], "GuideText",
+ CellChangeTimes->{{3.8969734061504517`*^9, 3.896973434803335*^9}},
+ CellID->416066021,ExpressionUUID->"960e5350-9bee-4b8f-be3a-c2c791efb0d7"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoPhotonSphereRadius",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoPhotonSphereRadius"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"49030ef1-1bbf-4eb6-9277-fd17a5e9cc3c",ExpressionUUID->
+  "3fdbc03c-95c4-4151-8793-9cf214f87e99"],
+ " \[LongDash] Computes the radius of the photon sphere"
+}], "GuideText",
+ CellChangeTimes->{{3.896973455055026*^9, 3.8969734848579597`*^9}},
+ CellID->404797898,ExpressionUUID->"1c6ffd2f-64bd-402f-ba3e-00f237c68768"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoISCO",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISCO"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"49030ef1-1bbf-4eb6-9277-fd17a5e9cc3c",ExpressionUUID->
+  "0322760b-c9e7-4af5-9c0e-84c264e2d5e3"],
+ " \[LongDash] Computes the location of the inner-most stable circular orbit \
+(ISCO)"
+}], "GuideText",
+ CellChangeTimes->{{3.8969734890948887`*^9, 3.896973509032178*^9}},
+ CellID->907133364,ExpressionUUID->"02f8ae73-75d0-4b30-bda7-dcaf3e165e6c"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoIBSO",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoIBSO"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"49030ef1-1bbf-4eb6-9277-fd17a5e9cc3c",ExpressionUUID->
+  "8b3b1d9c-a71d-4cb6-921c-854ade2834ac"],
+ " \[LongDash] Computes the location of the inner-most bound spherical orbit \
+(IBSO)"
+}], "GuideText",
+ CellChangeTimes->{{3.896973521081253*^9, 3.896973560990658*^9}},
+ CellID->295101221,ExpressionUUID->"756f87b7-7097-4225-85fd-438ec7f19c9b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoISSO",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoISSO"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"49030ef1-1bbf-4eb6-9277-fd17a5e9cc3c",ExpressionUUID->
+  "d897e9da-adf7-4698-a615-d7964c848817"],
+ " \[LongDash] Computes the location of the inner-most stable spherical orbit \
+(ISSO)"
+}], "GuideText",
+ CellChangeTimes->{{3.896973603387515*^9, 3.896973627067765*^9}},
+ CellID->2090065206,ExpressionUUID->"4107bddb-0526-4480-90a7-63b6fc66257c"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoSeparatrix",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoSeparatrix"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"49030ef1-1bbf-4eb6-9277-fd17a5e9cc3c",ExpressionUUID->
+  "adb3e257-a482-48c6-bd17-d9953eef17a3"],
+ " \[LongDash] Computes the value of p at the separatrix between stable and \
+plunging/scattered orbits"
+}], "GuideText",
+ CellChangeTimes->{{3.8969736484775*^9, 3.896973680279711*^9}},
+ CellID->1016832386,ExpressionUUID->"37de5032-64fd-4498-9201-0a5735d3bc7e"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoOrbit",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoOrbit"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"49030ef1-1bbf-4eb6-9277-fd17a5e9cc3c",ExpressionUUID->
+  "7c5a2793-313f-4710-849b-add79e3ec631"],
+ " \[LongDash] Computes a KerrGeoOrbitFunction[..] which contains the \
+trajectory in Boyer-Lindquist coordinates and many other properties of the \
+orbit"
+}], "GuideText",
+ CellChangeTimes->{{3.896973686008074*^9, 3.896973721397915*^9}},
+ CellID->1032552,ExpressionUUID->"90b4a548-9b48-4c60-bf07-89181e1a0341"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoFourVelocity",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFourVelocity"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"49030ef1-1bbf-4eb6-9277-fd17a5e9cc3c",ExpressionUUID->
+  "93476b17-76d4-4eea-9106-7f36e1e0327f"],
+ " \[LongDash] Computes the components of the test body's four-velocity"
+}], "GuideText",
+ CellChangeTimes->{{3.896973725967301*^9, 3.896973751795772*^9}},
+ CellID->1973684581,ExpressionUUID->"b88e58e2-f541-4b3e-a5b8-5d2b0381f06e"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KerrGeoFindResonance",
+   BaseStyle->"Link",
+   ButtonData->"paclet:KerrGeodesics/ref/KerrGeoFindResonance"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"49030ef1-1bbf-4eb6-9277-fd17a5e9cc3c",ExpressionUUID->
+  "ab2a5184-54f6-4bf7-bc5e-180cd12d4a4c"],
+ " \[LongDash] Numerically finds the location of orbital resonances"
+}], "GuideText",
+ CellChangeTimes->{{3.896973796799136*^9, 3.8969738160127773`*^9}},
+ CellID->1585952642,ExpressionUUID->"a4b3079d-57b0-42fa-9745-7401c92f5cb3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tech Notes", "GuideTutorialsSection",
+ CellID->1995172111,ExpressionUUID->"92498a3b-c8b9-441d-b301-cbd2253063f1"],
+
+Cell[TextData[Cell[BoxData[
+ ButtonBox["KerrGeodesics",
+  BaseStyle->"Link",
+  ButtonData->
+   "paclet:KerrGeodesics/tutorials/KerrGeodesics"]], \
+"InlineFormula",ExpressionUUID->"eda33992-0b7f-457e-aad0-00dff29fbc58"]], \
+"GuideTutorial",
+ CellChangeTimes->{{3.8969729257692213`*^9, 3.8969729273117723`*^9}, 
+   3.896973005387216*^9, 3.8969730427310247`*^9, {3.8969732335148478`*^9, 
+   3.896973253643488*^9}},
+ CellID->2048005319,ExpressionUUID->"ab166f18-4ad9-4caf-9f97-1b7145acd2b0"],
+
+Cell["XXXX", "GuideTutorial",
+ CellID->957502317,ExpressionUUID->"f9a4d647-acba-493f-8dda-d45683612dfb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "GuideMoreAboutSection",
+ CellChangeTimes->{{3.8430423939366693`*^9, 3.843042395176153*^9}},
+ CellID->1646474848,ExpressionUUID->"9ab9bece-f9a7-423e-b564-0a189c03ec2a"],
+
+Cell["XXXX", "GuideMoreAbout",
+ CellID->1975978741,ExpressionUUID->"5caead5a-2d2c-4782-a629-dbf2a23cb5ac"],
+
+Cell["XXXX", "GuideMoreAbout",
+ CellID->1587582779,ExpressionUUID->"639aa8ed-aa02-4db9-bd7b-8283ed96499b"]
+}, Open  ]],
+
+Cell["Related Links", "GuideRelatedLinksSection",
+ CellID->19452678,ExpressionUUID->"56064b2d-c7db-4d3e-8f3f-db73fe3d85f9"],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->523644802,ExpressionUUID->"a4b29e4c-2f80-4373-b2ac-c7d61350fd72"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["XX", "HistoryData",
+  CellTags->"New",ExpressionUUID->"9e7e60a3-fca9-4455-937f-361987f12a3e"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"13377be4-d3dd-4ebc-b87b-dbe46bd9f498"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->
+  "8d511700-a313-4f83-a680-59e903e041b7"]
+}], "History",
+ CellID->510201808,ExpressionUUID->"703b7126-5577-4420-ad50-8915e423b691"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->59584585,ExpressionUUID->"237775c6-04e3-4d3f-a5d0-7cc6434d1947"],
+
+Cell["Guide", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->710740593,ExpressionUUID->"85e4c356-10fb-426c-a76f-60dfd599fe26"],
+
+Cell["KerrGeodesics", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1113101937,ExpressionUUID->"9f09804d-9acd-4a83-b56c-fb3a8195811e"],
+
+Cell["KerrGeodesics`", "Categorization",
+ CellLabel->"Context",
+ CellID->1174206142,ExpressionUUID->"6b419ca3-a5a3-42a5-a289-91beb16cc547"],
+
+Cell["KerrGeodesics/guide/KerrGeodesics", "Categorization",
+ CellLabel->"URI",
+ CellID->1655396311,ExpressionUUID->"6b22848c-4f94-4d55-848e-e790042c38e9"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->1595152092,ExpressionUUID->"9fa3fbbd-d85e-4ea2-9a55-f9dea81f2f41"],
+
+Cell["XXXX", "Keywords",
+ CellID->535361096,ExpressionUUID->"8ae805e9-2819-470c-8589-941402238b0f"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{1077, 790},
+WindowMargins->{{Automatic, 554}, {Automatic, 59}},
+TaggingRules-><|"Paclet" -> "KerrGeodesics"|>,
+FrontEndVersion->"13.2 for Mac OS X x86 (64-bit) (January 30, 2023)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"1295536b-2765-4444-aa90-fa61daebed0d"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 111, 1, 88, "GuideTitle",ExpressionUUID->"3b796f97-a151-4b44-90a7-4c9e5b056bcb",
+ CellID->1149914704],
+Cell[694, 25, 105, 1, 29, "GuideAbstract",ExpressionUUID->"d338b6f8-b5e9-4f2c-9375-841acdeb32ad",
+ CellID->1411090775]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[836, 31, 109, 1, 72, "GuideFunctionsSection",ExpressionUUID->"2584198f-466f-4a3d-bc9b-24268ec3bcc5",
+ CellID->1540741604],
+Cell[948, 34, 621, 14, 27, "GuideText",ExpressionUUID->"dfb1045e-812e-45a7-947d-912374ec31e8",
+ CellID->886322902],
+Cell[1572, 50, 642, 14, 44, "GuideText",ExpressionUUID->"5e70a305-67cc-40c1-b57f-0fbd50b08a57",
+ CellID->1482438322],
+Cell[2217, 66, 640, 14, 27, "GuideText",ExpressionUUID->"ad49ee20-0a9d-46da-8cd8-d9b6c806d1d4",
+ CellID->848835341],
+Cell[2860, 82, 771, 15, 44, "GuideText",ExpressionUUID->"3f00d6cf-22a0-41d3-a152-52598b53497f",
+ CellID->118734042],
+Cell[3634, 99, 595, 13, 44, "GuideText",ExpressionUUID->"960e5350-9bee-4b8f-be3a-c2c791efb0d7",
+ CellID->416066021],
+Cell[4232, 114, 562, 12, 27, "GuideText",ExpressionUUID->"1c6ffd2f-64bd-402f-ba3e-00f237c68768",
+ CellID->404797898],
+Cell[4797, 128, 561, 12, 27, "GuideText",ExpressionUUID->"02f8ae73-75d0-4b30-bda7-dcaf3e165e6c",
+ CellID->907133364],
+Cell[5361, 142, 559, 12, 27, "GuideText",ExpressionUUID->"756f87b7-7097-4225-85fd-438ec7f19c9b",
+ CellID->295101221],
+Cell[5923, 156, 561, 12, 27, "GuideText",ExpressionUUID->"4107bddb-0526-4480-90a7-63b6fc66257c",
+ CellID->2090065206],
+Cell[6487, 170, 591, 13, 44, "GuideText",ExpressionUUID->"37de5032-64fd-4498-9201-0a5735d3bc7e",
+ CellID->1016832386],
+Cell[7081, 185, 631, 14, 44, "GuideText",ExpressionUUID->"90b4a548-9b48-4c60-bf07-89181e1a0341",
+ CellID->1032552],
+Cell[7715, 201, 565, 12, 27, "GuideText",ExpressionUUID->"b88e58e2-f541-4b3e-a5b8-5d2b0381f06e",
+ CellID->1973684581],
+Cell[8283, 215, 565, 12, 27, "GuideText",ExpressionUUID->"a4b3079d-57b0-42fa-9745-7401c92f5cb3",
+ CellID->1585952642]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8885, 232, 119, 1, 74, "GuideTutorialsSection",ExpressionUUID->"92498a3b-c8b9-441d-b301-cbd2253063f1",
+ CellID->1995172111],
+Cell[9007, 235, 487, 10, 25, "GuideTutorial",ExpressionUUID->"ab166f18-4ad9-4caf-9f97-1b7145acd2b0",
+ CellID->2048005319],
+Cell[9497, 247, 104, 1, 24, "GuideTutorial",ExpressionUUID->"f9a4d647-acba-493f-8dda-d45683612dfb",
+ CellID->957502317]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9638, 253, 191, 2, 74, "GuideMoreAboutSection",ExpressionUUID->"9ab9bece-f9a7-423e-b564-0a189c03ec2a",
+ CellID->1646474848],
+Cell[9832, 257, 106, 1, 24, "GuideMoreAbout",ExpressionUUID->"5caead5a-2d2c-4782-a629-dbf2a23cb5ac",
+ CellID->1975978741],
+Cell[9941, 260, 106, 1, 24, "GuideMoreAbout",ExpressionUUID->"639aa8ed-aa02-4db9-bd7b-8283ed96499b",
+ CellID->1587582779]
+}, Open  ]],
+Cell[10062, 264, 123, 1, 74, "GuideRelatedLinksSection",ExpressionUUID->"56064b2d-c7db-4d3e-8f3f-db73fe3d85f9",
+ CellID->19452678],
+Cell[CellGroupData[{
+Cell[10210, 269, 110, 1, 72, "MetadataSection",ExpressionUUID->"a4b29e4c-2f80-4373-b2ac-c7d61350fd72",
+ CellID->523644802],
+Cell[10323, 272, 476, 12, 26, "History",ExpressionUUID->"703b7126-5577-4420-ad50-8915e423b691",
+ CellID->510201808],
+Cell[CellGroupData[{
+Cell[10824, 288, 121, 1, 21, "CategorizationSection",ExpressionUUID->"237775c6-04e3-4d3f-a5d0-7cc6434d1947",
+ CellID->59584585],
+Cell[10948, 291, 133, 2, 70, "Categorization",ExpressionUUID->"85e4c356-10fb-426c-a76f-60dfd599fe26",
+ CellID->710740593],
+Cell[11084, 295, 142, 2, 70, "Categorization",ExpressionUUID->"9f09804d-9acd-4a83-b56c-fb3a8195811e",
+ CellID->1113101937],
+Cell[11229, 299, 139, 2, 70, "Categorization",ExpressionUUID->"6b419ca3-a5a3-42a5-a289-91beb16cc547",
+ CellID->1174206142],
+Cell[11371, 303, 154, 2, 70, "Categorization",ExpressionUUID->"6b22848c-4f94-4d55-848e-e790042c38e9",
+ CellID->1655396311]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[11562, 310, 111, 1, 21, "KeywordsSection",ExpressionUUID->"9fa3fbbd-d85e-4ea2-9a55-f9dea81f2f41",
+ CellID->1595152092],
+Cell[11676, 313, 99, 1, 70, "Keywords",ExpressionUUID->"8ae805e9-2819-470c-8589-941402238b0f",
+ CellID->535361096]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+
