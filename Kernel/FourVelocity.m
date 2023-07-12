@@ -23,7 +23,54 @@ Begin["`Private`"];
 KerrGeoFourVelocity::parametrization = "Parameterization error: `1`"
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
+(*Schwarzschild*)
+
+
+(* ::Subsection:: *)
+(*Circular, Equatorial*)
+
+
+KerrGeoVelocityMino[(0|0.),p_,(0|0.),x_,initPhases_,index_ ]:= Module[{En,L,Q,r,z,r1,r2,r3,r4,kr,zp,zm,kz, \[CapitalUpsilon]r, \[CapitalUpsilon]z, 
+qr, qz, \[Lambda]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigma], \[Omega], utContra,urContra,u\[Theta]Contra,uzContra,u\[Phi]Contra, utCo, urCo, u\[Theta]Co, u\[Phi]Co},
+
+(*Constants of Motion*)
+{En,L,Q}= {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.KerrGeoConstantsOfMotion[0,p,0,x];
+
+\[CapitalUpsilon]z = p/Sqrt[-3+p];
+
+{qr0,qz0} = initPhases;
+
+qz[\[Lambda]_] := \[Lambda] \[CapitalUpsilon]z + qz0;
+
+If[index == "Contravariant", 
+
+utContra= Function[{Global`\[Lambda]},Evaluate[Sqrt[p/(-3+p)] ], Listable];  
+urContra:= Function[{Global`\[Lambda]},Evaluate[0],Listable];
+u\[Theta]Contra = Function[{Global`\[Lambda]}, Evaluate[(Sqrt[((1-x^2)/(-3+p))] Sin[qz[Global`\[Lambda]]] )/(p Sqrt[1+(-1+x^2) Cos[qz[Global`\[Lambda]]]^2])],Listable];  
+u\[Phi]Contra = Function[{Global`\[Lambda]},Evaluate[x/(Sqrt[-3+p] (p+p (-1+x^2) Cos[qz[Global`\[Lambda]]]^2))],Listable];  
+
+<|"\!\(\*SuperscriptBox[\(u\), \(t\)]\)"->utContra, "\!\(\*SuperscriptBox[\(u\), \(r\)]\)"->urContra, "\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"-> u\[Theta]Contra, "\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)"->   u\[Phi]Contra|>,
+
+(*Else if Index \[Equal] Covariant*)
+
+utCo =  Function[{Global`\[Lambda]},Evaluate[-En], Listable];
+urCo= Function[{Global`\[Lambda]},Evaluate[0],Listable];
+u\[Theta]Co=  Function[{Global`\[Lambda]},Evaluate[(p Sqrt[(1-x^2)/(-3+p)] Sin[qz[Global`\[Lambda]]])/ Sqrt[1+(-1+x^2) Cos[qz[Global`\[Lambda]]]^2]],Listable];   
+u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
+
+<|"\!\(\*SubscriptBox[\(u\), \(t\)]\)"->utCo, "\!\(\*SubscriptBox[\(u\), \(r\)]\)"->urCo, "\!\(\*SubscriptBox[\(u\), \(\[Theta]\)]\)"-> u\[Theta]Co, "\!\(\*SubscriptBox[\(u\), \(\[Phi]\)]\)"->   u\[Phi]Co|>
+]
+
+
+] 
+
+
+(* ::Subsection:: *)
+(*Eccentric*)
+
+
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -185,7 +232,7 @@ u\[Phi] = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]1][\[Lambda]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KerrGeoFourVelocity Wrapper*)
 
 
