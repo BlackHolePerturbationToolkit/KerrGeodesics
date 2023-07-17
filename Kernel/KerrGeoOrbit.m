@@ -19,7 +19,7 @@ KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] 
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Error messages*)
 
 
@@ -36,7 +36,7 @@ KerrGeoOrbit::OnSeparatrix = "This orbit is on the separatrix where many express
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Error messages*)
 
 
@@ -515,7 +515,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
 
 
@@ -723,7 +723,7 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
@@ -1231,7 +1231,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 

@@ -9,7 +9,8 @@
 
 
 BeginPackage["KerrGeodesics`FourVelocity`",
-	{"KerrGeodesics`ConstantsOfMotion`"}];
+	{"KerrGeodesics`ConstantsOfMotion`",
+	"KerrGeodesics`OrbitalFrequencies`"}];
 
 KerrGeoFourVelocity::usage = "KerrGeoVelocity[a,p,e,x] returns the four-velocity components as parametrized functions.";
 
@@ -27,7 +28,7 @@ KerrGeoFourVelocity::parametrization = "Parameterization error: `1`"
 (*Schwarzschild*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Circular, Equatorial*)
 
 
@@ -66,20 +67,12 @@ u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
 ] 
 
 
-(* ::Subsection:: *)
-(*Eccentric*)
-
-
 (* ::Section:: *)
 (*Kerr*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
-
-
-(* ::Text:: *)
-(*FixMe: Circular Equatorial Retrograde orbits don't normalize to -1*)
 
 
 KerrGeoVelocityMino[a_,p_,e_,x_,initPhases_,index_ ]:= Module[{En,L,Q,r,z,r1,r2,r3,r4,kr,zp,zm,kz, \[CapitalUpsilon]r, \[CapitalUpsilon]z, 
@@ -88,23 +81,17 @@ qr, qz, \[Lambda]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigm
 (*Constants of Motion*)
 {En,L,Q}= {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.KerrGeoConstantsOfMotion[a,p,e,x];
 
-(*Roots*)
-r1 = p/(1-e);
-r2 = p/(1+e);
-zm = Sqrt[1-x^2];
+{r1,r2,r3,r4}=KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x];
 
-(*Other Roots*)
-r3 = 1/(1-En^2) - (r1 + r2)/2 + Sqrt[(-(1/(1-En^2)) + (r1 + r2)/2 )^2 - (a^2 Q)/(r1 r2 (1 - En^2))];
-r4  =  (a^2  Q)/(r1 r2 r3 (1-En^2));
+{zp,zm}= KerrGeodesics`OrbitalFrequencies`Private`KerrGeoPolarRoots[a, p, e, x];
 
-zp = Sqrt[a^2 (1 - En^2) + (L^2)/(1 - zm^2) ]; 
 kr = ((r1-r2)(r3-r4))/((r1-r3)(r2-r4));
 
 kz = a^2 (1-En^2) zm^2/zp^2;
 
 (*Frequencies*)
-\[CapitalUpsilon]r = \[Pi]/(2 EllipticK[kr]) Sqrt[(1 - En^2)(r1 - r3)(r2 - r4)]; 
-\[CapitalUpsilon]z = (\[Pi] zp)/(2EllipticK[kz] ); 
+\[CapitalUpsilon]r = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencyr[a,p,e,x,{En,L,Q},{r1,r2,r3,r4}]; 
+\[CapitalUpsilon]z = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequency\[Theta][a,p,e,x,{En,L,Q},{zp,zm}];
 
 (*Action Angle Phases*)
 { qr0, qz0} = {initPhases[[1]], initPhases[[2]]};
@@ -153,7 +140,7 @@ u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
 (*Equatorial (Darwin)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Circular Case*)
 
 
@@ -176,7 +163,7 @@ u\[Phi]= Function[{Global`\[Chi]},Evaluate[MinoVelocities [u\[Phi]1][Global`\[Ch
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Eccentric Case*)
 
 
@@ -187,16 +174,12 @@ KerrGeoVelocityDarwin[a_,p_,e_,x_/;x^2==1,initPhases_,index_ ]:= Module[{En,L,Q,
 {En,L,Q}= {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.KerrGeoConstantsOfMotion[a,p,e,x];
 
 (*Roots*)
-r1 = p/(1-e);
-r2 = p/(1+e);
+{r1,r2,r3,r4}=KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x];
 
-(*Other Roots*)
-r3 = 1/(1-En^2) - (r1 + r2)/2 + Sqrt[(-(1/(1-En^2)) + (r1 + r2)/2 )^2 - (a^2 Q)/(r1 r2 (1 - En^2))];
-r4  =  (a^2  Q)/(r1 r2 r3 (1-En^2));
 kr = ((r1-r2)(r3-r4))/((r1-r3)(r2-r4));
 
 (*Frequencies*)
-\[CapitalUpsilon]r = \[Pi]/(2 EllipticK[kr]) Sqrt[(1 - En^2)(r1 - r3)(r2 - r4)]; 
+\[CapitalUpsilon]r = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencyr[a,p,e,x,{En,L,Q},{r1,r2,r3,r4}]; 
 
 (*Initial Phase*)
 \[Chi]0 = initPhases[[1]];
@@ -232,7 +215,7 @@ u\[Phi] = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]1][\[Lambda]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrGeoFourVelocity Wrapper*)
 
 

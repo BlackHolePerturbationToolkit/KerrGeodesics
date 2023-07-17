@@ -16,7 +16,7 @@ KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital 
 Begin["`Private`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Roots of the radial and polar equations*)
 
 
@@ -121,11 +121,11 @@ KerrGeoProperFrequencyFactor[a_?PossibleZeroQ, p_, e_?PossibleZeroQ,x_]:=p^2
 KerrGeoProperFrequencyFactor[a_?PossibleZeroQ ,p_,e_,x_]:=(p^2 ((1+e) (28+4 e^2+(-12+p) p)-((1+e) (-4+p) (-6+2 e+p) EllipticE[(4 e)/(-6+2 e+p)]+2 (6+2 e-p) (3+e^2-p) EllipticPi[(2 e (-4+p))/((1+e) (-6+2 e+p)),(4 e)/(-6+2 e+p)])/EllipticK[(4 e)/(-6+2 e+p)]))/(2 (-1+e) (1+e)^2 (-4+p)^2)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Kerr*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*KerrGeoMinoFrequencyr*)
 
 
@@ -147,7 +147,7 @@ KerrGeoMinoFrequencyr[a_?PossibleZeroQ,p_,e_?PossibleZeroQ,x_,{En_,L_,Q_},{\[Rho
 		
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*KerrGeoMinoFrequency\[Theta]*)
 
 

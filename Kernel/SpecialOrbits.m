@@ -16,7 +16,7 @@ BeginPackage["KerrGeodesics`SpecialOrbits`",
 	{"KerrGeodesics`ConstantsOfMotion`"}];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Usage messages*)
 
 
@@ -81,7 +81,7 @@ KerrGeoISCO[a_,x_/;x^2==1]:=Module[{M=1,Z1,Z2},
 ];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Photon Sphere*)
 
 
@@ -254,7 +254,7 @@ KerrGeoISSO[a_,x_/;Abs[x]==1]:=KerrGeoISCO[a,x]
 KerrGeoISSO[a_,x_]:=KerrGeoSeparatrix[a,0,x]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Bound Orbit Q*)
 
 
@@ -264,7 +264,7 @@ KerrGeoBoundOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := Module
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Scatter Orbit Q*)
 
 
@@ -275,7 +275,7 @@ KerrGeoBoundOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := Module
 KerrGeoScatterOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := If[p >= KerrGeoSeparatrix[a,e,x] && e >= 1, True, False]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plunge Orbit Q*)
 
 
@@ -287,7 +287,7 @@ KerrGeoPlungeOrbitQ[a_?NumericQ, p_?NumericQ,e_?NumericQ, x_?NumericQ]:=
 	If[KerrGeoBoundOrbitQ[0,p,e,1] == KerrGeoScatterOrbitQ[0,p,e,1] == False, True, False]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*OnSeparatrixQ*)
 
 
@@ -356,7 +356,7 @@ KerrGeoOrbitType[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ]:=Module[{ou
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Resonances*)
 
 
