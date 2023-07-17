@@ -8,7 +8,7 @@
 (*Define usage for public functions*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Create Package*)
 
 
@@ -16,7 +16,7 @@ BeginPackage["KerrGeodesics`SpecialOrbits`",
 	{"KerrGeodesics`ConstantsOfMotion`"}];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Usage messages*)
 
 
@@ -34,7 +34,9 @@ KerrGeoOrbitType::usage = "KerrGeoOrbitType[a,p,e,x] outputs whether the paramet
 
 (*KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a bound orbit."
 KerrGeoScatterOrbitQ::usage = "KerrGeoScatterOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a scatter orbit."
-KerrGeoPlungeOrbitQ::usage = "KerrGeoPlungeOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a plunge orbit."*)
+KerrGeoPlungeOrbitQ::usage = "KerrGeoPlungeOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a plunge orbit."
+KerrGeoOnSeparatrixQ::usage = "KerrGeoOnSeparatrixQ[a,p,e,x] tests if the orbital parameters correspond to being on the separatrix."
+*)
 
 
 (* ::Subsection::Closed:: *)
@@ -134,7 +136,7 @@ This seems to be fine near the equatorial plane but might not be ideal for incli
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Innermost bound spherical orbits (IBSO)*)
 
 
@@ -176,7 +178,7 @@ KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ]/;(Precision[{a1,x1}]!=\[Infinity])&&(-1<=
 p/.FindRoot[IBSOPoly/.{a->a1,x->x1},{p,KerrGeoIBSO[a1,0],KerrGeoIBSO[a1,-1]},WorkingPrecision->Max[MachinePrecision,prec-1]]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Separatrix*)
 
 
@@ -252,7 +254,7 @@ KerrGeoISSO[a_,x_/;Abs[x]==1]:=KerrGeoISCO[a,x]
 KerrGeoISSO[a_,x_]:=KerrGeoSeparatrix[a,0,x]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Bound Orbit Q*)
 
 
@@ -262,7 +264,7 @@ KerrGeoBoundOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := Module
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Scatter Orbit Q*)
 
 
@@ -273,7 +275,7 @@ KerrGeoBoundOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := Module
 KerrGeoScatterOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := If[p >= KerrGeoSeparatrix[a,e,x] && e >= 1, True, False]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Plunge Orbit Q*)
 
 
@@ -283,6 +285,24 @@ KerrGeoScatterOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := If[p
 
 KerrGeoPlungeOrbitQ[a_?NumericQ, p_?NumericQ,e_?NumericQ, x_?NumericQ]:=
 	If[KerrGeoBoundOrbitQ[0,p,e,1] == KerrGeoScatterOrbitQ[0,p,e,1] == False, True, False]
+
+
+(* ::Section:: *)
+(*OnSeparatrixQ*)
+
+
+(* ::Text:: *)
+(*Test to see if the orbit is exactly on the separatrix, where many of our expressions become singular. This is a stopgap solution until we can think of a nice way of taking the separatrix limit of all of these functions. *)
+
+
+KerrGeoOnSeparatrixQ[a_?NumericQ,p_?NumericQ,e_?NumericQ,x_?NumericQ]:= Module[{En,L,Q,r1,r2,r3,r4,prec},
+
+prec = Precision[{a,p,e,x}];
+{En,L,Q} = Values[KerrGeoConstantsOfMotion[a,p,e,x]];
+{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
+(*Assuming KerrGeoSeparatrix only finds solution to within half of the working precision*)
+Abs[r2 - r3] <=  10^(-prec/2)  
+]
 
 
 (* ::Section::Closed:: *)
@@ -336,11 +356,11 @@ KerrGeoOrbitType[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ]:=Module[{ou
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Resonances*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*r\[Theta]-resonances*)
 
 
@@ -562,7 +582,7 @@ Module[{pg,argpg,resonantEqn,x0Test,x1Test,xGuess,xx,ratio},
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic resonance interface*)
 
 
@@ -582,7 +602,7 @@ KerrGeoFindResonance[assoc_Association,{\[Beta]r_Integer, \[Beta]\[Theta]_Intege
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Close the package*)
 
 

@@ -70,7 +70,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_?PossibleZeroQ] := Module[{En,L,Q,zm,zp},
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Orbital Frequencies*)
 
 
