@@ -1,0 +1,20 @@
+<svg width="213" height="20" viewBox="0 0 2130 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="tests: 34 passed, 2 failed, 0 skipped">
+  <title>tests: 34 passed, 2 failed, 0 skipped</title>
+  <linearGradient id="a" x2="0" y2="100%">
+    <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <mask id="m"><rect width="2130" height="200" rx="30" fill="#FFF"/></mask>
+  <g mask="url(#m)">
+    <rect width="366" height="200" fill="#555"/>
+    <rect width="1764" height="200" fill="#E43" x="366"/>
+    <rect width="2130" height="200" fill="url(#a)"/>
+  </g>
+  <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
+    <text x="60" y="148" textLength="266" fill="#000" opacity="0.25">tests</text>
+    <text x="50" y="138" textLength="266">tests</text>
+    <text x="421" y="148" textLength="1664" fill="#000" opacity="0.25">34 passed, 2 failed, 0 skipped</text>
+    <text x="411" y="138" textLength="1664">34 passed, 2 failed, 0 skipped</text>
+  </g>
+  
+</svg>
