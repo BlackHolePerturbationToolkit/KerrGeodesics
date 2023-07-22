@@ -133,7 +133,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -512,7 +512,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -649,7 +649,7 @@ If[qr0 != 0, Print["Scattering orbits are assumed to have \!\(\*SubscriptBox[\(q
 Ct=tr[qr0]+tz[qz0]/.i_/;i==0:>0;
 C\[Phi]=\[Phi]r[qr0]+\[Phi]z[qz0]/.i_/;i==0:>0;
 
-\[Phi]S = 2 \[CapitalUpsilon]\[Phi] \[Lambda]S+ \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]- \[Phi]z[-\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0];
+\[Phi]S = 2 \[CapitalUpsilon]\[Phi] \[Lambda]S+ \[Phi]r[\[CapitalUpsilon]r \[Lambda]S + qr0]- \[Phi]r[-\[CapitalUpsilon]r \[Lambda]S + qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]- \[Phi]z[-\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0];
 \[Theta]in=ArcCos[zq[-\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]];
 \[Theta]out=ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]];
 
