@@ -73,14 +73,13 @@ rSchwarzDarwin[p_/;p>6, 0, \[Xi]_] := p;
 
 (* ::Text:: *)
 (*Specialization to hyperbolic orbits*)
-(*The analytic equations here were derived by O. Long *)
-(*Note: tSchwarzDarwin takes the Re part to avoid a branch cut problem causing the Im part to be non-zero when using arbitrary precision*)
+(*The analytic equations for hyperbolic orbits below are taken from Sec. II B of "Self-force correction to the deflection angle in black-hole scattering: a scalar charge toy model" by L. Barack and O. Long, Phys. Rev. D 106, 104031 (2022), arXiv:2209.03740*)
 
 
 (*defined such that t=\[Phi]=0 at periastron*)
-tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]<ArcCos[-1/e] := (I Sqrt[-4e^2+(-2+p)^2]p Sqrt[-6+2e+p] EllipticE[I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e)(1+e)(-4+p))+(Sqrt[-4e^2+(-2+p)^2]p Sqrt[-6+2e+p]Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticE[I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e)(1+e)(-4+p))-((2I)Sqrt[-4e^2+(-2+p)^2]p EllipticF[I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((1+e)(-4+p)Sqrt[-6+2e+p])-(2Sqrt[-4e^2+(-2+p)^2]p Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticF[I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((1+e)(-4+p)Sqrt[-6+2e+p])+((2I)Sqrt[-4e^2+(-2+p)^2] EllipticPi[(6+2e-p)/4,I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/Sqrt[-6+2e+p]+(2Sqrt[-4e^2+(-2+p)^2]Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticPi[(6+2e-p)/4,I ArcSinh[Sqrt[-6+p-2e*Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/Sqrt[-6+2e+p]+((4I)Sqrt[-4e^2+(-2+p)^2](8+p-p^2+e^2(-8+3p)) EllipticPi[(-6-2e+p)/(-4+p),I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e^2)(-4+p)^2Sqrt[-6+2e+p])+(4Sqrt[-4e^2+(-2+p)^2](8+p-p^2+e^2(-8+3p))Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticPi[(-6-2e+p)/(-4+p),I ArcSinh[Sqrt[-6+p-2e*Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e^2)(-4+p)^2Sqrt[-6+2e+p])+(e Sqrt[-4e^2+(-2+p)^2] p Sqrt[-6+p-2e Cos[\[Chi]]]Sin[\[Chi]])/((-1+e)(1+e)(-4+p)(1+e Cos[\[Chi]]))//Re
+tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]<ArcCos[-1/e] := (((-I)e Sqrt[(-4e^2+(-2+p)^2)(3+e^2-p)]p Abs[Sin[\[Chi]]]Sqrt[(-6+2e+p)(-6+p-2e Cos[\[Chi]])])((-1+e)(1+e)(-4+p)Sqrt[(-6+2e+p)(-3-e^2+p)](1+e Cos[\[Chi]]))(p Sqrt[(-4e^2+(-2+p)^2)(3+e^2-p)(-6+2e+p)]EllipticE[ArcSin[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[-6-2e+p]], (-6-2e+p)/(-6+2e+p)])((-1+e)(1+e)(-4+p)Sqrt[-3-e^2+p])-(2Sqrt[(-4e^2+(-2+p)^2)(3+e^2-p)]p EllipticF[ArcSin[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[-6-2e+p]](-6-2e+p)/(-6+2e+p)])/((1+e)(-4+p)Sqrt[(-6+2e+p)(-3-e^2+p)])((2I)Sqrt[(-4e^2+(-2+p)^2)(3+e^2-p)(-6-2e+p)]EllipticPi[(6+2e-p)/4, ArcSin[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[-6-2e+p]](-6-2e+p)/(-6+2e+p)])/(Sqrt[4e^2-(-6+p)^2]Sqrt[-3-e^2+p])((4I)Sqrt[(-4e^2+(-2+p)^2)(3+e^2-p)(-6-2e+p)](8+p-p^2+e^2(-8+3p))EllipticPi[(-6-2e+p)/(-4+p)ArcSin[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[-6-2e+p]], (-6-2e+p)/(-6+2e+p)])/((-1+e^2)Sqrt[4e^2-(-6+p)^2](-4+p)^2Sqrt[-3-e^2+p]))Sign[\[Chi]]//Re
 tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]==ArcCos[-1/e] := Sign[\[Chi]] Infinity
-rSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]<ArcCos[-1/e] :=p/(1 + e Cos[\[Chi]])
+rSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]<ArcCos[-1/e] := p/(1 + e Cos[\[Chi]])
 \[Phi]SchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]<=ArcCos[-1/e] := 2 Sqrt[p] EllipticF[\[Chi]/2,(4e)/(6+2e-p)]/Sqrt[-6-2e+p]
 
 
