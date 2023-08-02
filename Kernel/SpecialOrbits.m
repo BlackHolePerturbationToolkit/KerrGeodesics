@@ -8,7 +8,7 @@
 (*Define usage for public functions*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Create Package*)
 
 
@@ -602,7 +602,7 @@ KerrGeoFindResonance[assoc_Association,{\[Beta]r_Integer, \[Beta]\[Theta]_Intege
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Close the package*)
 
 

@@ -17,14 +17,14 @@ KerrGeoFourVelocity::usage = "KerrGeoVelocity[a,p,e,x] returns the four-velocity
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Error messages*)
 
 
 KerrGeoFourVelocity::parametrization = "Parameterization error: `1`"
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Schwarzschild*)
 
 
@@ -32,7 +32,7 @@ KerrGeoFourVelocity::parametrization = "Parameterization error: `1`"
 (*Circular, Equatorial*)
 
 
-KerrGeoVelocityMino[(0|0.),p_,(0|0.),x_,initPhases_ ]:= Module[{En,L,Q,r,z,r1,r2,r3,r4,kr,zp,zm,kz, \[CapitalUpsilon]r, \[CapitalUpsilon]z, 
+KerrGeoVelocityMino[a_?PossibleZeroQ,p_,e_?PossibleZeroQ,x_,initPhases_ ]:= Module[{En,L,Q,r,z,r1,r2,r3,r4,kr,zp,zm,kz, \[CapitalUpsilon]r, \[CapitalUpsilon]z, 
 qr, qz, \[Lambda]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigma], \[Omega], utContra,urContra,u\[Theta]Contra,uzContra,u\[Phi]Contra, utCo, urCo, u\[Theta]Co, u\[Phi]Co},
 
 (*Constants of Motion*)
@@ -64,7 +64,7 @@ u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
 ] 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -130,7 +130,7 @@ u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Equatorial (Darwin)*)
 
 
@@ -138,10 +138,10 @@ u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
 (*Circular Case*)
 
 
-KerrGeoVelocityDarwin[a_,p_,(0|0.),x_,initPhases_]:= Module[{ut,ur,u\[Theta],u\[Phi], MinoVelocities,utContra,urContra,u\[Theta]Contra,u\[Phi]Contra,
+KerrGeoVelocityDarwin[a_,p_,e_?PossibleZeroQ,x_,initPhases_]:= Module[{ut,ur,u\[Theta],u\[Phi], MinoVelocities,utContra,urContra,u\[Theta]Contra,u\[Phi]Contra,
 utCo,urCo,u\[Theta]Co,u\[Phi]Co,utUp,urUp,u\[Theta]Up,u\[Phi]Up, utDown,urDown,u\[Theta]Down,u\[Phi]Down},
 
-MinoVelocities = KerrGeoVelocityMino[a,p,0,x,{0,0}];
+MinoVelocities = KerrGeoVelocityMino[a,p,e,x,{0,0}];
 
 utUp="\!\(\*SuperscriptBox[\(u\), \(t\)]\)"; urUp="\!\(\*SuperscriptBox[\(u\), \(r\)]\)"; 
 u\[Theta]Up="\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]Up="\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)";
@@ -167,7 +167,7 @@ u\[Theta]Down-> u\[Theta]Co, u\[Phi]Down->  u\[Phi]Co|>
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Eccentric Case*)
 
 
@@ -227,7 +227,7 @@ u\[Theta]Down-> u\[Theta]Co, u\[Phi]Down->  u\[Phi]Co|>
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrGeoFourVelocity Wrapper*)
 
 
