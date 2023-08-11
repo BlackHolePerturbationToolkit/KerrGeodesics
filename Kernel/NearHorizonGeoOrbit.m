@@ -1048,7 +1048,7 @@ NearHorizonGeoOrbit[st_String, EE_, l_, Q_, mu_, \[Kappa]_:\[Kappa], initData:{s
 		];
 		,"Near-NHEK",
 		Which[
-		l>lStar && EE>-\[Kappa] l, 
+		l>lStar, 
 			Which[
 				EE<-\[Kappa] Sqrt[-CC], 
 					radial = "Deflecting";				
