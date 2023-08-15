@@ -9,7 +9,8 @@
 
 
 BeginPackage["KerrGeodesics`FourVelocity`",
-	{"KerrGeodesics`ConstantsOfMotion`"}];
+	{"KerrGeodesics`ConstantsOfMotion`",
+	"KerrGeodesics`OrbitalFrequencies`"}];
 
 KerrGeoFourVelocity::usage = "KerrGeoVelocity[a,p,e,x] returns the four-velocity components as parametrized functions.";
 
@@ -24,40 +25,70 @@ KerrGeoFourVelocity::parametrization = "Parameterization error: `1`"
 
 
 (* ::Section::Closed:: *)
+(*Schwarzschild*)
+
+
+(* ::Subsection::Closed:: *)
+(*Circular, Equatorial*)
+
+
+KerrGeoVelocityMino[a_?PossibleZeroQ,p_,e_?PossibleZeroQ,x_,initPhases_ ]:= Module[{En,L,Q,r,z,r1,r2,r3,r4,kr,zp,zm,kz, \[CapitalUpsilon]r, \[CapitalUpsilon]z, 
+qr, qz, \[Lambda]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigma], \[Omega], utContra,urContra,u\[Theta]Contra,uzContra,u\[Phi]Contra, utCo, urCo, u\[Theta]Co, u\[Phi]Co},
+
+(*Constants of Motion*)
+{En,L,Q}= {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.KerrGeoConstantsOfMotion[0,p,0,x];
+
+\[CapitalUpsilon]z = p/Sqrt[-3+p];
+
+{qr0,qz0} = initPhases;
+
+qz[\[Lambda]_] := \[Lambda] \[CapitalUpsilon]z + qz0;
+
+ 
+
+utContra= Function[{Global`\[Lambda]},Evaluate[Sqrt[p/(-3+p)] ], Listable];  
+urContra:= Function[{Global`\[Lambda]},Evaluate[0],Listable];
+u\[Theta]Contra = Function[{Global`\[Lambda]}, Evaluate[(Sqrt[((1-x^2)/(-3+p))] Sin[qz[Global`\[Lambda]]] )/(p Sqrt[1+(-1+x^2) Cos[qz[Global`\[Lambda]]]^2])],Listable];  
+u\[Phi]Contra = Function[{Global`\[Lambda]},Evaluate[x/(Sqrt[-3+p] (p+p (-1+x^2) Cos[qz[Global`\[Lambda]]]^2))],Listable]; 
+
+utCo =  Function[{Global`\[Lambda]},Evaluate[-En], Listable];
+urCo= Function[{Global`\[Lambda]},Evaluate[0],Listable];
+u\[Theta]Co=  Function[{Global`\[Lambda]},Evaluate[(p Sqrt[(1-x^2)/(-3+p)] Sin[qz[Global`\[Lambda]]])/ Sqrt[1+(-1+x^2) Cos[qz[Global`\[Lambda]]]^2]],Listable];   
+u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
+
+<|"\!\(\*SuperscriptBox[\(u\), \(t\)]\)"->utContra, "\!\(\*SuperscriptBox[\(u\), \(r\)]\)"->urContra, "\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"-> u\[Theta]Contra, "\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)"->   u\[Phi]Contra,
+"\!\(\*SubscriptBox[\(u\), \(t\)]\)"->utCo, "\!\(\*SubscriptBox[\(u\), \(r\)]\)"->urCo, "\!\(\*SubscriptBox[\(u\), \(\[Theta]\)]\)"-> u\[Theta]Co, "\!\(\*SubscriptBox[\(u\), \(\[Phi]\)]\)"->   u\[Phi]Co|>
+
+
+
+] 
+
+
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Mino)*)
 
 
-(* ::Text:: *)
-(*FixMe: Circular Equatorial Retrograde orbits don't normalize to -1*)
-
-
-KerrGeoVelocityMino[a_,p_,e_,x_,initPhases_,index_ ]:= Module[{En,L,Q,r,z,r1,r2,r3,r4,kr,zp,zm,kz, \[CapitalUpsilon]r, \[CapitalUpsilon]z, 
+KerrGeoVelocityMino[a_,p_,e_,x_,initPhases_]:= Module[{En,L,Q,r,z,r1,r2,r3,r4,kr,zp,zm,kz, \[CapitalUpsilon]r, \[CapitalUpsilon]z, 
 qr, qz, \[Lambda]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigma], \[Omega], utContra,urContra,u\[Theta]Contra,uzContra,u\[Phi]Contra, utCo, urCo, u\[Theta]Co, u\[Phi]Co},
 
 (*Constants of Motion*)
 {En,L,Q}= {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.KerrGeoConstantsOfMotion[a,p,e,x];
 
-(*Roots*)
-r1 = p/(1-e);
-r2 = p/(1+e);
-zm = Sqrt[1-x^2];
+{r1,r2,r3,r4}=KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x,En,Q];
 
-(*Other Roots*)
-r3 = 1/(1-En^2) - (r1 + r2)/2 + Sqrt[(-(1/(1-En^2)) + (r1 + r2)/2 )^2 - (a^2 Q)/(r1 r2 (1 - En^2))];
-r4  =  (a^2  Q)/(r1 r2 r3 (1-En^2));
+{zp,zm}= KerrGeodesics`OrbitalFrequencies`Private`KerrGeoPolarRoots[a, p, e, x];
 
-zp = Sqrt[a^2 (1 - En^2) + (L^2)/(1 - zm^2) ]; 
 kr = ((r1-r2)(r3-r4))/((r1-r3)(r2-r4));
 
 kz = a^2 (1-En^2) zm^2/zp^2;
 
 (*Frequencies*)
-\[CapitalUpsilon]r = \[Pi]/(2 EllipticK[kr]) Sqrt[(1 - En^2)(r1 - r3)(r2 - r4)]; 
-\[CapitalUpsilon]z = (\[Pi] zp)/(2EllipticK[kz] ); 
+\[CapitalUpsilon]r = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencyr[a,p,e,x,{En,L,Q},{r1,r2,r3,r4}]; 
+\[CapitalUpsilon]z = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequency\[Theta][a,p,e,x,{En,L,Q},{zp,zm}];
 
 (*Action Angle Phases*)
 { qr0, qz0} = {initPhases[[1]], initPhases[[2]]};
@@ -79,30 +110,27 @@ zprime[qz_] := (2 zm EllipticK[kz] JacobiCN[(2 qz EllipticK[kz])/\[Pi],kz] Jacob
 \[Omega][qr_] := Sqrt[r[qr]^2+ a^2];  
 \[CapitalSigma][qr_,qz_] := r[qr]^2 + a^2 z[qz]^2; 
 
-If[index == "Contravariant", 
 
 utContra= Function[{Global`\[Lambda]},Evaluate[1/\[CapitalSigma][qr[Global`\[Lambda]],qz[Global`\[Lambda]]] (\[Omega][qr[Global`\[Lambda]]]^2/\[CapitalDelta][qr[Global`\[Lambda]]] ( \[Omega][qr[Global`\[Lambda] ]]^2 En  - a L) - a^2 (1-z[qz[Global`\[Lambda]]]^2)En + a L)], Listable];
 urContra:= Function[{Global`\[Lambda]},Evaluate[( rprime[qr[Global`\[Lambda]]] \[CapitalUpsilon]r)/\[CapitalSigma][qr[Global`\[Lambda]],qz[Global`\[Lambda]]]],Listable];
 u\[Theta]Contra = Function[{Global`\[Lambda]}, Evaluate[-(\[CapitalUpsilon]z zprime[qz[Global`\[Lambda]]])/(\[CapitalSigma][qr[Global`\[Lambda]],qz[Global`\[Lambda]]]Sqrt[1-z[qz[Global`\[Lambda]]]^2])],Listable];
 u\[Phi]Contra = Function[{Global`\[Lambda]},Evaluate[1/\[CapitalSigma][qr[Global`\[Lambda]],qz[Global`\[Lambda]]] (a/\[CapitalDelta][qr[Global`\[Lambda]]] ( \[Omega][qr[Global`\[Lambda]]]^2 En  - a L) - a En + L/(1-z[qz[Global`\[Lambda]]]^2))],Listable];
 
-<|"\!\(\*SuperscriptBox[\(u\), \(t\)]\)"->utContra, "\!\(\*SuperscriptBox[\(u\), \(r\)]\)"->urContra, "\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"-> u\[Theta]Contra, "\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)"->   u\[Phi]Contra|>,
-
-(*Else if Index \[Equal] Covariant*)
 
 utCo =  Function[{Global`\[Lambda]},Evaluate[-En], Listable];
 urCo= Function[{Global`\[Lambda]},Evaluate[( rprime[qr[Global`\[Lambda]]] \[CapitalUpsilon]r)/\[CapitalDelta][qr[Global`\[Lambda]]]],Listable];
 u\[Theta]Co=  Function[{Global`\[Lambda]},Evaluate[-((\[CapitalUpsilon]z zprime[qz[Global`\[Lambda]]])/Sqrt[1-z[qz[Global`\[Lambda]]]^2])],Listable];
 u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
 
-<|"\!\(\*SubscriptBox[\(u\), \(t\)]\)"->utCo, "\!\(\*SubscriptBox[\(u\), \(r\)]\)"->urCo, "\!\(\*SubscriptBox[\(u\), \(\[Theta]\)]\)"-> u\[Theta]Co, "\!\(\*SubscriptBox[\(u\), \(\[Phi]\)]\)"->   u\[Phi]Co|>
+<|"\!\(\*SuperscriptBox[\(u\), \(t\)]\)"->utContra, "\!\(\*SuperscriptBox[\(u\), \(r\)]\)"->urContra, 
+"\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"-> u\[Theta]Contra, "\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)"->   u\[Phi]Contra,
+"\!\(\*SubscriptBox[\(u\), \(t\)]\)"->utCo, "\!\(\*SubscriptBox[\(u\), \(r\)]\)"->urCo, 
+"\!\(\*SubscriptBox[\(u\), \(\[Theta]\)]\)"-> u\[Theta]Co, "\!\(\*SubscriptBox[\(u\), \(\[Phi]\)]\)"->  u\[Phi]Co|>
 ]
 
 
-]
 
-
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Equatorial (Darwin)*)
 
 
@@ -110,21 +138,31 @@ u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
 (*Circular Case*)
 
 
-KerrGeoVelocityDarwin[a_,p_,(0|0.),x_,initPhases_,index_ ]:= Module[{ut,ur,u\[Theta],u\[Phi], MinoVelocities,ut1,ur1,u\[Theta]1,u\[Phi]1},
+KerrGeoVelocityDarwin[a_,p_,e_?PossibleZeroQ,x_,initPhases_]:= Module[{ut,ur,u\[Theta],u\[Phi], MinoVelocities,utContra,urContra,u\[Theta]Contra,u\[Phi]Contra,
+utCo,urCo,u\[Theta]Co,u\[Phi]Co,utUp,urUp,u\[Theta]Up,u\[Phi]Up, utDown,urDown,u\[Theta]Down,u\[Phi]Down},
 
-MinoVelocities = KerrGeoVelocityMino[a,p,0,x,{0,0}, index];
+MinoVelocities = KerrGeoVelocityMino[a,p,e,x,{0,0}];
 
-If[index == "Contravariant", 
-	ut1="\!\(\*SuperscriptBox[\(u\), \(t\)]\)"; ur1="\!\(\*SuperscriptBox[\(u\), \(r\)]\)"; u\[Theta]1="\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]1="\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)";,
-	ut1="\!\(\*SubscriptBox[\(u\), \(t\)]\)"; ur1="\!\(\*SubscriptBox[\(u\), \(r\)]\)"; u\[Theta]1="\!\(\*SubscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]1="\!\(\*SubscriptBox[\(u\), \(\[Phi]\)]\)";
-];
+utUp="\!\(\*SuperscriptBox[\(u\), \(t\)]\)"; urUp="\!\(\*SuperscriptBox[\(u\), \(r\)]\)"; 
+u\[Theta]Up="\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]Up="\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)";
+utDown="\!\(\*SubscriptBox[\(u\), \(t\)]\)"; urDown="\!\(\*SubscriptBox[\(u\), \(r\)]\)"; 
+u\[Theta]Down="\!\(\*SubscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]Down="\!\(\*SubscriptBox[\(u\), \(\[Phi]\)]\)";
+
 (*All components are Constants*)
-ut = Function[{Global`\[Chi]},Evaluate[MinoVelocities [ut1][Global`\[Chi]]], Listable];
-ur = Function[{Global`\[Chi]},Evaluate[0],Listable];
-u\[Theta]= Function[{Global`\[Chi]},Evaluate[0],Listable];
-u\[Phi]= Function[{Global`\[Chi]},Evaluate[MinoVelocities [u\[Phi]1][Global`\[Chi]]],Listable];
+utContra = Function[{Global`\[Chi]},Evaluate[MinoVelocities [utUp][Global`\[Chi]]],Listable];
+urContra = Function[{Global`\[Chi]},Evaluate[0],Listable];
+u\[Theta]Contra = Function[{Global`\[Chi]}, Evaluate[0],Listable];
+u\[Phi]Contra = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]Up][Global`\[Chi]]],Listable];
 
-<|ut1-> ut, ur1-> ur, u\[Theta]1-> u\[Theta], u\[Phi]1-> u\[Phi] |>
+utCo = Function[{Global`\[Chi]},Evaluate[MinoVelocities [utDown][Global`\[Chi]]],Listable];
+urCo = Function[{Global`\[Chi]},Evaluate[0],Listable];
+u\[Theta]Co = Function[{Global`\[Chi]}, Evaluate[0],Listable];
+u\[Phi]Co = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]Down][Global`\[Chi]]],Listable];
+
+<|utUp ->utContra, urUp ->urContra, 
+u\[Theta]Up-> u\[Theta]Contra, u\[Phi]Up->   u\[Phi]Contra,
+utDown->utCo, urDown->urCo, 
+u\[Theta]Down-> u\[Theta]Co, u\[Phi]Down->  u\[Phi]Co|>
 
 ]
 
@@ -133,23 +171,20 @@ u\[Phi]= Function[{Global`\[Chi]},Evaluate[MinoVelocities [u\[Phi]1][Global`\[Ch
 (*Eccentric Case*)
 
 
-KerrGeoVelocityDarwin[a_,p_,e_,x_/;x^2==1,initPhases_,index_ ]:= Module[{En,L,Q,r,z,r1,r2,r3,r4,kr, \[CapitalUpsilon]r, \[CapitalLambda]r,yr,\[Lambda]0r,r01,\[CapitalLambda]r1,\[Lambda],
-\[Chi]0,\[Nu], \[Chi]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigma], \[Omega], ut,ur,u\[Theta],u\[Phi], MinoVelocities,ut1,ur1,u\[Theta]1,u\[Phi]1},
+KerrGeoVelocityDarwin[a_,p_,e_,x_/;x^2==1,initPhases_]:= Module[{En,L,Q,r,z,r1,r2,r3,r4,kr, \[CapitalUpsilon]r, \[CapitalLambda]r,yr,\[Lambda]0r,r01,\[CapitalLambda]r1,\[Lambda],
+\[Chi]0,\[Nu], \[Chi]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigma], \[Omega], ut,ur,u\[Theta],u\[Phi], MinoVelocities,utContra,urContra,u\[Theta]Contra,u\[Phi]Contra,
+utCo,urCo,u\[Theta]Co,u\[Phi]Co,utUp,urUp,u\[Theta]Up,u\[Phi]Up, utDown,urDown,u\[Theta]Down,u\[Phi]Down},
 
 (*Constants of Motion*)
 {En,L,Q}= {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.KerrGeoConstantsOfMotion[a,p,e,x];
 
 (*Roots*)
-r1 = p/(1-e);
-r2 = p/(1+e);
+{r1,r2,r3,r4}=KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x,En,Q];
 
-(*Other Roots*)
-r3 = 1/(1-En^2) - (r1 + r2)/2 + Sqrt[(-(1/(1-En^2)) + (r1 + r2)/2 )^2 - (a^2 Q)/(r1 r2 (1 - En^2))];
-r4  =  (a^2  Q)/(r1 r2 r3 (1-En^2));
 kr = ((r1-r2)(r3-r4))/((r1-r3)(r2-r4));
 
 (*Frequencies*)
-\[CapitalUpsilon]r = \[Pi]/(2 EllipticK[kr]) Sqrt[(1 - En^2)(r1 - r3)(r2 - r4)]; 
+\[CapitalUpsilon]r = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencyr[a,p,e,x,{En,L,Q},{r1,r2,r3,r4}]; 
 
 (*Initial Phase*)
 \[Chi]0 = initPhases[[1]];
@@ -167,20 +202,27 @@ r01=r2;
 \[Lambda][\[Nu]_]:=\[CapitalLambda]r Floor[\[Nu]/(2\[Pi])]+If[Mod[\[Nu],2\[Pi]]<=\[Pi], \[Lambda]0r[r[\[Nu]]]-\[CapitalLambda]r1,\[CapitalLambda]r-\[Lambda]0r[r[\[Nu]]]];
 
 
-MinoVelocities = KerrGeoVelocityMino[a,p,e,x,{0,0}, index];
+MinoVelocities = KerrGeoVelocityMino[a,p,e,x,{0,0}];
 
-If[index == "Contravariant", 
-	ut1="\!\(\*SuperscriptBox[\(u\), \(t\)]\)"; ur1="\!\(\*SuperscriptBox[\(u\), \(r\)]\)"; u\[Theta]1="\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]1="\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)";,
-	ut1="\!\(\*SubscriptBox[\(u\), \(t\)]\)"; ur1="\!\(\*SubscriptBox[\(u\), \(r\)]\)"; u\[Theta]1="\!\(\*SubscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]1="\!\(\*SubscriptBox[\(u\), \(\[Phi]\)]\)";
-];
+utUp="\!\(\*SuperscriptBox[\(u\), \(t\)]\)"; urUp="\!\(\*SuperscriptBox[\(u\), \(r\)]\)"; 
+u\[Theta]Up="\!\(\*SuperscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]Up="\!\(\*SuperscriptBox[\(u\), \(\[Phi]\)]\)";
+utDown="\!\(\*SubscriptBox[\(u\), \(t\)]\)"; urDown="\!\(\*SubscriptBox[\(u\), \(r\)]\)"; 
+u\[Theta]Down="\!\(\*SubscriptBox[\(u\), \(\[Theta]\)]\)"; u\[Phi]Down="\!\(\*SubscriptBox[\(u\), \(\[Phi]\)]\)";
 
-ut = Function[{Global`\[Chi]},Evaluate[MinoVelocities [ut1][\[Lambda][Global`\[Chi]-\[Chi]0]]],Listable];
-ur = Function[{Global`\[Chi]},Evaluate[MinoVelocities [ur1][\[Lambda][Global`\[Chi]-\[Chi]0]]],Listable];
-u\[Theta] = Function[{Global`\[Chi]}, Evaluate[0],Listable];
-u\[Phi] = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]1][\[Lambda][Global`\[Chi]-\[Chi]0]]],Listable];
+utContra = Function[{Global`\[Chi]},Evaluate[MinoVelocities [utUp][\[Lambda][Global`\[Chi]-\[Chi]0]]],Listable];
+urContra = Function[{Global`\[Chi]},Evaluate[MinoVelocities [urUp][\[Lambda][Global`\[Chi]-\[Chi]0]]],Listable];
+u\[Theta]Contra = Function[{Global`\[Chi]}, Evaluate[0],Listable];
+u\[Phi]Contra = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]Up][\[Lambda][Global`\[Chi]-\[Chi]0]]],Listable];
 
-<|ut1-> ut, ur1-> ur, u\[Theta]1-> u\[Theta], u\[Phi]1-> u\[Phi] |>
+utCo = Function[{Global`\[Chi]},Evaluate[MinoVelocities [utDown][\[Lambda][Global`\[Chi]-\[Chi]0]]],Listable];
+urCo = Function[{Global`\[Chi]},Evaluate[MinoVelocities [urDown][\[Lambda][Global`\[Chi]-\[Chi]0]]],Listable];
+u\[Theta]Co = Function[{Global`\[Chi]}, Evaluate[0],Listable];
+u\[Phi]Co = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]Down][\[Lambda][Global`\[Chi]-\[Chi]0]]],Listable];
 
+<|utUp ->utContra, urUp ->urContra, 
+u\[Theta]Up-> u\[Theta]Contra, u\[Phi]Up->   u\[Phi]Contra,
+utDown->utCo, urDown->urCo, 
+u\[Theta]Down-> u\[Theta]Co, u\[Phi]Down->  u\[Phi]Co|>
 
 ]
 
@@ -189,25 +231,21 @@ u\[Phi] = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]1][\[Lambda]
 (*KerrGeoFourVelocity Wrapper*)
 
 
-Options[KerrGeoFourVelocity] = {"Covariant" -> False, "Parametrization"-> "Mino"}
+Options[KerrGeoFourVelocity] = {"Parametrization"-> "Mino"}
 SyntaxInformation[KerrGeoFourVelocity] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};
 
 
-KerrGeoFourVelocity[a_,p_,e_,x_,initPhases:{_,_}:{0,0}, OptionsPattern[]]:= Module[{param, index},
+KerrGeoFourVelocity[a_,p_,e_,x_,initPhases:{_,_}:{0,0}, OptionsPattern[]]:= Module[{param},
 param = OptionValue["Parametrization"];
-
-If[OptionValue["Covariant"], index = "Covariant" , index="Contravariant", Message[KerrGeoFourVelocity::opttf,"Covariant",OptionValue["Covariant"]]; Return[] ];
-
-
 	If[param == "Darwin",
 
 	If[ Abs[x]!=1, 
 		Message[KerrGeoFourVelocity::parametrization, "Darwin parameterization only valid for equatorial motion"];
 		Return[];,
-		 Return[KerrGeoVelocityDarwin[a,p,e,x,initPhases, index]]]];
+		 Return[KerrGeoVelocityDarwin[a,p,e,x,initPhases]]]];
 
 
-	If[param == "Mino", Return[KerrGeoVelocityMino[a,p,e,x,initPhases, index]]];
+	If[param == "Mino", Return[KerrGeoVelocityMino[a,p,e,x,initPhases]]];
 
 	Message[KerrGeoFourVelocity::parametrization, "Unrecognized Paramaterization: " <> param];
 

@@ -26,6 +26,9 @@ KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for
 KerrGeoOrbit::OutOfBounds = "For this hyperbolic orbit the Darwin parameter \[Chi] must be between `1` and `2`"
 
 
+KerrGeoOrbit::OnSeparatrix = "This orbit is on the separatrix where many expressions are numerically singular. Aborting..."
+
+
 (* ::Subsection::Closed:: *)
 (*Being the private context*)
 
@@ -374,7 +377,7 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -597,7 +600,7 @@ tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE
 
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Scattering orbit (e > 1)*)
 
 
@@ -1236,41 +1239,41 @@ Options[KerrGeoOrbit] = {"Parametrization" -> "Mino", "Method" -> "FastSpec"}
 SyntaxInformation[KerrGeoOrbit] = {"ArgumentsPattern"->{_,_,OptionsPattern[]}};
 
 
-KerrGeoOrbit[a_,p_,e_,x_, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Module[{param, method},
-(*FIXME: add stability check but make it possible to turn it off*)
-
-method = OptionValue["Method"];
-param = OptionValue["Parametrization"];
-
-If[param == "Darwin" && Abs[x]!=1, Message[KerrGeoOrbit::parametrization, "Darwin parameterization only valid for equatorial motion"]; Return[];];
-
-If[Precision[{a,p,e,x}] > 30, method = "Analytic"];
-If[e > 1, method = "Analytic"];
-
-If[method == "FastSpec",
-
-	If[param == "Mino",  If[PossibleZeroQ[a] || PossibleZeroQ[e], Return[KerrGeoOrbitMino[a, p, e, x, initPhases]], Return[KerrGeoOrbitFastSpec[a, p, e, x, initPhases]]]];
-	If[param == "Darwin", 
-		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitFastSpecDarwin[a,p,e,x,initPhases]]]
-	];
-	Message[KerrGeoOrbit::parametrization, "Unrecognized parametrization: " <> OptionValue["Parametrization"]];
-	
-];
-
-If[method == "Analytic",
-(*Changed "KerrGeoOrbitDarwin" to "KerrGeoOrbitEquatorialDarwin"*)
-	If[param == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
-	If[param == "Phases", Return[KerrGeoOrbitPhases[a, p, e, x]]];
-	If[param == "Darwin", 
-		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitEquatorialDarwin[a,p,e,x,initPhases]]]
-	];
-	Message[KerrGeoOrbit::parametrization, "Unrecognized parametrization: " <> OptionValue["Parametrization"]];
-
-];
-
-Message[KerrGeoOrbit::general, "Method " <> method <> " is not one of {FastSpec, Analytic}"];
-
-]
+KerrGeoOrbit[a_, p_, e_, x_, initPhases : {_, _, _, _} : {0, 0, 0, 0}, OptionsPattern[]] := Module[{param, method},
+  (*FIXME: add stability check but make it possible to turn it off*)
+  If[a!=0 ||e != 0,If[KerrGeodesics`SpecialOrbits`Private`KerrGeoOnSeparatrixQ[a, p, e, x],Message[KerrGeoOrbit::OnSeparatrix];Abort[];]];
+     method = OptionValue["Method"];
+   param = OptionValue["Parametrization"]; 
+   
+   If[param == "Darwin" && Abs[x] != 1, Message[KerrGeoOrbit::parametrization, "Darwin parameterization only valid for equatorial motion"]; Return[];];
+   
+   If[Precision[{a, p, e, x}] > 30, method = "Analytic"];
+   If[e > 1, method = "Analytic"];
+   
+   If[method == "FastSpec",
+    
+    	If[param == "Mino",  If[PossibleZeroQ[a] || PossibleZeroQ[e], Return[KerrGeoOrbitMino[a, p, e, x, initPhases]], Return[KerrGeoOrbitFastSpec[a, p, e, x, initPhases]]]];
+    	If[param == "Darwin", 
+     		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitFastSpecDarwin[a, p, e, x, initPhases]]]
+     	];
+    	Message[KerrGeoOrbit::parametrization, "Unrecognized parametrization: " <> OptionValue["Parametrization"]];
+    	
+    ];
+   
+   If[method == "Analytic",
+    (*Changed "KerrGeoOrbitDarwin" to "KerrGeoOrbitEquatorialDarwin"*)
+    	If[param == "Mino", Return[KerrGeoOrbitMino[a, p, e, x, initPhases]]];
+    	If[param == "Phases", Return[KerrGeoOrbitPhases[a, p, e, x]]];
+    	If[param == "Darwin", 
+     		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitEquatorialDarwin[a, p, e, x, initPhases]]]
+     	];
+    	Message[KerrGeoOrbit::parametrization, "Unrecognized parametrization: " <> OptionValue["Parametrization"]];
+    
+    ];
+   
+   Message[KerrGeoOrbit::general, "Method " <> method <> " is not one of {FastSpec, Analytic}"];
+   
+   ]
 
 
 KerrGeoOrbitFunction /:
