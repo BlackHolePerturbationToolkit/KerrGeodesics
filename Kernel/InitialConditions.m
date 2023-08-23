@@ -22,12 +22,8 @@ Begin["`Private`"];
 (*Kerr generic*)
 
 
-(* ::Text:: *)
-(**)
-
-
-(* ::Subsection:: *)
-(*Auxilliary functions*)
+(* ::Subsection::Closed:: *)
+(*Auxiliary functions*)
 
 
 gK[a_][t_,r_,\[Theta]_,\[Phi]_]:={{-1+(2 r)/(r^2+a^2 Cos[\[Theta]]^2),0,0,-((2 a r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2))},{0,(r^2+a^2 Cos[\[Theta]]^2)/(a^2+(-2+r) r),0,0},{0,0,r^2+a^2 Cos[\[Theta]]^2,0},{-((2 a r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2)),0,0,(Sin[\[Theta]]^2 ((a^2+r^2) (r^2+a^2 Cos[\[Theta]]^2)+2 a^2 r Sin[\[Theta]]^2))/(r^2+a^2 Cos[\[Theta]]^2)}};
@@ -37,15 +33,14 @@ RDisc[a_,\[ScriptCapitalE]_,\[ScriptCapitalL]_,\[ScriptCapitalQ]_]:=-16 (-a^8 \[
 
 
 (* ::Subsection:: *)
-(*From initial data to p, e, x and phases*)
-
+(*From initial data to p, e, x and phases: KerrGeoInit2Constants, KerrGeoInit2pex, KerrGeoInit2Phases*)
 
 
 KerrGeoInit2Constants[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List]:=Module[{g=gK[a][t0,r0,\[Theta]0,\[Phi]0],\[ScriptCapitalK]=\[ScriptCapitalK][a][t0,r0,\[Theta]0,\[Phi]0],norm},
 	norm=u . g . u;
 	If[norm<0,
-		<|"E"->{-1,0,0,0} . g . (u/Sqrt[-norm]),"L"->{0,0,0,1} . g . (u/Sqrt[-norm]),"Q"->(u/Sqrt[-norm]) . \[ScriptCapitalK] . (u/Sqrt[-norm])|>,
-		Message[KerrGeoInit2Constants::imnorm]; $Failed
+		Return[<|"E"->{-1,0,0,0} . g . (u/Sqrt[-norm]),"L"->{0,0,0,1} . g . (u/Sqrt[-norm]),"Q"->(u/Sqrt[-norm]) . \[ScriptCapitalK] . (u/Sqrt[-norm])|>],
+		Message[KerrGeoInit2Constants::imnorm]; Return[$Failed]
 	]
 ];
 KerrGeoInit2Constants::imnorm = "Initial velocity is not timelike.";
@@ -61,23 +56,33 @@ KerrGeoInit2pex[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null
 	];
 	Which[
 		Q<0,
-		Message[KerrGeoInit2pex::vortical]; $Failed,
+		Message[KerrGeoInit2pex::vortical],
 		disc<0,
-		Message[KerrGeoInit2pex::plunge]; $Failed,
+		Message[KerrGeoInit2pex::plunge],
+		En>1,
+		Message[KerrGeoInit2pex::unbound],
 		True,
 		r1=If[En<1,rts[[4]],rts[[1]]];
 		r2=If[En<1,rts[[3]],rts[[4]]];
+		Return[<|"p"->(2 r1 r2)/(r1+r2),"e"->(r1-r2)/(r1+r2),"x"->Sign[L] Sqrt[1-zm]|>]
 	];
-	<|"p"->(2 r1 r2)/(r1+r2),"e"->(r1-r2)/(r1+r2),"x"->Sign[L] Sqrt[1-zm]|>
-]
+	$Failed
+];
 KerrGeoInit2pex[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List]:=KerrGeoInit2pex[a,{t0,r0,\[Theta]0,\[Phi]0},u,{}]; (*To make elegant notation for optional arguments*)
 KerrGeoInit2pex::vortical = "Vortical (polar-cone) orbit detected";
 KerrGeoInit2pex::plunge = "Plunge orbit detected";
+KerrGeoInit2pex::unbound = "Unbound (escaping) orbit detected";
 
 
 KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null,\[ScriptCapitalL]_:Null,\[ScriptCapitalQ]_:Null},{pp_:Null,ee_:Null,xx_:Null}] := Module[{zm,zp,mr,\[Lambda]r0,m\[Theta],\[Lambda]\[Theta]0,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,qr0,q\[Theta]0,\[Psi]r0,\[Psi]\[Theta]0,En,L,Q,p,e,x},
-	If[MemberQ[{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]},Null],{En,L,Q}=(Values@KerrGeoInit2Constants[a,{t0,r0,\[Theta]0,\[Phi]0},u]),{En,L,Q}={\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}];
-	If[MemberQ[{pp,ee,xx},Null],{p,e,x} = (Values@KerrGeoInit2pex[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q}]),{p,e,x} = {pp,ee,xx}];
+	If[MemberQ[{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]},Null],
+		{En,L,Q}=(Values@KerrGeoInit2Constants[a,{t0,r0,\[Theta]0,\[Phi]0},u]),
+		{En,L,Q}={\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}
+	];
+	If[MemberQ[{pp,ee,xx},Null],
+		{p,e,x} = (Values@KerrGeoInit2pex[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q}]),
+		{p,e,x} = {pp,ee,xx}
+	];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
 	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
 	(*See Fujita & Hikida (0906.1420) section 4*)
@@ -104,27 +109,30 @@ KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:N
 		u[[3]]>=0, q\[Theta]0 = 2\[Pi] - \[Lambda]\[Theta]0 \[CapitalUpsilon]\[Theta];
 	];
 	(*Note that the current KerGeoOrbit implementation chooses integration constants so that at \[Lambda]=0 one has t0=qt0,\[Phi]=q\[Phi]0.*)
-	{t0,Re[qr0],Re[q\[Theta]0],\[Phi]0}
+	{"\!\(\*SubscriptBox[SuperscriptBox[\(q\), \(t\)], \(0\)]\)"->t0,"\!\(\*SubscriptBox[SuperscriptBox[\(q\), \(r\)], \(0\)]\)"-> Re[qr0],"\!\(\*SubscriptBox[SuperscriptBox[\(q\), \(\[Theta]\)], \(0\)]\)"->Re[q\[Theta]0],"\!\(\*SubscriptBox[SuperscriptBox[\(q\), \(\[Phi]\)], \(0\)]\)"->\[Phi]0}
 	(*Real parts used to get rid of imaginary noise near turning points.*)
 ];
 KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{En_,L_,Q_}] :=KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q},{}] ;
 KerrGeoInit2Phases[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List] :=KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{},{}] ;
 
 
-(* ::Subsection:: *)
-(*Final wrapper function*)
+(* ::Subsection::Closed:: *)
+(*Old KerrGeoInitOrbit wrapper function*)
 
 
-Clear[KerrGeoInitOrbit]
+(*Old wrapper function, now the functionality is accessed directly from KerrGeoOrbit.*)
+(*Clear[KerrGeoInitOrbit]
+Options[KerrGeoInitOrbit] = {"Parametrization" -> "Mino", "Method" -> "FastSpec"};
+SyntaxInformation[KerrGeoOrbit] = {"ArgumentsPattern"->{___,OptionsPattern[]}};
 KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null,\[ScriptCapitalL]_:Null,\[ScriptCapitalQ]_:Null},{pp_:Null,ee_:Null,xx_:Null}] := Module[{initPhases,En,L,Q,p,e,x},
 	(*If the optional arguments are supplemented, it is the responsibility of the user that they are consistent with the initial data!*)
 	If[MemberQ[{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]},Null],{En,L,Q}=(Values@KerrGeoInit2Constants[a,{t0,r0,\[Theta]0,\[Phi]0},u]),{En,L,Q}={\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}];
 	If[MemberQ[{pp,ee,xx},Null],{p,e,x} = (Values@KerrGeoInit2pex[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q}]),{p,e,x} = {pp,ee,xx}];
 	initPhases = KerrGeoInit2Phases[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q},{p,e,x}];
-	KerrGeoOrbit[a,p,e,x,initPhases]
+	KerrGeoOrbit[a,p,e,x,initPhases,"Parametrization"->OptionValue["Parametrization"],"Method"->OptionValue["Method"]]
 ]
 KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{En_,L_,Q_}] :=KerrGeoInitOrbit[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q},{}] ;
-KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List] :=KerrGeoInitOrbit[a,{t0,r0,\[Theta]0,\[Phi]0},u,{},{}]; (*To make elegant notation for optional arguments*)
+KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List] :=KerrGeoInitOrbit[a,{t0,r0,\[Theta]0,\[Phi]0},u,{},{}]; (*To make elegant notation for optional arguments*)*)
 
 
 (* ::Section::Closed:: *)
