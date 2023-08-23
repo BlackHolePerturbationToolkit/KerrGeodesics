@@ -19,21 +19,21 @@ KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] 
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Error messages*)
 
 
 KerrGeoOrbit::OutOfBounds = "For this hyperbolic orbit the Darwin parameter \[Chi] must be between `1` and `2`"
 
 
-(* ::Subsection::Closed:: *)
-(*Being the private context*)
+(* ::Subsection:: *)
+(*Begin the private context*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Error messages*)
 
 
@@ -133,7 +133,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kerr*)
 
 
@@ -720,7 +720,7 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
@@ -1228,12 +1228,12 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
-Options[KerrGeoOrbit] = {"Parametrization" -> "Mino", "Method" -> "FastSpec"}
-SyntaxInformation[KerrGeoOrbit] = {"ArgumentsPattern"->{_,_,OptionsPattern[]}};
+Options[KerrGeoOrbit] = {"Parametrization" -> "Mino", "Method" -> "FastSpec", "InitialPhases"->{0,0,0,0}, "\[ScriptCapitalE]\[ScriptCapitalL]\[ScriptCapitalQ]"->{Null,Null,Null}, "InitialPosition"->{Null,Null,Null,Null}, "FourVelocity"->{Null,Null,Null,Null},"pex"->{Null,Null,Null}}
+SyntaxInformation[KerrGeoOrbit] = {"ArgumentsPattern"->{__,OptionsPattern[]}};
 
 
 KerrGeoOrbit[a_,p_,e_,x_, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Module[{param, method},
@@ -1270,6 +1270,48 @@ If[method == "Analytic",
 
 Message[KerrGeoOrbit::general, "Method " <> method <> " is not one of {FastSpec, Analytic}"];
 
+]
+
+(*API for initial conditions:*)
+KerrGeoOrbit[a_,OptionsPattern[]]:=Module[{param, method,consts,phases,position,velocity,elems,constAssoc,elemAssoc,phasAssoc},
+	method = OptionValue["Method"];
+	param = OptionValue["Parametrization"];
+	consts = OptionValue["\[ScriptCapitalE]\[ScriptCapitalL]\[ScriptCapitalQ]"];
+	phases = OptionValue["InitialPhases"];
+	position = OptionValue["InitialPosition"];
+	velocity = OptionValue["FourVelocity"];
+	elems = OptionValue["pex"];
+	If[(!MemberQ[position,Null])&&(!MemberQ[velocity,Null]), 
+		(*If the optional arguments are supplemented, this saves some computation time, but it is the responsibility of the user that they are self-consistent!*)
+		If[MemberQ[consts,Null],
+				constAssoc=KerrGeodesics`InitialConditions`Private`KerrGeoInit2Constants[a,position,velocity];
+				If[!FailureQ[constAssoc],consts=Values[constAssoc],Return[$Failed]]
+		];
+		If[MemberQ[elems,Null],
+			elemAssoc = KerrGeodesics`InitialConditions`Private`KerrGeoInit2pex[a,position,velocity,consts];
+			If[!FailureQ[elemAssoc],elems = Values[elemAssoc],Return[$Failed]]
+		];
+		If[MemberQ[phases,Null],
+			phases = Values@KerrGeodesics`InitialConditions`Private`KerrGeoInit2Phases[a,position,velocity,consts,elems]
+		];
+		Return[KerrGeoOrbit[a,elems[[1]],elems[[2]],elems[[3]],phases,"Parametrization"->param,"Method"->method]]
+		(*The KerrGeoInitOrbit handles the situation when consts,elems are undefined.*)
+		(*Note that the user is responsible for giving constants and orbital elements consistent with initial data, checking this would mean an unnecessary overhead*)
+	];
+	If[(MemberQ[position,Null])||(MemberQ[velocity,Null]),(*If the initial position and velocity are not fully specified, they are ignored*)
+		If[(!MemberQ[consts,Null])&&Length[consts]==3&&MemberQ[elems,Null],
+			elemAssoc = KerrGeodesics`InitialConditions`Private`KerrGeoInit2pex[a,position,velocity,consts];
+			If[FailureQ[elemAssoc],
+				Return[$Failed],
+				elems = Values[elemAssoc];
+				Return[KerrGeoOrbit[a,elems[[1]],elems[[2]],elems[[3]],phases,"Method"->method,"Parametrization"->param]]
+			],
+			If[(!MemberQ[elems,Null])&&Length[elems]==3,
+				Return[KerrGeoOrbit[a,elems[[1]],elems[[2]],elems[[3]],phases,"Method"->method,"Parametrization"->param]]
+			]
+		]
+	];
+	Message[KerrGeoOrbit::general, "The specified options cannot produce an orbit. Either the initial data was incomplete, or the specified pattern has not been implemented."];
 ]
 
 
