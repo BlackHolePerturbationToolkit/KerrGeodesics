@@ -11,12 +11,36 @@
 BeginPackage["KerrGeodesics`KerrGeoOrbit`",
 	{"KerrGeodesics`ConstantsOfMotion`",
 	 "KerrGeodesics`OrbitalFrequencies`",
+	 "KerrGeodesics`SpecialOrbits`",
 	 "KerrGeodesics`FourVelocity`"}];
+
 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
 KerrGeoOrbitFunction::usage = "KerrGeoOrbitFunction[a,p,e,x,assoc] an object for storing the trajectory and orbital parameters in the assoc Association.";
 
+
+(* ::Subsection::Closed:: *)
+(*Error messages*)
+
+
+KerrGeoOrbit::OutOfBounds = "For this hyperbolic orbit the Darwin parameter \[Chi] must be between `1` and `2`"
+
+
+(* ::Subsection::Closed:: *)
+(*Being the private context*)
+
+
 Begin["`Private`"];
+
+
+(* ::Subsection::Closed:: *)
+(*Error messages*)
+
+
+KerrGeoOrbit::general = "`1`"
+
+
+KerrGeoOrbit::parametrization = "Parametrization error: `1`"
 
 
 (* ::Section::Closed:: *)
@@ -27,19 +51,15 @@ Begin["`Private`"];
 (*The analytic equations below are taken from Appendix B of "Fast Self-forced Inspirals" by M. van de Meent and N. Warburton, Class. Quant. Grav. 35:144003 (2018), arXiv:1802.05281*)
 
 
-(* ::Text:: *)
-(**)
-
-
 (*t and \[Phi] accumulated over one orbit*)
 \[CapitalPhi]SchwarzDarwin[p_,e_]:=4 Sqrt[p/(p-6+2e)] EllipticK[(4 e)/(p-6+2e)]
 TSchwarzDarwin[p_,e_]:=(2p Sqrt[(p-6+2e)((p-2)^2-4e^2)])/((1-e^2)(p-4)) EllipticE[(4e)/(p-6+2e)]-2p Sqrt[(p-2)^2-4e^2]/((1-e^2)Sqrt[p-6+2e]) EllipticK[(4e)/(p-6+2e)]-(4(8(1-e^2)+p(1+3e^2-p))Sqrt[(p-2)^2-4e^2])/((1-e)(1-e^2)(p-4)Sqrt[p-6+2e]) EllipticPi[-((2e)/(1-e)),(4e)/(p-6+2e)]+(16Sqrt[(p-2)^2-4e^2])/((p-2+2e)Sqrt[p-6+2e]) EllipticPi[(4e)/(p-2+2e),(4e)/(p-6+2e)]
 
 
-tSchwarzDarwin[p_,e_,\[Xi]_]:=TSchwarzDarwin[p,e]/2+((p Sqrt[(p-6+2e)((p-2)^2-4e^2)])/((1-e^2)(p-4)) EllipticE[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-p Sqrt[(p-2)^2-4e^2]/((1-e^2)Sqrt[p-6+2e]) EllipticF[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-(2(8(1-e^2)+p(1+3e^2-p))Sqrt[(p-2)^2-4e^2])/((1-e)(1-e^2)(p-4)Sqrt[p-6+2e]) EllipticPi[-((2e)/(1-e)),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]+(8Sqrt[(p-2)^2-4e^2])/((p-2+2e)Sqrt[p-6+2e]) EllipticPi[(4e)/(p-2+2e),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-e p Sqrt[((p-2)^2-4e^2)(p-6-2e Cos[\[Xi]])]/((1-e^2)(p-4)(1+e Cos[\[Xi]])) Sin[\[Xi]])
-rSchwarzDarwin[p_,e_,\[Chi]_]:=p/(1 + e Cos[\[Chi]])
+tSchwarzDarwin[p_,e_/;e<1,\[Xi]_]:=TSchwarzDarwin[p,e]/2+((p Sqrt[(p-6+2e)((p-2)^2-4e^2)])/((1-e^2)(p-4)) EllipticE[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-p Sqrt[(p-2)^2-4e^2]/((1-e^2)Sqrt[p-6+2e]) EllipticF[\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-(2(8(1-e^2)+p(1+3e^2-p))Sqrt[(p-2)^2-4e^2])/((1-e)(1-e^2)(p-4)Sqrt[p-6+2e]) EllipticPi[-((2e)/(1-e)),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]+(8Sqrt[(p-2)^2-4e^2])/((p-2+2e)Sqrt[p-6+2e]) EllipticPi[(4e)/(p-2+2e),\[Xi]/2-\[Pi]/2,(4e)/(p-6+2e)]-e p Sqrt[((p-2)^2-4e^2)(p-6-2e Cos[\[Xi]])]/((1-e^2)(p-4)(1+e Cos[\[Xi]])) Sin[\[Xi]])
+rSchwarzDarwin[p_,e_/;e<1,\[Chi]_]:=p/(1 + e Cos[\[Chi]])
 \[Theta]SchwarzDarwin[p_,e_,\[Chi]_]:= \[Pi]/2 
-\[Phi]SchwarzDarwin[p_,e_,\[Xi]_]:=\[CapitalPhi]SchwarzDarwin[p,e]/2+2Sqrt[p/(p-6+2e)]EllipticF[\[Xi]/2-\[Pi]/2,(4 e)/(p-6+2e)]
+\[Phi]SchwarzDarwin[p_,e_/;e<1,\[Xi]_]:=\[CapitalPhi]SchwarzDarwin[p,e]/2+2Sqrt[p/(p-6+2e)]EllipticF[\[Xi]/2-\[Pi]/2,(4 e)/(p-6+2e)]
 
 
 (* ::Text:: *)
@@ -52,32 +72,60 @@ rSchwarzDarwin[p_/;p>6, 0, \[Xi]_] := p;
 
 
 (* ::Text:: *)
+(*Specialization to hyperbolic orbits*)
+(*The analytic equations here were derived by O. Long *)
+(*Note: tSchwarzDarwin takes the Re part to avoid a branch cut problem causing the Im part to be non-zero when using arbitrary precision*)
+
+
+(*defined such that t=\[Phi]=0 at periastron*)
+tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]<ArcCos[-1/e] := (I Sqrt[-4e^2+(-2+p)^2]p Sqrt[-6+2e+p] EllipticE[I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e)(1+e)(-4+p))+(Sqrt[-4e^2+(-2+p)^2]p Sqrt[-6+2e+p]Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticE[I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e)(1+e)(-4+p))-((2I)Sqrt[-4e^2+(-2+p)^2]p EllipticF[I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((1+e)(-4+p)Sqrt[-6+2e+p])-(2Sqrt[-4e^2+(-2+p)^2]p Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticF[I ArcSinh[Sqrt[-6+p-2e Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((1+e)(-4+p)Sqrt[-6+2e+p])+((2I)Sqrt[-4e^2+(-2+p)^2] EllipticPi[(6+2e-p)/4,I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/Sqrt[-6+2e+p]+(2Sqrt[-4e^2+(-2+p)^2]Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticPi[(6+2e-p)/4,I ArcSinh[Sqrt[-6+p-2e*Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/Sqrt[-6+2e+p]+((4I)Sqrt[-4e^2+(-2+p)^2](8+p-p^2+e^2(-8+3p)) EllipticPi[(-6-2e+p)/(-4+p),I ArcSinh[Sqrt[-6-2e+p]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e^2)(-4+p)^2Sqrt[-6+2e+p])+(4Sqrt[-4e^2+(-2+p)^2](8+p-p^2+e^2(-8+3p))Sqrt[-1+Cos[\[Chi]]]Sqrt[1+Cos[\[Chi]]]Csc[\[Chi]] EllipticPi[(-6-2e+p)/(-4+p),I ArcSinh[Sqrt[-6+p-2e*Cos[\[Chi]]]/Sqrt[6+2e-p]],(-6-2e+p)/(-6+2e+p)])/((-1+e^2)(-4+p)^2Sqrt[-6+2e+p])+(e Sqrt[-4e^2+(-2+p)^2] p Sqrt[-6+p-2e Cos[\[Chi]]]Sin[\[Chi]])/((-1+e)(1+e)(-4+p)(1+e Cos[\[Chi]]))//Re
+tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]==ArcCos[-1/e] := Sign[\[Chi]] Infinity
+rSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]<ArcCos[-1/e] :=p/(1 + e Cos[\[Chi]])
+\[Phi]SchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]<=ArcCos[-1/e] := 2 Sqrt[p] EllipticF[\[Chi]/2,(4e)/(6+2e-p)]/Sqrt[-6-2e+p]
+
+
+tSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]>ArcCos[-1/e] := Message[KerrGeoOrbit::OutOfBounds, -ArcCos[-1/e], ArcCos[-1/e]];
+rSchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]>ArcCos[-1/e] := Message[KerrGeoOrbit::OutOfBounds, -ArcCos[-1/e], ArcCos[-1/e]];
+\[Phi]SchwarzDarwin[p_, e_/;e>1, \[Chi]_] /; Abs[\[Chi]]>ArcCos[-1/e] := Message[KerrGeoOrbit::OutOfBounds, -ArcCos[-1/e], ArcCos[-1/e]];
+
+
+DarwinBounds[e_/;0<=e<1]:= {-\[Infinity], \[Infinity]}
+DarwinBounds[e_/;e>=1]:= { -ArcCos[-1/e], ArcCos[-1/e] }
+
+
+(* ::Text:: *)
 (*FIXME: make the below work for inclined orbits and accept initial phases*)
 
 
-KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En,L,Q,velocity},
+KerrGeoOrbitSchwarzDarwin[p_, e_] := Module[{t, r, \[Theta], \[Phi], assoc, consts, En, L,Q, type, \[Chi]Bounds, velocity, paramRange},
 
-t =Function[{Global`\[Chi]}, Evaluate[ tSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
-r =Function[{Global`\[Chi]}, Evaluate[ rSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
-\[Theta] =Function[{Global`\[Chi]}, Evaluate[ \[Theta]SchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
-\[Phi] =Function[{Global`\[Chi]}, Evaluate[ \[Phi]SchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
+t = Function[{Global`\[Chi]}, Evaluate[ tSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
+r = Function[{Global`\[Chi]}, Evaluate[ rSchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
+\[Theta] = Function[{Global`\[Chi]}, Evaluate[ \[Theta]SchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
+\[Phi] = Function[{Global`\[Chi]}, Evaluate[ \[Phi]SchwarzDarwin[p,e,Global`\[Chi]] ], Listable];
 
 consts = KerrGeoConstantsOfMotion[0,p,e,1];
-{En,L,Q} = Values[consts];
+{En,L,Q} = {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.consts;
+type = KerrGeoOrbitType[0,p,e,1];
 velocity = Values[KerrGeoFourVelocity[0,p,e,1,"Parametrization"->"Darwin"]];
+paramRange = DarwinBounds[e];
 
 assoc = Association[
 			"Trajectory" -> {t,r,\[Theta],\[Phi]},
 			"FourVelocity"-> velocity,
 			"Parametrization" -> "Darwin", 
 			"ConstantsOfMotion"-> consts, 
+			"Frequencies"->KerrGeoFrequencies[0,p,e,1],
 			"a" -> 0,
 			"p" -> p,
 			"e" -> e,
 			"Inclination" -> 1,
 			"Energy" -> En,
 			"AngularMomentum" -> L,
-			"CarterConstant" -> Q
+			"CarterConstant" -> Q,
+			"Periastron" -> p/(1+e),
+			"Type" -> type,
+			"ParameterRange" -> paramRange
 			];
 
 KerrGeoOrbitFunction[0, p, e, 1, assoc]
@@ -98,7 +146,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 (*ToFix: Adding initial phases doesn't match up with FastSpec method*)
 
 
-KerrGeoOrbitEquatorialDarwin[a_,p_,e_,x_/;x^2==1,  initPhases:{_,_,_,_}:{0,0,0,0}] := Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],consts,En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc,velocity},
+KerrGeoOrbitEquatorialDarwin[a_,p_,e_,x_/;x^2==1,  initPhases:{_,_,_,_}:{0,0,0,0}] := Module[{orbitMino,freqs,r1,r2,r3,r4,\[CapitalLambda]r,yr,kr,\[Lambda]0r,r,r01,\[CapitalLambda]r1,\[Lambda],consts,En,L,Q,tMino,rMino,\[Theta]Mino,\[Phi]Mino,tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin,assoc,velocity,type},
 
 orbitMino = KerrGeoOrbit[a,p,e,x,initPhases];
 
@@ -139,11 +187,14 @@ rDarwin=Function[{Global`\[Chi]}, Evaluate[ rMino[\[Lambda][Global`\[Chi]]] ], L
 
 velocity = Values[KerrGeoFourVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]},"Parametrization"->"Darwin"]];
 
+type = KerrGeoOrbitType[a,p,e,x];
+
 assoc = Association[
 			"Trajectory" -> {tDarwin,rDarwin,\[Theta]Darwin,\[Phi]Darwin}, 
 			"FourVelocity"-> velocity,
 			"Parametrization" -> "Darwin", 
 			"ConstantsOfMotion"-> consts, 
+			"Frequencies" -> freqs,
 			"RadialRoots"->{r1,r2,r3,r4},
 			"a" -> a,
 			"p" -> p,
@@ -152,6 +203,7 @@ assoc = Association[
 			"Energy" -> En,
 			"AngularMomentum" -> L,
 			"CarterConstant" -> Q,
+			"Type" -> type,
 			"InitialPhases" -> initPhases
 		];
 
@@ -241,7 +293,7 @@ Module[{test,compare,res,NInit,iter=1,sampledFunc,phaseList,pg,eps,coeffs,
 Clear[KerrGeoOrbitFastSpecDarwin];
 KerrGeoOrbitFastSpecDarwin[a_,p_,e_,x_/;x^2==1,initPhases:{_,_,_,_}:{0,0,0,0}]:=
 Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta],\[Phi],\[Chi],growthRateT,growthRatePh,
-		\[Chi]r,NrMax,pg,\[CapitalDelta]tr,\[CapitalDelta]\[Phi]r,\[Phi]C,tC,Pr,r0Sample,PrSample,dtd\[Chi],d\[Phi]d\[Chi],TVr,PVr,velocities},
+		\[Chi]r,NrMax,pg,\[CapitalDelta]tr,\[CapitalDelta]\[Phi]r,\[Phi]C,tC,Pr,r0Sample,PrSample,dtd\[Chi],d\[Phi]d\[Chi],TVr,PVr,velocities,type},
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
 	{En,L,Q} = Values[consts];
 	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
@@ -291,6 +343,8 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 	
 	velocities = Values[KerrGeoFourVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]}, "Parametrization"-> "Darwin"]];
 	
+	type = KerrGeoOrbitType[a,p,e,x];
+	
 	assoc = Association[
 		"Parametrization"->"Darwin",
 		"Energy" -> En, 
@@ -300,10 +354,12 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 		"Trajectory" -> {t,r,\[Theta],\[Phi]},
 		"FourVelocity"-> velocities,
 		"RadialRoots" -> {r1,r2,r3,r4},
+		"Frequencies" -> KerrGeoFrequencies[a,p,e,x],
 		"a" -> a,
 		"p" -> p,
 		"e" -> e,
 		"Inclination" -> x,
+		"Type" -> type,
 		"InitialPhases" -> initPhases
 		];
 	
@@ -318,13 +374,13 @@ Module[{M=1,consts,En,L,Q,r1,r2,r3,r4,p3,p4,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[
 (* Hopper, Forseth, Osburn, and Evans, PRD 92 (2015)*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
 KerrGeoOrbitFastSpecDarwin[a_,p_,e_/;e==0,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=
 Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,\[Theta],\[Phi],\[Chi],freqT,freqPh,
-		\[Chi]\[Theta],pg,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]\[Theta],\[Phi]C,tC,P\[Theta],\[Theta]0Sample,P\[Theta]Sample,dtd\[Chi],d\[Phi]d\[Chi],TV\[Theta],PV\[Theta],\[Beta],\[Alpha],zRoots,radialRoots,velocity},
+		\[Chi]\[Theta],pg,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]\[Theta],\[Phi]C,tC,P\[Theta],\[Theta]0Sample,P\[Theta]Sample,dtd\[Chi],d\[Phi]d\[Chi],TV\[Theta],PV\[Theta],\[Beta],\[Alpha],zRoots,radialRoots,velocity,type},
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
 	{En,L,Q} = Values[consts];
 	radialRoots = KerrGeoRadialRoots[a,p,e,x,En,Q];
@@ -380,6 +436,8 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 	
 	velocity = Values[KerrGeoFourVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]},"Parametrization"->"Darwin"]];
 	
+	type = KerrGeoOrbitType[a,p,e,x];
+	
 	assoc = Association[
 		"Parametrization"->"Darwin",
 		"Energy" -> En, 
@@ -394,6 +452,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 		"p" -> p,
 		"e" -> e,
 		"Inclination" -> x,
+		"Type" -> type,
 		"InitialPhases" -> initPhases
 		];
 	
@@ -409,7 +468,7 @@ Module[{M=1,consts,En,L,Q,zp,zm,assoc,var,t0, \[Chi]0, \[Phi]0,r0,\[Theta]0,t,r,
 (*FIXME: make the initial phases work in this case*)
 
 
-KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Module[{consts, assoc, t, r, \[Theta], \[Phi], En, L, Q, \[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t, e=0, x=1,r1,r2,r3,r4,velocity},
+KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Module[{consts, assoc, t, r, \[Theta], \[Phi], En, L, Q, \[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t, e=0, x=1,r1,r2,r3,r4,velocity,type},
 
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
 	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
@@ -422,6 +481,8 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[  (p^(5/4) Global`\[Lambda])/Sqrt[2 a+(-3+p) Sqrt[p]] ], Listable];
 	
 	velocity = Values[KerrGeoFourVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]}]];
+
+	type = KerrGeoOrbitType[a,p,e,x];
 
 	assoc = Association[
 		"Parametrization"->"Mino", 
@@ -441,6 +502,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 		"p" -> p,
 		"e" -> e,
 		"Inclination" -> x,
+		"Type" -> type,
 		"InitialPhases" -> initPhases
 	];
 	
@@ -454,7 +516,7 @@ KerrGeoOrbitMino[a_, p_, (0|0.), (1|1.), initPhases:{_,_,_,_}:{0,0,0,0}] := Modu
 (*Generic (Mino)*)
 
 
-KerrGeoOrbitPhases[a_,p_,e_,x_]:=Module[{M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi],velocity,\[CapitalDelta]tr,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]r,\[CapitalDelta]\[Phi]\[Theta]},
+KerrGeoOrbitPhases[a_,p_,e_,x_]:=Module[{M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi],velocity,\[CapitalDelta]tr,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]r,\[CapitalDelta]\[Phi]\[Theta],type},
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
 	{En,L,Q} = Values[consts];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
@@ -502,6 +564,8 @@ tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE
 	\[CapitalDelta]\[Phi]r=Function[{Global`qr}, Evaluate[ \[Phi]r[Global`qr] ], Listable];
 	\[CapitalDelta]\[Phi]\[Theta]=Function[{Global`q\[Theta]}, Evaluate[ \[Phi]z[Global`q\[Theta]] ], Listable];
 
+	type = KerrGeoOrbitType[a,p,e,x];
+
 	assoc = Association[
 	"a" -> a,
 	"p" -> p,
@@ -523,6 +587,7 @@ tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE
 	"p" -> p,
 	"e" -> e,
 	"Inclination" -> x,
+	"Type" -> type,
 	"InitialPhases" -> {0, 0, 0, 0}
 	];
 
@@ -530,6 +595,95 @@ tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE
 
 ]
 
+
+
+(* ::Subsubsection:: *)
+(*Scattering orbit (e > 1)*)
+
+
+KerrGeoOrbitMino[a_,p_,e_/;Abs@e>1,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[
+{M=1,consts,En,L,Q,assoc,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,zp,zm,kr,k\[Theta],rp,rm,hr,hp,hm,rq,zq,\[Psi]r,tr,\[Phi]f,\[Psi]z,tz,\[Phi]z,qt0,qr0,qz0,q\[Phi]0,t,r,\[Theta],\[Phi],\[Phi]t,\[Phi]r,Ct,C\[Phi],qrS,\[Lambda]S,\[Phi]S,\[Theta]in,\[Theta]out,type},
+	consts = KerrGeoConstantsOfMotion[a,p,e,x];
+	{En,L,Q} = {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.consts;
+	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
+	{r1,r2,r3,r4} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoRadialRoots[a, p, e, x, En, Q];
+	{zp,zm} = KerrGeodesics`OrbitalFrequencies`Private`KerrGeoPolarRoots[a, p, e, x];
+	
+	kr = (r1-r2)/(r1-r3) (r3-r4)/(r2-r4);
+	k\[Theta] = a^2 (1-En^2)(zm/zp)^2;
+
+rp=M+Sqrt[M^2-a^2];
+rm=M-Sqrt[M^2-a^2];
+hr=(r2-r1)/(r3-r1);
+hp=((r2-r1)(r3-rp))/((r3-r1)(r2-rp));
+hm=((r2-r1)(r3-rm))/((r3-r1)(r2-rm));
+
+rq = Function[{qr},(r3(r1 - r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-r2(r1-r3))/((r1-r2)JacobiSN[EllipticK[kr]/\[Pi] qr,kr]^2-(r1-r3))];
+
+zq = Function[{qz}, zm JacobiSN[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]]];
+
+\[Psi]r[qr_]:=\[Psi]r[qr]= JacobiAmplitude[EllipticK[kr]/\[Pi] qr,kr];
+
+tr[qr_]:= -En/Sqrt[(En^2-1) (r3-r1) (r2-r4)] (
+4(r2-r3) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr])
+-4 (r2-r3)/(rp-rm) (
+-(1/((-rm+r2) (-rm+r3)))(-2 a^2+rm (4-(a L)/En)) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr] )
++1/((-rp+r2) (-rp+r3)) (-2 a^2+rp (4-(a L)/En)) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr])
+)
++(r2-r3) (r1+r2+r3+r4) (EllipticPi[hr,kr] qr/\[Pi]-EllipticPi[hr,\[Psi]r[qr],kr] )
++(r1-r3) (r2-r4) (EllipticE[kr] qr/\[Pi]-EllipticE[\[Psi]r[qr],kr]+hr((Sin[\[Psi]r[qr]]Cos[\[Psi]r[qr]] Sqrt[1-kr Sin[\[Psi]r[qr]]^2])/(1-hr Sin[\[Psi]r[qr]]^2))) );
+
+\[Phi]r[qr_]:= (2 a En (-1/((-rm+r2) (-rm+r3))(2 rm-(a L)/En) (r2-r3) (EllipticPi[hm,kr] qr/\[Pi]-EllipticPi[hm,\[Psi]r[qr],kr])+1/((-rp+r2) (-rp+r3))(2 rp-(a L)/En) (r2-r3) (EllipticPi[hp,kr] qr/\[Pi]-EllipticPi[hp,\[Psi]r[qr],kr] )))/((-rm+rp) Sqrt[(1-En^2) (r1-r3) (r2-r4)]);
+
+\[Psi]z[qz_]:= \[Psi]z[qz] = JacobiAmplitude[EllipticK[k\[Theta]] 2/\[Pi] (qz+\[Pi]/2),k\[Theta]];
+tz[qz_]:= 1/(1-En^2) En zp ( EllipticE[k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticE[\[Psi]z[qz],k\[Theta]]);
+\[Phi]z[qz_]:= -1/zp L ( EllipticPi[zm^2,k\[Theta]]2((qz+\[Pi]/2)/\[Pi])-EllipticPi[zm^2,\[Psi]z[qz],k\[Theta]]);
+
+qrS = (\[Pi] InverseJacobiSN[Sqrt[(r3-r1)/(r2-r1)],kr])/EllipticK[kr];
+\[Lambda]S= qrS/\[CapitalUpsilon]r;
+
+{qt0, qr0, qz0, q\[Phi]0} = {initPhases[[1]], initPhases[[2]], initPhases[[3]], initPhases[[4]]};
+If[qr0 != 0, Print["Scattering orbits are assumed to have \!\(\*SubscriptBox[\(q\), \(r, 0\)]\)=0"];qr0=0];
+
+(*Calculate normalization constants so that t=0 and \[Phi]=0 at \[Lambda]=0 when qt0=0 and q\[Phi]0=0 *)
+Ct=tr[qr0]+tz[qz0]/.i_/;i==0:>0;
+C\[Phi]=\[Phi]r[qr0]+\[Phi]z[qz0]/.i_/;i==0:>0;
+
+\[Phi]S = 2 \[CapitalUpsilon]\[Phi] \[Lambda]S+ \[Phi]z[\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]- \[Phi]z[-\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0];
+\[Theta]in=ArcCos[zq[-\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]];
+\[Theta]out=ArcCos[zq[\[CapitalUpsilon]\[Theta] \[Lambda]S + qz0]];
+
+t=Function[{Global`\[Lambda]}, Evaluate[ qt0 + \[CapitalUpsilon]t Global`\[Lambda] + tr[\[CapitalUpsilon]r Global`\[Lambda] + qr0] + tz[\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-Ct ], Listable];
+r=Function[{Global`\[Lambda]}, Evaluate[ rq[\[CapitalUpsilon]r Global`\[Lambda]+ qr0] ], Listable];
+\[Theta]=Function[{Global`\[Lambda]}, Evaluate[ ArcCos[zq[\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]] ], Listable];
+\[Phi]=Function[{Global`\[Lambda]}, Evaluate[ q\[Phi]0 + \[CapitalUpsilon]\[Phi] Global`\[Lambda] + \[Phi]r[\[CapitalUpsilon]r Global`\[Lambda]+ qr0] + \[Phi]z[\[CapitalUpsilon]\[Theta] Global`\[Lambda] + qz0]-C\[Phi] ], Listable];
+
+type = KerrGeoOrbitType[a,p,e,x];
+
+assoc = Association[
+	"Parametrization"->"Mino", 
+	"Energy" -> En, 
+	"AngularMomentum" -> L, 
+	"CarterConstant" -> Q, 
+	"ConstantsOfMotion" -> Join[consts,<|"\[Psi]"-> \[Phi]S-\[Pi],
+	"ScatteringInclinations"-> <|"\!\(\*SubscriptBox[\(\[Theta]\), \(in\)]\)"-> \[Theta]in,"\!\(\*SubscriptBox[\(\[Theta]\), \(out\)]\)"-> \[Theta]out|>|>],
+	"RadialFrequency" -> \[CapitalUpsilon]r,
+	"PolarFrequency" ->  \[CapitalUpsilon]\[Theta],
+	"AzimuthalFrequency" -> \[CapitalUpsilon]\[Phi],
+	"Frequencies" -> <|"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(r\)]\)"-> \[CapitalUpsilon]r,"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Theta]\)]\)"->\[CapitalUpsilon]\[Theta],"\!\(\*SubscriptBox[\(\[CapitalUpsilon]\), \(\[Phi]\)]\)"->\[CapitalUpsilon]\[Phi]|>,
+	"Trajectory" -> {t,r,\[Theta],\[Phi]},
+	"RadialRoots" -> {r1,r2,r3,r4},
+	"ParameterRange"-> {-\[Lambda]S,\[Lambda]S},
+	"a" -> a,
+	"p" -> p,
+	"e" -> e,
+	"Type" -> type,
+	"Inclination" -> x
+	];
+
+KerrGeoOrbitFunction[a,p,e,x,assoc]
+	
+]
 
 KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,qt0,qr0,qz0,q\[Phi]0,tr,tz,t,r,\[Theta],\[Phi],\[Phi]z,\[Phi]r,Ct,C\[Phi],velocity,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t},
 	assoc= Last@KerrGeoOrbitPhases[a,p,e,x];
@@ -563,6 +717,7 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,
 	KerrGeoOrbitFunction[a,p,e,x,assoc]
 
 ]
+
 
 
 (* ::Subsection::Closed:: *)
@@ -934,7 +1089,7 @@ Module[{sampledF,fn,fList,f,sampleN,\[Lambda],integratedF,phaseList,pg,nn,sample
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main file that calculates geodesics using spectral integration*)
 
 
@@ -943,7 +1098,7 @@ Options[KerrGeoOrbitFastSpec]={"InitialPosition"->{0,0,0,0}};
 KerrGeoOrbitFastSpec[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0},opts:OptionsPattern[]]:=
 Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t,r1,r2,r3,r4,p3,p4,\[Alpha],\[Beta],zp,zm,assoc,var,\[Chi]0,\[Psi]0,
 		r0,\[Theta]0,qt0,qr0,q\[Theta]0,q\[Phi]0,\[Lambda]t0,\[Lambda]r0,\[Lambda]\[Theta]0,\[Lambda]\[Phi]0,t,r,\[Theta],\[Phi],\[Psi],\[Chi],\[CapitalDelta]\[Lambda]r,\[Lambda]r,\[CapitalDelta]\[Lambda]\[Theta],\[Lambda]\[Theta],rC,\[Theta]C,\[CapitalDelta]r,\[CapitalDelta]\[Theta],
-		\[Psi]r,\[Chi]\[Theta],NrMax,NthMax,pg,\[Lambda]rSample,\[Lambda]\[Theta]Sample,\[CapitalDelta]tr,\[CapitalDelta]\[Phi]r,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]\[Theta],\[Phi]C,tC,zRoots,tInit,rInit,\[Theta]Init,\[Phi]Init, velocity},
+		\[Psi]r,\[Chi]\[Theta],NrMax,NthMax,pg,\[Lambda]rSample,\[Lambda]\[Theta]Sample,\[CapitalDelta]tr,\[CapitalDelta]\[Phi]r,\[CapitalDelta]t\[Theta],\[CapitalDelta]\[Phi]\[Theta],\[Phi]C,tC,zRoots,tInit,rInit,\[Theta]Init,\[Phi]Init, velocity,type},
 	consts = KerrGeoConstantsOfMotion[a,p,e,x];
 	{En,L,Q} = Values[consts];
 	
@@ -961,8 +1116,8 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 	are given as imaginary for restricted orbits. 
 	Maybe something to fix with KerrGeoMinoFrequencies*)
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Values[KerrGeodesics`OrbitalFrequencies`Private`KerrGeoMinoFrequencies[a,p,e,x]];
-	If[e>0&&(Im[\[CapitalUpsilon]r]!=0||Re[\[CapitalUpsilon]r]==0),Print["Unstable orbit. Aborting."]; Abort[]];
-	If[r2<1+Sqrt[1-a^2],Print["Unstable orbit. Aborting."]; Abort[]];
+	If[e>0&&(Im[\[CapitalUpsilon]r]!=0||Re[\[CapitalUpsilon]r]==0),Message[KerrGeoOrbit::parametrization, "Unstable orbit. Aborting."]; Abort[]];
+	If[r2<1+Sqrt[1-a^2], Message[KerrGeoOrbit::parametrization, "Unstable orbit. Aborting."]; Abort[]];
 	{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t} = Re[{\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[CapitalUpsilon]\[Phi],\[CapitalUpsilon]t}];
 	
 	(*Parameterize r and \[Theta] in terms of Darwin-like parameters \[Psi] and \[Chi]*)
@@ -1027,7 +1182,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 			qr0=\[CapitalUpsilon]r*\[Lambda]r[\[Psi]0]+\[Psi]0;
 			q\[Theta]0=\[CapitalUpsilon]\[Theta]*\[Lambda]\[Theta][\[Chi]0]+\[Chi]0;
 			q\[Phi]0=\[Phi]Init,
-			Print["{t,r,\[Theta],\[Phi]} = "<>ToString[{tInit,rInit,\[Theta]Init,\[Phi]Init}]<>" is not a valid set of initial coordinates"]
+			Message[KerrGeoOrbit::parametrization, "{t,r,\[Theta],\[Phi]} = "<>ToString[{tInit,rInit,\[Theta]Init,\[Phi]Init}]<>" is not a valid set of initial coordinates"]
 		]
 	];
 	If[\[CapitalUpsilon]r==0,\[Lambda]r0=0,\[Lambda]r0=qr0/\[CapitalUpsilon]r];
@@ -1043,6 +1198,8 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 	\[Phi]=Function[{Global`\[Lambda]}, Evaluate[ \[CapitalDelta]\[Phi]r[\[CapitalUpsilon]r Global`\[Lambda] + qr0]+\[CapitalDelta]\[Phi]\[Theta][\[CapitalUpsilon]\[Theta] Global`\[Lambda] + q\[Theta]0]+\[CapitalUpsilon]\[Phi] Global`\[Lambda]+q\[Phi]0-\[Phi]C ], Listable];
 	
 	velocity = Values[KerrGeoFourVelocity[a,p,e,x,{initPhases[[2]],initPhases[[3]]}]];
+
+	type = KerrGeoOrbitType[a,p,e,x];
 
 	assoc = Association[
 		"Parametrization"->"Mino",
@@ -1063,6 +1220,7 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 		"p" -> p,
 		"e" -> e,
 		"Inclination" -> x,
+		"Type" -> type,
 		"InitialPhases" -> {qt0, qr0, q\[Theta]0, q\[Phi]0}
 		];
 	
@@ -1084,9 +1242,10 @@ KerrGeoOrbit[a_,p_,e_,x_, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Modu
 method = OptionValue["Method"];
 param = OptionValue["Parametrization"];
 
-If[param == "Darwin" && Abs[x]!=1, Print["Darwin parameterization only valid for equatorial motion"];Return[];];
+If[param == "Darwin" && Abs[x]!=1, Message[KerrGeoOrbit::parametrization, "Darwin parameterization only valid for equatorial motion"]; Return[];];
 
 If[Precision[{a,p,e,x}] > 30, method = "Analytic"];
+If[e > 1, method = "Analytic"];
 
 If[method == "FastSpec",
 
@@ -1094,7 +1253,7 @@ If[method == "FastSpec",
 	If[param == "Darwin", 
 		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitFastSpecDarwin[a,p,e,x,initPhases]]]
 	];
-	Print["Unrecognized parametrization: " <> OptionValue["Parametrization"]];
+	Message[KerrGeoOrbit::parametrization, "Unrecognized parametrization: " <> OptionValue["Parametrization"]];
 	
 ];
 
@@ -1105,11 +1264,11 @@ If[method == "Analytic",
 	If[param == "Darwin", 
 		If[PossibleZeroQ[a], Return[KerrGeoOrbitSchwarzDarwin[p, e]], Return[KerrGeoOrbitEquatorialDarwin[a,p,e,x,initPhases]]]
 	];
-	Print["Unrecognized parametrization: " <> OptionValue["Parametrization"]];
+	Message[KerrGeoOrbit::parametrization, "Unrecognized parametrization: " <> OptionValue["Parametrization"]];
 
 ];
 
-Print["Unrecognized method: " <> method];
+Message[KerrGeoOrbit::general, "Method " <> method <> " is not one of {FastSpec, Analytic}"];
 
 ]
 

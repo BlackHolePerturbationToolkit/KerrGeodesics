@@ -27,12 +27,14 @@ KerrGeoISSO::usage = "KerrGeoISSO[a,x] returns the location of the innermost sta
 KerrGeoIBSO::usage = "KerrGeoISBO[a,x] returns the location of the innermost bound spherical orbit (IBSO)."
 
 KerrGeoSeparatrix::usage = "KerrGeoSeparatrix[a,e,x] returns the value of p at the separatrix."
-KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a bound orbit."
-
-(*KerrGeoOrbitRThetaResonantP::usage = "KerrGeoOrbitRThetaResonantP[a,e,x,{\[Beta]r,\[Beta]th}] returns the semi-latus rectum p for a geodesic with resonant frequencies \[Beta]r/\[Beta]th=\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)/\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\).";
-KerrGeoOrbitRThetaResonantE::usage = "KerrGeoOrbitRThetaResonantE[a,p,x,{\[Beta]r,\[Beta]th}] returns the eccentricity e for a geodesic with resonant frequencies \[Beta]r/\[Beta]th=\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(r\)]\)/\!\(\*SubscriptBox[\(\[CapitalOmega]\), \(\[Theta]\)]\).";*)
 
 KerrGeoFindResonance::usage = "KerrGeoFindResonance[assoc,{\[Beta]r,\[Beta]\[Theta],\[Beta]\[Phi]}] finds the location of a resonance given {a,x} and one of {p,e} as an association."
+
+KerrGeoOrbitType::usage = "KerrGeoOrbitType[a,p,e,x] outputs whether the parameters correspond to a bound, scatter or plunge orbit."
+
+(*KerrGeoBoundOrbitQ::usage = "KerrGeoBoundOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a bound orbit."
+KerrGeoScatterOrbitQ::usage = "KerrGeoScatterOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a scatter orbit."
+KerrGeoPlungeOrbitQ::usage = "KerrGeoPlungeOrbitQ[a,p,e,x] tests if the orbital parameters correspond to a plunge orbit."*)
 
 
 (* ::Subsection::Closed:: *)
@@ -63,7 +65,7 @@ Begin["`Private`"];
 (*Schwarzschild ISCO is at r=6M*)
 
 
-KerrGeoISCO[(0|0.),x_]:=6
+KerrGeoISCO[_?PossibleZeroQ,x_]:=6
 
 
 (* ::Text:: *)
@@ -73,11 +75,11 @@ KerrGeoISCO[(0|0.),x_]:=6
 KerrGeoISCO[a_,x_/;x^2==1]:=Module[{M=1,Z1,Z2},
 	Z1=1+(1-a^2/M^2)^(1/3) ((1+a/M)^(1/3)+(1-a/M)^(1/3));
 	Z2=(3a^2/M^2 + Z1^2)^(1/2);
-	M(3+Z2-x ((3-Z1)(3+Z1+2Z2)/x^2)^(1/2))
+	M(3+Z2-x a ((3-Z1)(3+Z1+2Z2)/(a x)^2)^(1/2))
 ];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Photon Sphere*)
 
 
@@ -85,7 +87,7 @@ KerrGeoISCO[a_,x_/;x^2==1]:=Module[{M=1,Z1,Z2},
 (*The photon sphere is at 3M for all radii in Schwarzschild*)
 
 
-KerrGeoPhotonSphereRadius[(0|0.),x_]:=3
+KerrGeoPhotonSphereRadius[_?PossibleZeroQ,x_]:=3
 
 
 (* ::Text:: *)
@@ -100,7 +102,7 @@ KerrGeoPhotonSphereRadius[a_,-1]:=2(1+Cos[2/3 ArcCos[a]])
 (*For polar orbits the radius was given by E. Teo, General Relativity and Gravitation, v. 35, Issue 11, p. 1909-1926 (2003), Eq. (14)*)
 
 
-KerrGeoPhotonSphereRadius[a_,(0|0.)]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3 a^2)^(3/2)]]
+KerrGeoPhotonSphereRadius[a_,_?PossibleZeroQ]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(1-1/3 a^2)^(3/2)]]
 
 
 (* ::Text:: *)
@@ -108,6 +110,7 @@ KerrGeoPhotonSphereRadius[a_,(0|0.)]:=1+2Sqrt[1-1/3 a^2]Cos[1/3 ArcCos[(1-a^2)/(
 
 
 KerrGeoPhotonSphereRadius[1,x_]:=If[x < Sqrt[3]-1, 1+Sqrt[2] Sqrt[1-x]-x, 1];
+KerrGeoPhotonSphereRadius[-1,x_]:=KerrGeoPhotonSphereRadius[1,-x]
 
 
 (* ::Text:: *)
@@ -131,11 +134,11 @@ This seems to be fine near the equatorial plane but might not be ideal for incli
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Innermost bound spherical orbits (IBSO)*)
 
 
-KerrGeoIBSO[0,x_]:= 4
+KerrGeoIBSO[_?PossibleZeroQ,x_]:= 4
 
 
 (* ::Text:: *)
@@ -173,37 +176,44 @@ KerrGeoIBSO[a1_?NumericQ,x1_?NumericQ]/;(Precision[{a1,x1}]!=\[Infinity])&&(-1<=
 p/.FindRoot[IBSOPoly/.{a->a1,x->x1},{p,KerrGeoIBSO[a1,0],KerrGeoIBSO[a1,-1]},WorkingPrecision->Max[MachinePrecision,prec-1]]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Separatrix*)
+
+
+(* ::Text:: *)
+(*Negative spin*)
+
+
+KerrGeoSeparatrix[a_?Negative,e_,x_]:=KerrGeoSeparatrix[-a,e,-x]
 
 
 (* ::Text:: *)
 (*Schwarzschild*)
 
 
-KerrGeoSeparatrix[0,e_,x_]:= 6+2e;
+KerrGeoSeparatrix[_?PossibleZeroQ,e_,x_]:= 6+2e;
 
 
 (* ::Text:: *)
 (*From Glampedakis and Kennefick arXiv:gr-qc/0203086, for a=M we have Subscript[p, s]=1+e*)
 
 
-KerrGeoSeparatrix[1,e_,1]:= 1+e
+KerrGeoSeparatrix[a_/;a==1,e_,x_/;x==1]:= 1+e
 
 
 (* ::Text:: *)
 (*Polar ISSO in extremal case found from playing around with the equations (see L. Stein and N. Warburton arXiv:1912.07609)*)
 
 
-KerrGeoSeparatrix[1,0,0]:=1+Sqrt[3]+Sqrt[3+2 Sqrt[3]]
-KerrGeoSeparatrix[1,1,0]:=2/3 (3+(54-6Sqrt[33])^(1/3)+(6(9+Sqrt[33]))^(1/3))
+KerrGeoSeparatrix[a_/;a==1,_?PossibleZeroQ,_?PossibleZeroQ]:=1+Sqrt[3]+Sqrt[3+2 Sqrt[3]]
+KerrGeoSeparatrix[a_/;a==1,e_/;e==1,_?PossibleZeroQ]:=2/3 (3+(54-6Sqrt[33])^(1/3)+(6(9+Sqrt[33]))^(1/3))
 
 
 (* ::Text:: *)
 (*For e=1 the Subscript[p, s] is at 2 Subscript[r, ibso]*)
 
 
-KerrGeoSeparatrix[a_,1,x_]:=2KerrGeoIBSO[a,x]
+KerrGeoSeparatrix[a_,e_/;e==1,x_]:=2KerrGeoIBSO[a,x]
 
 
 (* ::Text:: *)
@@ -232,12 +242,6 @@ KerrGeoSeparatrix[a1_?NumericQ,e1_?NumericQ,x1_?NumericQ]/;((Precision[{a1,e1,x1
 p/.FindRoot[SepPoly/.{a->a1,x->x1,e->e1},{p,pPolar[a1,e1],12},WorkingPrecision->Max[MachinePrecision,prec-2]]]
 
 
-KerrGeoBoundOrbitQ[a_?NumericQ,p_?NumericQ,e_?NumericQ,x_?NumericQ]:=Module[{ps},
-	ps = KerrGeoSeparatrix[a,e,x];
-	If[p >= ps, True, False]
-]
-
-
 (* ::Section::Closed:: *)
 (*Innermost stable spherical orbit (ISSO)*)
 
@@ -246,6 +250,90 @@ KerrGeoISSO[a_,x_/;Abs[x]==1]:=KerrGeoISCO[a,x]
 
 
 KerrGeoISSO[a_,x_]:=KerrGeoSeparatrix[a,0,x]
+
+
+(* ::Section::Closed:: *)
+(*Bound Orbit Q*)
+
+
+KerrGeoBoundOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := Module[{ps},
+	If[e > 0, ps = KerrGeoSeparatrix[a,e,x], ps = KerrGeoIBSO[a,x]];
+	If[p >= ps && 0 <= e < 1, True, False]
+]
+
+
+(* ::Section::Closed:: *)
+(*Scatter Orbit Q*)
+
+
+(* ::Text:: *)
+(*Test whether an orbit is a scatter orbit*)
+
+
+KerrGeoScatterOrbitQ[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ] := If[p >= KerrGeoSeparatrix[a,e,x] && e >= 1, True, False]
+
+
+(* ::Section::Closed:: *)
+(*Plunge Orbit Q*)
+
+
+(* ::Text:: *)
+(*Test whether an orbit is a plunge orbit. This test is currently not sufficient as we can have unstable orbits below the LSO for circular and spherical orbits. There are also parts of the parameter space which don't correspond to any orbit, i.e., p=0*)
+
+
+KerrGeoPlungeOrbitQ[a_?NumericQ, p_?NumericQ,e_?NumericQ, x_?NumericQ]:=
+	If[KerrGeoBoundOrbitQ[0,p,e,1] == KerrGeoScatterOrbitQ[0,p,e,1] == False, True, False]
+
+
+(* ::Section::Closed:: *)
+(*Orbit type*)
+
+
+(* ::Text:: *)
+(*Output the type of orbit based on the orbital parameters. *)
+
+
+KerrGeoOrbitType[a_?NumericQ, p_?NumericQ, e_?NumericQ, x_?NumericQ]:=Module[{output,IBSO,ISSO,rph},
+
+	If[PossibleZeroQ[e],
+		rph = KerrGeoPhotonSphereRadius[a,x];
+		IBSO = KerrGeoIBSO[a,x];
+		ISSO = KerrGeoISSO[a,x];
+		If[rph < p <= IBSO, output = {"Unbound", "Circular", "Unstable"}];
+		If[p == IBSO, output = {"MarginallyBound", "Circular", "Unstable"}];
+		If[IBSO < p < ISSO, output = {"Bound", "Circular", "Unstable"}];
+		If[p == ISSO, output = {"Bound", "Circular", "MarginallyStable"}];
+		If[p > ISSO, output = {"Bound", "Circular", "Stable"}];
+		If[!PossibleZeroQ[Abs[x]-1] && p > rph && !PossibleZeroQ[a], AppendTo[output,"Spherical"]];
+		
+		(*If none of the above. At the moment we say NotClassified as the PlungeOrbitQ is not complete*) 
+		If[p <= rph, output = {"NotClassified"}];
+
+		,
+		(*If not a circular orbit*)
+		If[KerrGeoBoundOrbitQ[a,p,e,x] == True, 
+			output = {"Bound","Eccentric"};
+			,
+			(*If not a bound orbit*)
+			If[KerrGeoScatterOrbitQ[a,p,e,x] == True, 
+				output = {"Scatter"};
+				If[PossibleZeroQ[e-1], AppendTo[output, "Parabolic"]];
+				If[e>1, AppendTo[output, "Hyperbolic"]];
+				,
+				(*If none of the above. At the moment we say NotClassified as the PlungeOrbitQ is not complete*) 
+				output = {"NotClassified"}
+			];
+		];
+	];
+
+	If[ output[[1]] != "NotClassified",
+		If[PossibleZeroQ[Abs[x]-1], AppendTo[output,"Equatorial"], AppendTo[output,"Inclined"]];
+	];
+
+	
+	output
+		
+]
 
 
 (* ::Section::Closed:: *)

@@ -16,11 +16,18 @@ KerrGeoFourVelocity::usage = "KerrGeoVelocity[a,p,e,x] returns the four-velocity
 Begin["`Private`"];
 
 
-(* ::Section:: *)
+(* ::Subsection::Closed:: *)
+(*Error messages*)
+
+
+KerrGeoFourVelocity::parametrization = "Parameterization error: `1`"
+
+
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic (Mino)*)
 
 
@@ -32,7 +39,7 @@ KerrGeoVelocityMino[a_,p_,e_,x_,initPhases_,index_ ]:= Module[{En,L,Q,r,z,r1,r2,
 qr, qz, \[Lambda]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigma], \[Omega], utContra,urContra,u\[Theta]Contra,uzContra,u\[Phi]Contra, utCo, urCo, u\[Theta]Co, u\[Phi]Co},
 
 (*Constants of Motion*)
-{En,L,Q}= Values[KerrGeoConstantsOfMotion[a,p,e,x]]//Quiet;
+{En,L,Q}= {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.KerrGeoConstantsOfMotion[a,p,e,x];
 
 (*Roots*)
 r1 = p/(1-e);
@@ -95,7 +102,7 @@ u\[Phi]Co= Function[{Global`\[Lambda]},Evaluate[L],Listable];
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Equatorial (Darwin)*)
 
 
@@ -130,7 +137,7 @@ KerrGeoVelocityDarwin[a_,p_,e_,x_/;x^2==1,initPhases_,index_ ]:= Module[{En,L,Q,
 \[Chi]0,\[Nu], \[Chi]local ,qr0, qz0, rprime, zprime, \[CapitalDelta], \[CapitalSigma], \[Omega], ut,ur,u\[Theta],u\[Phi], MinoVelocities,ut1,ur1,u\[Theta]1,u\[Phi]1},
 
 (*Constants of Motion*)
-{En,L,Q}= Values[KerrGeoConstantsOfMotion[a,p,e,x]];
+{En,L,Q}= {"\[ScriptCapitalE]","\[ScriptCapitalL]","\[ScriptCapitalQ]"}/.KerrGeoConstantsOfMotion[a,p,e,x];
 
 (*Roots*)
 r1 = p/(1-e);
@@ -178,7 +185,7 @@ u\[Phi] = Function[{Global`\[Chi]}, Evaluate[MinoVelocities [u\[Phi]1][\[Lambda]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KerrGeoFourVelocity Wrapper*)
 
 
@@ -195,19 +202,19 @@ If[OptionValue["Covariant"], index = "Covariant" , index="Contravariant", Messag
 	If[param == "Darwin",
 
 	If[ Abs[x]!=1, 
-		Print["Darwin parameterization only valid for equatorial motion"];
+		Message[KerrGeoFourVelocity::parametrization, "Darwin parameterization only valid for equatorial motion"];
 		Return[];,
 		 Return[KerrGeoVelocityDarwin[a,p,e,x,initPhases, index]]]];
 
 
 	If[param == "Mino", Return[KerrGeoVelocityMino[a,p,e,x,initPhases, index]]];
 
-	Print["Unrecognized Paramaterization: " <>param];
+	Message[KerrGeoFourVelocity::parametrization, "Unrecognized Paramaterization: " <> param];
 
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Close the package*)
 
 
