@@ -152,6 +152,9 @@ ToCanonicalOrbitParametrization[orbitspec__] :=
     {_, _, _, _},
        {a,p,e,x} = orbitspec;
         o = OrbitParametrization[<|"Type" -> "Bound", "a" -> a, "p" -> p, "e" -> e, "x" -> x|>],
+    {_,"pex"->{_,_,_}},
+       a = orbitspec[[1]];
+       o = OrbitParametrization[<|"Type"->"Bound", "a"->a, "p"->orbitspec[[2,2,1]], "e"->orbitspec[[2,2,2]], "x"->orbitspec[[2,2,3]]|>],
     {_,"ELQ"->{_,_,_}},
        a = orbitspec[[1]];
        {a,p,e,x} = {"a","p","e","x"}/.KerrGeoInit2pex[a,{Null,Null,Null,Null},{},orbitspec[[2,2]]];
