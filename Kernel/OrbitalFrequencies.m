@@ -16,6 +16,9 @@ KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital 
 
 Begin["`Private`"];
 
+(* Shorthands functions we to use from PrivateUtilities*)
+OrbitParametrization = KerrGeodesics`InitialConditions`Private`OrbitParametrization;
+
 
 (* ::Section:: *)
 (*Roots of the radial and polar equations*)
@@ -364,7 +367,7 @@ KerrGeoProperFrequencies[a_,p_,e_/;e==1,x_]:=Module[{MinoFreqs,P},
 Options[KerrGeoFrequencies] = {"Time" -> "BoyerLindquist"}
 (*SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};*)
 KerrGeoFrequencies[args__] := KerrGeoFrequencies @@ SplitOptions[Unevaluated[KerrGeoFrequencies[args]]];
-KerrGeoFrequencies[orbitspec_KerrGeodesics`InitialConditions`Private`OrbitParametrization,opts:OptionsPattern[]] := Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma],paramsCon,a,p,e,x,params,trueOpts},
+KerrGeoFrequencies[orbitspec_OrbitParametrization,opts:OptionsPattern[]] := Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma],paramsCon,a,p,e,x,params,trueOpts},
 
 (*{params,trueOpts} = ArgumentsOptions[KerrGeoFrequencies[orbitspec,opts],{1,\[Infinity]},<|"OptionsMode"->"Shortest"|>];
 Print[params];*)

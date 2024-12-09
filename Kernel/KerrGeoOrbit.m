@@ -12,7 +12,8 @@ BeginPackage["KerrGeodesics`KerrGeoOrbit`",
 	{"KerrGeodesics`ConstantsOfMotion`",
 	 "KerrGeodesics`OrbitalFrequencies`",
 	 "KerrGeodesics`SpecialOrbits`",
-	 "KerrGeodesics`FourVelocity`"}];
+	 "KerrGeodesics`FourVelocity`",
+	 "KerrGeodesics`PrivateUtilities`"}];
 
 
 KerrGeoOrbit::usage = "KerrGeoOrbit[a,p,e,x] returns a KerrGeoOrbitFunction[..] which stores the orbital trajectory and parameters.";
@@ -31,6 +32,10 @@ KerrGeoOrbit::OutOfBounds = "For this hyperbolic orbit the Darwin parameter \[Ch
 
 
 Begin["`Private`"];
+
+
+(* Shorthands functions we to use from PrivateUtilities*)
+OrbitParametrization = KerrGeodesics`InitialConditions`Private`OrbitParametrization;
 
 
 (* ::Subsection:: *)
@@ -133,7 +138,7 @@ KerrGeoOrbitFunction[0, p, e, 1, assoc]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kerr*)
 
 
@@ -720,7 +725,7 @@ KerrGeoOrbitMino[a_,p_,e_,x_,initPhases:{_,_,_,_}:{0,0,0,0}]:=Module[{M=1,assoc,
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Generic (Fast Spec - Mino)*)
 
 
@@ -1232,12 +1237,17 @@ Module[{M=1,consts,En,L,Q,\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],\[Capital
 (*KerrGeoOrbit and KerrGeoOrbitFuction*)
 
 
-Options[KerrGeoOrbit] = {"Parametrization" -> "Mino", "Method" -> "FastSpec", "InitialPhases"->{0,0,0,0}, "\[ScriptCapitalE]\[ScriptCapitalL]\[ScriptCapitalQ]"->{Null,Null,Null}, "InitialPosition"->{Null,Null,Null,Null}, "FourVelocity"->{Null,Null,Null,Null},"pex"->{Null,Null,Null}}
-SyntaxInformation[KerrGeoOrbit] = {"ArgumentsPattern"->{__,OptionsPattern[]}};
+Options[KerrGeoOrbit] = {"Parametrization" -> "Mino", "Method" -> "FastSpec", "InitialPhases"->{0,0,0,0}}
+(*SyntaxInformation[KerrGeoOrbit] = {"ArgumentsPattern"->{__,OptionsPattern[]}};*)
 
 
-KerrGeoOrbit[a_,p_,e_,x_, initPhases:{_,_,_,_}:{0,0,0,0},OptionsPattern[]]:=Module[{param, method},
+KerrGeoOrbit[args__]:=KerrGeoOrbit@@SplitOptions[Unevaluated[KerrGeoOrbit[args]]]
+
+
+KerrGeoOrbit[orbitspec_OrbitParametrization, initPhases:{_,_,_,_}:{0,0,0,0},opts:OptionsPattern[]]:=Module[{param, method,a,p,e,x},
 (*FIXME: add stability check but make it possible to turn it off*)
+
+{a,p,e,x}=Values[KeyTake[orbitspec[[1]],{"a","p","e","x"}]];
 
 method = OptionValue["Method"];
 param = OptionValue["Parametrization"];
@@ -1272,8 +1282,8 @@ Message[KerrGeoOrbit::general, "Method " <> method <> " is not one of {FastSpec,
 
 ]
 
-(*API for initial conditions:*)
-KerrGeoOrbit[a_,OptionsPattern[]]:=Module[{param, method,consts,phases,position,velocity,elems,constAssoc,elemAssoc,phasAssoc},
+(*API for initial conditions: DEPRECATED*)
+(*KerrGeoOrbit[a_,OptionsPattern[]]:=Module[{param, method,consts,phases,position,velocity,elems,constAssoc,elemAssoc,phasAssoc},
 	method = OptionValue["Method"];
 	param = OptionValue["Parametrization"];
 	consts = OptionValue["\[ScriptCapitalE]\[ScriptCapitalL]\[ScriptCapitalQ]"];
@@ -1312,7 +1322,7 @@ KerrGeoOrbit[a_,OptionsPattern[]]:=Module[{param, method,consts,phases,position,
 		]
 	];
 	Message[KerrGeoOrbit::general, "The specified options cannot produce an orbit. Either the initial data was incomplete, or the specified pattern has not been implemented."];
-]
+]*)
 
 
 KerrGeoOrbitFunction /:
