@@ -4,19 +4,20 @@
 (*OrbitalFrequencies subpackage of KerrGeodesics*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Define usage for public functions*)
 
 
 BeginPackage["KerrGeodesics`OrbitalFrequencies`",
-	{"KerrGeodesics`ConstantsOfMotion`"}];
+	{"KerrGeodesics`ConstantsOfMotion`",
+	 "KerrGeodesics`PrivateUtilities`"}];
 
 KerrGeoFrequencies::usage = "KerrGeoFrequencies[a, p, e, x] returns the orbital frequencies."
 
 Begin["`Private`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Roots of the radial and polar equations*)
 
 
@@ -70,7 +71,7 @@ KerrGeoPolarRoots[a_, p_, e_, x_?PossibleZeroQ] := Module[{En,L,Q,zm,zp},
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Orbital Frequencies*)
 
 
@@ -356,14 +357,19 @@ KerrGeoProperFrequencies[a_,p_,e_/;e==1,x_]:=Module[{MinoFreqs,P},
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic function for choosing between frequencies w.r.t different time coordinates*)
 
 
 Options[KerrGeoFrequencies] = {"Time" -> "BoyerLindquist"}
-SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};
-KerrGeoFrequencies[a_,p_,e_,x_,OptionsPattern[]] := Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma]},
+(*SyntaxInformation[KerrGeoFrequencies] = {"ArgumentsPattern"->{_,_,_,_,OptionsPattern[]}};*)
+KerrGeoFrequencies[args__] := KerrGeoFrequencies @@ SplitOptions[Unevaluated[KerrGeoFrequencies[args]]];
+KerrGeoFrequencies[orbitspec_KerrGeodesics`InitialConditions`Private`OrbitParametrization,opts:OptionsPattern[]] := Module[{M=1,En,L,Q,r1,r2,r3,r4,\[Epsilon]0,zm,a2zp,\[Epsilon]0zp,zmOverZp,kr,k\[Theta],\[CapitalUpsilon]r,\[CapitalUpsilon]\[Theta],rp,rm,hr,hp,hm,\[CapitalUpsilon]\[Phi],\[CapitalGamma],paramsCon,a,p,e,x,params,trueOpts},
 
+(*{params,trueOpts} = ArgumentsOptions[KerrGeoFrequencies[orbitspec,opts],{1,\[Infinity]},<|"OptionsMode"->"Shortest"|>];
+Print[params];*)
+
+{a,p,e,x}=Values[KeyTake[orbitspec[[1]],{"a","p","e","x"}]];
 
 If[OptionValue["Time"]=="Mino",Return[KerrGeoMinoFrequencies[a,p,e,x][[1;;4]]]];
 

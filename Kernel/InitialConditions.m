@@ -64,7 +64,7 @@ KerrGeoInit2pex[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Null
 		True,
 		r1=If[En<1,rts[[4]],rts[[1]]];
 		r2=If[En<1,rts[[3]],rts[[4]]];
-		Return[<|"p"->(2 r1 r2)/(r1+r2),"e"->(r1-r2)/(r1+r2),"x"->Sign[L] Sqrt[1-zm]|>]
+		Return[<|"a"-> a, "p"->(2 r1 r2)/(r1+r2),"e"->(r1-r2)/(r1+r2),"x"->Sign[L] Sqrt[1-zm]|>]
 	];
 	$Failed
 ];
@@ -133,6 +133,43 @@ KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{\[ScriptCapitalE]_:Nul
 ]
 KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List,{En_,L_,Q_}] :=KerrGeoInitOrbit[a,{t0,r0,\[Theta]0,\[Phi]0},u,{En,L,Q},{}] ;
 KerrGeoInitOrbit[a_,{t0_,r0_,\[Theta]0_,\[Phi]0_},u_List] :=KerrGeoInitOrbit[a,{t0,r0,\[Theta]0,\[Phi]0},u,{},{}]; (*To make elegant notation for optional arguments*)*)
+
+
+(* ::Subsection:: *)
+(*Generic orbit parametrization translation function*)
+
+
+(*OrbitParametrization[a_,p_,e_,x_]:=OrbitParametrization[<|"a"->a, "p"->p, e->"e", x->"x"|>]
+OrbitParametrization[a_,"ELQ"->{\[ScriptCapitalE]_,\[ScriptCapitalL]_,\[ScriptCapitalQ]_}] := OrbitParameterization[KerrGeoInit2pex[a,{Null,Null,Null,Null},{},{\[ScriptCapitalE],\[ScriptCapitalL],\[ScriptCapitalQ]}]]*)
+
+
+ToCanonicalOrbitParametrization::unknownparams = "Parametrization `1` not recognized"
+
+
+ToCanonicalOrbitParametrization[orbitspec__] :=
+ Module[{o, a, p, e, x,consts},
+  Switch[orbitspec,
+    {_, _, _, _},
+       {a,p,e,x} = orbitspec;
+        o = OrbitParametrization[<|"Type" -> "Bound", "a" -> a, "p" -> p, "e" -> e, "x" -> x|>],
+    {_,"ELQ"->{_,_,_}},
+       a = orbitspec[[1]];
+       {a,p,e,x} = {"a","p","e","x"}/.KerrGeoInit2pex[a,{Null,Null,Null,Null},{},orbitspec[[2,2]]];
+        o = OrbitParametrization[<|"Type" -> "Bound", "a" -> a, "p" -> p, "e" -> e, "x" -> x|>],
+    {_,"InitialPosition"->{_,_,_,_},"FourVelocity"->{_,_,_,_}},
+        a = orbitspec[[1]];
+        consts=Values@KerrGeodesics`InitialConditions`Private`KerrGeoInit2Constants[a,orbitspec[[2,2]],orbitspec[[3,2]]];
+        {a,p,e,x} = {"a","p","e","x"}/.KerrGeoInit2pex[a,orbitspec[[2,2]],orbitspec[[3,2]],consts];
+        o = OrbitParametrization[<|"Type" -> "Bound", "a" -> a, "p" -> p, "e" -> e, "x" -> x|>],
+    _,
+       Message[ToCanonicalOrbitParametrization::unknownparams, orbitspec];
+       Abort[]
+  ];
+  o
+]
+
+
+(*OrbitParatemrization[assoc][key_String] := assoc[key];*)
 
 
 (* ::Section::Closed:: *)

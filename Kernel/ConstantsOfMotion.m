@@ -4,11 +4,13 @@
 (*ConstantsOfMotion subpackage of KerrGeodesics*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Define usage for public functions*)
 
 
-BeginPackage["KerrGeodesics`ConstantsOfMotion`"];
+BeginPackage["KerrGeodesics`ConstantsOfMotion`",
+	{"KerrGeodesics`PrivateUtilities`"}
+];
 
 KerrGeoEnergy::usage = "KerrGeoEnergy[a, p, e, x] returns the orbital energy."
 KerrGeoAngularMomentum::usage = "KerrGeoAngularMomentum[a, p, e, x] returns the orbital angular momentum about the symmetry axis."
@@ -19,6 +21,9 @@ KerrGeoConstantsOfMotion::usage = "KerrGeoConstantsOfMotion[a, p, e, x] returns 
 KerrGeoImpactParameter::usage = "KerrGeoImpactParameter[a, p, e, x] returns the impact parameter of a scatter orbit."*)
 
 Begin["`Private`"];
+
+(* Shorthands functions we to use from PrivateUtilities*)
+OrbitParametrization = KerrGeodesics`InitialConditions`Private`OrbitParametrization;
 
 
 (* ::Section::Closed:: *)
@@ -237,7 +242,7 @@ KerrGeoAngularMomentum[a_,p_,e_/;e==1,x_,En1_:Null]:= Module[{En=En1,\[Rho]2},
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Generic orbits*)
 
 
@@ -298,6 +303,24 @@ KerrGeoConstantsOfMotion[a_,p_,e_,x_] :=Module[{En,L},
 
  <|"\[ScriptCapitalE]" -> En, "\[ScriptCapitalL]" -> L, "\[ScriptCapitalQ]" -> KerrGeoCarterConstant[a,p,e,x,En,L] |>
  ]
+
+
+(* ::Section:: *)
+(*Other parameterizations*)
+
+
+(* ::Text:: *)
+(*Code to make it possible to use other parameterizations:*)
+
+
+KerrGeoConstantsOfMotion[args__] := KerrGeoConstantsOfMotion @@ SplitOptions[Unevaluated[KerrGeoConstantsOfMotion[args]]];
+KerrGeoConstantsOfMotion[orbitspec_OrbitParametrization,opts:OptionsPattern[]] := Module[{a,p,e,x},
+
+{a,p,e,x}=Values[KeyTake[orbitspec[[1]],{"a","p","e","x"}]];
+
+KerrGeoConstantsOfMotion[a,p,e,x]
+
+]
 
 
 (* ::Section::Closed:: *)
