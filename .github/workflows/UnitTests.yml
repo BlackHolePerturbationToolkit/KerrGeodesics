@@ -48,7 +48,3 @@ jobs:
           path: TestReport.xml
           reporter: jest-junit
           fail-on-error: false
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
